@@ -50,11 +50,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.sitemaps',
     'django.contrib.staticfiles',
-    # 'django.contrib.sites',    
+    'django.contrib.sites',    
 
-    # 'allauth',
-    # 'allauth.account',
-    # 'allauth.socialaccount',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
     # 'allauth.socialaccount.providers.facebook',
     # 'allauth.socialaccount.providers.google',
     # 'allauth.socialaccount.providers.linkedin',
@@ -116,13 +116,13 @@ AUTH_PASSWORD_VALIDATORS = [
     
 ]
 
-# AUTHENTICATION_BACKENDS = (
-#     # Needed to login by username in Django admin, regardless of `allauth`
-#     'django.contrib.auth.backends.ModelBackend',
+AUTHENTICATION_BACKENDS = (
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
 
-#     # `allauth` specific authentication methods, such as login by e-mail
-#     'allauth.account.auth_backends.AuthenticationBackend',
-# )
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
 
 # Internationalization
 LANGUAGE_CODE = 'en-gb'
@@ -194,7 +194,7 @@ WAGTAILEMBEDS_FINDERS = [
 # ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
 # LOGIN_URL = reverse_lazy('account_login')
 # LOGIN_REDIRECT_URL = reverse_lazy('account_profile')
-# SITE_ID = 1
+SITE_ID = 1
 
 # Backup Settings
 DBBACKUP_STORAGE = 'django.core.files.storage.FileSystemStorage'

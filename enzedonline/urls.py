@@ -24,9 +24,9 @@ urlpatterns = [
     path('sentry-debug/', trigger_error),
     # path('lang/<str:language_code>/', set_language_from_url, name='set_language_from_url'),
     # Creates urls like yourwebsite.com/login/
-    # url(r'', include('allauth.urls')),
+    url(r'', include('allauth.urls')),
     # Creates urls like yourwebsite.com/accounts/login/
-    # url(r'^accounts/', include('allauth.urls')),
+    url(r'^accounts/', include('allauth.urls')),
 ]
 
 if settings.DEBUG:
