@@ -1,0 +1,29 @@
+{% load static wagtailcore_tags grid_block_tags %}
+{% two_column_layout value.breakpoint value.column_layout value.horizontal_padding value.order value.hide as layout %}
+<div class="margin-auto">
+  <div class="row">
+    <div class="col{{ layout.left }} {{ layout.horizontal_padding }} {{ layout.left_order }} {{ layout.hide_left }} {% if value.vertical_border %}two-column-divider{% endif %}">
+        {% for block in value.left_column %}
+            {% include_block block %}
+        {% endfor %}
+    </div>
+    {{ layout.pre_breakpoint_bottom_pad|safe }}
+    <div class="col{{ layout.right }} {{ layout.horizontal_padding }} {{ layout.right_order }} {{ layout.hide_right }}">
+        {% for block in value.right_column %}
+            {% include_block block %}
+        {% endfor %}
+    </div>
+  </div>
+</div>
+
+<style>
+.two-column-divider{
+  border-right: 1px solid #DADADA;
+}
+@media (max-width: {{ layout.breakpoint_pixels }}) {
+  .two-column-divider {
+    border-right: 0px solid #DADADA !important;
+  }
+}
+
+</style>

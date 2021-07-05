@@ -1,0 +1,45 @@
+{% load wagtailimages_tags %}
+
+{% image self.image.file original format-webp as webp_img_scale_100 %}
+{% image self.image.file width-1200 format-webp as webp_img_w_1200 %}
+{% image self.image.file width-750 format-webp as webp_img_w_750 %}
+{% image self.image.file width-500 format-webp as webp_img_w_500 %}
+{% image self.image.file original as fallback %}
+
+<div class="{{ self.background }} mb-3"
+  <figure>
+    <picture class="srcset card-training-category__image">
+      <source
+        media="(min-width: 1500px)" 
+        srcset="{{ webp_img_scale_100.url }} 1500w"  
+        type="image/webp"
+      />
+      <source
+        media="(min-width: 1000px)" 
+        srcset="{{ webp_img_w_1200.url }} 1200w"  
+        type="image/webp"
+      />
+      <source
+        media="(min-width: 600px)" 
+        srcset="{{ webp_img_w_750.url }} 750w"  
+        type="image/webp"
+      />
+      <source
+        srcset="{{ webp_img_w_500.url }} 500w"  
+        type="image/webp"
+      />
+      <source
+        srcset="{{ fallback.url }} 1500w"  
+      />
+
+      <img class="srcset__image" src="{{ fallback.url }}" alt="{{ self.image.seo_title }}" style='width: 100%; height: auto;'/>
+    </picture>
+    {% if self.caption or self.attribution %}
+    <figcaption class="p-3" style="font-size: clamp(0.9375rem, 0.7583rem + 0.5515vw, 1.1718756rem);">
+    {% if self.caption %}{{ self.caption }}{% endif %}
+    {% if self.caption and self.attribution %}<br>{% endif %}
+    {% if self.attribution %}<small><i>{{ self.attribution }}</i></small>{% endif %}
+    </figcaption>
+    {% endif %}
+  </figure>
+</div>

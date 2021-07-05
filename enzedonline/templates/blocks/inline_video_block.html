@@ -1,0 +1,6 @@
+{% load wagtailcore_tags %}
+
+<div class="block-{{ block.block_type }}-{{ block.value.float }} block-{{ block.block_type }}-{{ block.value.size }} mb-3">
+    {% include_block block.value.video %}
+    {{ block.value.caption }}
+</div>

@@ -1,0 +1,95 @@
+{% load static wagtailcore_tags wagtailimages_tags blog_page_tags %}
+{% extends "base.html" %}
+
+{% block content %}
+
+{% get_blog_index as blog_index %}
+
+{% image blog_index.banner_image fill-2100x700-c100 format-webp as webp_img_w_2100 %} 
+{% image blog_index.banner_image fill-1500x500-c100 format-webp as webp_img_w_1500 %} 
+{% image blog_index.banner_image fill-900x300-c100 format-webp as webp_img_w_900 %} 
+{% image blog_index.banner_image fill-600x200-c100 format-webp as webp_img_w_600 %}
+{% image blog_index.banner_image fill-2100x700-c100 as fallback %} 
+
+<div class="banner-overlay-container">
+  <picture>
+    <source media="(min-width: 1800px)" srcset="{{ webp_img_w_2100.url }} 2100w" type="image/webp" />
+    <source media="(min-width: 1200px)" srcset="{{ webp_img_w_1500.url }} 1500w" type="image/webp" />
+    <source media="(min-width: 750px)" srcset="{{ webp_img_w_900.url }} 900w" type="image/webp" />
+    <source srcset="{{ webp_img_w_600.url }} 600w" type="image/webp" />
+    <source srcset="{{ fallback.url }} 2100w" />
+    <img
+      src="{{ fallback.url }}"
+      alt="{{ self.title }}"
+      style="width: 100%; height: auto"
+    />
+  </picture>
+  {% if blog_index.banner_headline or blog_index.banner_small_text %}
+  <div class="banner-overlay-text-block" style="object-fit: cover;">
+    {% if blog_index.banner_headline %}<div class="display-6" style="font-size:calc(0.5rem + 2vw);">{{ blog_index.banner_headline }}</div>{% endif %}
+    {% if blog_index.banner_headline %}<div class="display-8" style="font-size:calc(0.4rem + 1vw);">{{ blog_index.banner_small_text }}</div>{% endif %}
+  </div>
+  {% endif %}
+</div>
+
+<div class="container-fluid pt-0 pt-md-2 px-2 px-sm-5 pb-4">
+    {% for block in page.body %}
+        {% include_block block %}
+    {% endfor %}
+</div>
+
+<div class="px-5 pt-2 pb-4">
+  <hr>
+</div>
+
+{% get_prev_next self as nav %}
+
+<div class="d-flex pt-0 px-2 px-sm-3 px-md-4 px-lg-5 px-xl-7 justify-content-around flex-nowrap" style="gap: 1.5rem;">
+  <div class="card w-50 justify-content-around text-center border-0" style="max-width: 400px;">
+    {% if nav.next %}
+    <div class="mb-auto bg-light border-1">
+      <a class="stretched-link" href="{{ nav.next.url }}" title="{{ nav.next.title }}">
+        {% image nav.next.search_image fill-400x200-c100 format-webp as webp_img_w_400 %}
+        {% image nav.next.search_image fill-400x200-c100 as fallback %}
+        <picture>
+            <source srcset="{{ webp_img_w_400.url }} 400w" type="image/webp" />
+            <source srcset="{{ fallback.url }} 400w" />
+            <img
+                src="{{ fallback.url }}"
+                alt="{{ nav.next.title }}"
+                style="width: 100%; height: auto"
+            />
+        </picture>
+      </a>
+      <div class="card-body">
+      <h5 class="card-title">{{ nav.next.title }}</h5>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+  <div class="card w-50 justify-content-around text-center border-0" style="max-width: 400px;">
+    {% if nav.prev %}
+    <div class="mb-auto bg-light border-1">
+      <a class="stretched-link" href="{{ nav.prev.url }}" title="{{ nav.prev.title }}">
+        {% image nav.prev.search_image fill-400x200-c100 format-webp as webp_img_w_400 %}
+        {% image nav.prev.search_image fill-400x200-c100 as fallback %}
+        <picture>
+            <source srcset="{{ webp_img_w_400.url }} 400w" type="image/webp" />
+            <source srcset="{{ fallback.url }} 400w" />
+            <img
+                src="{{ fallback.url }}"
+                alt="{{ nav.prev.title }}"
+                style="width: 100%; height: auto;"
+            />
+        </picture>
+      </a>
+      <div class="card-body">
+      <h5 class="card-title">{{ nav.prev.title }}</h5>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</div>
+
+{% endblock content %}
+

@@ -1,0 +1,11 @@
+{% load static wagtailcore_tags  %}
+<div mb-3 py-3>
+    &nbsp
+    <div class="row {{ value.columns }} justify-content-center">
+        {% for block in value.cards %}
+            <div class="col mx-0 mb-4">
+                {% include_block block %}
+            </div>
+        {% endfor %}
+    </div>
+</div>

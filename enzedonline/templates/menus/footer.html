@@ -1,0 +1,40 @@
+{% load wagtailimages_tags menu_tags static %}
+
+{% get_menu 'Privacy' as privacy_menu %} 
+{% get_social_media_icons as social_media_icons %}
+
+<footer class="footer">
+  <nav class="navbar navbar-light bg-dark py-1">
+    <div>
+      <ul class="nav bg-dark pr-4">
+        {% for icon in social_media_icons %}
+        <li class="nav-item px-1">
+          <a href="{{ icon.link }}" title="{{ icon.alt }}">
+            <img src="{{ icon.image }}" alt="{{ icon.alt }}" />
+          </a>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    {% get_menu 'privacy' as privacy_menu %}
+    {% if privacy_menu %}
+      {% get_menu_items privacy_menu request as privacy_menu_items %}
+      {% for privacy_page in privacy_menu_items %}
+        <span class="py-0 mb-n3 justify-content-center content-align-middle text-muted">
+          <a class="nav-link footer-nav-link" href="{{ privacy_page.url }}"
+            ><p class="py-0">{{ privacy_page.title }}</p></a
+          >
+        </span>
+      {% endfor %}
+    {% endif %}
+
+    <div class="py-0 mb-n3 d-none d-sm-block justify-content-right content-align-middle text-muted">
+      <a class="nav-link footer-nav-link" href="http://enzedonline.com"
+        ><small class="py-0">Website by Enzedonline.com</small></a
+      >
+    </div>
+  </nav>
+
+</footer>
+

@@ -1,0 +1,7 @@
+{% load wagtailcore_tags flex_card_tags %}
+{% padding self.border self.background as pad %}
+  <div class="card {{ self.background }} {% if not self.border %}border-0{% endif %} p-{{pad}} {% if self.full_height %} h-100{% endif %}">
+    <div class="card-body p-0">
+        {% include_block self.text %}
+    </div>
+  </div>

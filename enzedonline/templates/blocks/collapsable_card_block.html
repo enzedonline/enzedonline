@@ -1,0 +1,74 @@
+{% load wagtailcore_tags collapsable_card_tags %} 
+{% button_colour value.header_colour as banner %}
+
+<div mb-3 py-3>
+  &nbsp
+  <div class="accordion" id="collapsable_card_block" mb-3>
+    {% for card in value.cards %}
+      <div class="card mb-0 mt-0 border-0">
+        <div class="card-header p-0 mb-2" id="header{{ forloop.counter }}">
+          <h3 class="mb-0">
+            <button class="btn btn-link btn-block text-left collapsed pb-0" type="button" data-toggle="collapse" data-target="#collapse{{ forloop.counter }}" aria-expanded="false" aria-controls="collapse{{ forloop.counter }}">
+              <h3><strong>{{ card.value.header|title }}</strong></h3>
+            </button>
+          </h3>
+        </div>
+        <div id="collapse{{ forloop.counter }}" class="collapse {% if forloop.first %}show{% endif %}" aria-labelledby="heading{{ forloop.counter }}" data-parent="#collapsable_card_block">
+          <div class="card-body bg-transparent">
+            {% include_block card.value.text %}
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+  <style type="text/css">
+  .btn-link {
+        font-weight: $font-weight-normal;
+        color: {{ banner.text }};
+        background-color: var(--{{ banner.background }});
+        border-radius: 0px;
+        border-color: transparent;
+        border: 0px;
+        text-decoration: none !important;
+
+      @include hover {
+        font-weight: $font-weight-normal;
+        color: {{ banner.text }} !important;
+        background-color: var(--{{ banner.background }});
+        border-radius: 0px;
+        border-color: transparent;
+        border: 0px;
+        text-decoration: none !important;
+      }
+
+      &:focus,
+      &.focus {
+        font-weight: $font-weight-normal;
+        color: {{ banner.text }} !important;
+        background-color: var(--{{ banner.background }});
+        border-radius: 0px;
+        border-color: transparent;
+        border: 0px;
+        text-decoration: none !important;
+      }
+
+      &:disabled,
+      &.disabled {
+        color: $btn-link-disabled-color;
+        pointer-events: none;
+      }
+
+      // No need for an active state here
+    }
+    .btn-link:hover {
+        font-weight: $font-weight-normal;
+        color: {{ banner.text }} !important;
+        background-color: var(--{{ banner.background }});
+        border-radius: 0px;
+        border-color: transparent;
+        border: 0px;
+        text-decoration: none !important;
+        }
+  </style>
+</div>

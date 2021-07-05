@@ -1,0 +1,37 @@
+{% load static wagtailcore_tags grid_block_tags %}
+{% three_column_layout value.breakpoint value.column_layout value.horizontal_padding value.hide as layout %}
+<div class="margin-auto">
+  <div class="row">
+    <div class="col{{ layout.left }} {{ layout.horizontal_padding }} {{ layout.hide_sides }}">
+        {% for block in value.left_column %}
+            {% include_block block %}
+        {% endfor %}
+    </div>
+    {{ layout.pre_breakpoint_bottom_pad|safe }}
+    <div class="col{{ layout.centre }} {{ layout.horizontal_padding }} {% if value.vertical_border %}three-column-divider{% endif %}">
+        {% for block in value.centre_column %}
+            {% include_block block %}
+        {% endfor %}
+    </div>
+    {{ layout.pre_breakpoint_bottom_pad|safe }}
+    <div class="col{{ layout.right }} {{ layout.horizontal_padding }} {{ layout.hide_sides }}">
+        {% for block in value.right_column %}
+            {% include_block block %}
+        {% endfor %}
+    </div>
+  </div>
+</div>
+
+<style>
+.three-column-divider{
+  border-left: 1px solid #DADADA;
+  border-right: 1px solid #DADADA;
+}
+@media (max-width: {{ layout.breakpoint_pixels }}) {
+  .three-column-divider {
+    border-left: 0px solid #DADADA !important;
+    border-right: 0px solid #DADADA !important;
+  }
+}
+
+</style>

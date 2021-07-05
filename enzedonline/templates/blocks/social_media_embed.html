@@ -1,0 +1,14 @@
+{% load wagtailcore_tags social_media_embed_tags %}
+
+{% is_facebook self.embed_code as fb_post %}
+{% if fb_post %}
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v10.0" nonce="r5fHrcxL"></script>
+{% endif %}
+
+<div mb-3 py-3>
+    &nbsp
+    <div class="d-flex align-items-center justify-content-center">
+        {{ self.embed_code }}
+    </div>
+</div>

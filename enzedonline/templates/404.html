@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load i18n  %}
+
+{% block body_class %}template-404{% endblock %}
+{% get_current_language as LANGUAGE_CODE %}
+
+{% block content %}
+    <div class="container mt-10">
+    {% if LANGUAGE_CODE == 'en' %}
+    <h1>Page not found</h1>
+
+    <h2>Sorry, this page could not be found.</h2>
+
+    {% elif LANGUAGE_CODE == 'fr' %}
+
+    <h1> Page introuvable </h1>
+
+    <h2> Désolé, cette page est introuvable. </h2>
+
+    {% else %}
+
+    <h1> Página no encontrada </h1> 
+
+    <h2> Lo sentimos, no se pudo encontrar esta página. </h2>   
+
+    {% endif %}
+    </div>
+{% endblock %}
