@@ -13,7 +13,7 @@ INSTALLED_APPS = [
     'core',
     'site_settings',
     'contact',
-    # 'userauth',
+    'userauth',
 
     'dbbackup',
     'wagtailmetadata',
@@ -83,7 +83,7 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
             os.path.join(PROJECT_DIR, 'templates'),
-            # os.path.join(PROJECT_DIR, 'templates/userauth/'),
+            os.path.join(PROJECT_DIR, 'templates/userauth/'),
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -180,20 +180,19 @@ WAGTAILEMBEDS_FINDERS = [
 ]
 
 # # ALLAUTH settings
-# AUTH_USER_MODEL = 'userauth.CustomUser'
-# WAGTAIL_USER_CREATION_FORM = 'userauth.forms.WagtailUserCreationForm'
-# WAGTAIL_USER_EDIT_FORM = 'userauth.forms.WagtailUserEditForm'
-# # WAGTAIL_USER_CUSTOM_FIELDS = ['display_name', 'date_of_birth', 'address1', 'address2', 'zip_code', 'city', 'country', 'mobile_phone', 'additional_information', 'photo',]
-# WAGTAIL_USER_CUSTOM_FIELDS = ['display_name', 'city', 'country', 'photo',]
-# ACCOUNT_AUTHENTICATION_METHOD = 'email'
-# ACCOUNT_EMAIL_REQUIRED = True
-# ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
-# ACCOUNT_USERNAME_REQUIRED = False
-# ACCOUNT_SIGNUP_FORM_CLASS = 'userauth.forms.SignupForm'
-# ACCOUNT_LOGIN_ON_PASSWORD_RESET = True
-# ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
-# LOGIN_URL = reverse_lazy('account_login')
-# LOGIN_REDIRECT_URL = reverse_lazy('account_profile')
+AUTH_USER_MODEL = 'userauth.CustomUser'
+WAGTAIL_USER_CREATION_FORM = 'userauth.forms.WagtailUserCreationForm'
+WAGTAIL_USER_EDIT_FORM = 'userauth.forms.WagtailUserEditForm'
+WAGTAIL_USER_CUSTOM_FIELDS = ['display_name', 'city', 'country', 'photo',]
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_SIGNUP_FORM_CLASS = 'userauth.forms.SignupForm'
+ACCOUNT_LOGIN_ON_PASSWORD_RESET = True
+ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
+LOGIN_URL = reverse_lazy('account_login')
+LOGIN_REDIRECT_URL = reverse_lazy('account_profile')
 SITE_ID = 1
 
 # Backup Settings
