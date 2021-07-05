@@ -35,3 +35,8 @@ class CustomUser(AbstractUser):
     def slugify_function(self, content):
         return ''.join((random.choice(string.ascii_uppercase + string.digits) for i in range(12)))
          
+    def save(self, *args, **kwargs):
+        if not self.display_name:
+            self.display_name = self.first_name + self.last_name       
+        super(CustomUser, self).save(*args, **kwargs) # Call the real save() method(self, value):
+

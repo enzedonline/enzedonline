@@ -56,7 +56,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     # 'allauth.socialaccount.providers.facebook',
-    # 'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.google',
     # 'allauth.socialaccount.providers.linkedin',
     # 'allauth.socialaccount.providers.linkedin_oauth2',
 
@@ -194,6 +194,18 @@ ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
 LOGIN_URL = reverse_lazy('account_login')
 LOGIN_REDIRECT_URL = reverse_lazy('account_profile')
 SITE_ID = 1
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        }
+    }
+}
 
 # Backup Settings
 DBBACKUP_STORAGE = 'django.core.files.storage.FileSystemStorage'
