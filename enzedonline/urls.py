@@ -27,6 +27,7 @@ urlpatterns = [
     url(r'', include('allauth.urls')),
     # Creates urls like yourwebsite.com/accounts/login/
     url(r'^accounts/', include('allauth.urls')),
+    path('accounts/', include('userauth.urls')),
 ]
 
 if settings.DEBUG:
