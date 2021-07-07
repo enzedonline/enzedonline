@@ -20,7 +20,7 @@
         <div class="form-group">
             {% with field=form.password %}{% include "account/form_field.html" %}{% endwith %}
         </div>
-        <button type="submit" class="btn btn-outline-primary">{% trans "Sign in" %}</button>
+        <button type="submit" class="btn btn-primary">{% trans "Sign in" %}</button>
     </form>
     {% if socialaccount_providers %}
         <br>

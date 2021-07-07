@@ -13,8 +13,8 @@
         </a>
     {% endfor %}
     {% endif %}
-    <a title="{{ provider.name }}" class="socialaccount_provider {{ provider.id }}"
+    <a title="{{ provider.name }}" class="socialaccount_provider {{ provider.id }} text-decoration-none" 
          href="{% provider_login_url provider.id process=process scope=scope auth_params=auth_params %}">
-         <img alt="{{ provider.name }}" src="{% static 'images/' %}{{ provider.name }}logo.png" width="40" height="40">
+         <img alt="{{ provider.name }}" class="avatar" src="{% static 'images/' %}{{ provider.name }}logo.png" width="40" height="40">
     </a>
 {% endfor %}

@@ -11,38 +11,38 @@
 {% block card-body %}
 
     <div class="container">
-        <div class="row">
-            <div class="col border">
+        <div class="row pb-2">
+            <div class="col">
                 <small>{% trans "E-mail" %}:</small><br>
                 {{ request.user.email }}
             </div>
-            <div class="col border">
+            <div class="col">
                 <small>{% trans "Display name" %}:</small><br>
                 {{ request.user.display_name }}
             </div>
         </div>
-        <div class="row">
-            <div class="col border">
+        <div class="row pb-2">
+            <div class="col">
                 <small>{% trans "First name" %}:</small><br>
                 {{ request.user.first_name|default:'' }}
             </div>
-            <div class="col border">
+            <div class="col">
                 <small>{% trans "Last name" %}:</small><br>
                 {{ request.user.last_name|default:'' }}
             </div>
         </div>
-        <div class="row">
-            <div class="col border">
+        <div class="row pb-2">
+            <div class="col">
                 <small>{% trans "City" %}:</small><br>
                 {{ request.user.city|default:'' }}
             </div>
-            <div class="col border">
+            <div class="col">
                 <small>{% trans "Country" %}:</small><br>
                 {{ request.user.country|default:'' }}
             </div>
         </div>
-        <div class="row">
-            <div class="col border">
+        <div class="row pb-2">
+            <div class="col">
                 <small>{% trans "Icon" %}:</small><br>
                 <img src="{{ request.user.photo.url }}" class="profile-image" alt="{% trans 'User photo' %}" height="60px" width="60px">
             </div>
@@ -52,5 +52,5 @@
 {% endblock %}
 
 {% block card-footer %}
-    <a href="{% url 'account_update' request.user.url %}">{% trans "Update your account" %}</a>
+    <a href="{% url 'account_update' request.user.url %}">{% trans "Update your profile" %}</a>
 {% endblock %}

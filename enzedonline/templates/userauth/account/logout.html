@@ -14,10 +14,10 @@
 
     <form method="POST" action="{% url 'account_logout' %}">
         {% csrf_token %}
-        <button type="submit" class="btn btn-outline-primary btn-sm">{% trans "Sign out" %}</button>
+        <button type="submit" class="btn btn-danger">{% trans "Sign out" %}</button>
     </form>
 
-    <br><p>{% trans "No, stay logged in" %}</p>
-    <a href="/" class="btn btn-outline-primary">{% trans "Return to site" %}</a>
+    <br><p>{% trans "Stay logged in:" %}</p>
+    <a href="/" class="btn btn-success">{% trans "Return to site" %}</a>
 
 {% endblock %}

@@ -1,6 +1,6 @@
 {% load static seo_metadata_tags %}
 
-{# Google Analytics#}
+{% comment %} {# Google Analytics#}
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-196836685-1"></script>
 <script>
@@ -9,7 +9,7 @@
   gtag('js', new Date());
 
   gtag('config', 'UA-196836685-1');
-</script>
+</script> {% endcomment %}
 
 {# Meta Tags #}
 <meta charset="utf-8" />
@@ -28,8 +28,8 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
 
 {# Global stylesheets #}
-<link rel="stylesheet" href="{% static 'css/yeti.bootstrap.css' %}" type="text/css">
-<script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=608bd55d30ef9700113f6f26&product=sticky-share-buttons" async="async"></script>
+<link rel="stylesheet" href="{% static 'css/darkly.bootstrap.css' %}" type="text/css">
+{% comment %} <script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=608bd55d30ef9700113f6f26&product=sticky-share-buttons" async="async"></script> {% endcomment %}
 
 {# favicon #}
 <link rel="apple-touch-icon" sizes="180x180" href="{% static 'favicon/apple-touch-icon.png' %}">
@@ -44,6 +44,7 @@
 <meta name="theme-color" content="#ffffff">
 
 {% block extra_css %}
-    <link rel="stylesheet" href="{% static 'css/helenerodenposzler.css' %}" type="text/css">
+    {% comment %} <link rel="stylesheet" href="{% static 'css/helenerodenposzler.css' %}" type="text/css"> {% endcomment %}
+    <link rel="stylesheet" href="{% static 'css/enzedonline.css' %}" type="text/css">
 {% endblock %}
 

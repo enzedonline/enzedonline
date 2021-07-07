@@ -84,6 +84,7 @@ TEMPLATES = [
         'DIRS': [
             os.path.join(PROJECT_DIR, 'templates'),
             os.path.join(PROJECT_DIR, 'templates/userauth/'),
+            os.path.join(PROJECT_DIR, 'templates/userauth/account'),
         ],
         'APP_DIRS': True,
         'OPTIONS': {
