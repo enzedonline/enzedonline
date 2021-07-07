@@ -55,7 +55,7 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    # 'allauth.socialaccount.providers.facebook',
+    'allauth.socialaccount.providers.facebook',
     'allauth.socialaccount.providers.google',
     # 'allauth.socialaccount.providers.linkedin',
     # 'allauth.socialaccount.providers.linkedin_oauth2',
@@ -191,6 +191,8 @@ ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_SIGNUP_FORM_CLASS = 'userauth.forms.SignupForm'
 ACCOUNT_LOGIN_ON_PASSWORD_RESET = True
 ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
+ACCOUNT_SESSION_REMEMBER = True
+# ACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS = False
 LOGIN_URL = reverse_lazy('account_login')
 LOGIN_REDIRECT_URL = reverse_lazy('account_profile')
 SITE_ID = 1
@@ -204,6 +206,27 @@ SOCIALACCOUNT_PROVIDERS = {
         'AUTH_PARAMS': {
             'access_type': 'online',
         }
+    },
+    'facebook': {
+        'METHOD': 'oauth2',
+        # 'SDK_URL': '//connect.facebook.net/{locale}/sdk.js',
+        'SCOPE': ['email', 'public_profile'],
+        # 'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
+        # 'INIT_PARAMS': {'cookie': True},
+        # 'FIELDS': [
+        #     'id',
+        #     'first_name',
+        #     'last_name',
+        #     'middle_name',
+        #     'name',
+        #     'name_format',
+        #     'picture',
+        #     'short_name'
+        # ],
+        # 'EXCHANGE_TOKEN': True,
+        # 'LOCALE_FUNC': 'path.to.callable',
+        'VERIFIED_EMAIL': True,
+        # 'VERSION': 'v7.0',
     }
 }
 

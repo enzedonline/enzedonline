@@ -16,6 +16,13 @@
  
   {% else %}
   <a href="{% provider_login_url 'google' %}">Login with Google</a>
+<p><a href="{% provider_login_url "facebook" method="oauth2" %}">Facebook OAuth2</a></p>
+
+<a href="{% provider_login_url "facebook" method="js_sdk" %}">Login Button image</a>
+<a href="{% provider_login_url "facebook" method="js_sdk" %}" class="btn btn-block btn-social btn-facebook" style="background-color:#3b5998;text-align:center">
+  <span class="fa fa-facebook"></span>
+               Sign in with Facebook
+ </a>
   {% endif %}
 
   </body>
@@ -31,3 +38,25 @@
 {% endblock content %}
 
 
+
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '492927945342914',
+      cookie     : true,
+      xfbml      : true,
+      version    : '11.0'
+    });
+      
+    FB.AppEvents.logPageView();   
+      
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "https://connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
