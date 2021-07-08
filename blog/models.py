@@ -1,26 +1,70 @@
 from core.blocks import GridStreamBlock
 from core.models import SEOPage
+from django import forms
 # from django.core.cache import cache
 # from django.core.cache.utils import make_template_fragment_key
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from django_extensions.db.fields import AutoSlugField
+from modelcluster.contrib.taggit import ClusterTaggableManager
+from modelcluster.fields import ParentalManyToManyField
+from taggit.models import TaggedItemBase
 from wagtail.admin.edit_handlers import (FieldPanel, MultiFieldPanel,
                                          StreamFieldPanel)
 from wagtail.core.fields import StreamField
+from wagtail.core.models import TranslatableMixin
 from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.snippets.models import register_snippet
+
+
+@register_snippet
+class TechBlogCategory(TranslatableMixin, models.Model):
+    name = models.CharField(max_length=200)
+    slug = AutoSlugField(
+        populate_from=['name'],
+        verbose_name='slug',
+        allow_unicode=True,
+        max_length=200,
+    )
+
+    panels = [
+        FieldPanel('name'),
+    ]
+
+    class Meta:
+        verbose_name = 'Tech Blog Category'
+        verbose_name_plural = 'Tech Blog Categories'
+        ordering = ['name']
+        unique_together = ('translation_key', 'locale')
+    
+    def __str__(self):
+        return self.name
+
 
 class BlogDetailPage(SEOPage):
     template = "blog/blog_page.html"
     subpage_types = []
     parent_page_types = ['blog.BlogListingPage']
 
+    categories = ParentalManyToManyField(
+        'blog.TechBlogCategory',
+    )
     body = StreamField(
         GridStreamBlock(), verbose_name="Page body", blank=True
     )
 
     content_panels = SEOPage.content_panels + [
         StreamFieldPanel("body"),
+        MultiFieldPanel(
+            [
+                FieldPanel(
+                    'categories',
+                    widget = forms.CheckboxSelectMultiple,
+                ),
+            ],
+            heading = "Blog Categories",
+        ),
     ]
 
     class Meta:
@@ -45,7 +89,7 @@ class BlogListingPage(SEOPage):
     subpage_types = [
         "blog.BlogDetailPage", 
     ]
-    max_count = 1
+    max_count = 2
 
     banner_image = models.ForeignKey(
         'wagtailimages.Image',
@@ -99,6 +143,11 @@ class BlogListingPage(SEOPage):
         # all_posts = self.get_children().public().live().order_by('-first_published_at')
         all_posts = BlogDetailPage.objects.child_of(self).live().public().reverse()
         
+        context['categories'] = TechBlogCategory.objects.all()
+        category_filter = request.GET.get("category", None)
+        if category_filter:
+            all_posts = all_posts.filter(categories__slug__in=category_filter.split(","))
+
         paginator = Paginator(all_posts, 8)
 
         requested_page = request.GET.get("page")
@@ -119,6 +168,7 @@ class BlogListingPage(SEOPage):
         context['page_range_first'] = context['page_range'][0]
         context['page_range_last'] = context['page_range'][-1]
         context["posts"] = posts
+        context["category_filter"] = category_filter
 
         return context
 

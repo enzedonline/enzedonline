@@ -11,7 +11,18 @@
         {% include_block block %}
     {% endfor %}
 
+<nav class="navbar navbar-expand navbar-dark bg-info" style="align-content: center;">
+    <div class="px-3 text-light">Filter by Category</div>
+    <div class="navbar-nav">
+        {% for item in categories %}
+            <a class="nav-link{% if item.slug == category_filter %} active{% endif %}" href="/tech-blog/?category={{item.slug}}">{{ item.name }}</a>
+        {% endfor %}
+    </div>
+  </div>
+</nav>
+
     <div class="row p-2 row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 justify-content-center">
+
         {% for post in posts %}
             <div class="col mx-0 mb-4">
                 <div class="card h-100 p-2">

@@ -11,13 +11,13 @@
         {% include 'menus/main_menu.html' %}
     </div>
 
-    <div class="sharethis-sticky-share-buttons"></div>
+    {% comment %} <div class="sharethis-sticky-share-buttons"></div> {% endcomment %}
     <body class="{% block body_class %}{% endblock %}">
         {% comment %} <!-- Google Tag Manager (noscript) -->
         <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KH92MLK"
         height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-        <!-- End Google Tag Manager (noscript) -->
-        {% wagtailuserbar %} {% endcomment %}
+        <!-- End Google Tag Manager (noscript) -->{% endcomment %}
+        {% wagtailuserbar %} 
         <div mt-4>
  
 

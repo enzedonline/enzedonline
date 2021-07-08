@@ -1,21 +1,124 @@
-  .avatar {
-    border-radius: 8px;
-  }
-  a {
-    color: #fff;
-    text-decoration: underline;
-  }
-  
-  a:hover {
-    color: #adb5bd;
-  }
-  
-  .nav-link {
-    color: #fff;
-  }
-  .nav-link:hover, .nav-link:focus {
-    color: #adb5bd;
-  }
+@import url(https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap);
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital@1&display=swap');
+:root {
+  --font-family-sans-serif: "Open Sans", -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol";
+  --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace;
+}
+body {
+  margin: 0;
+  font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol";
+  font-size: 0.9375rem;
+  font-weight: 400;
+  line-height: 1.5;
+
+}
+
+.avatar {
+  border-radius: 8px;
+}
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-bottom: 0.5rem;
+  font-weight: 300;
+  line-height: 1.2;
+}
+.h1,
+h1 {
+  font-size: clamp(1.7578125rem, 1.3097rem + 1.3787vw, 2.34375rem);
+}
+.h2,
+h2 {
+  font-size: clamp(1.40625rem, 1.0478rem + 1.1029vw, 1.875rem);
+}
+.h3,
+h3 {
+  font-size: clamp(1.23046875rem, 0.9168rem + 0.9651vw, 1.640625rem);
+}
+.h4,
+h4 {
+  font-size: clamp(1.125rem, 0.9099rem + 0.6618vw, 1.40625rem);
+}
+.h5,
+h5 {
+  font-size: clamp(0.9375rem, 0.7583rem + 0.5515vw, 1.1718756rem);
+}
+.h6,
+h6 {
+  font-size: clamp(0.84375rem, 0.7721rem + 0.2206vw, 0.9375rem);
+}
+.p,
+p {
+  font-size: clamp(0.9rem, 0.8235rem + 0.2353vw, 1rem);
+  font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol";  
+}
+.sticky {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+}
+.switcher-item {
+  padding: 0.4rem 1.5rem;
+  text-decoration: none;
+  min-width: 6rem;
+}
+.switcher-menu {
+  min-width: 8rem;
+}
+.privacy-notice {
+  font-size: 0.8em;
+  line-height: 120%;
+}
+.table_nopadding>tfoot>tr>td{ padding: 0px; margin: 0px;}
+.banner-overlay-container {
+  position: relative;
+}
+.banner-overlay-text-block {
+  position: absolute;
+  bottom: 0px;
+  left: 00px;
+  background-image: linear-gradient(to right, rgba(0,0,0,1), rgba(0,0,0,0));
+  color: white;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  width: 50%;
+  object-fit: cover;
+  text-align: left;
+}
+.rich-text img {
+  max-width: 100%;
+  height: auto;
+}
+.responsive-object {
+  position: relative;
+}
+.responsive-object iframe,
+.responsive-object object,
+.responsive-object embed {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
 
   .form-group {
     margin-bottom: 1rem;

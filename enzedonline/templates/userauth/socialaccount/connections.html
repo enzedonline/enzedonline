@@ -17,7 +17,7 @@
     <br>
 
     {% if form.accounts %}
-    <p>{% blocktrans %}The following social accounts are already connected to your account (select to remove):{% endblocktrans %}</p>
+    <p>{% blocktrans %}The following social accounts are connected to your account (select to remove):{% endblocktrans %}</p>
 
         <form method="POST" action="{% url 'socialaccount_connections' %}" class="needs-validation" novalidate>
             {% csrf_token %}

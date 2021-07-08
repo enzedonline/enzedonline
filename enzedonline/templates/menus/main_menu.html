@@ -1,11 +1,14 @@
 {% load wagtailimages_tags menu_tags static %}
 
 {% company_logo as logo %}
-{% image logo.logo width-200 as logo_lg %} 
-{% image logo.logo width-175 as logo_md %}
-{% image logo.logo width-150 as logo_sm %}
+{% image logo.logo height-30 as logo_lg %} 
+{% image logo.logo height-30 as logo_md %} 
+{% image logo.logo height-30 as logo_sm %} 
+
 
 <nav class="navbar navbar-expand-md navbar-dark bg-primary pr-2 pr-md-0 ml-n2 py-2">
+    <div class="pl-2">
+    &nbsp;
     <a class="navbar-brand" href="/">
         <picture>
         <source media="(min-width: 992px)" srcset="{{ logo_lg.url }}" />
@@ -13,10 +16,11 @@
         <source srcset="{{ logo_sm.url }}" />
         <img
             src="{{ logo_sm.url }}"
-            alt="{{ self.title }}"
+            alt="{{ logo.name }}"
         />
         </picture>
     </a>
+    </div>
 
     {% get_menu 'contact' as contact_menu %}
     {% if contact_menu %}
@@ -125,7 +129,8 @@
     language_switcher menu tag iterates through site locales, finds equivalent url for each locale
     Template code loops through results, adds menu item flag + locale name + link to equiv page
     Assumes image for each language uploaded to Wagtail with title 'flag-lang_code' (eg flag-en, flag-fr etc) {% endcomment %}
-    <div class="collapse navbar-collapse order-2 dual-collapse2" style="max-width: 50px;" id="navbarColor01">
+
+    {% comment %} <div class="collapse navbar-collapse order-2 dual-collapse2" style="max-width: 50px;" id="navbarColor01">
 
         <ul class="navbar-nav ml-auto bd-example-container-sidebar">   
             <li class="nav-item dropdown">
@@ -146,7 +151,7 @@
                 </div>
             </li>       
         </ul>
-    </div>
+    </div> {% endcomment %}
 
 
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" 
@@ -156,7 +161,7 @@
 </nav>
 
 
-<script type="text/javascript">
+{% comment %} <script type="text/javascript">
     $(document).ready(function() {
         $('.dropright button').on("click", function(e) {
             e.stopPropagation();
@@ -200,4 +205,4 @@
     font-size: clamp(0.84375rem, 0.7721rem + 0.2206vw, 0.9375rem);
     font-weight: 500;
 }
-</style>
+</style> {% endcomment %}
