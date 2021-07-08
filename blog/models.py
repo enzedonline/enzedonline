@@ -41,34 +41,43 @@ class TechBlogCategory(TranslatableMixin, models.Model):
     def __str__(self):
         return self.name
 
+@register_snippet
+class PersonalBlogCategory(TranslatableMixin, models.Model):
+    name = models.CharField(max_length=200)
+    slug = AutoSlugField(
+        populate_from=['name'],
+        verbose_name='slug',
+        allow_unicode=True,
+        max_length=200,
+    )
+
+    panels = [
+        FieldPanel('name'),
+    ]
+
+    class Meta:
+        verbose_name = 'Personal Blog Category'
+        verbose_name_plural = 'Personal Blog Categories'
+        ordering = ['name']
+        unique_together = ('translation_key', 'locale')
+    
+    def __str__(self):
+        return self.name
 
 class BlogDetailPage(SEOPage):
-    template = "blog/blog_page.html"
     subpage_types = []
-    parent_page_types = ['blog.BlogListingPage']
 
-    categories = ParentalManyToManyField(
-        'blog.TechBlogCategory',
-    )
     body = StreamField(
         GridStreamBlock(), verbose_name="Page body", blank=True
     )
 
     content_panels = SEOPage.content_panels + [
         StreamFieldPanel("body"),
-        MultiFieldPanel(
-            [
-                FieldPanel(
-                    'categories',
-                    widget = forms.CheckboxSelectMultiple,
-                ),
-            ],
-            heading = "Blog Categories",
-        ),
     ]
 
     class Meta:
         verbose_name = _("Blog Page")
+        abstract = True
 
     # def flush_cache_fragments(self, fragment_keys):
     #     for fragment in fragment_keys:
@@ -82,14 +91,58 @@ class BlogDetailPage(SEOPage):
     #     self.flush_cache_fragments(["base", "head", "blog_page", "main_menu", "banner_image", "footer"])
     #     return super().save(*args, **kwargs)
 
+class TechBlogDetailPage(BlogDetailPage):
+    template = "blog/blog_page.html"
+    parent_page_types = ['blog.TechBlogListingPage']
+    categories = ParentalManyToManyField(
+        'blog.TechBlogCategory',
+    )
+    content_panels = BlogDetailPage.content_panels + [
+        MultiFieldPanel(
+            [
+                FieldPanel(
+                    'categories',
+                    widget = forms.CheckboxSelectMultiple,
+                ),
+            ],
+            heading = "Blog Categories",
+        ),
+    ]
+    class Meta:
+        verbose_name = _("Tech Blog Page")
+
+    def get_context(self, request, *args, **kwargs):
+        context = super().get_context(request, *args, **kwargs)
+        context["blog_url"] = "tech-blog"
+        return context
+
+class PersonalBlogDetailPage(BlogDetailPage):
+    template = "blog/blog_page.html"
+    parent_page_types = ['blog.PersonalBlogListingPage']
+    categories = ParentalManyToManyField(
+        'blog.PersonalBlogCategory',
+    )
+    content_panels = BlogDetailPage.content_panels + [
+        MultiFieldPanel(
+            [
+                FieldPanel(
+                    'categories',
+                    widget = forms.CheckboxSelectMultiple,
+                ),
+            ],
+            heading = "Blog Categories",
+        ),
+    ]
+    class Meta:
+        verbose_name = _("Personal Blog Page")
+
+    def get_context(self, request, *args, **kwargs):
+        context = super().get_context(request, *args, **kwargs)
+        context["blog_url"] = "personal-blog"
+        return context
 
 class BlogListingPage(SEOPage):
-    template = "blog/blog_index_page.html"
     parent_page_types = ['home.HomePage']
-    subpage_types = [
-        "blog.BlogDetailPage", 
-    ]
-    max_count = 2
 
     banner_image = models.ForeignKey(
         'wagtailimages.Image',
@@ -133,15 +186,34 @@ class BlogListingPage(SEOPage):
         StreamFieldPanel("bottom_section"),
     ]
 
+    class Meta:
+        abstract = True
+
     @property
     def get_child_pages(self):
         return self.get_children().public().live()
 
+    # def flush_cache_fragments(self, fragment_keys):
+    #     for fragment in fragment_keys:
+    #         key = make_template_fragment_key(
+    #             fragment,
+    #             [self.id],
+    #         )
+    #         cache.delete(key)
+
+    # def save(self, *args, **kwargs):
+    #     self.flush_cache_fragments(["base", "head", "blog_index_page", "main_menu", "banner_image", "footer"])
+    #     return super().save(*args, **kwargs)
+
+class TechBlogListingPage(BlogListingPage):
+    template = "blog/blog_index_page.html"
+    subpage_types = ["blog.TechBlogDetailPage",]
+    max_count = 1
+
     def get_context(self, request, *args, **kwargs):
         """Adds custom fields to the context"""
         context = super().get_context(request, *args, **kwargs)
-        # all_posts = self.get_children().public().live().order_by('-first_published_at')
-        all_posts = BlogDetailPage.objects.child_of(self).live().public().reverse()
+        all_posts = TechBlogDetailPage.objects.child_of(self).live().public().reverse()
         
         context['categories'] = TechBlogCategory.objects.all()
         category_filter = request.GET.get("category", None)
@@ -169,21 +241,49 @@ class BlogListingPage(SEOPage):
         context['page_range_last'] = context['page_range'][-1]
         context["posts"] = posts
         context["category_filter"] = category_filter
+        context["blog_url"] = "tech-blog"
 
         return context
 
-    # def flush_cache_fragments(self, fragment_keys):
-    #     for fragment in fragment_keys:
-    #         key = make_template_fragment_key(
-    #             fragment,
-    #             [self.id],
-    #         )
-    #         cache.delete(key)
+class PersonalBlogListingPage(BlogListingPage):
+    template = "blog/blog_index_page.html"
+    subpage_types = ["blog.PersonalBlogDetailPage",]
+    max_count = 1
 
-    # def save(self, *args, **kwargs):
-    #     self.flush_cache_fragments(["base", "head", "blog_index_page", "main_menu", "banner_image", "footer"])
-    #     return super().save(*args, **kwargs)
+    def get_context(self, request, *args, **kwargs):
+        """Adds custom fields to the context"""
+        context = super().get_context(request, *args, **kwargs)
+        all_posts = PersonalBlogDetailPage.objects.child_of(self).live().public().reverse()
+        
+        context['categories'] = PersonalBlogCategory.objects.all()
+        category_filter = request.GET.get("category", None)
+        if category_filter:
+            all_posts = all_posts.filter(categories__slug__in=category_filter.split(","))
 
+        paginator = Paginator(all_posts, 8)
+
+        requested_page = request.GET.get("page")
+
+        try:
+            posts = paginator.page(requested_page)
+        except PageNotAnInteger:
+            posts = paginator.page(1)
+        except EmptyPage:
+            posts = paginator.page(paginator.num_pages)
+        
+        context['page_range'] = paginator_range(
+            requested_page=posts.number,
+            last_page_num=paginator.num_pages,
+            wing_size=4
+        )
+        # Next two are needed as Django templates don't support accessing range properties
+        context['page_range_first'] = context['page_range'][0]
+        context['page_range_last'] = context['page_range'][-1]
+        context["posts"] = posts
+        context["category_filter"] = category_filter
+        context["blog_url"] = "personal-blog"
+
+        return context
 
 def paginator_range(requested_page, last_page_num, wing_size=5):
     """ Given a 'wing size', return a range for pagination. 

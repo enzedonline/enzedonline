@@ -11,15 +11,21 @@
         {% include_block block %}
     {% endfor %}
 
-<nav class="navbar navbar-expand navbar-dark bg-info" style="align-content: center;">
-    <div class="px-3 text-light">Filter by Category</div>
-    <div class="navbar-nav">
-        {% for item in categories %}
-            <a class="nav-link{% if item.slug == category_filter %} active{% endif %}" href="/tech-blog/?category={{item.slug}}">{{ item.name }}</a>
-        {% endfor %}
-    </div>
-  </div>
-</nav>
+    <nav class="navbar navbar-expand navbar-dark bg-info">
+        <div class="navbar-text px-3 text-light">Filter by Category</div>
+        <div class="navbar-nav">
+            {% for item in categories %}
+                <a class="nav-link{% if item.slug == category_filter %} active{% endif %}" href="/{{ blog_url }}/?category={{item.slug}}">{{ item.name }}</a>
+            {% endfor %}
+        </div>        
+        <div class="ms-auto me-2 order-0 order-md-1 pe-2 pe-md-0">
+            <ul class="navbar-nav flex-row flex-nowrap align-items-center">
+                <li class="nav-item{% if request.path == item.url %} active{% endif %}">
+                    <a href="/{{ blog_url }}" class="btn btn-sm btn-dark" role="button" title="Clear filter">X</a>
+                </li>
+            </ul>
+        </div> 
+    </nav>
 
     <div class="row p-2 row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 justify-content-center">
 

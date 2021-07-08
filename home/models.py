@@ -15,7 +15,8 @@ class HomePage(SEOPage):
     subpage_types = [
         "service.ServicePage", 
         "contact.ContactPage", 
-        "blog.BlogListingPage",
+        "blog.PersonalBlogListingPage",
+        "blog.TechBlogListingPage",
     ]
     max_count = 1
 

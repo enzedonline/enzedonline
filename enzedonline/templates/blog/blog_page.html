@@ -3,13 +3,13 @@
 
 {% block content %}
 
-{% get_blog_index as blog_index %}
+{% get_blog_index self as blog_index %}
 
-{% image blog_index.banner_image fill-2100x700-c100 format-webp as webp_img_w_2100 %} 
-{% image blog_index.banner_image fill-1500x500-c100 format-webp as webp_img_w_1500 %} 
-{% image blog_index.banner_image fill-900x300-c100 format-webp as webp_img_w_900 %} 
-{% image blog_index.banner_image fill-600x200-c100 format-webp as webp_img_w_600 %}
-{% image blog_index.banner_image fill-2100x700-c100 as fallback %} 
+{% image blog_index.banner_image fill-2100x525-c100 format-webp as webp_img_w_2100 %} 
+{% image blog_index.banner_image fill-1500x375-c100 format-webp as webp_img_w_1500 %} 
+{% image blog_index.banner_image fill-900x225-c100 format-webp as webp_img_w_900 %} 
+{% image blog_index.banner_image fill-600x150-c100 format-webp as webp_img_w_600 %}
+{% image blog_index.banner_image fill-2100x525-c100 as fallback %} 
 
 <div class="banner-overlay-container">
   <picture>
@@ -32,14 +32,24 @@
   {% endif %}
 </div>
 
-<div class="container-fluid pt-0 pt-md-2 px-2 px-sm-5 pb-4">
-  {% for item in self.categories.all %}
-      {{ item.name }} &nbsp &nbsp &nbsp
-  {% endfor %}
-    
+<div class="container-fluid pt-2 px-2 px-sm-5 pb-5">
+
+    <nav class="navbar navbar-expand navbar-dark bg-info">
+        <div class="navbar-text px-3 text-light">Posted in:</div>
+        <div class="navbar-nav">
+            {% for item in self.categories.all %}
+                <a class="nav-link" href="/{{ blog_url }}/?category={{item.slug}}">{{ item.name }}</a>
+            {% endfor %}
+        </div>        
+    </nav>
+</div>
+
+<div class="container-fluid pt-2 px-2 px-sm-5 pb-5">
+
   {% for block in page.body %}
       {% include_block block %}
   {% endfor %}
+
 </div>
 
 <div class="px-5 pt-2 pb-4">
