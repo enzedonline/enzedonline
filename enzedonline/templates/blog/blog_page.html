@@ -52,9 +52,23 @@
 
 </div>
 
+<div class="container-fluid pt-1 px-2 px-sm-5 pb-1">
+  {% if page.tags.count %}
+      {% for tag in page.tags.all %}
+          {# Loop through all the existing tags #}
+          <a href="{{ self.get_parent.url }}?tag={{ tag.slug }}"
+              class="btn btn-sm bg-info text-light">{{ tag }}
+          </a> &nbsp &nbsp
+      {% endfor %}
+  {% endif %}
+</div>
+
+
 <div class="px-5 pt-2 pb-4">
   <hr>
 </div>
+
+{#  Next and Previous blog posts #}
 
 {% get_prev_next self as nav %}
 

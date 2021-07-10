@@ -6,27 +6,26 @@
 {% image logo.logo height-30 as logo_sm %} 
 
 
-<nav class="navbar navbar-expand-md navbar-dark bg-primary pr-2 pr-md-0 ml-n2 py-2">
-    <div class="pl-2">
-    &nbsp;
-    <a class="navbar-brand" href="/">
-        <picture>
-        <source media="(min-width: 992px)" srcset="{{ logo_lg.url }}" />
-        <source media="(min-width: 800px)" srcset="{{ logo_md.url }}"  />
-        <source srcset="{{ logo_sm.url }}" />
-        <img
-            src="{{ logo_sm.url }}"
-            alt="{{ logo.name }}"
-        />
-        </picture>
-    </a>
+<nav class="navbar navbar-expand-md navbar-dark bg-primary pe-2 pe-md-0 ms-n2 py-2">
+    <div class="ps-2">
+        <a class="navbar-brand" href="/">
+            <picture>
+            <source media="(min-width: 992px)" srcset="{{ logo_lg.url }}" />
+            <source media="(min-width: 800px)" srcset="{{ logo_md.url }}"  />
+            <source srcset="{{ logo_sm.url }}" />
+            <img
+                src="{{ logo_sm.url }}"
+                alt="{{ logo.name }}"
+            />
+            </picture>
+        </a>
     </div>
 
     {% get_menu 'contact' as contact_menu %}
     {% if contact_menu %}
         {% get_menu_items contact_menu request as contact_menu_items %}
         {% for item in contact_menu_items %}
-            <div class="ml-auto mr-0 order-0 order-md-1 pr-2 pr-md-0">
+            <div class="ms-auto me-0 order-0 order-md-1 pe-2 pe-md-0">
                 <ul class="navbar-nav flex-row flex-nowrap align-items-center">
                     <li class="nav-item{% if request.path == item.url %} active{% endif %}">
                         <a class="nav-link" href="{{item.url}}">                            
@@ -42,7 +41,7 @@
     {% endif %}
 
     <div class="collapse navbar-collapse order-1 order-md-0 dual-collapse2" id="navbarColor01">
-        <ul class="navbar-nav ml-auto align-items-md-center">
+        <ul class="navbar-nav ms-auto align-items-md-center">
             {% get_menu 'main_menu' as main_menu %}
             {% if main_menu %}
                 {% get_menu_items main_menu request as navigation %}
@@ -132,7 +131,7 @@
 
     {% comment %} <div class="collapse navbar-collapse order-2 dual-collapse2" style="max-width: 50px;" id="navbarColor01">
 
-        <ul class="navbar-nav ml-auto bd-example-container-sidebar">   
+        <ul class="navbar-nav ms-auto bd-example-container-sidebar">   
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                     {% get_lang_flag as flag %}

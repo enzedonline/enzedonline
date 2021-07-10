@@ -9,14 +9,14 @@ from django.utils.translation import gettext_lazy as _
 from django_extensions.db.fields import AutoSlugField
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalManyToManyField
-from taggit.models import TaggedItemBase
+from modelcluster.models import ParentalKey
+from taggit.models import Tag, TaggedItemBase
 from wagtail.admin.edit_handlers import (FieldPanel, MultiFieldPanel,
                                          StreamFieldPanel)
 from wagtail.core.fields import StreamField
 from wagtail.core.models import TranslatableMixin
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.snippets.models import register_snippet
-
 
 @register_snippet
 class TechBlogCategory(TranslatableMixin, models.Model):
@@ -64,6 +64,20 @@ class PersonalBlogCategory(TranslatableMixin, models.Model):
     def __str__(self):
         return self.name
 
+class TechBlogPageTag(TaggedItemBase):
+    content_object = ParentalKey(
+        'TechBlogDetailPage',
+        related_name='tagged_items',
+        on_delete=models.CASCADE,
+    )
+
+class PersonalBlogPageTag(TaggedItemBase):
+    content_object = ParentalKey(
+        'PersonalBlogDetailPage',
+        related_name='tagged_items',
+        on_delete=models.CASCADE,
+    )
+
 class BlogDetailPage(SEOPage):
     subpage_types = []
 
@@ -94,9 +108,12 @@ class BlogDetailPage(SEOPage):
 class TechBlogDetailPage(BlogDetailPage):
     template = "blog/blog_page.html"
     parent_page_types = ['blog.TechBlogListingPage']
+
     categories = ParentalManyToManyField(
         'blog.TechBlogCategory',
     )
+    tags = ClusterTaggableManager(through=TechBlogPageTag, blank=True)
+
     content_panels = BlogDetailPage.content_panels + [
         MultiFieldPanel(
             [
@@ -107,7 +124,9 @@ class TechBlogDetailPage(BlogDetailPage):
             ],
             heading = "Blog Categories",
         ),
+        FieldPanel("tags"),
     ]
+
     class Meta:
         verbose_name = _("Tech Blog Page")
 
@@ -119,9 +138,12 @@ class TechBlogDetailPage(BlogDetailPage):
 class PersonalBlogDetailPage(BlogDetailPage):
     template = "blog/blog_page.html"
     parent_page_types = ['blog.PersonalBlogListingPage']
+
     categories = ParentalManyToManyField(
         'blog.PersonalBlogCategory',
     )
+    tags = ClusterTaggableManager(through=PersonalBlogPageTag, blank=True)
+
     content_panels = BlogDetailPage.content_panels + [
         MultiFieldPanel(
             [
@@ -132,7 +154,9 @@ class PersonalBlogDetailPage(BlogDetailPage):
             ],
             heading = "Blog Categories",
         ),
+        FieldPanel("tags"),
     ]
+
     class Meta:
         verbose_name = _("Personal Blog Page")
 
@@ -220,6 +244,20 @@ class TechBlogListingPage(BlogListingPage):
         if category_filter:
             all_posts = all_posts.filter(categories__slug__in=category_filter.split(","))
 
+        tag_filter = request.GET.get("tag", None)
+        if tag_filter:
+            # distinct not supported in sqlite
+            # all_posts = all_posts.filter(tags__slug__in=['tag1','tag2']).distinct('id')
+            all_posts = all_posts.filter(tags__slug__in=tag_filter.split(','))
+            
+            verbose_tag_list = ""
+            for item in tag_filter.split(','):
+                try:
+                    verbose_tag_list += "'" + Tag.objects.get(slug=item).name + "' "
+                except TechBlogPageTag.DoesNotExist:
+                    verbose_tag_list += "'" + item + "' "
+
+        TechBlogPageTag.objects.last()
         paginator = Paginator(all_posts, 8)
 
         requested_page = request.GET.get("page")
@@ -241,6 +279,7 @@ class TechBlogListingPage(BlogListingPage):
         context['page_range_last'] = context['page_range'][-1]
         context["posts"] = posts
         context["category_filter"] = category_filter
+        context['tag_filter'] = verbose_tag_list
         context["blog_url"] = "tech-blog"
 
         return context
