@@ -20,6 +20,8 @@ INSTALLED_APPS = [
     'wagtailfontawesome',
     'widget_tweaks',
     'wagalytics',
+    'django_comments_xtd',
+    'django_comments',
 
     'wagtail_localize',
     'wagtail_localize.locales',
@@ -167,10 +169,6 @@ WAGTAILEMBEDS_RESPONSIVE_HTML = True
 
 WAGTAIL_SITE_NAME = "enzedonline"
 
-# Base URL to use when referring to full URLs within the Wagtail admin backend -
-# e.g. in notification emails. Don't include '/admin' or a trailing slash
-BASE_URL = 'http://enzedonline.com'
-
 WAGTAILEMBEDS_FINDERS = [
     {
         'class': 'core.oembedfinder.YouTubePreserveRelFinder',
@@ -195,8 +193,8 @@ ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
 ACCOUNT_SESSION_REMEMBER = True
 # ACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS = False
 LOGIN_URL = reverse_lazy('account_login')
-LOGIN_REDIRECT_URL = reverse_lazy('account_profile')
-SITE_ID = 1
+# LOGIN_REDIRECT_URL = reverse_lazy('account_profile')
+SITE_ID = 4
 
 SOCIALACCOUNT_AUTO_SIGNUP = True
 SOCIALACCOUNT_EMAIL_VERIFICATION = "none"

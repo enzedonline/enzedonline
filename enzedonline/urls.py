@@ -21,6 +21,7 @@ urlpatterns = [
     path('documents/', include(wagtaildocs_urls)),
     url(r'^robots\.txt$', RobotsView.as_view(), name='robots'),
     url(r'^sitemap.xml$', sitemap),
+    url(r'^comments/', include('django_comments_xtd.urls')),
     path('sentry-debug/', trigger_error),
     # path('lang/<str:language_code>/', set_language_from_url, name='set_language_from_url'),
     # Creates urls like yourwebsite.com/login/
@@ -43,6 +44,10 @@ urlpatterns = urlpatterns + i18n_patterns(
     path('search/', search_views.search, name='search'),
     url(r'^404/$', default_views.page_not_found, kwargs={'exception': Exception("Page not Found")}),
     url(r'^500/$', default_views.server_error),    # For anything not caught by a more specific rule above, hand over to
+    # Creates urls like yourwebsite.com/login/
+    url(r'', include('allauth.urls')),
+    # Creates urls like yourwebsite.com/accounts/login/
+    url(r'^accounts/', include('allauth.urls')),
     # Wagtail's page serving mechanism. This should be the last pattern in
     # the list:
     path("", include(wagtail_urls)),

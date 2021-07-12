@@ -68,6 +68,11 @@ p {
     Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",
     "Segoe UI Emoji", "Segoe UI Symbol";  
 }
+a {
+  color: #4582ec;
+  text-decoration: none;
+}
+
 .sticky {
   position: -webkit-sticky;
   position: sticky;
@@ -137,3 +142,12 @@ p {
     padding-right: 5px;
     padding-left: 5px;
   }
+
+ .profile-image-thumbnail {
+    float: left;
+    width: 40px;
+    height: 40px;
+    max-width: 100%;
+    margin-right: 5px;
+    margin-bottom: 5px;
+} 

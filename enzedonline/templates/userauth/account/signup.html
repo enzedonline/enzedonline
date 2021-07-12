@@ -1,6 +1,6 @@
 {% extends 'account/base_card.html' %}
 
-{% load i18n socialaccount %}
+{% load i18n socialaccount redirect %}
 
 {% block title %}{% trans "Sign up" %}{% endblock %}
 
@@ -11,6 +11,7 @@
 {% block card-body %}
 
     {% get_providers as socialaccount_providers %}
+    {% get_next_url request as next_url %}
 
     <form method="POST" action="{% url 'account_signup' %}" class="needs-validation" novalidate>
         {% csrf_token %}
@@ -43,7 +44,7 @@
     {% if socialaccount_providers %}
         <br>
         <p>{% blocktrans with site.name as site_name %}or sign up with one of your existing third party accounts:{% endblocktrans %}</p>
-        {% include "socialaccount/provider_list.html" with process="login" %}
+        {% include "socialaccount/provider_list.html" with process="login" next=next_url %}
     {% endif %}
 
 {% endblock %}

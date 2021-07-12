@@ -3,15 +3,16 @@ from core.models import SEOPage
 from django import forms
 # from django.core.cache import cache
 # from django.core.cache.utils import make_template_fragment_key
-from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+from django.core.paginator import EmptyPage, Page, PageNotAnInteger, Paginator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from django_comments_xtd.models import XtdComment
 from django_extensions.db.fields import AutoSlugField
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalManyToManyField
 from modelcluster.models import ParentalKey
 from taggit.models import Tag, TaggedItemBase
-from wagtail.admin.edit_handlers import (FieldPanel, MultiFieldPanel,
+from wagtail.admin.edit_handlers import (FieldPanel, MultiFieldPanel, InlinePanel,
                                          StreamFieldPanel)
 from wagtail.core.fields import StreamField
 from wagtail.core.models import TranslatableMixin
@@ -80,6 +81,7 @@ class PersonalBlogPageTag(TaggedItemBase):
 
 class BlogDetailPage(SEOPage):
     subpage_types = []
+    parent_page_types = []
 
     body = StreamField(
         GridStreamBlock(), verbose_name="Page body", blank=True
@@ -87,11 +89,15 @@ class BlogDetailPage(SEOPage):
 
     content_panels = SEOPage.content_panels + [
         StreamFieldPanel("body"),
+        InlinePanel('customcomments', label=_("Comments")),
     ]
 
     class Meta:
         verbose_name = _("Blog Page")
-        abstract = True
+        # abstract = True
+
+    def get_absolute_url(self):
+        return self.get_url()
 
     # def flush_cache_fragments(self, fragment_keys):
     #     for fragment in fragment_keys:
@@ -164,6 +170,16 @@ class PersonalBlogDetailPage(BlogDetailPage):
         context = super().get_context(request, *args, **kwargs)
         context["blog_url"] = "personal-blog"
         return context
+
+class CustomComment(XtdComment):
+    page = ParentalKey(BlogDetailPage, on_delete=models.CASCADE, related_name='customcomments')
+
+    def save(self, *args, **kwargs):
+        if self.user:
+            self.user_name = self.user.display_name
+        self.page = BlogDetailPage.objects.get(pk=self.object_pk)
+        super(CustomComment, self).save(*args, **kwargs)
+
 
 class BlogListingPage(SEOPage):
     parent_page_types = ['home.HomePage']
@@ -239,25 +255,23 @@ class TechBlogListingPage(BlogListingPage):
         context = super().get_context(request, *args, **kwargs)
         all_posts = TechBlogDetailPage.objects.child_of(self).live().public().reverse()
         
-        context['categories'] = TechBlogCategory.objects.all()
         category_filter = request.GET.get("category", None)
         if category_filter:
             all_posts = all_posts.filter(categories__slug__in=category_filter.split(","))
 
         tag_filter = request.GET.get("tag", None)
+        verbose_tag_list = ""
         if tag_filter:
             # distinct not supported in sqlite
             # all_posts = all_posts.filter(tags__slug__in=['tag1','tag2']).distinct('id')
             all_posts = all_posts.filter(tags__slug__in=tag_filter.split(','))
             
-            verbose_tag_list = ""
             for item in tag_filter.split(','):
                 try:
                     verbose_tag_list += "'" + Tag.objects.get(slug=item).name + "' "
-                except TechBlogPageTag.DoesNotExist:
+                except Tag.DoesNotExist:
                     verbose_tag_list += "'" + item + "' "
 
-        TechBlogPageTag.objects.last()
         paginator = Paginator(all_posts, 8)
 
         requested_page = request.GET.get("page")
@@ -269,6 +283,11 @@ class TechBlogListingPage(BlogListingPage):
         except EmptyPage:
             posts = paginator.page(paginator.num_pages)
         
+        context["posts"] = posts
+        context['categories'] = TechBlogCategory.objects.all()
+        context["category_filter"] = category_filter
+        context['tag_filter'] = verbose_tag_list
+        context["blog_url"] = "tech-blog"
         context['page_range'] = paginator_range(
             requested_page=posts.number,
             last_page_num=paginator.num_pages,
@@ -277,10 +296,6 @@ class TechBlogListingPage(BlogListingPage):
         # Next two are needed as Django templates don't support accessing range properties
         context['page_range_first'] = context['page_range'][0]
         context['page_range_last'] = context['page_range'][-1]
-        context["posts"] = posts
-        context["category_filter"] = category_filter
-        context['tag_filter'] = verbose_tag_list
-        context["blog_url"] = "tech-blog"
 
         return context
 
@@ -294,10 +309,22 @@ class PersonalBlogListingPage(BlogListingPage):
         context = super().get_context(request, *args, **kwargs)
         all_posts = PersonalBlogDetailPage.objects.child_of(self).live().public().reverse()
         
-        context['categories'] = PersonalBlogCategory.objects.all()
         category_filter = request.GET.get("category", None)
         if category_filter:
             all_posts = all_posts.filter(categories__slug__in=category_filter.split(","))
+
+        tag_filter = request.GET.get("tag", None)
+        verbose_tag_list = ""
+        if tag_filter:
+            # distinct not supported in sqlite
+            # all_posts = all_posts.filter(tags__slug__in=['tag1','tag2']).distinct('id')
+            all_posts = all_posts.filter(tags__slug__in=tag_filter.split(','))
+            
+            for item in tag_filter.split(','):
+                try:
+                    verbose_tag_list += "'" + Tag.objects.get(slug=item).name + "' "
+                except Tag.DoesNotExist:
+                    verbose_tag_list += "'" + item + "' "
 
         paginator = Paginator(all_posts, 8)
 
@@ -310,6 +337,11 @@ class PersonalBlogListingPage(BlogListingPage):
         except EmptyPage:
             posts = paginator.page(paginator.num_pages)
         
+        context["posts"] = posts
+        context['categories'] = PersonalBlogCategory.objects.all()
+        context["category_filter"] = category_filter
+        context['tag_filter'] = verbose_tag_list
+        context["blog_url"] = "tech-blog"
         context['page_range'] = paginator_range(
             requested_page=posts.number,
             last_page_num=paginator.num_pages,
@@ -318,9 +350,6 @@ class PersonalBlogListingPage(BlogListingPage):
         # Next two are needed as Django templates don't support accessing range properties
         context['page_range_first'] = context['page_range'][0]
         context['page_range_last'] = context['page_range'][-1]
-        context["posts"] = posts
-        context["category_filter"] = category_filter
-        context["blog_url"] = "personal-blog"
 
         return context
 

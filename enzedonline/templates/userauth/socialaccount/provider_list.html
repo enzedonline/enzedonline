@@ -14,7 +14,7 @@
     {% endfor %}
     {% endif %}
     <a title="{{ provider.name }}" class="socialaccount_provider {{ provider.id }} text-decoration-none" 
-         href="{% provider_login_url provider.id process=process scope=scope auth_params=auth_params %}">
+         href="{% provider_login_url provider.id process=process scope=scope auth_params=auth_params next=next %}">
          <img alt="{{ provider.name }}" class="avatar" src="{% static 'images/' %}{{ provider.name }}logo.png" width="40" height="40">
     </a>
 {% endfor %}

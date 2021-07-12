@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load static wagtailcore_tags wagtailimages_tags blog_page_tags %}
+{% load static i18n wagtailcore_tags wagtailimages_tags blog_page_tags widget_tweaks comments comments_xtd %}
 
 {% block content %}
 
@@ -58,9 +58,41 @@
           {# Loop through all the existing tags #}
           <a href="{{ self.get_parent.url }}?tag={{ tag.slug }}"
               class="btn btn-sm bg-info text-light">{{ tag }}
-          </a> &nbsp &nbsp
+          </a>
+          &nbsp;
       {% endfor %}
   {% endif %}
+</div>
+
+
+{% get_comment_count for page as comment_count %}
+<div class="container-fluid pt-3 px-2 px-sm-5 pb-1">
+  <div class="card text-white bg-info mb-2">
+    <div class="card-header">
+      Comments:
+    </div>
+  </div>    
+  {% if comment_count %}
+    {% render_xtdcomment_tree for page allow_feedback show_feedback %}
+  {% endif %}
+    {% if not request.user.is_authenticated %}
+        {% get_current_language as LANGUAGE_CODE %}
+        <div id="id_comment_invite" class="container-fluid mt-4">
+            <p>
+            <a href="/{{LANGUAGE_CODE}}/accounts/login" id="id_login_first_link">{% trans "Log in" %}</a> 
+            {% trans "or"%}
+            <a href='/{{LANGUAGE_CODE}}/accounts/signup'>{% trans "sign up"%}</a> 
+            {% trans "to comment:" %}
+            </p>
+        </div>
+    {% else %}
+        <div class="container-fluid mt-4 comment-form">
+            {% render_comment_form for page %}
+        </div>
+    {% endif %}
+  {% comment %} <ul class="p-0 pt-2">
+    {% render_comment_form for page %}
+  </ul> {% endcomment %}
 </div>
 
 
