@@ -25,7 +25,7 @@
     />
   </picture>
   {% if blog_index.banner_headline or blog_index.banner_small_text %}
-  <div class="banner-overlay-text-block" style="object-fit: cover;">
+  <div class="banner-overlay-text-block" style="self-fit: cover;">
     {% if blog_index.banner_headline %}<div class="display-6" style="font-size:calc(0.5rem + 2vw);">{{ blog_index.banner_headline }}</div>{% endif %}
     {% if blog_index.banner_headline %}<div class="display-8" style="font-size:calc(0.4rem + 1vw);">{{ blog_index.banner_small_text }}</div>{% endif %}
   </div>
@@ -64,7 +64,6 @@
   {% endif %}
 </div>
 
-
 {% get_comment_count for page as comment_count %}
 <div class="container-fluid pt-3 px-2 px-sm-5 pb-1">
   <div class="card text-white bg-info mb-2">
@@ -75,26 +74,22 @@
   {% if comment_count %}
     {% render_xtdcomment_tree for page allow_feedback show_feedback %}
   {% endif %}
-    {% if not request.user.is_authenticated %}
-        {% get_current_language as LANGUAGE_CODE %}
-        <div id="id_comment_invite" class="container-fluid mt-4">
-            <p>
-            <a href="/{{LANGUAGE_CODE}}/accounts/login" id="id_login_first_link">{% trans "Log in" %}</a> 
-            {% trans "or"%}
-            <a href='/{{LANGUAGE_CODE}}/accounts/signup'>{% trans "sign up"%}</a> 
-            {% trans "to comment:" %}
-            </p>
-        </div>
-    {% else %}
-        <div class="container-fluid mt-4 comment-form">
-            {% render_comment_form for page %}
-        </div>
-    {% endif %}
-  {% comment %} <ul class="p-0 pt-2">
-    {% render_comment_form for page %}
-  </ul> {% endcomment %}
-</div>
-
+  {% if not request.user.is_authenticated %}
+      {% get_current_language as LANGUAGE_CODE %}
+      <div id="id_comment_invite" class="container-fluid mt-4">
+          <p>
+          <a href="/{{LANGUAGE_CODE}}/accounts/login" id="id_login_first_link">{% trans "Log in" %}</a> 
+          {% trans "or"%}
+          <a href='/{{LANGUAGE_CODE}}/accounts/signup'>{% trans "sign up"%}</a> 
+          {% trans "to comment:" %}
+          </p>
+      </div>
+  {% else %}
+      <div class="container-fluid mt-4 comment-form">
+          {% render_comment_form for page %}
+      </div>
+  {% endif %}
+</div> 
 
 <div class="px-5 pt-2 pb-4">
   <hr>
@@ -151,5 +146,5 @@
   </div>
 </div>
 
+<p>&nbsp;</p>
 {% endblock content %}
-
