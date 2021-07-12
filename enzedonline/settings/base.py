@@ -22,7 +22,6 @@ INSTALLED_APPS = [
     'wagalytics',
     'django_comments_xtd',
     'django_comments',
-
     'wagtail_localize',
     'wagtail_localize.locales',
 
@@ -236,6 +235,7 @@ SOCIALACCOUNT_PROVIDERS = {
 DBBACKUP_STORAGE = 'django.core.files.storage.FileSystemStorage'
 DBBACKUP_STORAGE_OPTIONS = {'location': os.path.join(BASE_DIR, '../backups')}
 
-# FIX NEEDED FOR DJAGNO 3.2.x
+# FIX NEEDED FOR DJANGO 3.2.x
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
 

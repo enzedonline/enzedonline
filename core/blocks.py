@@ -187,6 +187,7 @@ class SimpleRichTextBlock(wagtail_blocks.StructBlock):
             'link',
             'hr',
 			'small',
+            'code',
         ]
     )
 
@@ -511,6 +512,33 @@ class CollapsableCardBlock(wagtail_blocks.StructBlock):
         icon="fa-stack-overflow"
         label = _("Collapsable Text Block")
 
+CODE_CHOICES  = (
+    ('python', 'Python'),
+    ('css', 'CSS'),
+    ('html', 'HTML'),
+    ('sql', 'SQL'),
+    ('javascript', 'Javascript'),
+    ('json', 'JSON'),
+    ('xml', 'XML'),
+    ('git', 'Git'),
+    ('graphql', 'GraphQL'),
+    ('powershell', 'PowerShell'),
+    ('r', 'R'),
+    ('vb', 'VB6'),
+    ('vba', 'VBA'),
+    ('vbnet', 'VB.NET'),
+    ('bash', 'Bash/Shell'),
+)
+
+class BlogCodeBlock(wagtail_blocks.StructBlock):
+    language = wagtail_blocks.ChoiceBlock(choices=CODE_CHOICES, default="bash")
+    code = wagtail_blocks.TextBlock()
+
+    class Meta:
+        template = "blocks/code_block.html"
+        icon = "fa-code"
+        label = "Code Block"
+
 class EmptyStaticBlock(wagtail_blocks.StaticBlock):
     class Meta:
         template = 'blocks/empty_block.html'
@@ -560,6 +588,7 @@ class BaseStreamBlock(StreamBlock):
     external_link_embed = ExternalLinkEmbedBlock()
     inline_video_block = InlineVideoBlock()
     image_carousel = ImageCarouselBlock()
+    code_block = BlogCodeBlock()
     latest_blog_posts = LatestBlogPostGrid()
     spacer_block = SpacerStaticBlock()
     empty_block = EmptyStaticBlock()

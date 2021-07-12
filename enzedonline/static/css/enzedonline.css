@@ -151,3 +151,8 @@ a {
     margin-right: 5px;
     margin-bottom: 5px;
 } 
+code {
+  background-color: #F3F0EE;
+  padding: 2px;
+  line-height: 0.6;
+}
