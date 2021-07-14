@@ -98,7 +98,7 @@ a {
   position: absolute;
   bottom: 0px;
   left: 00px;
-  background-image: linear-gradient(to top right, rgba(0,0,0,1), rgba(0,0,0,0));
+  background-image: linear-gradient(to right, rgba(0,0,0,1), rgba(0,0,0,0));
   color: white;
   padding-top: 10px;
   padding-bottom: 10px;

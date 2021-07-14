@@ -531,7 +531,7 @@ CODE_CHOICES  = (
 )
 
 class BlogCodeBlock(wagtail_blocks.StructBlock):
-    language = wagtail_blocks.ChoiceBlock(choices=CODE_CHOICES, default="bash")
+    language = wagtail_blocks.ChoiceBlock(choices=CODE_CHOICES, default='python')
     code = wagtail_blocks.TextBlock()
 
     class Meta:

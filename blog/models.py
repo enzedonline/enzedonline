@@ -98,6 +98,26 @@ class BlogDetailPage(SEOPage):
     def get_absolute_url(self):
         return self.get_url()
 
+    def get_context(self, request, *args, **kwargs):
+        context = super().get_context(request, *args, **kwargs)
+        siblings = self.__class__.objects.sibling_of(self).live()
+        category_filter = request.GET.get("category", None)
+        tag_filter = request.GET.get("tag", None)
+        if category_filter:
+            siblings = siblings.filter(categories__slug__in=category_filter.split(","))
+            context["filter"] = '?category=' + category_filter
+        elif tag_filter:
+            siblings = siblings.filter(tags__slug__in=tag_filter.split(','))
+            context["filter"] = '?tag=' + tag_filter
+        else:
+            context["filter"] = ''
+        context["next_post"] = siblings.filter(path__gt=self.path).first()
+        context["previous_post"] = siblings.filter(path__lt=self.path).first()
+
+        return context
+
+
+
     # def flush_cache_fragments(self, fragment_keys):
     #     for fragment in fragment_keys:
     #         key = make_template_fragment_key(
@@ -179,7 +199,6 @@ class CustomComment(XtdComment):
         self.page = BlogDetailPage.objects.get(pk=self.object_pk)
         super(CustomComment, self).save(*args, **kwargs)
 
-
 class BlogListingPage(SEOPage):
     parent_page_types = ['home.HomePage']
 
@@ -255,21 +274,22 @@ class TechBlogListingPage(BlogListingPage):
         all_posts = TechBlogDetailPage.objects.child_of(self).live().public().reverse()
         
         category_filter = request.GET.get("category", None)
-        if category_filter:
-            all_posts = all_posts.filter(categories__slug__in=category_filter.split(","))
-
         tag_filter = request.GET.get("tag", None)
         verbose_tag_list = ""
-        if tag_filter:
-            # distinct not supported in sqlite
-            # all_posts = all_posts.filter(tags__slug__in=['tag1','tag2']).distinct('id')
+
+        if category_filter:
+            all_posts = all_posts.filter(categories__slug__in=category_filter.split(","))
+            context["filter"] = '?category=' + category_filter
+        elif tag_filter:
             all_posts = all_posts.filter(tags__slug__in=tag_filter.split(','))
-            
+            context["filter"] = '?tag=' + tag_filter
             for item in tag_filter.split(','):
                 try:
                     verbose_tag_list += "'" + Tag.objects.get(slug=item).name + "' "
                 except Tag.DoesNotExist:
                     verbose_tag_list += "'" + item + "' "
+        else:
+            context["filter"] = ''
 
         paginator = Paginator(all_posts, 8)
 
@@ -309,21 +329,22 @@ class PersonalBlogListingPage(BlogListingPage):
         all_posts = PersonalBlogDetailPage.objects.child_of(self).live().public().reverse()
         
         category_filter = request.GET.get("category", None)
-        if category_filter:
-            all_posts = all_posts.filter(categories__slug__in=category_filter.split(","))
-
         tag_filter = request.GET.get("tag", None)
         verbose_tag_list = ""
-        if tag_filter:
-            # distinct not supported in sqlite
-            # all_posts = all_posts.filter(tags__slug__in=['tag1','tag2']).distinct('id')
+
+        if category_filter:
+            all_posts = all_posts.filter(categories__slug__in=category_filter.split(","))
+            context["filter"] = '?category=' + category_filter
+        elif tag_filter:
             all_posts = all_posts.filter(tags__slug__in=tag_filter.split(','))
-            
+            context["filter"] = '?tag=' + tag_filter
             for item in tag_filter.split(','):
                 try:
                     verbose_tag_list += "'" + Tag.objects.get(slug=item).name + "' "
                 except Tag.DoesNotExist:
                     verbose_tag_list += "'" + item + "' "
+        else:
+            context["filter"] = ''
 
         paginator = Paginator(all_posts, 8)
 

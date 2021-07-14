@@ -15,13 +15,13 @@
         <div class="navbar-text px-3 text-light">Filter by Category</div>
         <div class="navbar-nav">
             {% for item in categories %}
-                <a class="nav-link{% if item.slug == category_filter %} active{% endif %}" href="/{{ blog_url }}/?category={{item.slug}}">{{ item.name }}</a>
+                <a class="nav-link{% if item.slug == category_filter %} active{% endif %}" href="?category={{item.slug}}">{{ item.name }}</a>
             {% endfor %}
         </div>        
         <div class="ms-auto me-2 order-0 order-md-1 pe-2 pe-md-0">
             <ul class="navbar-nav flex-row flex-nowrap align-items-center">
                 <li class="nav-item{% if request.path == item.url %} active{% endif %}">
-                    <a href="/{{ blog_url }}" class="btn btn-sm btn-dark" role="button" title="Clear filter">X</a>
+                    <a href="." class="btn btn-sm btn-dark" role="button" title="Clear filter">X</a>
                 </li>
             </ul>
         </div> 
@@ -51,7 +51,7 @@
                         <h5 class="card-title">{{ post.title }}</h5>
                         <p class="card-text"><small class="text-muted">{{ post.first_published_at }}</small></p>
                     </div>
-                    <a href="{{post.url}}" class="stretched-link"></a>
+                    <a href="{{post.url}}{{filter}}" class="stretched-link"></a>
                 </div>
             </div>
         {% endfor %}

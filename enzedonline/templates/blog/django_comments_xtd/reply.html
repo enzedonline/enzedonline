@@ -14,11 +14,6 @@
   <div class="row">
     <div class="offset-md-1 col-md-10">
       <div class="media">
-    {% if comment.user.photo %}
-        <img alt="" src="{{ comment.user.photo.url }}" class="profile-image-thumbnail">
-    {% else %}
-        {{ comment.user_email|xtd_comment_gravatar }}
-    {% endif %}   
         {% comment %} <div class="mr-3">{{ comment.user_email|xtd_comment_gravatar }}</div> {% endcomment %}
         <div class="media-body">
           <div class="comment pb-3">

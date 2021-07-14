@@ -1,6 +1,4 @@
 {% load wagtailcore_tags static %}
-<link rel="stylesheet" type="text/css" href="{% static 'css/prism.css' %}">
-<script src="{% static 'js/prism.js' %}"></script>
 
 <section>
     <pre><code class="language-{{ self.language }}">{{ self.code }}</code></pre>

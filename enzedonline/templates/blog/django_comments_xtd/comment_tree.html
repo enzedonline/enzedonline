@@ -7,10 +7,8 @@ hello
 <div class="media">
     <a name="c{{ item.comment.id }}"></a>
     {% if item.comment.user.photo %}
-    yes
         <img alt="" src="{{ item.comment.user.photo.url }}" class="profile-image-thumbnail">
     {% else %}
-    no
         {{ item.comment.user_email|xtd_comment_gravatar }}
     {% endif %}
     <div class="media-body">
