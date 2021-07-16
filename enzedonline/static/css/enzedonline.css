@@ -143,13 +143,21 @@ a {
     padding-left: 5px;
   }
 
- .profile-image-thumbnail {
+  .profile-image-thumbnail {
     float: left;
     width: 40px;
     height: 40px;
     max-width: 100%;
     margin-right: 5px;
     margin-bottom: 5px;
+}  
+
+.profile-menu-image {
+  float: left;
+  width: 30px;
+  height: 30px;
+  max-width: 100%;
+  border-radius: 5px;
 } 
 code {
   background-color: #F3F0EE;

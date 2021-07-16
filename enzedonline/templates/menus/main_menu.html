@@ -27,8 +27,8 @@
         {% for item in contact_menu_items %}
             <div class="ms-auto me-0 order-0 order-md-1 pe-2 pe-md-0">
                 <ul class="navbar-nav flex-row flex-nowrap align-items-center">
-                    <li class="nav-item{% if request.path == item.url %} active{% endif %}">
-                        <a class="nav-link" href="{{item.url}}">                            
+                    <li class="nav-item">
+                        <a class="nav-link{% if request.path == item.url %} active{% endif %}" href="{{item.url}}">                            
                             {% if item.icon %}
                                 {% image item.icon fill-25x25 class="image-menu" %}
                             {% endif %}
@@ -40,6 +40,43 @@
         {% endfor %}
     {% endif %}
 
+    {% get_menu 'user' as user_menu %}
+    {% if user_menu %}
+        {% get_menu_items user_menu request as user_menu_items %}
+            
+        <div class="ms-auto me-0 order-0 order-md-1 pe-2 pe-md-0">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item dropdown">
+                    {% if request.user.is_authenticated %}
+                        <a class="nav-link dropdown-toggle" title="{{ request.user.display_name }}" id="navbardrop" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            <img src="/media/{{request.user.photo}}" class="profile-menu-image">
+                        </a>
+                    {% else %}
+                        <a class="nav-link dropdown-toggle" id="navbardrop" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            {% image user_menu.icon fill-30x30 class="profile-menu-image" %}
+                            {{ user_menu.title }}
+                        </a>
+                    {% endif %}
+                    <div class="dropdown-menu dropdown-menu-end">
+                        {% for subitem in user_menu_items %}
+                            {% if not subitem.is_submenu %}
+                                <a class="dropdown-item{% if request.path == subitem.url %} active{% endif %}" href="{{subitem.url}}">
+                                    {% if subitem.icon %}
+                                        {% image subitem.icon fill-25x25 class="image-menu" %}
+                                    {% endif %}
+                                    {{ subitem.title }}
+                                </a>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </li>
+            </ul>
+
+
+
+        </div>
+    {% endif %}
+
     <div class="collapse navbar-collapse order-1 order-md-0 dual-collapse2" id="navbarColor01">
         <ul class="navbar-nav ms-auto align-items-md-center">
             {% get_menu 'main_menu' as main_menu %}
@@ -47,8 +84,8 @@
                 {% get_menu_items main_menu request as navigation %}
                 {% for item in navigation %}
                     {% if not item.is_submenu %}
-                        <li class="nav-item{% if request.path == item.url %} active{% endif %}">
-                            <a class="nav-link" href="{{item.url}}">                            
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.path == item.url %} active{% endif %}" href="{{item.url}}">                            
                                 {% if item.icon %}
                                     {% image item.icon fill-25x25 class="image-menu" %}
                                 {% endif %}
