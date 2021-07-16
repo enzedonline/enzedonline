@@ -1,3 +1,5 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
+from allauth.account.views import PasswordChangeView, PasswordSetView
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic.edit import DeleteView, UpdateView
@@ -54,3 +56,13 @@ def validate_user(request, user_object) -> bool:
 def profile_view(request):
     return render(request, 'account/profile.html')
    
+@login_required
+def password_change_success(request):
+    return render(request, 'account/password_change_success.html')
+   
+class CustomPasswordChangeView(LoginRequiredMixin, PasswordChangeView):
+    success_url = '/accounts/password/success/'
+    
+class CustomPasswordSetView(LoginRequiredMixin, PasswordSetView):
+    success_url = '/accounts/password/success/'
+    
