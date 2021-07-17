@@ -1,4 +1,4 @@
-{% load wagtailimages_tags menu_tags static %}
+{% load wagtailimages_tags menu_tags socialaccount static %}
 
 {% company_logo as logo %}
 {% image logo.logo height-30 as logo_lg %} 
@@ -25,8 +25,8 @@
     {% if contact_menu %}
         {% get_menu_items contact_menu request as contact_menu_items %}
         {% for item in contact_menu_items %}
-            <div class="ms-auto me-0 order-0 order-md-1 pe-2 pe-md-0">
-                <ul class="navbar-nav flex-row flex-nowrap align-items-center">
+            <div class="order-0 order-md-1 pe-2 pe-md-0 ms-auto me-0">
+                <ul class="navbar-nav flex-row flex-nowrap ms-auto me-0">
                     <li class="nav-item">
                         <a class="nav-link{% if request.path == item.url %} active{% endif %}" href="{{item.url}}">                            
                             {% if item.icon %}
@@ -43,18 +43,18 @@
     {% get_menu 'user' as user_menu %}
     {% if user_menu %}
         {% get_menu_items user_menu request as user_menu_items %}
-            
-        <div class="ms-auto me-0 order-0 order-md-1 pe-2 pe-md-0">
-            <ul class="navbar-nav me-auto">
+
+        <div class="collapse navbar-collapse dual-collapse2 order-2 pe-2 pe-md-0 ms-auto me-0 flex-grow-1 flex-md-grow-0" id="navbarCollapseItems">
+            <ul class="navbar-nav ms-auto me-0 ps-3 ps-md-0">
                 <li class="nav-item dropdown">
                     {% if request.user.is_authenticated %}
                         <a class="nav-link dropdown-toggle" title="{{ request.user.display_name }}" id="navbardrop" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                            <img src="/media/{{request.user.photo}}" class="profile-menu-image">
+                            <img src="/media/{{request.user.photo}}" class="profile-menu-image">&nbsp;{{ request.user.display_name }}
                         </a>
                     {% else %}
                         <a class="nav-link dropdown-toggle" id="navbardrop" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                             {% image user_menu.icon fill-30x30 class="profile-menu-image" %}
-                            {{ user_menu.title }}
+                            &nbsp;Login
                         </a>
                     {% endif %}
                     <div class="dropdown-menu dropdown-menu-end">
@@ -68,17 +68,29 @@
                                 </a>
                             {% endif %}
                         {% endfor %}
+                        {% if not request.user.is_authenticated %}
+                            <hr class="dropdown-divider">
+                            {% get_providers as socialaccount_providers %}
+                            {% if socialaccount_providers %}
+                                <span class="text-nowrap px-3">Login with social account</span>
+                                <div class="dropdown-item">
+                                    {% for provider in socialaccount_providers %}
+                                        <a title="{{ provider.name }}" class="socialaccount_provider {{ provider.id }} social-login-link" 
+                                            href="{% provider_login_url provider.id process="login" next=request.path  scope=scope auth_params=auth_params %}">
+                                            <img alt="{{ provider.name }}" class="social-login-icon" src="{% static 'images/' %}{{ provider.name }}logo.png" width="40" height="40">
+                                        </a>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        {% endif %}
                     </div>
                 </li>
             </ul>
-
-
-
         </div>
     {% endif %}
 
-    <div class="collapse navbar-collapse order-1 order-md-0 dual-collapse2" id="navbarColor01">
-        <ul class="navbar-nav ms-auto align-items-md-center">
+    <div class="collapse navbar-collapse order-1 order-md-0 dual-collapse2" id="navbarCollapseItems">
+        <ul class="navbar-nav ms-auto align-items-md-center ps-3 ps-md-0">
             {% get_menu 'main_menu' as main_menu %}
             {% if main_menu %}
                 {% get_menu_items main_menu request as navigation %}
@@ -166,7 +178,7 @@
     Template code loops through results, adds menu item flag + locale name + link to equiv page
     Assumes image for each language uploaded to Wagtail with title 'flag-lang_code' (eg flag-en, flag-fr etc) {% endcomment %}
 
-    {% comment %} <div class="collapse navbar-collapse order-2 dual-collapse2" style="max-width: 50px;" id="navbarColor01">
+    {% comment %} <div class="collapse navbar-collapse order-2 dual-collapse2" style="max-width: 50px;" id="navbarCollapseItems">
 
         <ul class="navbar-nav ms-auto bd-example-container-sidebar">   
             <li class="nav-item dropdown">
@@ -190,8 +202,8 @@
     </div> {% endcomment %}
 
 
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" 
-            aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapseItems" 
+            aria-controls="navbarCollapseItems" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
 </nav>

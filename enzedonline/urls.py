@@ -56,7 +56,7 @@ urlpatterns = urlpatterns + i18n_patterns(
     # Creates urls like yourwebsite.com/accounts/login/
     url(r'^accounts/', include('allauth.urls')),
 
-    url(r'^profile/', profile_view, name='account_profile'),
+    url(r'^accounts/profile/', profile_view, name='account_profile'),
     path('<slug:url>/update/', CustomUserUpdateView.as_view(template_name='account/update.html'), name='account_update'),
     path('<slug:url>/delete/', CustomUserDeleteView.as_view(template_name='account/delete.html'), name='account_delete'),
 

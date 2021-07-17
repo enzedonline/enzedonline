@@ -6,7 +6,6 @@
 {% block title %}{% trans "Sign in" %}{% endblock %}
 
 {% block card-header %}
-    {% get_next_url request as next_url %}
 <h3>{% trans "Sign in" %}</h3>
 {% endblock %}
 
@@ -24,12 +23,11 @@
             {% with field=form.password %}{% include "account/form_field.html" %}{% endwith %}
         </div>
         <input type="hidden" name="next" value="{{ next_url }}" />
-        Next: {{ next_url }}
         <button type="submit" class="btn btn-primary">{% trans "Sign in" %}</button>
     </form>
     {% if socialaccount_providers %}
         <br>
-        <p>{% blocktrans with site.name as site_name %}or sign in with one of your existing third party accounts:{% endblocktrans %}</p>
+        <p>{% blocktrans with site.name as site_name %}or sign in with one of your social accounts:{% endblocktrans %}</p>
         {% include "socialaccount/provider_list.html" with process="login" next=next_url %}
     {% endif %}
 
