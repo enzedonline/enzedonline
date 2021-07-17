@@ -180,3 +180,17 @@ code {
   padding: 2px;
   line-height: 0.6;
 }
+
+.enzed-blockquote {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: clamp(1.23046875rem, 0.9168rem + 0.9651vw, 1.640625rem);
+  font-weight: 300;
+  line-height: 1;
+}
+.enzed-blockquote-marks {
+  font-size: 5.5rem;
+  font-weight: 300;
+  line-height: 1;
+  padding: 0px;
+  margin: 0px;
+}

@@ -15,23 +15,21 @@ class HiddenCharBlock(CharBlock):
 
 class ColourThemeChoiceBlock(wagtail_blocks.ChoiceBlock):
     choices=[
-        ('bg-transparent', _("Transparent")),
+        ('text-black bg-transparent', _("Transparent")),
+        ('text-white bg-primary', _("Primary")),
+        ('text-white bg-secondary', _("Secondary")),
+        ('text-white bg-success', _("Success")),
+        ('text-white bg-info', _("Info")),
+        ('text-white bg-warning', _("Warning")),
+        ('text-white bg-danger', _("Danger")),
         ('text-black bg-light', _("Light")),
         ('text-white bg-dark', _("Dark")),
-        ('text-black bg-helene-green', _("Green")),
-        ('text-black bg-helene-faded-green', _("Faded Green")),
-        ('text-black bg-helene-grey-green', _("Grey Green")),
-        ('text-white bg-helene-coral', _("Coral")),
-        ('text-white bg-helene-magenta', _("Magenta")),
-        ('text-white bg-helene-blue', _("Blue")),
-        ('text-white bg-helene-cerise', _("Cerise")),
-        ('text-black bg-helene-moutard', _("Moutard")),
     ]
 
 class ButtonChoiceBlock(wagtail_blocks.ChoiceBlock):
     choices=[
         ('btn-primary', _("Standard Button")),
-        ('btn-btn-secondary', _("Secondary Button")),
+        ('btn-secondary', _("Secondary Button")),
         ('btn-link', _("Text Only")),
         ('btn-success', _("Success Button")),
         ('btn-danger', _("Danger Button")),
@@ -171,9 +169,9 @@ class SimpleRichTextBlock(wagtail_blocks.StructBlock):
     alignment = wagtail_blocks.ChoiceBlock(
         choices = [
             ('justify', 'Justified'), 
-            ('left', 'Left'), 
+            ('start', 'Left'), 
             ('center', 'Centre'), 
-            ('right', 'Right')
+            ('end', 'Right')
         ],
         default='justify'
     )

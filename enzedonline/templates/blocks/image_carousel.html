@@ -2,11 +2,11 @@
 
 <div class="mb-3 text-white bg-dark">
     {% if self.heading %}
-        <div class="y-2 pl-2" style="font-size: calc(0.5rem + 2vw)">
+        <div class="py-2 ps-2" style="font-size: calc(0.5rem + 2vw)">
             {{ self.heading }}
         </div>    
     {% endif %}
-    <div id="slideshow" class="carousel slide carousel-fade" data-ride="carousel">
+    <div id="slideshow" class="carousel slide carousel-fade" data-bs-ride="carousel">
         <div class="carousel-inner">
         {% for slide in self.carousel_images %}
         <div class="carousel-item {% if forloop.first %}active{% endif %}">
@@ -78,12 +78,12 @@
             {% if slide.value.title or slide.value.caption %}
                 <div class="carousel-caption pb-1 pt-0">
                     {% if slide.value.title %}
-                        <div class="pr-3 text-right" style="font-size: calc(0.5rem + 2vw)">
+                        <div class="pe-3 text-end" style="font-size: calc(0.5rem + 2vw)">
                             {{ slide.value.title }}
                         </div>
                     {% endif %}
                     {% if slide.value.caption %}
-                        <div class="pr-3 text-right" style="font-size: calc(0.4rem + 1vw)">
+                        <div class="pe-3 text-end" style="font-size: calc(0.4rem + 1vw)">
                             {{ slide.value.caption }}
                         </div>
                     {% endif %}
@@ -99,7 +99,7 @@
         class="carousel-control-prev"
         href="#slideshow"
         role="button"
-        data-slide="prev"
+        data-bs-slide="prev"
         >
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
         <span class="sr-only">Previous</span>
@@ -108,7 +108,7 @@
         class="carousel-control-next"
         href="#slideshow"
         role="button"
-        data-slide="next"
+        data-bs-slide="next"
         >
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="sr-only">Next</span>

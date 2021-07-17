@@ -89,6 +89,7 @@ class BlogDetailPage(SEOPage):
 
     content_panels = SEOPage.content_panels + [
         StreamFieldPanel("body"),
+        InlinePanel('customcomments', label=_("Comments")),    
     ]
 
     class Meta:

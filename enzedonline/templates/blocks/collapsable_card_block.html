@@ -2,28 +2,29 @@
 {% button_colour value.header_colour as banner %}
 
 <div mb-3 py-3>
-  &nbsp
-  <div class="accordion" id="collapsable_card_block" mb-3>
+  &nbsp;
+  <div class="accordion border-{{ banner.border }}" id="collapsable_card_block" mb-3>
     {% for card in value.cards %}
-      <div class="card mb-0 mt-0 border-0">
-        <div class="card-header p-0 mb-2" id="header{{ forloop.counter }}">
+      <div class="card mb-0 mt-0 border-{{ banner.border }}" style="border-radius: 0;">
+        <div class="card-header p-0 {{self.header_colour}}" id="header{{ forloop.counter }}" style="border-radius: 0;">
           <h3 class="mb-0">
-            <button class="btn btn-link btn-block text-left collapsed pb-0" type="button" data-toggle="collapse" data-target="#collapse{{ forloop.counter }}" aria-expanded="false" aria-controls="collapse{{ forloop.counter }}">
+            <button class="btn btn-link btn-block accordion-link text-start collapsed pb-0" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ forloop.counter }}" aria-expanded="false" aria-controls="collapse{{ forloop.counter }}">
               <h3><strong>{{ card.value.header|title }}</strong></h3>
             </button>
           </h3>
         </div>
-        <div id="collapse{{ forloop.counter }}" class="collapse {% if forloop.first %}show{% endif %}" aria-labelledby="heading{{ forloop.counter }}" data-parent="#collapsable_card_block">
-          <div class="card-body bg-transparent">
+        <div id="collapse{{ forloop.counter }}" class="collapse {% if forloop.first %}show{% endif %}" aria-labelledby="heading{{ forloop.counter }}" data-bs-parent="#collapsable_card_block">
+          <div class="card-body {{ self.body_colour }}">
             {% include_block card.value.text %}
           </div>
         </div>
       </div>
     {% endfor %}
+    &nbsp;
   </div>
 
   <style type="text/css">
-  .btn-link {
+  .accordion-link {
         font-weight: $font-weight-normal;
         color: {{ banner.text }};
         background-color: var(--{{ banner.background }});
@@ -61,7 +62,7 @@
 
       // No need for an active state here
     }
-    .btn-link:hover {
+    .accordion-link:hover {
         font-weight: $font-weight-normal;
         color: {{ banner.text }} !important;
         background-color: var(--{{ banner.background }});
@@ -72,3 +73,10 @@
         }
   </style>
 </div>
+
+<script>
+    $(".accordion-link").mouseup(function(){
+        $(this).blur();
+    })
+
+</script>

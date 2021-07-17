@@ -1,22 +1,31 @@
 {% load quote_tags %}
 {% quote_marks as quote_mark %}
 
-<div class="{{ self.background }}">
-<div class="row helene-blockquote pt-3 pl-3 pr-4">
-  <div class="p-0 mb-n3 mt-n2">
-    <table class="table text-center table_nopadding table-borderless helene-blockquote">
-      <tbody>
-        <tr>
-          <td><p class="{{ self.background }} {{ quote_mark.top_margin }}" style="font-size: 5.5rem; font-weight: 300; line-height: 0.5;">{{ quote_mark.open }}</p></td>
-          <td class="align-middle"><p class="helene-blockquote {{ self.background }}" style="font-weight: 300; line-height: 1;">{{ self.text | linebreaksbr }}<p></td>
-          <td><p class="{{ self.background }} {{ quote_mark.top_margin }}" style="font-size: 5.5rem; font-weight: 300; line-height: 0.5;">{{ quote_mark.close }}</p></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  {% if self.attribute_name %}
-      <div class="col-12 text-right">
-        <p><small>– {{ self.attribute_name }}</small></p>
-      </div>
-  {% endif %}
-</div></div>
+<div class="row enzed-blockquote px-3">
+  <table class="table text-center table_nopadding table-borderless {{ self.background }}">
+    <tbody>
+      <tr>
+        <td>
+          <span class="enzed-blockquote-marks">
+            {{ quote_mark.open }}
+          </span>
+        </td>
+        <td class="align-middle">
+          <span class="enzed-blockquote">
+            {{ self.text | linebreaksbr }}
+          </span>
+          {% if self.attribute_name %}
+              <div class="col-12 pt-2 text-end">
+                <span><small>– {{ self.attribute_name }}</small></span>
+              </div>
+          {% endif %}
+        </td>
+        <td>
+          <span class="enzed-blockquote-marks p-2">
+            {{ quote_mark.close }}
+          </span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

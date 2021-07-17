@@ -11,9 +11,11 @@ def quote_marks(context):
         quote_mark['open'] = "«"
         quote_mark['close'] = "»"
         quote_mark['top_margin'] = "mt-n2"
+        quote_mark['bottom_margin'] = ""
     else:
         quote_mark['open'] = "“"
         quote_mark['close'] = "”"
         quote_mark['top_margin'] = "mt-4"
+        quote_mark['bottom_margin'] = "mb-n4"
 
     return quote_mark
