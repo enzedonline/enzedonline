@@ -6,9 +6,9 @@
 <footer class="footer">
   <nav class="navbar navbar-dark bg-dark py-1">
     <div>
-      <ul class="nav bg-dark pr-4">
+      <ul class="nav bg-transparent px-2">
         {% for icon in social_media_icons %}
-        <li class="nav-item px-1">
+        <li class="nav-item px-2">
           <a href="{{ icon.link }}" title="{{ icon.alt }}">
             <img src="{{ icon.image }}" alt="{{ icon.alt }}" />
           </a>
@@ -29,9 +29,9 @@
       {% endfor %}
     {% endif %}
 
-    <div class="py-0 mb-n3 d-none d-sm-block justify-content-right content-align-middle text-muted">
-      <a class="nav-link text-decoration-none" href="http://enzedonline.com"
-        ><small class="py-0">Website by Enzedonline.com</small></a
+    <div class="py-0 mb-n3 d-none d-sm-block justify-content-end content-align-middle text-muted">
+      <a class="nav-link text-decoration-none text-light" href="http://enzedonline.com"
+        ><small class="py-0">Website by Enzed Online</small></a
       >
     </div>
   </nav>

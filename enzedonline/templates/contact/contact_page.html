@@ -4,10 +4,10 @@
 
 <div class="container-fluid pt-0 pt-md-2 px-3 px-sm-5 pb-4 mt-md-3">
     <div class="d-block d-md-none">
-      &nbsp
+      &nbsp;
     </div>
     <div class="row">
-      <div class="col-md-5 pr-sm-5">
+      <div class="col-md-5 pe-sm-5">
         {% for block in page.intro_text %}
             {% include_block block with block_id=block.id %}
         {% endfor %}
@@ -31,13 +31,13 @@
           <hr>
         </div>
       </div>
-      <div class="col-md-7 px-sm-5 border-left">
-        <div class="card bg-helene-faded-green p-3">
+      <div class="col-md-7 px-sm-5 border-start">
+        <div class="card bg-info p-3">
           <div class="card-body p-0 mb-n3 privacy-notice">
             {{ self.privacy_notice|richtext }}
           </div>
         </div>        
-        <p>&nbsp</p>
+        <p>&nbsp;</p>
         <form action="{% pageurl page %}" enctype="multipart/form-data" method="POST">
           {% csrf_token %} 
           
@@ -94,7 +94,7 @@
                       <small>&nbsp;</small>
                     {% endif %}
                   </div>
-                  <div {% if field.errors %}class="col-auto text-right"{% else %}class="col"{% endif %}>
+                  <div {% if field.errors %}class="col-auto text-end"{% else %}class="col"{% endif %}>
                     {% if field.errors %}
                       <ul class="list-unstyled">
                         {% for error in field.errors %}

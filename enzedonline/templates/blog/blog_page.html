@@ -31,8 +31,16 @@
     </picture>
     {% if blog_index.banner_headline or blog_index.banner_small_text %}
     <div class="banner-overlay-text-block" style="self-fit: cover;">
-      {% if blog_index.banner_headline %}<div class="display-6" style="font-size:calc(0.5rem + 2vw);">{{ blog_index.banner_headline }}</div>{% endif %}
-      {% if blog_index.banner_headline %}<div class="display-8" style="font-size:calc(0.4rem + 1vw);"><a href="{{ blog_index.url }}" class="text-light">{{ blog_index.banner_small_text }}</a></div>{% endif %}
+      {% if blog_index.banner_headline %}
+        <div class="display-6" style="font-size:calc(0.5rem + 2vw);">
+          {{ blog_index.banner_headline }}
+        </div>
+      {% endif %}
+      {% if blog_index.banner_small_text %}
+        <div class="display-8" style="font-size:calc(0.4rem + 1vw);">
+          <a href="{{ blog_index.url }}" class="text-light">{{ blog_index.banner_small_text }}</a>
+        </div>
+      {% endif %}
     </div>
     {% endif %}
   </div>
