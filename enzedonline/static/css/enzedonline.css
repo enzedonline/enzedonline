@@ -88,7 +88,9 @@ a {
   color: #4582ec;
   text-decoration: none;
 }
-
+.btn {
+  border-radius: 0.5em;
+}
 .sticky {
   position: -webkit-sticky;
   position: sticky;
