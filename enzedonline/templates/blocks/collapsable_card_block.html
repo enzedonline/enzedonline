@@ -5,77 +5,25 @@
   &nbsp;
   <div class="accordion border-{{ banner.border }}" id="collapsable_card_block" mb-3>
     {% for card in value.cards %}
-      <div class="card mb-0 mt-0 border-{{ banner.border }}" style="border-radius: 0;">
-        <div class="card-header p-0 {{self.header_colour}}" id="header{{ forloop.counter }}" style="border-radius: 0;">
-          <h3 class="mb-0">
-            <button class="btn btn-link btn-block accordion-link text-start collapsed pb-0" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ forloop.counter }}" aria-expanded="false" aria-controls="collapse{{ forloop.counter }}">
-              <h3><strong>{{ card.value.header|title }}</strong></h3>
-            </button>
-          </h3>
-        </div>
-        <div id="collapse{{ forloop.counter }}" class="collapse {% if forloop.first %}show{% endif %}" aria-labelledby="heading{{ forloop.counter }}" data-bs-parent="#collapsable_card_block">
-          <div class="card-body {{ self.body_colour }}">
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="header{{ forloop.counter }}">
+          <button class="accordion-button {{self.header_colour}}{% if not forloop.first %} collapsed{% endif %}" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ forloop.counter }}" aria-expanded="false" aria-controls="collapse{{ forloop.counter }}">
+            {{ card.value.header|title }}
+          </button>
+        </h2>
+        <div id="collapse{{ forloop.counter }}" class="accordion-collapse{% if not forloop.first %} collapse{% endif %}" aria-labelledby="heading{{ forloop.counter }}" data-bs-parent="#collapsable_card_block" style="">
+          <div class="accordion-body {{ self.body_colour }}">
             {% include_block card.value.text %}
           </div>
         </div>
       </div>
     {% endfor %}
-    &nbsp;
   </div>
-
-  <style type="text/css">
-  .accordion-link {
-        font-weight: $font-weight-normal;
-        color: {{ banner.text }};
-        background-color: var(--{{ banner.background }});
-        border-radius: 0px;
-        border-color: transparent;
-        border: 0px;
-        text-decoration: none !important;
-
-      @include hover {
-        font-weight: $font-weight-normal;
-        color: {{ banner.text }} !important;
-        background-color: var(--{{ banner.background }});
-        border-radius: 0px;
-        border-color: transparent;
-        border: 0px;
-        text-decoration: none !important;
-      }
-
-      &:focus,
-      &.focus {
-        font-weight: $font-weight-normal;
-        color: {{ banner.text }} !important;
-        background-color: var(--{{ banner.background }});
-        border-radius: 0px;
-        border-color: transparent;
-        border: 0px;
-        text-decoration: none !important;
-      }
-
-      &:disabled,
-      &.disabled {
-        color: $btn-link-disabled-color;
-        pointer-events: none;
-      }
-
-      // No need for an active state here
-    }
-    .accordion-link:hover {
-        font-weight: $font-weight-normal;
-        color: {{ banner.text }} !important;
-        background-color: var(--{{ banner.background }});
-        border-radius: 0px;
-        border-color: transparent;
-        border: 0px;
-        text-decoration: none !important;
-        }
-  </style>
+  &nbsp;
 </div>
 
 <script>
-    $(".accordion-link").mouseup(function(){
+    $(".accordion-button").mouseup(function(){
         $(this).blur();
     })
 
