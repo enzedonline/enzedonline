@@ -15,6 +15,7 @@ INSTALLED_APPS = [
     'contact',
     'userauth',
 
+    'rest_framework',
     'dbbackup',
     'wagtailmetadata',
     'wagtailfontawesome',

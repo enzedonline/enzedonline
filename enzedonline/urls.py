@@ -5,12 +5,13 @@ from django.conf.urls.i18n import i18n_patterns
 from django.contrib import admin
 from django.urls import include, path
 from django.views import defaults as default_views
+from django.views.i18n import JavaScriptCatalog
 from search import views as search_views
+from userauth.views import *
 from wagtail.admin import urls as wagtailadmin_urls
 from wagtail.contrib.sitemaps.views import sitemap
 from wagtail.core import urls as wagtail_urls
 from wagtail.documents import urls as wagtaildocs_urls
-from userauth.views import *
 
 
 def trigger_error(request):
@@ -24,6 +25,7 @@ urlpatterns = [
     url(r'^sitemap.xml$', sitemap),
     url(r'^comments/', include('django_comments_xtd.urls')),
     path('sentry-debug/', trigger_error),
+    path(r'jsi18n/', JavaScriptCatalog.as_view(), name='javascript-catalog'),
 
     # Language Switcher
     # path('lang/<str:language_code>/', set_language_from_url, name='set_language_from_url'),
