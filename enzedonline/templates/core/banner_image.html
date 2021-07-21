@@ -20,14 +20,14 @@
     />
   </picture>
   {% if self.banner_headline or self.banner_small_text %}
-  <div class="banner-overlay-text-block ps-2 ps-md-3 ps-lg-4" style="object-fit: cover;">
+  <div class="banner-overlay-text-block ps-2 ps-md-3 ps-lg-4 pt-1">
     {% if self.banner_headline %}
-      <div class="display-6" style="font-size: clamp(0.9rem, 0.2734rem + 2.7848vw, 2rem);">
+      <div class="banner-headline">
         {{ self.banner_headline }}
       </div>
     {% endif %}
     {% if self.banner_small_text %}
-      <div class="display-8" style="font-size:calc(0.4rem + 1vw);">
+      <div class="banner-subheading">
         {{ self.banner_small_text }}
       </div>
     {% endif %}

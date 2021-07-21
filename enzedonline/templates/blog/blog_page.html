@@ -52,14 +52,14 @@
       <img src="{{ fallback.url }}" alt="{{ self.title }}" style="width: 100%; height: auto"/>
     </picture>
     {% if blog_index.banner_headline or blog_index.banner_small_text %}
-      <div class="banner-overlay-text-block" style="self-fit: cover">
+      <div class="banner-overlay-text-block ps-2 ps-md-3 ps-lg-4 pt-1 pt-md-0">
         {% if blog_index.banner_headline %}
-          <div class="display-6" style="font-size: calc(0.5rem + 2vw)">
+          <div class="banner-headline">
             {{ blog_index.banner_headline }}
           </div>
         {% endif %} 
         {% if blog_index.banner_small_text %}
-          <div class="display-8" style="font-size: calc(0.4rem + 1vw)">
+          <div class="banner-subheading">
             <a href="{{ blog_index.url }}" class="text-light">{{ blog_index.banner_small_text }}</a>
           </div>
         {% endif %}
@@ -69,22 +69,9 @@
 
 {% endwith%}
 
-{% comment %} <div class="container-fluid pt-3 px-2 px-sm-5 pb-2">
-  <nav class="navbar navbar-expand navbar-dark bg-info">
-    <div class="navbar-text px-3 text-light">Posted in:</div>
-    <div class="navbar-nav">
-      {% for item in self.categories.all %}
-        <a class="nav-link active" href="{{ self.get_parent.url }}?category={{item.slug}}">
-          {{ item.name }}
-        </a>
-      {% endfor %}
-    </div>
-  </nav>
-</div> {% endcomment %}
-
-<div class="container-fluid pt-2 px-2 px-sm-5 pb-5">
-  <div class="row rounded bg-info py-2 px-2 mt-3 mb-2 d-flex flex-nowrap border-primary border-1">
-      <div class="col-auto text-light d-flex flex-nowrap">
+<div class="container-fluid pt-1 px-2 px-sm-5 pb-1">
+  <div class="row rounded bg-info py-2 px-3 mx-1 my-2 border-primary border-1">
+      <div class="col-auto category-link d-flex flex-nowrap pe-3">
           Posted in:
       </div>
       <div class="col">
@@ -119,30 +106,31 @@
 
 {% get_comment_count for page as comment_count %}
 <div class="container-fluid pt-3 px-2 px-sm-5 pb-1">
-  <div class="card text-white bg-info mb-2">
-    <div class="card-header">Comments:</div>
-  </div>
-  {% if comment_count %} 
-    {% render_xtdcomment_tree for page allow_feedback show_feedback %} 
-  {% endif %} 
+  <div class="card text-whitemb-2">
+    <div class="comments-header bg-info ">
+      Comments:
+    </div>
+    <div class="card-body">
+      {% if comment_count %} 
+        {% render_xtdcomment_tree for page allow_feedback show_feedback %} 
+      {% endif %} 
+    </div>
   
   {% if not request.user.is_authenticated %}
-    <div id="id_comment_invite" class="container-fluid mt-4">
-      <p>
+    <div id="id_comment_invite" class="container-fluid mt-1">
         <a href="#" id="id_login_first_link">
           {% trans "Sign in" %}
         </a>
         {% trans " to leave a comment." %}
-      </p>
     </div>
   {% else %}
-    <div class="container-fluid mt-4 comment-form">
+    <div class="container-fluid mt-1 mt-sm-2 mt-md-3 comment-form">
       {% render_comment_form for page %}
     </div>
   {% endif %}
 
   {% if not request.user.is_authenticated %}
-  <div class="container mt-4 ms-0">
+  <div class="container mt-1 mt-sm-2 mt-md-3 ms-0">
     <form method="POST" id="id_login_form" action="{% url 'account_login' %}" style="display: none" class="needs-validation" novalidate>
       {% csrf_token %}
       <div class="row align-items-end">
@@ -164,17 +152,20 @@
       </div>
     {% get_providers as socialaccount_providers %}
     {% if socialaccount_providers %}
-        <p>{% blocktrans with site.name as site_name %}Connect with Social Media:{% endblocktrans %}</p>
+        {% blocktrans with site.name as site_name %}Connect with Social Media:{% endblocktrans %}
+        <div class="py-2">
         {% for provider in socialaccount_providers %}
             <a title="{{ provider.name }}" class="socialaccount_provider {{ provider.id }} social-login-link" 
                 href="{% provider_login_url provider.id process="login" next=request.path  scope=scope auth_params=auth_params %}">
                 <img alt="{{ provider.name }}" class="social-login-icon" src="{% static 'images/' %}{{ provider.name }}logo.png" width="40" height="40">
             </a>
         {% endfor %}
+        </div>
     {% endif %}
     <p><a href="{% url 'account_signup' %}">Sign up</a> with email address.</p>
     </form>
-    
+    </div>
+  
   </div>
   {% endif %} 
   

@@ -22,7 +22,7 @@
       {% get_menu_items privacy_menu request as privacy_menu_items %}
       {% for privacy_page in privacy_menu_items %}
         <span class="justify-content-center content-align-middle">
-          <a class="nav-link footer-nav-link px-3" href="{{ privacy_page.url }}"
+          <a class="footer-nav-link" href="{{ privacy_page.url }}"
             ><span class="fw-light">{{ privacy_page.title }}</span></a
           >
         </span>
@@ -30,8 +30,8 @@
     {% endif %}
 
     <div class="py-0 mb-n3 d-none d-sm-block justify-content-end content-align-middle text-muted">
-      <a class="nav-link text-decoration-none text-light py-0" href="http://enzedonline.com"
-        ><small class="py-0">Website by Enzed Online</small></a
+      <a class="footer-nav-link" href="http://enzedonline.com"
+        ><small>Website by Enzed Online</small></a
       >
     </div>
   </nav>
