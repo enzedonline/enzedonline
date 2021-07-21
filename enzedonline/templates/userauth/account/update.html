@@ -18,41 +18,44 @@
                 <div class="form-group">
                     {% with field=form.display_name %}{% include "account/form_field.html" %}{% endwith %}
                 </div>
-                <div class="form-row">
-                    <div class="form-group col-md">
+                <div class="row">
+                    <div class="form-group col-sm">
                         {% with field=form.first_name %}{% include "account/form_field.html" %}{% endwith %}
                     </div>
-                    <div class="form-group col-md">
+                    <div class="form-group col-sm">
                         {% with field=form.last_name %}{% include "account/form_field.html" %}{% endwith %}
                     </div>
                 </div>
-                <div class="form-row">
-                    <div class="form-group col-md">
+                <div class="row">
+                    <div class="form-group col-sm">
                         {% with field=form.city %}{% include "account/form_field.html" %}{% endwith %}
                     </div>
-                    <div class="form-group col-md">
+                    <div class="form-group col-sm">
                         {% with field=form.country %}{% include "account/form_field.html" %}{% endwith %}
                     </div>
                 </div>
-                <div class="form-group">
-                    <img src="{{ request.user.photo.url }}" class="profile-image" alt="{% trans 'User photo' %}" height="60px" width="60px">
-                    <br>
-                    {% with field=form.photo %}{% include "account/form_field.html" %}{% endwith %}
+                <div class="form-group border-top border-bottom py-2">
+                    <h5>{{form.photo.label}}:</h5>
+                    <img src="{{ request.user.photo.url }}" class="profile-image mb-3 avatar" alt="{% trans 'User photo' %}" height="60px" width="60px">
+                    <input type="file" name="photo" accept="image/*" class="form-control input-field-photo" id="id_photo">
                 </div>
                 <button type="submit" class="btn btn-primary">{% trans "Update" %}</button>
             </form>
         </div>
-    <div class="col-md-4 pt-3 pt-md-0">
-    {% if socialaccount_providers %}
-        <p>{% blocktrans with site.name as site_name %}Connect your existing account to one of your social accounts:{% endblocktrans %}</p>
-        {% include "socialaccount/provider_list.html" with process="connect" %}
-    {% endif %}
+        <div class="col-md-4 pt-3 pt-md-0">
+            {% if socialaccount_providers %}
+                <p>{% blocktrans with site.name as site_name %}Connect your existing account to one of your social accounts:{% endblocktrans %}</p>
+                {% include "socialaccount/provider_list.html" with process="connect" %}
+            {% endif %}
+        </div>
     </div>
-    </div>
-    <div class="text-center py-2">
+    &nbsp;
+{% endblock %}
+
+{% block card-footer %}
+    <div class="text-center">
         <small>
-            <a href="{% url 'account_delete' request.user.url %}" class="text-muted">{% trans "Delete your account" %}</a>
+            <a href="{% url 'account_delete' request.user.url %}" class="btn btn-sm btn-outline-danger">{% trans "Delete your account" %}</a>
         </small>
     </div>
-
 {% endblock %}

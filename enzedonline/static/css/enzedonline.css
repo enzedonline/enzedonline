@@ -97,10 +97,20 @@ a {
 .btn {
   border-radius: 0.5em;
 }
-.footer-nav-link,
-.footer-nav-link.active {
+.category-link {
   color: var(--bs-light) !important;
   padding: 0px;
+}
+.category-link.active{
+  color: var(--bs-white) !important;
+  font-weight: 500;
+}
+.footer-nav-link {
+  color: var(--bs-light) !important;
+  padding: 0px;
+}
+.footer-nav-link.active{
+  color: var(--bs-white) !important;
 }
 .privacy-notice {
   font-size: 0.8em;
@@ -231,5 +241,36 @@ code {
 
 .accordion-button:not(.collapsed)::after {
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23343a40'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+}
+
+.form-text {
+  font-size: clamp(0.9rem, 0.8235rem + 0.2353vw, 1rem);
+}
+.form-control {
+  font-size: clamp(0.9rem, 0.8235rem + 0.2353vw, 1rem);
+}
+.form-control-sm {
+  font-size: clamp(0.84375rem, 0.7721rem + 0.2206vw, 0.9375rem);
+}
+.form-select {
+  font-size: clamp(0.9rem, 0.8235rem + 0.2353vw, 1rem);
+}
+.form-select-sm {
+  font-size: clamp(0.84375rem, 0.7721rem + 0.2206vw, 0.9375rem);
+}
+.input-group-text {
+  font-size: clamp(0.9375rem, 0.7583rem + 0.5515vw, 1.1718756rem);
+}
+.input-group-sm > .form-control,
+.input-group-sm > .form-select,
+.input-group-sm > .input-group-text,
+.input-group-sm > .btn {
+  font-size: clamp(0.84375rem, 0.7721rem + 0.2206vw, 0.9375rem);
+}
+.valid-feedback {
+  font-size: clamp(0.84375rem, 0.7721rem + 0.2206vw, 0.9375rem);
+}
+.invalid-feedback {
+  font-size: clamp(0.84375rem, 0.7721rem + 0.2206vw, 0.9375rem);
 }
 

@@ -31,16 +31,14 @@
         {% endif %}
 
         <div class="form-group custom-control custom-checkbox">
-            <small>
                 {{ form.followup }}
                 <label for="id_followup{% if cid %}_{{ cid }}{% endif %}" class="custom-control-label">&nbsp;{{ form.followup.label }}</label>
-            </small>
         </div>
 
     </fieldset>
 
     <div class="form-group">
-        <input type="submit" name="post" value="{% trans 'Send' %}" class="btn btn-primary btn-sm" />
-        <input type="submit" name="preview" value="{% trans 'Preview' %}" class="btn btn-secondary btn-sm" />
+        <input type="submit" name="post" value="{% trans 'Send' %}" class="btn btn-primary me-3" />
+        <input type="submit" name="preview" value="{% trans 'Preview' %}" class="btn btn-secondary" />
     </div>
 </form>

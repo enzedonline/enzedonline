@@ -1,3 +1,4 @@
+from allauth.account.forms import LoginForm
 from core.blocks import GridStreamBlock
 from core.models import SEOPage
 from django import forms
@@ -12,12 +13,13 @@ from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalManyToManyField
 from modelcluster.models import ParentalKey
 from taggit.models import Tag, TaggedItemBase
-from wagtail.admin.edit_handlers import (FieldPanel, MultiFieldPanel, InlinePanel,
-                                         StreamFieldPanel)
+from wagtail.admin.edit_handlers import (FieldPanel, InlinePanel,
+                                         MultiFieldPanel, StreamFieldPanel)
 from wagtail.core.fields import StreamField
 from wagtail.core.models import TranslatableMixin
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.snippets.models import register_snippet
+
 
 @register_snippet
 class TechBlogCategory(TranslatableMixin, models.Model):
@@ -117,6 +119,10 @@ class BlogDetailPage(SEOPage):
 
         return context
 
+    def serve(self, request, *args, **kwargs):
+        response = super().serve(request, 'blog/blog_page.html')
+        response.context_data['login_form'] = LoginForm()
+        return response
 
 
     # def flush_cache_fragments(self, fragment_keys):

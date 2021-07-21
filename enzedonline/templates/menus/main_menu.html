@@ -72,7 +72,7 @@
                             <hr class="dropdown-divider">
                             {% get_providers as socialaccount_providers %}
                             {% if socialaccount_providers %}
-                                <span class="text-nowrap px-3">Login with social account</span>
+                                <span class="text-nowrap px-3">Log in with social account</span>
                                 <div class="dropdown-item">
                                     {% for provider in socialaccount_providers %}
                                         <a title="{{ provider.name }}" class="socialaccount_provider {{ provider.id }} social-login-link" 
