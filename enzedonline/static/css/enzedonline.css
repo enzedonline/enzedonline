@@ -323,3 +323,11 @@ code {
   font-size: clamp(0.84375rem, 0.7721rem + 0.2206vw, 0.9375rem);
 }
 
+.order-xs-first {
+  -ms-flex-order: -1 !important;
+  order: -1 !important;
+}
+.order-xs-last {
+  -ms-flex-order: 6 !important;
+  order: 6 !important;
+}
