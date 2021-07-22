@@ -2,9 +2,8 @@ from django.conf import settings
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel
-from wagtail.core.models import Page, TranslatableMixin
+from wagtail.core.models import Page
 from wagtail.images.edit_handlers import ImageChooserPanel
-from wagtail.snippets.models import register_snippet
 from wagtailcaptcha.models import WagtailCaptchaEmailForm
 from wagtailmetadata.models import WagtailImageMetadataMixin
 
@@ -16,21 +15,22 @@ def get_image_model_string():
     return image_model
 
 class SEOPageMixin(WagtailImageMetadataMixin, models.Model):
-    """An implementation of MetadataMixin for Wagtail pages."""
     search_image = models.ForeignKey(
         get_image_model_string(),
         null=True,
         blank=False,
         related_name='+',
         on_delete=models.SET_NULL,
-        verbose_name=_('Search Image')
+        verbose_name=_('Search Image'),
+        help_text=_("The image to use on previews of this page on external links and search results. \
+                     This will also be the image used for blog posts on the index pages.")
     )
 
     summary = models.TextField(
         null=False,
         blank=False,
         help_text=_("A summary of the page to be used on index pages. \
-                     If Search Description is left blank, this text will be used on searh results and link previews.")
+                     If Meta Description is left blank, this text will be used on search results and link previews.")
     )
 
     content_panels = Page.content_panels + [
@@ -41,7 +41,6 @@ class SEOPageMixin(WagtailImageMetadataMixin, models.Model):
         MultiFieldPanel([
             FieldPanel('slug'),
             FieldPanel('seo_title'),
-            FieldPanel('show_in_menus'),
             FieldPanel('search_description'),
             ImageChooserPanel('search_image'),
         ], _('Common page configuration')),
