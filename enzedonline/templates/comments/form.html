@@ -14,7 +14,7 @@
 
         <div style="display:none">{{ form.honeypot }}</div>
 
-        <div class="form-group">
+        <div class="form-group mb-1">
             {% with field=form.comment %}{% include "userauth/account/form_field.html" %}{% endwith %}
         </div>
 
@@ -30,9 +30,11 @@
             </div>
         {% endif %}
 
-        <div class="form-group custom-control custom-checkbox">
+        <div class="form-group custom-control custom-checkbox ms-1">
+            <small>
                 {{ form.followup }}
                 <label for="id_followup{% if cid %}_{{ cid }}{% endif %}" class="custom-control-label">&nbsp;{{ form.followup.label }}</label>
+            </small>
         </div>
 
     </fieldset>

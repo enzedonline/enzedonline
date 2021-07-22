@@ -23,16 +23,16 @@
       {% for privacy_page in privacy_menu_items %}
         <span class="justify-content-center content-align-middle">
           <a class="footer-nav-link" href="{{ privacy_page.url }}"
-            ><span class="fw-light">{{ privacy_page.title }}</span></a
+            >{{ privacy_page.title }}</a
           >
         </span>
       {% endfor %}
     {% endif %}
 
     <div class="py-0 mb-n3 d-none d-sm-block justify-content-end content-align-middle text-muted">
-      <a class="footer-nav-link" href="http://enzedonline.com"
-        ><small>Website by Enzed Online</small></a
-      >
+      <a class="footer-nav-link" href="http://enzedonline.com">
+        <span class="fw-light small">Website by Enzed Online</span>
+      </a>
     </div>
   </nav>
 

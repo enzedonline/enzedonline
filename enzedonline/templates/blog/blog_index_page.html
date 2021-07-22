@@ -1,18 +1,20 @@
 {% extends "base.html" %}
 {% load static wagtailimages_tags wagtailcore_tags %}
 
-
+{# Page Banner #}
 {% block content %}
 {% include 'core/banner_image.html' %}
 
-<div class="container-fluid pt-0 pt-md-2 px-2 px-sm-5 pb-4">
+<div class="container-fluid mt-3 pt-0 pt-md-2 px-2 px-sm-5 pb-4">
 
+    {# Top Content Section #}
     {% for block in page.top_section %}
         {% include_block block %}
     {% endfor %}
 
+    {# Categories #}
     <div class="row rounded bg-info py-2 px-3 mx-1 my-2 border-primary border-1">
-        <div class="col-auto category-link d-flex flex-nowrap pe-3">
+        <div class="col-auto category-link active d-flex flex-nowrap pe-3">
             Filter by Category
         </div>
         <div class="col">
@@ -25,11 +27,12 @@
             </div>        
         </div>        
         <div class="col-auto text-light justify-content-end px-0">
-            <a href="." class="btn btn-sm btn-dark m-n2" role="button" title="Clear filter"><small>X</small></a>
+            <a href="." class="btn btn-sm btn-close btn-close-white m-n2" role="button" title="Clear filter"></a>
         </div>
     </div>
 
-    <div class="row p-2 row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 justify-content-center">
+    {# Blog List #}
+    <div class="row p-2 mt-2 mt-sm-3 mt-md-4 row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 justify-content-center">
 
         {% for post in posts %}
             <div class="col mx-0 mb-4">
@@ -51,7 +54,8 @@
                     </picture>
                     <div class="card-body">
                         <h5 class="card-title">{{ post.title }}</h5>
-                        <p class="card-text"><small class="text-muted">{{ post.first_published_at }}</small></p>
+                        <p class="blog-summary">{{ post.summary|linebreaksbr }}</p>
+                        <p class="blog-summary small">{{ post.first_published_at }}</small></p>
                     </div>
                     <a href="{{post.url}}{{filter}}" class="stretched-link"></a>
                 </div>
@@ -59,11 +63,13 @@
         {% endfor %}
     </div>
 
+    {# Bottom Content Section #}
     {% for block in page.bottom_section %}
         {% include_block block %}
     {% endfor %}
 </div>
 
+{# Paginator #}
 <div>
     {% if posts.paginator.num_pages > 1 %}
         <nav aria-label="...">

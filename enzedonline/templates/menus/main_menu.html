@@ -28,7 +28,7 @@
             <div class="order-0 order-md-1 pe-2 pe-md-0 ms-auto me-0">
                 <ul class="navbar-nav flex-row flex-nowrap ms-auto me-0">
                     <li class="nav-item">
-                        <a class="nav-link{% if request.path == item.url %} active{% endif %}" href="{{item.url}}">                            
+                        <a class="nav-link {% if request.path == item.url %} active{% endif %}" href="{{item.url}}">                            
                             {% if item.icon %}
                                 {% image item.icon fill-25x25 class="image-menu" %}
                             {% endif %}
