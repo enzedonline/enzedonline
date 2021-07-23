@@ -12,27 +12,27 @@
         {% include_block block %}
     {% endfor %}
 
-    {# Categories #}
-    <div class="container py-2 ps-2 ps-md-4 rounded bg-info border-primary border-1">
+    {# Filter #}
+    <div class="container-fluid py-2 ps-2 ps-md-4 rounded bg-info border-primary border-1">
         <div class="row">
             <div class="col-auto text-white h5 pb-0 fw-bolder active">
-                Filter:
+                <span  id='filter'>Filter:</span>
             </div>
             <div class="col-auto text-light ms-auto me-3 justify-content-end px-0">
-                <a href="." class="btn btn-sm btn-close btn-close-white m-n2" role="button" title="Clear filter"></a>
+                <a href=".#filter" class="btn btn-sm btn-close btn-close-white m-n2" role="button" title="Clear filter"></a>
             </div>
         </div>
         <div class="row">
             {% for item in categories %}
                 <div class="col-auto">
-                    <a class="category-link{% if item.slug == category_filter %} active{% endif %}" href="?category={{item.slug}}">{{ item.name }}</a>
+                    <a class="category-link{% if item.slug == category_filter %} active{% endif %}" href="?category={{item.slug}}#filter">{{ item.name }}</a>
                 </div>        
             {% endfor %}
         </div>        
         <div class="row">
             {% for item in tags %}
                 <div class="col-auto">
-                    <a class="tag-link{% if item.slug == tag_filter %} active{% endif %}" href="?tag={{item.slug}}">#{{ item.name }}</a>
+                    <a class="tag-link{% if item.slug == tag_filter %} active{% endif %}" href="?tag={{item.slug}}#filter">#{{ item.name }}</a>
                 </div>        
             {% endfor %}
         </div>        
@@ -40,7 +40,8 @@
     </div>
 
     {# Blog List #}
-    <div class="row p-2 mt-2 mt-sm-3 mt-md-4 row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 justify-content-center">
+    <span id='list'></span>
+    <div class="row p-2 mt-2 mt-sm-3 mt-md-4 row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xxl-4 justify-content-center">
         {% for post in posts %}
             <div class="col mx-0 mb-4">
                 <div class="card h-100 p-2">
@@ -60,7 +61,7 @@
                         />
                     </picture>
                     <div class="card-body">
-                        <h5 class="card-title">{{ post.title }}</h5>
+                        <h4 class="card-title fw-bolder">{{ post.title }}</h4>
                         <p class="blog-summary">{{ post.summary|linebreaksbr }}</p>
                         <p class="blog-summary small">{{ post.first_published_at }}</small></p>
                     </div>
@@ -82,10 +83,10 @@
         <nav aria-label="...">
             <ul class="pagination justify-content-center">
                 <li class="page-item {% if not posts.has_previous %}disabled{% endif %}">
-                    <a class="page-link" href="{% if posts.has_previous %}?page=1{% endif %}" tabindex="-1" {% if not posts.has_previous %}aria-disabled="true"{% endif %}><span>&laquo;&laquo;</span></a>
+                    <a class="page-link" href="{% if posts.has_previous %}?page=1#list{% endif %}" tabindex="-1" {% if not posts.has_previous %}aria-disabled="true"{% endif %}><span>&laquo;&laquo;</span></a>
                 </li>
                 <li class="page-item {% if not posts.has_previous %}disabled{% endif %}">
-                    <a class="page-link" href="{% if posts.has_previous %}?page={{ posts.previous_page_number }}{% endif %}" tabindex="-1" {% if not posts.has_previous %}aria-disabled="true"{% endif %}><span>&laquo;</span></a>
+                    <a class="page-link" href="{% if posts.has_previous %}?page={{ posts.previous_page_number }}#list{% endif %}" tabindex="-1" {% if not posts.has_previous %}aria-disabled="true"{% endif %}><span>&laquo;</span></a>
                 </li>
                 {% if page_range_first > 1 %}
                     <li class="page-item disabled">
@@ -95,11 +96,11 @@
                 {% for page_num in page_range %}
                     {% if page_num == posts.number %}
                         <li class="page-item active" aria-current="page">
-                            <a class="page-link" href="?page={{ page_num }}">{{ page_num }} <span class="sr-only">(current)</span></a>
+                            <a class="page-link" href="?page={{ page_num }}#list">{{ page_num }} <span class="sr-only">(current)</span></a>
                         </li>      
                     {% else %}
                         <li class="page-item" aria-current="page">
-                            <a class="page-link" href="?page={{ page_num }}">{{ page_num }}</a>
+                            <a class="page-link" href="?page={{ page_num }}#list">{{ page_num }}</a>
                         </li>      
                     {% endif %}          
                 {% endfor %}
@@ -109,10 +110,10 @@
                     </li>      
                 {% endif %}
                 <li class="page-item {% if not posts.has_next %}disabled{% endif %}">
-                    <a class="page-link" href="{% if posts.has_next %}?page={{ posts.next_page_number }}{% endif %}" {% if not posts.has_previous %}aria-disabled="true"{% endif %}><span>&raquo;</span></a>
+                    <a class="page-link" href="{% if posts.has_next %}?page={{ posts.next_page_number }}#list{% endif %}" {% if not posts.has_previous %}aria-disabled="true"{% endif %}><span>&raquo;</span></a>
                 </li>
                 <li class="page-item {% if not posts.has_next %}disabled{% endif %}">
-                    <a class="page-link" href="{% if posts.has_next %}?page={{ posts.paginator.num_pages }}{% endif %}" {% if not posts.has_next %}aria-disabled="true"{% endif %}><span>&raquo;&raquo;</span></a>
+                    <a class="page-link" href="{% if posts.has_next %}?page={{ posts.paginator.num_pages }}#list{% endif %}" {% if not posts.has_next %}aria-disabled="true"{% endif %}><span>&raquo;&raquo;</span></a>
                 </li>
             </ul>
         </nav>    
