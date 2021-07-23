@@ -13,27 +13,34 @@
     {% endfor %}
 
     {# Categories #}
-    <div class="row rounded bg-info py-2 px-3 mx-1 my-2 border-primary border-1">
-        <div class="col-auto category-link active d-flex flex-nowrap pe-3">
-            Filter by Category
+    <div class="container py-2 ps-2 ps-md-4 rounded bg-info border-primary border-1">
+        <div class="row">
+            <div class="col-auto text-white h5 pb-0 fw-bolder active">
+                Filter:
+            </div>
+            <div class="col-auto text-light ms-auto me-3 justify-content-end px-0">
+                <a href="." class="btn btn-sm btn-close btn-close-white m-n2" role="button" title="Clear filter"></a>
+            </div>
         </div>
-        <div class="col">
-            <div class="row">
-                {% for item in categories %}
-                    <div class="col-auto">
-                        <a class="category-link{% if item.slug == category_filter %} active{% endif %}" href="?category={{item.slug}}">{{ item.name }}</a>
-                    </div>        
-                {% endfor %}
-            </div>        
+        <div class="row">
+            {% for item in categories %}
+                <div class="col-auto">
+                    <a class="category-link{% if item.slug == category_filter %} active{% endif %}" href="?category={{item.slug}}">{{ item.name }}</a>
+                </div>        
+            {% endfor %}
         </div>        
-        <div class="col-auto text-light justify-content-end px-0">
-            <a href="." class="btn btn-sm btn-close btn-close-white m-n2" role="button" title="Clear filter"></a>
-        </div>
+        <div class="row">
+            {% for item in tags %}
+                <div class="col-auto">
+                    <a class="tag-link{% if item.slug == tag_filter %} active{% endif %}" href="?tag={{item.slug}}">#{{ item.name }}</a>
+                </div>        
+            {% endfor %}
+        </div>        
+        {% comment %} {% if showing %}<div class="row text-light small pt-2">{{ showing }}</div>{% endif %} {% endcomment %}
     </div>
 
     {# Blog List #}
     <div class="row p-2 mt-2 mt-sm-3 mt-md-4 row-cols-1 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 justify-content-center">
-
         {% for post in posts %}
             <div class="col mx-0 mb-4">
                 <div class="card h-100 p-2">

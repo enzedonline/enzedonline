@@ -83,7 +83,7 @@
           <div class="row">
             {% for item in self.categories.all %}
               <div class="col-auto">
-                <a class="category-link active" href="{{ self.get_parent.url }}?category={{item.slug}}">
+                <a class="category-link{% if item.slug == category_filter %} active{% endif %}" href="{{ self.get_parent.url }}?category={{item.slug}}">
                   {{ item.name }}
                 </a>
               </div>        
@@ -93,6 +93,7 @@
   </div>
 
   {# Blog Content #}
+  <h1 class="h3 text-center pt-4">{{ self.title }}</h1>
   {% for block in page.body %} 
     {% include_block block %} 
   {% endfor %}
