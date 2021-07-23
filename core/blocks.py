@@ -245,7 +245,7 @@ class CallToActionCard(FlexCard):
         required=False,
     )
     class Meta:
-        template = 'blocks/call_to_action_card_block.html'
+        template = 'blocks/flex_card_block.html'
         label = _("Call-To-Action Card (Image/Text/Button)")
         icon = 'fa-address-card'
 

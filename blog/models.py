@@ -119,7 +119,7 @@ class BlogDetailPage(SEOPage):
             context["filter"] = ''
             context["showing"] = None
         context["next_post"] = siblings.filter(path__gt=self.path).first()
-        context["previous_post"] = siblings.filter(path__lt=self.path).first()
+        context["previous_post"] = siblings.filter(path__lt=self.path).last()
 
         return context
 
