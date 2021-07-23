@@ -130,9 +130,9 @@ class Link(wagtail_blocks.StructBlock):
         max_length=15,
         default='right',
         choices=[
-            ('left', _("Left")),
+            ('start', _("Left")),
             ('center', _("Centre")),
-            ('right', _("Right")),
+            ('end', _("Right")),
         ],
         label=_("Button Placement")
     )
