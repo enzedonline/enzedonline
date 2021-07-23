@@ -72,7 +72,7 @@
 
 {% endwith%}
 
-<div class="container-fluid pt-1 px-2 px-sm-5 pb-1">
+<div class="container-fluid mt-4 px-2 px-sm-5 pb-1">
 
   {# Categories #}
   <div class="row rounded bg-info py-2 px-3 mx-1 my-2 border-primary border-1">
@@ -93,23 +93,30 @@
   </div>
 
   {# Blog Content #}
-  {% for block in page.body %} {% include_block block %} {% endfor %}
+  {% for block in page.body %} 
+    {% include_block block %} 
+  {% endfor %}
 </div>
 
 {# Tags #}
-<div class="container-fluid pt-1 px-2 px-sm-5 pb-1">
-  {% if page.tags.count %} 
-    {% for tag in page.tags.all %} 
-      {# Loop through all the existing tags #}
-      <a
-        href="{{ self.get_parent.url }}?tag={{ tag.slug }}"
-        class="btn btn-sm bg-info text-light"
-        >#{{ tag }}
-      </a>
-      &nbsp; 
-    {% endfor %} 
-  {% endif %}
-</div>
+{% if page.tags.count %} 
+  <div class="row rounded bg-info py-2 px-3 mx-2 mx-sm-5 my-2 border-primary border-1">
+      <div class="col-auto tag-link active d-flex flex-nowrap pe-3">
+          Tagged with:
+      </div>
+      <div class="col">
+          <div class="row">
+            {% for tag in page.tags.all %} 
+              <div class="col-auto">
+                <a class="tag-link" href="{{ self.get_parent.url }}?tag={{ tag.slug }}">
+                  #{{ tag }}
+                </a>
+              </div>        
+            {% endfor %}
+          </div>        
+      </div>        
+  </div>  
+{% endif %}
 
 {# Comments #}
 {% get_comment_count for page as comment_count %}

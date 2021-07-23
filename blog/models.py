@@ -124,6 +124,8 @@ class BlogDetailPage(SEOPage):
         response.context_data['login_form'] = LoginForm()
         return response
 
+    def blog_type(self):
+        return self.__class__.__name__
 
     # def flush_cache_fragments(self, fragment_keys):
     #     for fragment in fragment_keys:

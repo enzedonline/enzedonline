@@ -138,6 +138,18 @@ a {
 .category-link:hover {
   color: var(--bs-white) !important;
 }
+.tag-link {
+  /* font-size: clamp(0.9375rem, 0.7583rem + 0.5515vw, 1.1718756rem); */
+  color: rgba(255, 255, 255, 0.9);
+  padding: 0px;
+}
+.tag-link.active{
+  color: var(--bs-white) !important;
+  font-weight: 400;
+}
+.tag-link:hover {
+  color: var(--bs-white) !important;
+}
 .nav-link {
   font-size: clamp(0.9375rem, 0.7583rem + 0.5515vw, 1.1718756rem);
   font-weight: 400;

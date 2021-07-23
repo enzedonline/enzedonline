@@ -7,7 +7,6 @@
             {% include_block block %}
         {% endfor %}
     </div>
-    {{ layout.pre_breakpoint_bottom_pad|safe }}
     <div class="col{{ layout.right }} {{ layout.horizontal_padding }} {{ layout.right_order }} {{ layout.hide_right }}">
         {% for block in value.right_column %}
             {% include_block block %}

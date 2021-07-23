@@ -7,13 +7,11 @@
             {% include_block block %}
         {% endfor %}
     </div>
-    {{ layout.pre_breakpoint_bottom_pad|safe }}
     <div class="col{{ layout.centre }} {{ layout.horizontal_padding }} {% if value.vertical_border %}three-column-divider{% endif %}">
         {% for block in value.centre_column %}
             {% include_block block %}
         {% endfor %}
     </div>
-    {{ layout.pre_breakpoint_bottom_pad|safe }}
     <div class="col{{ layout.right }} {{ layout.horizontal_padding }} {{ layout.hide_sides }}">
         {% for block in value.right_column %}
             {% include_block block %}

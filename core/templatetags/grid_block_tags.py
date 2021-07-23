@@ -38,8 +38,6 @@ def two_column_layout(breakpoint, column_layout, horizontal_padding, order, hide
         else:
             layout['breakpoint_pixels'] = '991px'
 
-        layout['pre_breakpoint_bottom_pad'] = '<div class="order-3 d' + breakpoint + '-none">&nbsp;</div>'
-
     layout['left'] = breakpoint + (('-' + layout['left']) if layout['left'] else '')
     layout['right'] = breakpoint + (('-' + layout['right']) if layout['right'] else '')
 
@@ -67,8 +65,6 @@ def three_column_layout(breakpoint, column_layout, horizontal_padding, hide):
 
         if hide == 'hide-sides':
             layout['hide_sides'] = 'd-none d' + breakpoint + '-block'
-
-        layout['pre_breakpoint_bottom_pad'] = '<div class="d' + breakpoint + '-none">&nbsp;</div>'
 
     layout['left'] = breakpoint + (('-' + layout['left']) if layout['left'] else '')
     layout['centre'] = breakpoint + (('-' + layout['centre']) if layout['centre'] else '')
