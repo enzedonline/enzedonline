@@ -1,11 +1,10 @@
 from allauth.account.forms import LoginForm
-from wagtail.search import index
 from core.blocks import GridStreamBlock
 from core.models import SEOPage
 from django import forms
 # from django.core.cache import cache
 # from django.core.cache.utils import make_template_fragment_key
-from django.core.paginator import EmptyPage, Page, PageNotAnInteger, Paginator
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django_comments_xtd.models import XtdComment
