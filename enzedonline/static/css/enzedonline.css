@@ -37,6 +37,12 @@ body {
 .avatar {
   border-radius: 8px;
 }
+.image-block-caption {
+  font-family: Quicksand, "Work Sans", -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol";
+  font-size: clamp(0.9375rem, 0.7583rem + 0.5515vw, 1.1718756rem);
+}
 .social-login-icon {
   border-radius: 8px;
   width: 30px;
