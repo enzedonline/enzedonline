@@ -475,6 +475,12 @@ class ImageCarouselBlock(wagtail_blocks.StructBlock):
         label=_("Carousel Title"), 
         required=False,
     )
+    show_scroll_buttons = wagtail_blocks.BooleanBlock(
+        default=True,
+        required=False,
+        label=_("Show Scroll Buttons"),
+        help_text=_("Disable for clickable vertical carousels.")
+    )
     carousel_images = CarouselImageStreamBlock(min_num=2, max_num=5)
     
     class Meta:
