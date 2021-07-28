@@ -24,6 +24,7 @@ class ColourThemeChoiceBlock(wagtail_blocks.ChoiceBlock):
         ('text-white bg-danger', _("Danger")),
         ('text-black bg-light', _("Light")),
         ('text-white bg-dark', _("Dark")),
+        ('text-white bg-black', _("Black")),
     ]
 
 class ButtonChoiceBlock(wagtail_blocks.ChoiceBlock):
@@ -303,17 +304,9 @@ class InlineVideoBlock(wagtail_blocks.StructBlock):
         help_text = _("eg 'https://www.youtube.com/watch?v=kqN1HUMr22I'")
     )
     caption = CharBlock(required=False, label=_("Caption"))
-    float = wagtail_blocks.ChoiceBlock(
-        required=False,
-        choices=[('right', _("Right")), ('left', _("Left")), ('center', _("Center"))],
-        default='right',
-        label=_("Float"),
-    )
-    size = wagtail_blocks.ChoiceBlock(
-        required=False,
-        choices=[('small', _("Small")), ('medium', _("Medium")), ('large', _("Large"))],
-        default='small',
-        label=_("Size"),
+    background = ColourThemeChoiceBlock(
+        default='bg-transparent',
+        label=_("Card Background Colour")
     )
 
     class Meta:
