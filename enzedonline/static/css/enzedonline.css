@@ -80,9 +80,16 @@ a {
   color: #4582ec;
   text-decoration: none;
 }
-.btn {
+.btn .link-button {
   border-radius: 0.5em;
 }
+.btn-lg, .btn-group-lg {
+  border-radius: 0.8em;
+}
+.btn-sm, .btn-group-sm {
+  border-radius: 0.5em;
+}
+
 .banner-headline {
   font-family: Quicksand, "Work Sans", -apple-system, BlinkMacSystemFont, "Segoe UI",
     Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",

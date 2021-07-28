@@ -1,3 +1,10 @@
 <div class="mb-3" style="text-align: {{ self.placement }};">
-    <a class="btn {{ self.appearance }} {{ self.size }}" href="{{ self.url }}" role="button">{{ self.button_text | upper }}</a>
+    <a class="link-button btn {{ self.appearance }} {{ self.size }}" href="{{ self.url }}" {% if self.open_in_new_tab %} target="_blank"{% endif %} role="button">{{ self.button_text | upper }}</a>
 </div>
+
+{# link-button is a dummy class used to lose focus after mouse-click otherwise button stays focussed after new-tab click #}
+<script type="text/javascript">
+    $(".link-button").mouseup(function(){
+        $(this).blur();
+    })
+</script>
