@@ -5,8 +5,9 @@
 {% image logo.logo height-30 as logo_md %} 
 {% image logo.logo height-30 as logo_sm %} 
 
-
+{# Page top menu bar loaded on all pages #}
 <nav class="navbar navbar-expand-md navbar-dark bg-primary p-2 pe-md-1">
+    {# Logo top left #}
     <div class="ps-2">
         <a class="navbar-brand" href="/">
             <picture>
@@ -21,6 +22,7 @@
         </a>
     </div>
 
+    {# Contact menu - leave visible after collapse #}
     {% get_menu 'contact' as contact_menu %}
     {% if contact_menu %}
         {% get_menu_items contact_menu request as contact_menu_items %}
@@ -40,6 +42,7 @@
         {% endfor %}
     {% endif %}
 
+    {# User menu - add social logins after loaded menu #}
     {% get_menu 'user' as user_menu %}
     {% if user_menu %}
         {% get_menu_items user_menu request as user_menu_items %}
@@ -89,6 +92,7 @@
         </div>
     {% endif %}
 
+    {# Main menu - allow 2 levels of submenu #}
     <div class="collapse navbar-collapse order-1 order-md-0 dual-collapse2" id="navbarCollapseItems">
         <ul class="navbar-nav ms-auto align-items-md-center ps-3 ps-md-0">
             {% get_menu 'main_menu' as main_menu %}
@@ -172,43 +176,44 @@
     </div>
 
     {% comment %} 
-    Language switcher:
-    Flag of currently selected language displayed on drop down menu heading
-    language_switcher menu tag iterates through site locales, finds equivalent url for each locale
-    Template code loops through results, adds menu item flag + locale name + link to equiv page
-    Assumes image for each language uploaded to Wagtail with title 'flag-lang_code' (eg flag-en, flag-fr etc) {% endcomment %}
+        Language switcher:
+        Flag of currently selected language displayed on drop down menu heading
+        language_switcher menu tag iterates through site locales, finds equivalent url for each locale
+        Template code loops through results, adds menu item flag + locale name + link to equiv page
+        Assumes image for each language uploaded to Wagtail with title 'flag-lang_code' (eg flag-en, flag-fr etc) 
+        
+        <div class="collapse navbar-collapse order-2 dual-collapse2" style="max-width: 50px;" id="navbarCollapseItems">
 
-    {% comment %} <div class="collapse navbar-collapse order-2 dual-collapse2" style="max-width: 50px;" id="navbarCollapseItems">
+            <ul class="navbar-nav ms-auto bd-example-container-sidebar">   
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        {% get_lang_flag as flag %}
+                        {% image flag fill-16x11 class="image-menu" %}
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right switcher-menu">
+                        {% language_switcher self as switcher %}
+                        {% for lang in switcher.switch_pages %}
+                            <a class="dropdown-item switcher-item" href="{{ lang.url }}">
+                                {% image lang.flag fill-16x11 class="image-menu" %}&nbsp
+                                {{ lang.language }}
+                            </a>
+                            {{ lang.alternate | safe}}
+                        {% endfor %}
+                        {{ switcher.default_link | safe }}
+                    </div>
+                </li>       
+            </ul>
+        </div> 
+    {% endcomment %}
 
-        <ul class="navbar-nav ms-auto bd-example-container-sidebar">   
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                    {% get_lang_flag as flag %}
-                    {% image flag fill-16x11 class="image-menu" %}
-                </a>
-                <div class="dropdown-menu dropdown-menu-right switcher-menu">
-                    {% language_switcher self as switcher %}
-                    {% for lang in switcher.switch_pages %}
-                        <a class="dropdown-item switcher-item" href="{{ lang.url }}">
-                            {% image lang.flag fill-16x11 class="image-menu" %}&nbsp
-                            {{ lang.language }}
-                        </a>
-                        {{ lang.alternate | safe}}
-                    {% endfor %}
-                    {{ switcher.default_link | safe }}
-                </div>
-            </li>       
-        </ul>
-    </div> {% endcomment %}
-
-
+    {# Collapse button #}
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapseItems" 
             aria-controls="navbarCollapseItems" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
 </nav>
 
-
+{# Dropdown menu aligns with right of button, lose focus after click #}
 <script type="text/javascript">
     $(document).ready(function() {
         $('.dropright button').on("click", function(e) {
@@ -227,30 +232,31 @@
     })
 </script>
 
+{# Dropdown menu & buttons styling #}
 <style>
-.dropright {
-    position: relative;
-    margin-left: 10px;
-  }
-  
-.dropright .btn-dark-outline {
-    background-color: transparent;
-  }
+    .dropright {
+        position: relative;
+        margin-left: 10px;
+    }
+    
+    .dropright .btn-dark-outline {
+        background-color: transparent;
+    }
 
-.dropright .btn:focus,.btn:active {
-    outline: none !important;
-    box-shadow: none;
- }
-.dropright .dropdown-menu {
-    top: 0;
-    left: 100%;
-    margin-top: -1px;
-  }
-.nav-item {
-    padding: 0rem 0rem;
-    padding-right: 0rem;
-    padding-left: 0rem;
-    font-size: clamp(0.84375rem, 0.7721rem + 0.2206vw, 0.9375rem);
-    font-weight: 500;
-}
+    .dropright .btn:focus,.btn:active {
+        outline: none !important;
+        box-shadow: none;
+    }
+    .dropright .dropdown-menu {
+        top: 0;
+        left: 100%;
+        margin-top: -1px;
+    }
+    .nav-item {
+        padding: 0rem 0rem;
+        padding-right: 0rem;
+        padding-left: 0rem;
+        font-size: clamp(0.84375rem, 0.7721rem + 0.2206vw, 0.9375rem);
+        font-weight: 500;
+    }
 </style> 
