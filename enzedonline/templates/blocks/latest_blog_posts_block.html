@@ -8,33 +8,34 @@
         {{ value.group_label.content }}
         </div>
     {% endif %}
-    <div class="container-fluid w-100 pt-4" style="gap: 1.5rem;">
-        <div class="d-flex flex-wrap justify-content-around p-0 pb-1">
-            {% for post in posts %}
-                <div class="card {{ self.background }} p-2 mb-2 " style="width: 18rem;">
-                    {% image post.search_image fill-900x600-c100 format-webp as webp_img_w_900 %} 
-                    {% image post.search_image fill-600x400-c100 format-webp as webp_img_w_600 %}
-                    {% image post.search_image fill-300x200-c100 format-webp as webp_img_w_300 %}
-                    {% image post.search_image fill-900x600-c100 as fallback %} 
-                    <picture>
-                        <source media="(min-width: 750px)" srcset="{{ webp_img_w_900.url }} 900w" type="image/webp" />
-                        <source media="(min-width: 500px)" srcset="{{ webp_img_w_600.url }} 600w" type="image/webp" />
-                        <source srcset="{{ webp_img_w_300.url }} 300w" type="image/webp" />
-                        <source srcset="{{ fallback.url }} 900w" />
-                        <img
-                            src="{{ fallback.url }}"
-                            alt="{{ post.title }}"
-                            style="width: 100%; height: auto"
-                        />
-                    </picture>
-                    <div class="card-body">
-                        <h5 class="card-title">{{ post.title }}</h5>
-                        <p class="card-text"><small class="text-muted">{{ post.first_published_at }}</small></p>
-                    </div>
-                    <a href="{{post.url}}" class="stretched-link"></a>
+    <div class="row p-2 mt-2 mt-sm-3 mt-md-4 row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xxl-4 justify-content-center {{ value.background }}">
+        {% for post in posts %}
+        <div class="col mx-0 mb-4">
+            <div class="card h-100 p-2">
+                {% image post.search_image fill-900x600-c100 format-webp as webp_img_w_900 %} 
+                {% image post.search_image fill-600x400-c100 format-webp as webp_img_w_600 %}
+                {% image post.search_image fill-300x200-c100 format-webp as webp_img_w_300 %}
+                {% image post.search_image fill-900x600-c100 as fallback %} 
+                <picture>
+                    <source media="(min-width: 750px)" srcset="{{ webp_img_w_900.url }} 900w" type="image/webp" />
+                    <source media="(min-width: 500px)" srcset="{{ webp_img_w_600.url }} 600w" type="image/webp" />
+                    <source srcset="{{ webp_img_w_300.url }} 300w" type="image/webp" />
+                    <source srcset="{{ fallback.url }} 900w" />
+                    <img
+                        src="{{ fallback.url }}"
+                        alt="{{ post.title }}"
+                        style="width: 100%; height: auto"
+                    />
+                </picture>
+                <div class="card-body">
+                    <h4 class="card-title fw-bolder">{{ post.title }}</h4>
+                    <p class="blog-summary">{{ post.summary|linebreaksbr }}</p>
+                    <p class="blog-summary small">{{ post.first_published_at }}</small></p>
                 </div>
-            {% endfor %}
+                <a href="{{post.url}}{{filter}}" class="stretched-link"></a>
+            </div>
         </div>
+        {% endfor %}
     </div>
 {% endif %}
 

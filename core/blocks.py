@@ -305,7 +305,7 @@ class InlineVideoBlock(wagtail_blocks.StructBlock):
     )
     caption = CharBlock(required=False, label=_("Caption"))
     background = ColourThemeChoiceBlock(
-        default='bg-transparent',
+        default='text-black bg-transparent',
         label=_("Card Background Colour")
     )
 
@@ -557,7 +557,7 @@ class LatestBlogPostGrid(StructBlock):
         required=False
     )
     background = ColourThemeChoiceBlock(
-        default='bg-transparent',
+        default='text-black bg-transparent',
         label=_("Card Background Colour")
     )
     post_count = IntegerBlock(
