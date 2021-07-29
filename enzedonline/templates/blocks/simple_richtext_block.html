@@ -1,4 +1,6 @@
 {% load wagtailcore_tags  %}
-<div class="text-{{ value.alignment }}">
-    {{self.content|richtext}}
+<div class="block-container">
+    <div class="text-{{ value.alignment }}">
+        {{self.content|richtext}}
+    </div>
 </div>

@@ -1,6 +1,6 @@
 {% load static wagtailcore_tags grid_block_tags %}
 {% three_column_layout value.breakpoint value.column_layout value.horizontal_padding value.hide as layout %}
-<div class="block-container">
+
   <div class="row">
     <div class="col{{ layout.left }} {{ layout.horizontal_padding }} {{ layout.hide_sides }}">
         {% for block in value.left_column %}
@@ -18,7 +18,7 @@
         {% endfor %}
     </div>
   </div>
-</div>
+
 
 <style>
 .three-column-divider{

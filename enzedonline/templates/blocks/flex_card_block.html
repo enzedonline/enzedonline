@@ -8,158 +8,160 @@
 
 {% padding self.border self.background as pad %}
 
-{% if self.format == 'vertical' %}
-  <div class="card {{ self.background }} {% if not self.border %}border-0{% endif %} p-{{pad}} h-100">
-    <a href="{{ self.external_link }}" target="_blank">
-      <picture>
-        <source media="(min-width: 1800px)" srcset="{{ webp_img_w_2100.url }} 2100w" type="image/webp" />
-        <source media="(min-width: 120px)" srcset="{{ webp_img_w_1500.url }} 1500w" type="image/webp" />
-        <source media="(min-width: 750px)" srcset="{{ webp_img_w_900.url }} 900w" type="image/webp" />
-        <source media="(min-width: 500px)" srcset="{{ webp_img_w_600.url }} 600w" type="image/webp" />
-        <source srcset="{{ webp_img_w_300.url }} 300w" type="image/webp" />
-        <source srcset="{{ fallback.url }} 2100w" />
-        <img
-          src="{{ fallback.url }}"
-          alt="{{ self.image.seo_title }}"
-          style="width: 100%; height: auto"
-        />
-      </picture>
-    </a>
-    <div class="pb-0 pt-3 text-break">
-      {% include_block self.text %}
-    </div>
-    {% if self.link %}
-      <div class="mt-auto pt-2 pb-0 px-0 text-{{ self.link.placement }}">
-        <a class="btn stretched-link {{ self.link.appearance }} {{ self.link.size }}" href="{{ self.link.url }}" role="button">{{ self.link.button_text | upper }}</a>
+<div class="block-container">
+  {% if self.format == 'vertical' %}
+    <div class="card {{ self.background }} {% if not self.border %}border-0{% endif %} p-{{pad}} h-100">
+      <a href="{{ self.external_link }}" target="_blank">
+        <picture>
+          <source media="(min-width: 1800px)" srcset="{{ webp_img_w_2100.url }} 2100w" type="image/webp" />
+          <source media="(min-width: 120px)" srcset="{{ webp_img_w_1500.url }} 1500w" type="image/webp" />
+          <source media="(min-width: 750px)" srcset="{{ webp_img_w_900.url }} 900w" type="image/webp" />
+          <source media="(min-width: 500px)" srcset="{{ webp_img_w_600.url }} 600w" type="image/webp" />
+          <source srcset="{{ webp_img_w_300.url }} 300w" type="image/webp" />
+          <source srcset="{{ fallback.url }} 2100w" />
+          <img
+            src="{{ fallback.url }}"
+            alt="{{ self.image.seo_title }}"
+            style="width: 100%; height: auto"
+          />
+        </picture>
+      </a>
+      <div class="pb-0 pt-3 text-break">
+        {% include_block self.text %}
       </div>
-    {% endif %}
-  </div>
-{% elif self.format == 'image-left-responsive' %}
-  <div class="card {{ self.background }} {% if not self.border %}border-0{% endif %} p-{{pad}} {% if self.full_height %}h-100{% endif %}">
-    <div class="row">
-      <div class="col-md-4" style="min-width: 200px;">
-        <a href="{{ self.external_link }}">
-          <picture>
-            <source media="(min-width: 1800px)" srcset="{{ webp_img_w_2100.url }} 2100w" type="image/webp" />
-            <source media="(min-width: 120px)" srcset="{{ webp_img_w_1500.url }} 1500w" type="image/webp" />
-            <source media="(min-width: 750px)" srcset="{{ webp_img_w_900.url }} 900w" type="image/webp" />
-            <source media="(min-width: 500px)" srcset="{{ webp_img_w_600.url }} 600w" type="image/webp" />
-            <source srcset="{{ webp_img_w_300.url }} 300w" type="image/webp" />
-            <source srcset="{{ fallback.url }} 2100w" />
-            <img
-              src="{{ fallback.url }}"
-              alt="{{ self.image.seo_title }}"
-              style="width: 100%; height: auto"
-            />
-          </picture>
-    		</a>
-      </div>
-      <div class="col">
-        <div class="pb-0 pt-3 pt-md-0 text-break">
-          {% include_block self.text %}
+      {% if self.link %}
+        <div class="mt-auto pt-2 pb-0 px-0 text-{{ self.link.placement }}">
+          <a class="btn stretched-link {{ self.link.appearance }} {{ self.link.size }}" href="{{ self.link.url }}" role="button">{{ self.link.button_text | upper }}</a>
         </div>
-        {% if self.link %}
+      {% endif %}
+    </div>
+  {% elif self.format == 'image-left-responsive' %}
+    <div class="card {{ self.background }} {% if not self.border %}border-0{% endif %} p-{{pad}} {% if self.full_height %}h-100{% endif %}">
+      <div class="row">
+        <div class="col-md-4" style="min-width: 200px;">
+          <a href="{{ self.external_link }}">
+            <picture>
+              <source media="(min-width: 1800px)" srcset="{{ webp_img_w_2100.url }} 2100w" type="image/webp" />
+              <source media="(min-width: 120px)" srcset="{{ webp_img_w_1500.url }} 1500w" type="image/webp" />
+              <source media="(min-width: 750px)" srcset="{{ webp_img_w_900.url }} 900w" type="image/webp" />
+              <source media="(min-width: 500px)" srcset="{{ webp_img_w_600.url }} 600w" type="image/webp" />
+              <source srcset="{{ webp_img_w_300.url }} 300w" type="image/webp" />
+              <source srcset="{{ fallback.url }} 2100w" />
+              <img
+                src="{{ fallback.url }}"
+                alt="{{ self.image.seo_title }}"
+                style="width: 100%; height: auto"
+              />
+            </picture>
+          </a>
+        </div>
+        <div class="col">
+          <div class="pb-0 pt-3 pt-md-0 text-break">
+            {% include_block self.text %}
+          </div>
+          {% if self.link %}
+            <div class="mt-auto pt-2 pb-0 px-0 text-end text-sm-{{ self.link.placement }}">
+              <a class="btn stretched-link {{ self.link.appearance }} {{ self.link.size }}" href="{{ self.link.url }}" role="button">{{ self.link.button_text | upper }}</a>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  {% elif self.format == 'image-left-fixed' %}
+    <div class="card {{ self.background }} {% if not self.border %}border-0{% endif %} p-{{pad}} {% if self.full_height %}h-100{% endif %}">
+      <div class="row">
+        <div class="col-4" style="min-width: 200px;">
+          <a href="{{ self.external_link }}">
+            <picture>
+              <source media="(min-width: 1800px)" srcset="{{ webp_img_w_2100.url }} 2100w" type="image/webp" />
+              <source media="(min-width: 120px)" srcset="{{ webp_img_w_1500.url }} 1500w" type="image/webp" />
+              <source media="(min-width: 750px)" srcset="{{ webp_img_w_900.url }} 900w" type="image/webp" />
+              <source media="(min-width: 500px)" srcset="{{ webp_img_w_600.url }} 600w" type="image/webp" />
+              <source srcset="{{ webp_img_w_300.url }} 300w" type="image/webp" />
+              <source srcset="{{ fallback.url }} 2100w" />
+              <img
+                src="{{ fallback.url }}"
+                alt="{{ self.image.seo_title }}"
+                style="width: 100%; height: auto"
+              />
+            </picture>
+          </a>
+        </div>
+        <div class="col">
+          <div class="p-0 pe-2 text-break">
+            {% include_block self.text %}
+          </div>
+          {% if self.link %}
+          <div class="mt-auto pt-2 pb-0 px-0 text-{{ self.link.placement }}">
+            <a class="btn stretched-link {{ self.link.appearance }} {{ self.link.size }}" href="{{ self.link.url }}" role="button">{{ self.link.button_text | upper }}</a>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  {% elif self.format == 'image-right-responsive' %}
+    <div class="card {{ self.background }} {% if not self.border %}border-0{% endif %} p-{{pad}} {% if self.full_height %}h-100{% endif %}">
+      <div class="row flex-row-reverse">
+        <div class="col-md-4" style="min-width: 200px;">
+          <a href="{{ self.external_link }}">
+            <picture>
+              <source media="(min-width: 1800px)" srcset="{{ webp_img_w_2100.url }} 2100w" type="image/webp" />
+              <source media="(min-width: 120px)" srcset="{{ webp_img_w_1500.url }} 1500w" type="image/webp" />
+              <source media="(min-width: 750px)" srcset="{{ webp_img_w_900.url }} 900w" type="image/webp" />
+              <source media="(min-width: 500px)" srcset="{{ webp_img_w_600.url }} 600w" type="image/webp" />
+              <source srcset="{{ webp_img_w_300.url }} 300w" type="image/webp" />
+              <source srcset="{{ fallback.url }} 2100w" />
+              <img
+                src="{{ fallback.url }}"
+                alt="{{ self.image.seo_title }}"
+                style="width: 100%; height: auto"
+              />
+            </picture>
+          </a>
+        </div>      
+        <div class="col">
+          <div class="p-0 pt-3 pt-md-0 text-break">
+            {% include_block self.text %}
+          </div>
+          {% if self.link %}
           <div class="mt-auto pt-2 pb-0 px-0 text-end text-sm-{{ self.link.placement }}">
             <a class="btn stretched-link {{ self.link.appearance }} {{ self.link.size }}" href="{{ self.link.url }}" role="button">{{ self.link.button_text | upper }}</a>
           </div>
-        {% endif %}
+          {% endif %}
+        </div>
       </div>
     </div>
-  </div>
-{% elif self.format == 'image-left-fixed' %}
-  <div class="card {{ self.background }} {% if not self.border %}border-0{% endif %} p-{{pad}} {% if self.full_height %}h-100{% endif %}">
-    <div class="row">
-      <div class="col-4" style="min-width: 200px;">
-        <a href="{{ self.external_link }}">
-		      <picture>
-            <source media="(min-width: 1800px)" srcset="{{ webp_img_w_2100.url }} 2100w" type="image/webp" />
-            <source media="(min-width: 120px)" srcset="{{ webp_img_w_1500.url }} 1500w" type="image/webp" />
-            <source media="(min-width: 750px)" srcset="{{ webp_img_w_900.url }} 900w" type="image/webp" />
-            <source media="(min-width: 500px)" srcset="{{ webp_img_w_600.url }} 600w" type="image/webp" />
-            <source srcset="{{ webp_img_w_300.url }} 300w" type="image/webp" />
-            <source srcset="{{ fallback.url }} 2100w" />
-            <img
-              src="{{ fallback.url }}"
-              alt="{{ self.image.seo_title }}"
-              style="width: 100%; height: auto"
-            />
-          </picture>
-		    </a>
-      </div>
-      <div class="col">
-        <div class="p-0 pe-2 text-break">
-          {% include_block self.text %}
+  {% else %}
+    <div class="card {{ self.background }} {% if not self.border %}border-0{% endif %} p-{{pad}} {% if self.full_height %}h-100{% endif %}">
+      <div class="row flex-row-reverse">
+        <div class="col-4" style="min-width: 200px;">
+          <a href="{{ self.external_link }}">
+            <picture>
+              <source media="(min-width: 1800px)" srcset="{{ webp_img_w_2100.url }} 2100w" type="image/webp" />
+              <source media="(min-width: 120px)" srcset="{{ webp_img_w_1500.url }} 1500w" type="image/webp" />
+              <source media="(min-width: 750px)" srcset="{{ webp_img_w_900.url }} 900w" type="image/webp" />
+              <source media="(min-width: 500px)" srcset="{{ webp_img_w_600.url }} 600w" type="image/webp" />
+              <source srcset="{{ webp_img_w_300.url }} 300w" type="image/webp" />
+              <source srcset="{{ fallback.url }} 2100w" />
+              <img
+                src="{{ fallback.url }}"
+                alt="{{ self.image.seo_title }}"
+                style="width: 100%; height: auto"
+              />
+            </picture>
+          </a>
+        </div>      
+        <div class="col">
+          <div class="p-0 pe-2 text-break">
+            {% include_block self.text %}
+          </div>
+          {% if self.link %}
+          <div class="mt-auto pt-2 pb-0 px-0 text-{{ self.link.placement }}">
+            <a class="btn stretched-link {{ self.link.appearance }} {{ self.link.size }}" href="{{ self.link.url }}" role="button">{{ self.link.button_text | upper }}</a>
+          </div>
+          {% endif %}
         </div>
-        {% if self.link %}
-        <div class="mt-auto pt-2 pb-0 px-0 text-{{ self.link.placement }}">
-          <a class="btn stretched-link {{ self.link.appearance }} {{ self.link.size }}" href="{{ self.link.url }}" role="button">{{ self.link.button_text | upper }}</a>
-        </div>
-        {% endif %}
-      </div>
-    </div>
-  </div>
-{% elif self.format == 'image-right-responsive' %}
-  <div class="card {{ self.background }} {% if not self.border %}border-0{% endif %} p-{{pad}} {% if self.full_height %}h-100{% endif %}">
-    <div class="row flex-row-reverse">
-      <div class="col-md-4" style="min-width: 200px;">
-        <a href="{{ self.external_link }}">
-          <picture>
-            <source media="(min-width: 1800px)" srcset="{{ webp_img_w_2100.url }} 2100w" type="image/webp" />
-            <source media="(min-width: 120px)" srcset="{{ webp_img_w_1500.url }} 1500w" type="image/webp" />
-            <source media="(min-width: 750px)" srcset="{{ webp_img_w_900.url }} 900w" type="image/webp" />
-            <source media="(min-width: 500px)" srcset="{{ webp_img_w_600.url }} 600w" type="image/webp" />
-            <source srcset="{{ webp_img_w_300.url }} 300w" type="image/webp" />
-            <source srcset="{{ fallback.url }} 2100w" />
-            <img
-              src="{{ fallback.url }}"
-              alt="{{ self.image.seo_title }}"
-              style="width: 100%; height: auto"
-            />
-          </picture>
-        </a>
-      </div>      
-      <div class="col">
-        <div class="p-0 pt-3 pt-md-0 text-break">
-          {% include_block self.text %}
-        </div>
-        {% if self.link %}
-        <div class="mt-auto pt-2 pb-0 px-0 text-end text-sm-{{ self.link.placement }}">
-          <a class="btn stretched-link {{ self.link.appearance }} {{ self.link.size }}" href="{{ self.link.url }}" role="button">{{ self.link.button_text | upper }}</a>
-        </div>
-        {% endif %}
       </div>
     </div>
-  </div>
-{% else %}
-  <div class="card {{ self.background }} {% if not self.border %}border-0{% endif %} p-{{pad}} {% if self.full_height %}h-100{% endif %}">
-    <div class="row flex-row-reverse">
-      <div class="col-4" style="min-width: 200px;">
-        <a href="{{ self.external_link }}">
-          <picture>
-            <source media="(min-width: 1800px)" srcset="{{ webp_img_w_2100.url }} 2100w" type="image/webp" />
-            <source media="(min-width: 120px)" srcset="{{ webp_img_w_1500.url }} 1500w" type="image/webp" />
-            <source media="(min-width: 750px)" srcset="{{ webp_img_w_900.url }} 900w" type="image/webp" />
-            <source media="(min-width: 500px)" srcset="{{ webp_img_w_600.url }} 600w" type="image/webp" />
-            <source srcset="{{ webp_img_w_300.url }} 300w" type="image/webp" />
-            <source srcset="{{ fallback.url }} 2100w" />
-            <img
-              src="{{ fallback.url }}"
-              alt="{{ self.image.seo_title }}"
-              style="width: 100%; height: auto"
-            />
-          </picture>
-        </a>
-      </div>      
-      <div class="col">
-        <div class="p-0 pe-2 text-break">
-          {% include_block self.text %}
-        </div>
-        {% if self.link %}
-        <div class="mt-auto pt-2 pb-0 px-0 text-{{ self.link.placement }}">
-          <a class="btn stretched-link {{ self.link.appearance }} {{ self.link.size }}" href="{{ self.link.url }}" role="button">{{ self.link.button_text | upper }}</a>
-        </div>
-        {% endif %}
-      </div>
-    </div>
-  </div>
-{% endif %}
+  {% endif %}
+</div>

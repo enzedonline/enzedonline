@@ -2,16 +2,31 @@
 {% load wagtailcore_tags widget_tweaks contact_page_tags wagtailimages_tags %} 
 {% block content %} 
 
-<div class="container-fluid pt-0 pt-md-2 px-3 px-sm-5 pb-4 mt-md-3">
-    <div class="d-block d-md-none">
-      &nbsp;
-    </div>
-    <div class="row">
-      <div class="col-md-5 pe-sm-5">
-        {% for block in page.intro_text %}
-            {% include_block block with block_id=block.id %}
-        {% endfor %}
+{# Responsive column border #}
+<style>
+  .divider {
+    border-left: 1px;
+    border-left-style: solid;
+    border-left-color: #DADADA;
+  }
+  @media (max-width: 767px) {
+    .divider {
+      border-left: 0px;
+    }
+  }
+.block-container {
+  margin-bottom: 1rem;
+}  
+</style>
 
+<div class="container-fluid pt-4 px-2 px-sm-5 pb-4">
+  <div class="row">
+    <div class="col-md-5 px-sm-5">
+      {% for block in page.intro_text %}
+          {% include_block block %}
+      {% endfor %}
+
+      {% if self.intro_image %}
         <div class="d-none d-md-block">
           {% image self.intro_image width-900 format-webp as webp_img_w_900 %} 
           {% image self.intro_image width-600 format-webp as webp_img_w_600 %}
@@ -24,20 +39,22 @@
               src="{{ fallback.url }}"
               alt="{{ self.intro_image.title }}"
               style="width: 100%; height: auto"
+              class="mt-4"
             />
           </picture>
         </div>
-        <div class="d-block d-md-none">
-          <hr>
-        </div>
+      {% endif %}
+      <div class="d-block d-md-none">
+        <hr>
       </div>
-      <div class="col-md-7 px-sm-5 border-start">
-        <div class="card bg-info p-3">
-          <div class="card-body p-0 mb-n3 privacy-notice">
-            {{ self.privacy_notice|richtext }}
-          </div>
-        </div>        
-        <p>&nbsp;</p>
+    </div>
+    <div class="col-md-7 px-sm-5 divider">
+      <div class="card bg-warning p-1 lh-sm">
+        <div class="card-body pb-0 privacy-notice">
+          {{ self.privacy_notice|richtext }}
+        </div>
+      </div>       
+      <div class="container mt-3"> 
         <form action="{% pageurl page %}" enctype="multipart/form-data" method="POST">
           {% csrf_token %} 
           
@@ -59,7 +76,7 @@
             {% for field in form.visible_fields %} 
               {% field_class field as field_class %}
               {% if field_class == 'checkbox' %}
-                <div class="form-check mt-n1 ml-1">
+                <div class="form-check mt-4 ml-1">
                   {% if form.is_bound %} 
                     {% if field.errors %} 
                       {% render_field field class="form-check-input is-invalid form-check-input-sm" %} 
@@ -69,10 +86,12 @@
                   {% else %} 
                     {% render_field field class="form-check-input form-check-input-sm" %} 
                   {% endif %} 
-                  {{ field.label_tag }}
+                  <div class="font-label pt-0 pb-1">
+                    {{ field.label_tag }}
+                  </div>
                 </div>
               {% else %}
-                <div class="mt-n2">
+                <div class="font-label pt-2 pb-1">
                   {{ field.label_tag }}
                 </div>
                 {% if form.is_bound %} 
@@ -89,9 +108,7 @@
                 <div class="row">
                   <div {% if field.errors %}class="col"{% else %}class="col-auto"{% endif%}>
                     {% if field.help_text %}
-                      <small class="form-text text-muted">{{ field.help_text|linebreaksbr }}<br />&nbsp;</small>
-                    {% else %}
-                      <small>&nbsp;</small>
+                      <small class="form-text text-muted">{{ field.help_text|linebreaksbr }}</small>
                     {% endif %}
                   </div>
                   <div {% if field.errors %}class="col-auto text-end"{% else %}class="col"{% endif %}>
@@ -106,8 +123,6 @@
                     {% endif %}
                   </div>
                 </div>
-              {% else %}
-                <small>&nbsp;</small>
               {% endif %} 
             {% endfor %}
           </div>
@@ -116,6 +131,7 @@
       </div>
     </div>
   </div>
+</div>
 
 {% endblock %}
 

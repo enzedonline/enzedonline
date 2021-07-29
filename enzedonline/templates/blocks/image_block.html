@@ -6,40 +6,42 @@
 {% image self.image.file width-500 format-webp as webp_img_w_500 %}
 {% image self.image.file original as fallback %}
 
-<div class="{{ self.background }} p-1 mb-3"
-  <figure>
-    <picture class="srcset">
-      <source
-        media="(min-width: 1500px)" 
-        srcset="{{ webp_img_scale_100.url }} 1500w"  
-        type="image/webp"
-      />
-      <source
-        media="(min-width: 1000px)" 
-        srcset="{{ webp_img_w_1200.url }} 1200w"  
-        type="image/webp"
-      />
-      <source
-        media="(min-width: 600px)" 
-        srcset="{{ webp_img_w_750.url }} 750w"  
-        type="image/webp"
-      />
-      <source
-        srcset="{{ webp_img_w_500.url }} 500w"  
-        type="image/webp"
-      />
-      <source
-        srcset="{{ fallback.url }} 1500w"  
-      />
+<div class="block-container">
+  <div class="{{ self.background }} p-1>"
+    <figure>
+      <picture class="srcset">
+        <source
+          media="(min-width: 1500px)" 
+          srcset="{{ webp_img_scale_100.url }} 1500w"  
+          type="image/webp"
+        />
+        <source
+          media="(min-width: 1000px)" 
+          srcset="{{ webp_img_w_1200.url }} 1200w"  
+          type="image/webp"
+        />
+        <source
+          media="(min-width: 600px)" 
+          srcset="{{ webp_img_w_750.url }} 750w"  
+          type="image/webp"
+        />
+        <source
+          srcset="{{ webp_img_w_500.url }} 500w"  
+          type="image/webp"
+        />
+        <source
+          srcset="{{ fallback.url }} 1500w"  
+        />
 
-      <img class="srcset__image" src="{{ fallback.url }}" alt="{{ self.image.seo_title }}" style='width: 100%; height: auto;'/>
-    </picture>
-    {% if self.caption or self.attribution %}
-      <figcaption class="image-block-caption text-end px-1 pt-1 pb-2 lh-sm">
-        {% if self.caption %}{{ self.caption }}{% endif %}
-        {% if self.caption and self.attribution %}<br>{% endif %}
-        {% if self.attribution %}<small><i>{{ self.attribution }}</i></small>{% endif %}
-      </figcaption>
-    {% endif %}
-  </figure>
+        <img class="srcset__image" src="{{ fallback.url }}" alt="{{ self.image.seo_title }}" style='width: 100%; height: auto;'/>
+      </picture>
+      {% if self.caption or self.attribution %}
+        <figcaption class="image-block-caption text-end px-1 pt-1 pb-2 lh-sm">
+          {% if self.caption %}{{ self.caption }}{% endif %}
+          {% if self.caption and self.attribution %}<br>{% endif %}
+          {% if self.attribution %}<small><i>{{ self.attribution }}</i></small>{% endif %}
+        </figcaption>
+      {% endif %}
+    </figure>
+  </div>
 </div>

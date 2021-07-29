@@ -72,7 +72,7 @@
 
 {% endwith%}
 
-<div class="container-fluid mt-4 px-2 px-sm-5 pb-1">
+<div class="container-fluid mt-4 px-2 px-sm-5">
 
   {# Categories #}
   <div class="row rounded bg-info py-2 px-3 mx-1 mt-2 mb-4 border-primary border-1">
@@ -83,7 +83,7 @@
           <div class="row">
             {% for item in self.categories.all %}
               <div class="col-auto">
-                <a class="category-link{% if item.slug == category_filter %} active{% endif %}" href="{{ self.get_parent.url }}?category={{item.slug}}#filter">
+                <a class="category-link active" href="{{ self.get_parent.url }}?category={{item.slug}}#filter">
                   {{ item.name }}
                 </a>
               </div>        
@@ -92,7 +92,8 @@
       </div>        
   </div>
 
-  <div class="row py-2 px-3 mx-1 mt-2 mb-2 mb-md-4 text-center">
+  {# Title #}
+  <div class="row mt-2 mb-2 mb-md-4 text-center">
     <h1 class="fw-bolder">{{ self.title }}</h1>
   </div>
 
@@ -100,11 +101,10 @@
   {% for block in page.body %} 
     {% include_block block %} 
   {% endfor %}
-</div>
 
-{# Tags #}
-{% if page.tags.count %} 
-  <div class="row rounded bg-info py-2 px-3 mx-2 mx-sm-5 my-2 border-primary border-1">
+  {# Tags #}
+  {% if page.tags.count %} 
+    <div class="row rounded bg-info p-2 m-0 border-primary border-1">
       <div class="col-auto tag-link active d-flex flex-nowrap pe-3">
           Tagged with:
       </div>
@@ -119,8 +119,10 @@
             {% endfor %}
           </div>        
       </div>        
-  </div>  
-{% endif %}
+    </div>  
+  {% endif %}
+
+</div>
 
 {# Comments #}
 {% get_comment_count for page as comment_count %}

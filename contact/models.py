@@ -57,7 +57,7 @@ class FormField(TranslatableMixin, CustomAbstractFormField):
         unique_together = ('translation_key', 'locale')
 
 class IntroStreamBlock(StreamBlock):
-    text = RichTextBlock()
+    text = SimpleRichTextBlock()
     html = HtmlBlock()
     spacer = SpacerStaticBlock()
 
