@@ -1,31 +1,33 @@
 {% load quote_tags %}
 {% quote_marks as quote_mark %}
 
-<div class="row enzed-blockquote px-3">
-  <table class="table text-center table_nopadding table-borderless {{ self.background }}">
-    <tbody>
-      <tr>
-        <td>
-          <span class="enzed-blockquote-marks">
-            {{ quote_mark.open }}
-          </span>
-        </td>
-        <td class="align-middle">
-          <span class="enzed-blockquote">
-            {{ self.text | linebreaksbr }}
-          </span>
-          {% if self.attribute_name %}
-              <div class="col-12 pt-2 text-end">
-                <span><small>– {{ self.attribute_name }}</small></span>
-              </div>
-          {% endif %}
-        </td>
-        <td>
-          <span class="enzed-blockquote-marks p-2">
-            {{ quote_mark.close }}
-          </span>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+<div class="block-container">
+  <div class="row enzed-blockquote px-3">
+    <table class="table text-center table_nopadding table-borderless {{ self.background }}">
+      <tbody>
+        <tr>
+          <td>
+            <span class="enzed-blockquote-marks">
+              {{ quote_mark.open }}
+            </span>
+          </td>
+          <td class="align-middle">
+            <span class="enzed-blockquote">
+              {{ self.text | linebreaksbr }}
+            </span>
+            {% if self.attribute_name %}
+                <div class="col-12 pt-2 text-end">
+                  <span><small>– {{ self.attribute_name }}</small></span>
+                </div>
+            {% endif %}
+          </td>
+          <td>
+            <span class="enzed-blockquote-marks p-2">
+              {{ quote_mark.close }}
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

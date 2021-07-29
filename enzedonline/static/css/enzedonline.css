@@ -1,15 +1,20 @@
 /* @import url(https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap);
 @import url(https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital@1&display=swap); */
-@import url(https://fonts.googleapis.com/css?family=Work+Sans:300,400,500,600,700&display=swap);
-@import url(https://fonts.googleapis.com/css?family=Quicksand:300,400,700&display=swap);
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Work+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu+Mono&display=swap');
 
 :root {
-  --font-family-sans-serif: Quicksand, "Work Sans", -apple-system, BlinkMacSystemFont,
-    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",
-    "Segoe UI Emoji", "Segoe UI Symbol";
-  --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas,
-    "Liberation Mono", "Courier New", monospace;
-}
+  --font-family-headings: 'Quicksand', sans-serif;
+  --font-family-body: 'Work Sans', sans-serif;
+  --font-family-monospace: 'Ubuntu Mono', "Courier New", monospace;
+  --font-size-1: clamp(1.7578125rem, 1.3097rem + 1.3787vw, 2.34375rem);
+  --font-size-2: clamp(1.40625rem, 1.0478rem + 1.1029vw, 1.875rem);
+  --font-size-3: clamp(1.23046875rem, 0.9168rem + 0.9651vw, 1.640625rem);
+  --font-size-4: clamp(1.125rem, 0.9099rem + 0.6618vw, 1.40625rem);
+  --font-size-5: clamp(0.9375rem, 0.7583rem + 0.5515vw, 1.1718756rem);
+  --font-size-6: clamp(0.84375rem, 0.7721rem + 0.2206vw, 0.9375rem);
+  --font-size-body: clamp(0.9rem, 0.8235rem + 0.2353vw, 1rem);
+ }
 :target::before {
   content: '';
   display: block;
@@ -18,9 +23,7 @@
 }
 body {
   margin: 0;
-  font-family: "Work Sans", -apple-system, BlinkMacSystemFont, "Segoe UI",
-    Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",
-    "Segoe UI Emoji", "Segoe UI Symbol";
+  font-family: var(--font-family-body);
   font-size: 0.9375rem;
   font-weight: 400;
   line-height: 1.5;
@@ -38,43 +41,39 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: Quicksand, "Work Sans", -apple-system, BlinkMacSystemFont, "Segoe UI",
-    Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",
-    "Segoe UI Emoji", "Segoe UI Symbol";
+  font-family: var(--font-family-headings);
   margin-bottom: 0.8rem;
   font-weight: 400;
   line-height: 1.2;
 }
 .h1,
 h1 {
-  font-size: clamp(1.7578125rem, 1.3097rem + 1.3787vw, 2.34375rem);
+  font-size: var(--font-size-1);
 }
 .h2,
 h2 {
-  font-size: clamp(1.40625rem, 1.0478rem + 1.1029vw, 1.875rem);
+  font-size: var(--font-size-2);
 }
 .h3,
 h3 {
-  font-size: clamp(1.23046875rem, 0.9168rem + 0.9651vw, 1.640625rem);
+  font-size: var(--font-size-3);
 }
 .h4,
 h4 {
-  font-size: clamp(1.125rem, 0.9099rem + 0.6618vw, 1.40625rem);
+  font-size: var(--font-size-4);
 }
 .h5,
 h5 {
-  font-size: clamp(0.9375rem, 0.7583rem + 0.5515vw, 1.1718756rem);
+  font-size: var(--font-size-5);
 }
 .h6,
 h6 {
-  font-size: clamp(0.84375rem, 0.7721rem + 0.2206vw, 0.9375rem);
+  font-size: var(--font-size-6);
 }
 .p,
 p {
-  font-size: clamp(0.9rem, 0.8235rem + 0.2353vw, 1rem);
-  font-family: "Work Sans", -apple-system, BlinkMacSystemFont, "Segoe UI",
-    Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",
-    "Segoe UI Emoji", "Segoe UI Symbol";  
+  font-size: var(--font-size-body);
+  font-family: var(--font-family-body);  
 }
 a {
   color: #4582ec;
@@ -91,41 +90,31 @@ a {
 }
 
 .banner-headline {
-  font-family: Quicksand, "Work Sans", -apple-system, BlinkMacSystemFont, "Segoe UI",
-    Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",
-    "Segoe UI Emoji", "Segoe UI Symbol";
-  font-size: clamp(1.40625rem, 1.0478rem + 1.1029vw, 1.875rem);
+  font-family: var(--font-family-headings);
+  font-size: var(--font-size-2);
   font-weight: 500;
   color: #fff;
 }
 .banner-subheading {
-  font-family: Quicksand, "Work Sans", -apple-system, BlinkMacSystemFont, "Segoe UI",
-    Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",
-    "Segoe UI Emoji", "Segoe UI Symbol";
-  font-size: clamp(0.9375rem, 0.7583rem + 0.5515vw, 1.1718756rem);
+  font-family: var(--font-family-headings);
+  font-size: var(--font-size-5);
   font-weight: 500;
   color: #fff;
 }
 .comments-header {
-  font-family: Quicksand, "Work Sans", -apple-system, BlinkMacSystemFont, "Segoe UI",
-    Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",
-    "Segoe UI Emoji", "Segoe UI Symbol";
-  font-size: clamp(0.9375rem, 0.7583rem + 0.5515vw, 1.1718756rem);
+  font-family: var(--font-family-headings);
+  font-size: var(--font-size-5);
   color: var(--bs-white) !important;
   padding: 0.6rem 0.8rem;
 }
 .category-link {
-  font-family: Quicksand, "Work Sans", -apple-system, BlinkMacSystemFont, "Segoe UI",
-    Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",
-    "Segoe UI Emoji", "Segoe UI Symbol";
-  font-size: clamp(0.9375rem, 0.7583rem + 0.5515vw, 1.1718756rem);
+  font-family: var(--font-family-headings);
+  font-size: var(--font-size-5);
   color: rgba(255, 255, 255, 0.9);
   padding: 0px;
 }
 .category-link.active{
-  font-family: Quicksand, "Work Sans", -apple-system, BlinkMacSystemFont, "Segoe UI",
-    Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",
-    "Segoe UI Emoji", "Segoe UI Symbol";
+  font-family: var(--font-family-headings);
   color: var(--bs-white) !important;
   font-weight: 600;
 }
@@ -133,10 +122,7 @@ a {
   color: var(--bs-white) !important;
 }
 .tag-link {
-  font-family: Quicksand, "Work Sans", -apple-system, BlinkMacSystemFont, "Segoe UI",
-    Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",
-    "Segoe UI Emoji", "Segoe UI Symbol";
-  /* font-size: clamp(0.9375rem, 0.7583rem + 0.5515vw, 1.1718756rem); */
+  font-family: var(--font-family-headings);
   color: rgba(255, 255, 255, 0.9);
   padding: 0px;
 }
@@ -148,10 +134,8 @@ a {
   color: var(--bs-white) !important;
 }
 .nav-link {
-  font-family: Quicksand, "Work Sans", -apple-system, BlinkMacSystemFont, "Segoe UI",
-    Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",
-    "Segoe UI Emoji", "Segoe UI Symbol";
-  font-size: clamp(0.9375rem, 0.7583rem + 0.5515vw, 1.1718756rem);
+  font-family: var(--font-family-headings);
+  font-size: var(--font-size-5);
   font-weight: 400;
 }
 .nav-link.active {
@@ -164,9 +148,7 @@ a {
   background-color: rgb(2, 184, 117, 0.8) !important;
 }
 .footer-nav-link {
-  font-family: Quicksand, "Work Sans", -apple-system, BlinkMacSystemFont, "Segoe UI",
-    Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",
-    "Segoe UI Emoji", "Segoe UI Symbol";
+  font-family: var(--font-family-headings);
   font-weight: 400;
   color: var(--bs-white) !important;
   padding: 0em 1em;
@@ -280,26 +262,25 @@ a {
   max-width: 100%;
   border-radius: 5px;
 } 
+
 code {
-  background-color: #F3F0EE;
-  padding: 2px;
-  line-height: 0.6;
+  font-family: var(--font-family-monospace);
+  font-size: var(--font-size-body);
+  line-height: 1.2 !important;
+  background-color: var(--bs-light) !important;
+  padding: 2px 5px;
 }
 
 .enzed-blockquote {
-  font-family: Quicksand, "Work Sans", -apple-system, BlinkMacSystemFont, "Segoe UI",
-    Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",
-    "Segoe UI Emoji", "Segoe UI Symbol";
-  font-size: clamp(1.23046875rem, 0.9168rem + 0.9651vw, 1.640625rem);
-  font-weight: 300;
+  font-family: var(--font-family-headings);
+  font-size: var(--font-size-3);
+  font-weight: 500;
   line-height: 1;
 }
 .enzed-blockquote-marks {
-  font-family: "Work Sans", -apple-system, BlinkMacSystemFont, "Segoe UI",
-    Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",
-    "Segoe UI Emoji", "Segoe UI Symbol";
-  font-size: 5.5rem;
-  font-weight: 300;
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-1);
+  font-weight: 600;
   line-height: 1;
   padding: 0px;
   margin: 0px;
@@ -311,34 +292,34 @@ code {
 }
 
 .form-text {
-  font-size: clamp(0.9rem, 0.8235rem + 0.2353vw, 1rem);
+  font-size: var(--font-size-body);
 }
 .form-control {
-  font-size: clamp(0.9rem, 0.8235rem + 0.2353vw, 1rem);
+  font-size: var(--font-size-body);
 }
 .form-control-sm {
-  font-size: clamp(0.84375rem, 0.7721rem + 0.2206vw, 0.9375rem);
+  font-size: var(--font-size-6);
 }
 .form-select {
-  font-size: clamp(0.9rem, 0.8235rem + 0.2353vw, 1rem);
+  font-size: var(--font-size-body);
 }
 .form-select-sm {
-  font-size: clamp(0.84375rem, 0.7721rem + 0.2206vw, 0.9375rem);
+  font-size: var(--font-size-6);
 }
 .input-group-text {
-  font-size: clamp(0.9375rem, 0.7583rem + 0.5515vw, 1.1718756rem);
+  font-size: var(--font-size-5);
 }
 .input-group-sm > .form-control,
 .input-group-sm > .form-select,
 .input-group-sm > .input-group-text,
 .input-group-sm > .btn {
-  font-size: clamp(0.84375rem, 0.7721rem + 0.2206vw, 0.9375rem);
+  font-size: var(--font-size-6);
 }
 .valid-feedback {
-  font-size: clamp(0.84375rem, 0.7721rem + 0.2206vw, 0.9375rem);
+  font-size: var(--font-size-6);
 }
 .invalid-feedback {
-  font-size: clamp(0.84375rem, 0.7721rem + 0.2206vw, 0.9375rem);
+  font-size: var(--font-size-6);
 }
 .bg-black {
   background-color: rgb(0, 0, 0) !important;
@@ -352,10 +333,8 @@ code {
   border-radius: 8px;
 }
 .image-block-caption {
-  font-family: Quicksand, "Work Sans", -apple-system, BlinkMacSystemFont,
-    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",
-    "Segoe UI Emoji", "Segoe UI Symbol";
-  font-size: clamp(0.9375rem, 0.7583rem + 0.5515vw, 1.1718756rem);
+  font-family: var(--font-family-headings);
+  font-size: var(--font-size-5);
 }
 .carousel-caption {
   padding: 0.6rem 1rem;
@@ -372,29 +351,23 @@ code {
   filter: alpha(opacity=40);
 }
 .carousel-title {
-  font-family: Quicksand, "Work Sans", -apple-system, BlinkMacSystemFont,
-    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",
-    "Segoe UI Emoji", "Segoe UI Symbol";
-    font-size: clamp(1.23046875rem, 0.9168rem + 0.9651vw, 1.640625rem);
-    color: white;
+  font-family: var(--font-family-headings);
+  font-size: var(--font-size-3);
+  color: white;
   line-height: 1.2; 
   background-color: #343a40 !important;
   padding: 0.8rem;
   font-weight: 600; 
 }
 .carousel-caption-title {
-  font-family: Quicksand, "Work Sans", -apple-system, BlinkMacSystemFont,
-    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",
-    "Segoe UI Emoji", "Segoe UI Symbol";
-  font-size: clamp(1.125rem, 0.9099rem + 0.6618vw, 1.40625rem);
+  font-family: var(--font-family-headings);
+  font-size: var(--font-size-4);
   text-align: end;
   line-height: 1.2;  
 }
 .carousel-caption-caption {
-  font-family: "Work Sans", -apple-system, BlinkMacSystemFont,
-    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji",
-    "Segoe UI Emoji", "Segoe UI Symbol";
-  font-size: clamp(0.9rem, 0.8235rem + 0.2353vw, 1rem);
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-body);
   text-align: end;
   line-height: 1.2;  
 }
