@@ -2,7 +2,7 @@
 {% load wagtailcore_tags widget_tweaks contact_page_tags wagtailimages_tags %} 
 {% block content %} 
 
-{# Responsive column border #}
+{# Responsive column border, reduce standard block gaps #}
 <style>
   .divider {
     border-left: 1px;
@@ -14,18 +14,21 @@
       border-left: 0px;
     }
   }
-.block-container {
-  margin-bottom: 1rem;
-}  
+  .block-container {
+    margin-bottom: 1rem;
+  }  
 </style>
 
 <div class="container-fluid pt-4 px-2 px-sm-5 pb-4">
   <div class="row">
+    {# Column break at md #}
     <div class="col-md-5 px-sm-5">
+      {# Intro text stream block #}
       {% for block in page.intro_text %}
           {% include_block block %}
       {% endfor %}
 
+      {# Optional image only visible md & above, <hr> for widths below this only #}
       {% if self.intro_image %}
         <div class="d-none d-md-block">
           {% image self.intro_image width-900 format-webp as webp_img_w_900 %} 
@@ -47,7 +50,9 @@
       <div class="d-block d-md-none">
         <hr>
       </div>
+
     </div>
+    {# Column break at md, hide border below this width #}
     <div class="col-md-7 px-sm-5 divider">
       <div class="card bg-warning p-1 lh-sm">
         <div class="card-body pb-0 privacy-notice">
@@ -55,6 +60,7 @@
         </div>
       </div>       
       <div class="container mt-3"> 
+        {# Contact Form #}
         <form action="{% pageurl page %}" enctype="multipart/form-data" method="POST">
           {% csrf_token %} 
           
@@ -75,6 +81,7 @@
           <div class="form-group">
             {% for field in form.visible_fields %} 
               {% field_class field as field_class %}
+              {# Check box not displaying correctly by default, use case here #}
               {% if field_class == 'checkbox' %}
                 <div class="form-check mt-4 ml-1">
                   {% if form.is_bound %} 
