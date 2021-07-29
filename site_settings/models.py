@@ -60,6 +60,18 @@ class EmailSettings(BaseSetting):
         help_text=_("Use only TLS or SSL")
     )
 
+@register_setting(icon='fa-facebook')
+class Facebook_Script_Src(BaseSetting):
+    javascript_sdk = models.CharField(
+        max_length=300,
+        null=True,
+        blank=False,
+        verbose_name=_("Facebook Javascript SDK"),
+        help_text=_("Copy in the code from Section 2 of the Javascript SDK tab in the 'Advanced Settings' embed page.")
+    )
+    class Meta:
+        verbose_name = 'Facebook Javascript SDK'
+
 @register_snippet
 class SocialMedia(TranslatableMixin, models.Model):
 

@@ -1,14 +1,10 @@
 {% load wagtailcore_tags social_media_embed_tags %}
 
-{% is_facebook self.embed_code as fb_post %}
-{% if fb_post %}
-<div id="fb-root"></div>
-<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v10.0" nonce="r5fHrcxL"></script>
-{% endif %}
+{% facebook_js_sdk self.embed_code as facebook_js_sdk %}
+{% comment %} {{ facebook_js_sdk|safe }} {% endcomment %}
 
-<div mb-3 py-3>
-    &nbsp
-    <div class="d-flex align-items-center justify-content-center">
+<div class="mb-3">
+    <div class="d-flex align-items-center justify-content-center border-primary border-1">
         {{ self.embed_code }}
     </div>
 </div>
