@@ -5,6 +5,7 @@
 {% block content %}
 {% include 'core/banner_image.html' %}
 
+
 <div class="container-fluid mt-3 pt-0 pt-md-2 px-2 px-sm-5 pb-4">
 
     {# Top Content Section #}
@@ -13,62 +14,69 @@
     {% endfor %}
 
     {# Filter #}
-    <div class="container-fluid py-2 ps-2 ps-md-4 rounded bg-info border-primary border-1">
+    <div class="container-fluid py-2 ps-3 ps-md-4 rounded bg-info border-primary border-1">
         <div class="row">
-            <div class="col-auto text-white h5 pb-0 fw-bolder active">
-                <span  id='filter'>Filter:</span>
+            <div class="col-auto text-white order-0">
+                <span class="category-link active" id='filter'>Filter:</span>
             </div>
-            <div class="col-auto text-light ms-auto me-3 justify-content-end px-0">
+            <div class="col-auto text-light ms-auto me-3 justify-content-end px-0 order-2">
                 <a href=".#filter" class="btn btn-sm btn-close btn-close-white m-n2" role="button" title="Clear filter"></a>
             </div>
+            <div class="col-sm-auto text-light order-3 order-sm-1">
+                <div class="row pt-0">
+                    {% for item in categories %}
+                        <div class="col-auto">
+                            <a class="category-link{% if item.slug == category_filter %} active{% endif %}" href="?category={{item.slug}}#filter">{{ item.name }}</a>
+                        </div>        
+                    {% endfor %}
+                </div>        
+                <div class="row">
+                    {% for item in tags %}
+                        <div class="col-auto">
+                            <a class="tag-link{% if item.slug == tag_filter %} active{% endif %}" href="?tag={{item.slug}}#filter">#{{ item.name }}</a>
+                        </div>        
+                    {% endfor %}
+                </div>        
+            </div>
         </div>
-        <div class="row">
-            {% for item in categories %}
-                <div class="col-auto">
-                    <a class="category-link{% if item.slug == category_filter %} active{% endif %}" href="?category={{item.slug}}#filter">{{ item.name }}</a>
-                </div>        
-            {% endfor %}
-        </div>        
-        <div class="row">
-            {% for item in tags %}
-                <div class="col-auto">
-                    <a class="tag-link{% if item.slug == tag_filter %} active{% endif %}" href="?tag={{item.slug}}#filter">#{{ item.name }}</a>
-                </div>        
-            {% endfor %}
-        </div>        
-        {% comment %} {% if showing %}<div class="row text-light small pt-2">{{ showing }}</div>{% endif %} {% endcomment %}
     </div>
 
     {# Blog List #}
     <span id='list'></span>
-    <div class="row p-2 mt-2 mt-sm-3 mt-md-4 row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xxl-4 justify-content-center">
-        {% for post in posts %}
-            <div class="col mx-0 mb-4">
-                <div class="card h-100 p-2">
-                    {% image post.search_image fill-900x600-c100 format-webp as webp_img_w_900 %} 
-                    {% image post.search_image fill-600x400-c100 format-webp as webp_img_w_600 %}
-                    {% image post.search_image fill-300x200-c100 format-webp as webp_img_w_300 %}
-                    {% image post.search_image fill-900x600-c100 as fallback %} 
-                    <picture>
-                        <source media="(min-width: 750px)" srcset="{{ webp_img_w_900.url }} 900w" type="image/webp" />
-                        <source media="(min-width: 500px)" srcset="{{ webp_img_w_600.url }} 600w" type="image/webp" />
-                        <source srcset="{{ webp_img_w_300.url }} 300w" type="image/webp" />
-                        <source srcset="{{ fallback.url }} 900w" />
-                        <img
-                            src="{{ fallback.url }}"
-                            alt="{{ post.title }}"
-                            style="width: 100%; height: auto"
-                        />
-                    </picture>
-                    <div class="card-body">
-                        <h4 class="card-title fw-bolder">{{ post.title }}</h4>
-                        <p class="blog-summary">{{ post.summary|linebreaksbr }}</p>
-                        <p class="blog-summary small">{{ post.first_published_at }}</small></p>
+    <div class="p-1 p-sm-2 p-md-3 mt-2 mt-sm-3 mt-md-4 bg-light rounded">
+        <div class="grid" data-masonry='{ "itemSelector": ".grid-item", "columnWidth": ".grid-sizer",  "gutter": ".gutter-sizer",  "percentPosition": "true" }'>
+            <div class="grid-sizer"></div>
+            <div class="gutter-sizer"></div>
+            {% for post in posts %}
+                <div class="grid-item">
+                    <div class="col mx-0 mb-4">
+                        <div class="card p-2">
+                            {% image post.search_image fill-900x600-c100 format-webp as webp_img_w_900 %} 
+                            {% image post.search_image fill-600x400-c100 format-webp as webp_img_w_600 %}
+                            {% image post.search_image fill-300x200-c100 format-webp as webp_img_w_300 %}
+                            {% image post.search_image fill-900x600-c100 as fallback %} 
+                            <picture>
+                                <source media="(min-width: 750px)" srcset="{{ webp_img_w_900.url }} 900w" type="image/webp" />
+                                <source media="(min-width: 500px)" srcset="{{ webp_img_w_600.url }} 600w" type="image/webp" />
+                                <source srcset="{{ webp_img_w_300.url }} 300w" type="image/webp" />
+                                <source srcset="{{ fallback.url }} 900w" />
+                                <img
+                                    src="{{ fallback.url }}"
+                                    alt="{{ post.title }}"
+                                    style="width: 100%; height: auto"
+                                />
+                            </picture>
+                            <div class="card-body">
+                                <h4 class="card-title text-start fw-bolder">{{ post.title }}</h4>
+                                <p class="blog-summary">{{ post.summary|linebreaksbr }}</p>
+                                <p class="blog-summary small">{{ post.first_published_at }}</small></p>
+                            </div>
+                            <a href="{{post.url}}{{filter}}" class="stretched-link"></a>
+                        </div>
                     </div>
-                    <a href="{{post.url}}{{filter}}" class="stretched-link"></a>
                 </div>
-            </div>
-        {% endfor %}
+            {% endfor %}
+        </div>
     </div>
 
     {# Bottom Content Section #}
@@ -121,4 +129,8 @@
 </div>
 
 {% endblock content %}
+
+{% block extra_js %}
+    <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.js"></script>
+{% endblock %}
 

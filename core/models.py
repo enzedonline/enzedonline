@@ -4,6 +4,7 @@ from django.utils.translation import gettext_lazy as _
 from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel
 from wagtail.core.models import Page
 from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.search import index
 from wagtailcaptcha.models import WagtailCaptchaEmailForm
 from wagtailmetadata.models import WagtailImageMetadataMixin
 
@@ -63,6 +64,10 @@ class SEOPageMixin(WagtailImageMetadataMixin, models.Model):
 
 class SEOPage(SEOPageMixin, Page):
     pass
+
+    search_fields = Page.search_fields + [
+        index.SearchField('summary'),
+    ]
 
     class Meta:
         abstract = True

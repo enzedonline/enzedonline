@@ -8,6 +8,7 @@ from wagtail.admin.edit_handlers import (FieldPanel, MultiFieldPanel,
                                          StreamFieldPanel)
 from wagtail.core.fields import StreamField
 from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.search import index
 
 class HomePage(SEOPage):
 
@@ -52,6 +53,10 @@ class HomePage(SEOPage):
             heading=_("Choose banner image and text/button overlay options.")
         ),
         StreamFieldPanel("body"),
+    ]
+
+    search_fields = SEOPage.search_fields + [
+        index.SearchField('body'),
     ]
 
     class Meta:

@@ -114,6 +114,8 @@ a {
 .category-link {
   font-family: var(--font-family-headings);
   font-size: var(--font-size-5);
+  font-weight: 500;
+  line-height: 0.8;
   color: rgba(255, 255, 255, 0.9);
   padding: 0px;
 }
@@ -388,6 +390,55 @@ a {
 .block-container {
   margin-bottom: 2rem;
 }
+
+
+/* ============ Masonry CSS ============ */
+/* clearfix */
+.grid:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+/* ---- grid-item ---- */
+
+.grid-item {
+  float: left;
+  border-radius: 5px;
+}
+.gutter-sizer {
+  width: 2%;
+}
+.grid-sizer,
+.grid-item {
+  width: 19%;
+}
+@media screen and (max-width: 2000px) {
+    .grid-sizer,
+    .grid-item {
+    width: 24%;
+    }
+}
+@media screen and (max-width: 1500px) {
+    .grid-sizer,
+    .grid-item {
+    width: 32%;
+    }
+}
+@media screen and (max-width: 992px) {
+    .grid-sizer,
+    .grid-item {
+    width: 49%;
+    }
+}
+@media screen and (max-width: 576px) {
+    .grid-sizer,
+    .grid-item {
+    width: 100%;
+    }
+}
+
+/* =========================================== */
 code {
   font-family: var(--font-family-monospace);
   font-size: var(--font-size-body);

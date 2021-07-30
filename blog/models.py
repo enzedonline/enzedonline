@@ -18,6 +18,7 @@ from wagtail.admin.edit_handlers import (FieldPanel, InlinePanel,
 from wagtail.core.fields import StreamField
 from wagtail.core.models import TranslatableMixin
 from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.search import index
 from wagtail.snippets.models import register_snippet
 
 
@@ -92,6 +93,10 @@ class BlogDetailPage(SEOPage):
     content_panels = SEOPage.content_panels + [
         StreamFieldPanel("body"),
         InlinePanel('customcomments', label=_("Comments")),    
+    ]
+
+    search_fields = SEOPage.search_fields + [
+        index.SearchField('body'),
     ]
 
     class Meta:
