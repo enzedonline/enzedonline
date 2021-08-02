@@ -5,6 +5,7 @@
 <html lang={{ LANGUAGE_CODE }}>
     <head>
         {% include 'head.html' %}
+        {% block extra_head %}{% endblock extra_head %}
     </head>
 
     {% comment %} <div class="sharethis-sticky-share-buttons"></div> {% endcomment %}
