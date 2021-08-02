@@ -162,6 +162,36 @@ a {
 .footer-nav-link.active {
   color: var(--bs-white) !important;
 }
+.dropright {
+  position: relative;
+  margin-left: 10px;
+}
+
+.dropright .btn-dark-outline {
+  background-color: transparent;
+}
+
+.dropright .btn:focus,.btn:active {
+  outline: none !important;
+  box-shadow: none;
+}
+.dropright .dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -1px;
+}
+.nav-item {
+  padding: 0rem 0rem;
+  padding-right: 0rem;
+  padding-left: 0rem;
+  font-size: clamp(0.84375rem, 0.7721rem + 0.2206vw, 0.9375rem);
+  font-weight: 500;
+}
+.search-menu {
+  padding: 0 1em;
+  min-width: 30rem;
+  background-color: --bs-light;
+}
 .privacy-notice {
   font-size: var(--font-size-6);
   font-family: var(--font-family-headings);

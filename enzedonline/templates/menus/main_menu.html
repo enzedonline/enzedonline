@@ -42,12 +42,50 @@
         {% endfor %}
     {% endif %}
 
+    <div class="collapse navbar-collapse dual-collapse3 d-none d-md-block order-3 pe-2 pe-md-0 ms-auto me-0 flex-grow-1 flex-md-grow-0" id="navbarCollapseItems">
+        <ul class="navbar-nav ms-auto me-0 ps-3 ps-md-0">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" title="Search" id="navbardrop" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-search"></i>
+                </a>
+                <div class="dropdown-menu dropdown-menu-end search-menu">
+                    <form action="{% url 'search' %}" method="get">
+                        <div class="form-group row g-1 my-1 pb-1">
+                            <div class="col">
+                                <input type="text" name="query" class="form-control py-1 ps-2" value="{% if search_query %}{{ search_query }}{% endif %}">
+                            </div>
+                            <div class="col-auto">
+                                <input type="submit" value="Search" class="btn-primary form-control py-1">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="collapse navbar-collapse dual-collapse2 order-5 order-md-0 pt-2 p-md-0 m-md-0" id="navbarCollapseItems">
+        <ul class="navbar-nav ps-3 d-md-none">
+            <li class="nav-item">
+                    <form action="{% url 'search' %}" method="get">
+                        <div class="form-group row g-1 my-1 pb-1">
+                            <div class="col">
+                                <input type="text" name="query" class="form-control py-1 px-2" value="{% if search_query %}{{ search_query }}{% endif %}">
+                            </div>
+                            <div class="col-auto">
+                                <input type="submit" value="Search" class="btn-primary form-control py-1">
+                            </div>
+                        </div>
+                    </form>
+            </li>
+        </ul>
+    </div>
+
     {# User menu - add social logins after loaded menu #}
     {% get_menu 'user' as user_menu %}
     {% if user_menu %}
         {% get_menu_items user_menu request as user_menu_items %}
 
-        <div class="collapse navbar-collapse dual-collapse2 order-2 pe-2 pe-md-0 ms-auto me-0 flex-grow-1 flex-md-grow-0" id="navbarCollapseItems">
+        <div class="collapse navbar-collapse dual-collapse2 order-3 pe-2 pe-md-0 ms-auto me-0 flex-grow-1 flex-md-grow-0" id="navbarCollapseItems">
             <ul class="navbar-nav ms-auto me-0 ps-3 ps-md-0">
                 <li class="nav-item dropdown">
                     {% if request.user.is_authenticated %}
@@ -93,7 +131,7 @@
     {% endif %}
 
     {# Main menu - allow 2 levels of submenu #}
-    <div class="collapse navbar-collapse order-1 order-md-0 dual-collapse2" id="navbarCollapseItems">
+    <div class="collapse navbar-collapse order-2 order-md-0 dual-collapse2" id="navbarCollapseItems">
         <ul class="navbar-nav ms-auto align-items-md-center ps-3 ps-md-0">
             {% get_menu 'main_menu' as main_menu %}
             {% if main_menu %}
@@ -212,51 +250,3 @@
         <span class="navbar-toggler-icon"></span>
     </button>
 </nav>
-
-{# Dropdown menu aligns with right of button, lose focus after click #}
-<script type="text/javascript">
-    $(document).ready(function() {
-        $('.dropright button').on("click", function(e) {
-            e.stopPropagation();
-            e.preventDefault();
-
-            if (!$(this).next('div').hasClass('show')) {
-            $(this).next('div').addClass('show');
-            } else {
-            $(this).next('div').removeClass('show');
-            }
-        });
-    });
-    $(".navbar-toggler").mouseup(function(){
-        $(this).blur();
-    })
-</script>
-
-{# Dropdown menu & buttons styling #}
-<style>
-    .dropright {
-        position: relative;
-        margin-left: 10px;
-    }
-    
-    .dropright .btn-dark-outline {
-        background-color: transparent;
-    }
-
-    .dropright .btn:focus,.btn:active {
-        outline: none !important;
-        box-shadow: none;
-    }
-    .dropright .dropdown-menu {
-        top: 0;
-        left: 100%;
-        margin-top: -1px;
-    }
-    .nav-item {
-        padding: 0rem 0rem;
-        padding-right: 0rem;
-        padding-left: 0rem;
-        font-size: clamp(0.84375rem, 0.7721rem + 0.2206vw, 0.9375rem);
-        font-weight: 500;
-    }
-</style> 

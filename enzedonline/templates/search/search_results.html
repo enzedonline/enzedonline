@@ -10,7 +10,7 @@
     <form action="{% url 'search' %}" method="get">
     <div class="form-group row g-1 mt-1">
         <div class="col">
-            <input type="text" name="query" class="form-control" value="{% if search_query %}{{ search_query }}{% endif %}">
+            <input type="text" name="query" class="form-control px-3" value="{% if search_query %}{{ search_query }}{% endif %}">
         </div>
         <div class="col-auto">
             <input type="submit" value="Search" class="btn-primary form-control">
