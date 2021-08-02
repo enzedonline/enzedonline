@@ -5,7 +5,8 @@
 {% get_current_language as LANGUAGE_CODE %}
 
 {% block content %}
-    <div class="container mt-10">
+    <div class="text-center w-100" style="position: absolute; top: 50%;-ms-transform: translateY(-50%); transform: translateY(-50%);" >
+
     {% if LANGUAGE_CODE == 'en' %}
     <h1>Page not found</h1>
 
@@ -24,5 +25,6 @@
     <h2> Lo sentimos, no se pudo encontrar esta página. </h2>   
 
     {% endif %}
+
     </div>
 {% endblock %}
