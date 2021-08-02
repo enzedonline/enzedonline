@@ -6,7 +6,8 @@ from django.contrib import admin
 from django.urls import include, path
 from django.views import defaults as default_views
 from django.views.i18n import JavaScriptCatalog
-from search import views as search_views
+# from search import views as search_views
+from core.views import search
 from userauth.views import *
 from wagtail.admin import urls as wagtailadmin_urls
 from wagtail.contrib.sitemaps.views import sitemap
@@ -47,7 +48,7 @@ if settings.DEBUG:
 
 # These paths are translatable so will be given a language prefix (eg, '/en', '/fr')
 urlpatterns = urlpatterns + i18n_patterns(
-    path('search/', search_views.search, name='search'),
+    path('search/', search, name='search'),
     url(r'^404/$', default_views.page_not_found, kwargs={'exception': Exception("Page not Found")}),
     url(r'^500/$', default_views.server_error),    # For anything not caught by a more specific rule above, hand over to
     url(r'^accounts/password/change/', CustomPasswordChangeView.as_view(), name="account_change_password"),

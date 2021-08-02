@@ -1,28 +1,69 @@
 {% extends "base.html" %}
-{% load wagtailcore_tags %}
-
-{% block title %}Search{% endblock %}
+{% load wagtailcore_tags wagtailimages_tags %}
 
 {% block content %}
+<div class="container-fluid mt-3 pt-0 pt-md-2 px-2 px-sm-5 pb-4">
+
+<h1 class="text-center">Search</h1>
+
+    <div class="p-1 p-sm-2 p-md-3 mt-2 mt-sm-3 mt-md-4 bg-light rounded">
     <form action="{% url 'search' %}" method="get">
-        <input type="text" name="query" value="{{ search_query }}">
-        <input type="submit" value="Search">
+    <div class="form-group row g-1 mt-1">
+        <div class="col">
+            <input type="text" name="query" class="form-control" value="{% if search_query %}{{ search_query }}{% endif %}">
+        </div>
+        <div class="col-auto">
+            <input type="submit" value="Search" class="btn-primary form-control">
+        </div>
+    </div>
     </form>
 
     {% if search_results %}
-        <ul>
-            {% for result in search_results %}
-                <li>
-                    <h4><a href="{% pageurl result %}">{{ result }}</a></h4>
-                    {% if result.search_description %}
-                        {{ result.search_description|safe }}
-                    {% endif %}
-                </li>
+
+        <div class="grid" data-masonry='{ "itemSelector": ".grid-item", "columnWidth": ".grid-sizer",  "gutter": ".gutter-sizer",  "percentPosition": "true" }'>
+            <div class="grid-sizer"></div>
+            <div class="gutter-sizer"></div>
+            {% for post in search_results %}
+                <div class="grid-item">
+                    <div class="col mx-0 mb-4">
+                        <div class="card p-2">
+                            {% image post.search_image fill-900x600-c100 format-webp as webp_img_w_900 %} 
+                            {% image post.search_image fill-600x400-c100 format-webp as webp_img_w_600 %}
+                            {% image post.search_image fill-300x200-c100 format-webp as webp_img_w_300 %}
+                            {% image post.search_image fill-900x600-c100 as fallback %} 
+                            <picture>
+                                <source media="(min-width: 750px)" srcset="{{ webp_img_w_900.url }} 900w" type="image/webp" />
+                                <source media="(min-width: 500px)" srcset="{{ webp_img_w_600.url }} 600w" type="image/webp" />
+                                <source srcset="{{ webp_img_w_300.url }} 300w" type="image/webp" />
+                                <source srcset="{{ fallback.url }} 900w" />
+                                <img
+                                    src="{{ fallback.url }}"
+                                    alt="{{ post.title }}"
+                                    style="width: 100%; height: auto"
+                                />
+                            </picture>
+                            <div class="card-body">
+                                <h4 class="card-title text-start fw-bolder">{{ post.title }}</h4>
+                                <p class="blog-summary">{{ post.summary|linebreaksbr }}</p>
+                                <p class="blog-summary small">{{ post.first_published_at }}</small></p>
+                            </div>
+                            <a href="{{post.url}}{{filter}}" class="stretched-link"></a>
+                        </div>
+                    </div>
+                </div>
             {% endfor %}
-        </ul>
+        </div>
+
+
     {% elif search_query %}
         No results found
     {% else %}
         Please type something into the search box
     {% endif %}
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+    <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.js"></script>
 {% endblock %}

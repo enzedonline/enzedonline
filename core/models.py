@@ -2,7 +2,7 @@ from django.conf import settings
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel
-from wagtail.core.models import Page
+from wagtail.core.models import Locale, Page
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.search import index
 from wagtailcaptcha.models import WagtailCaptchaEmailForm
@@ -15,7 +15,7 @@ def get_image_model_string():
         image_model = 'wagtailimages.Image'
     return image_model
 
-class SEOPageMixin(WagtailImageMetadataMixin, models.Model):
+class SEOPageMixin(index.Indexed, WagtailImageMetadataMixin, models.Model):
     search_image = models.ForeignKey(
         get_image_model_string(),
         null=True,
@@ -63,7 +63,6 @@ class SEOPageMixin(WagtailImageMetadataMixin, models.Model):
         abstract = True
 
 class SEOPage(SEOPageMixin, Page):
-    pass
 
     search_fields = Page.search_fields + [
         index.SearchField('summary'),

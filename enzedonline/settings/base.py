@@ -30,6 +30,7 @@ INSTALLED_APPS = [
     'wagtail.contrib.redirects',
     'wagtail.contrib.routable_page',
     'wagtail.contrib.modeladmin',
+    'wagtail.contrib.postgres_search',
     'wagtail.contrib.settings',
     'wagtail.contrib.sitemaps',
     'wagtail.embeds',
@@ -176,6 +177,13 @@ WAGTAILEMBEDS_FINDERS = [
         'class': 'wagtail.embeds.finders.oembed',
     }
 ]
+
+WAGTAILSEARCH_BACKENDS = {
+    'default': {
+        'BACKEND': 'wagtail.contrib.postgres_search.backend',
+        'SEARCH_CONFIG': 'english',
+    }
+}
 
 # # ALLAUTH settings
 AUTH_USER_MODEL = 'userauth.CustomUser'

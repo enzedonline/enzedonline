@@ -16,14 +16,14 @@ def search(request):
     # Search
     search_query = request.GET.get('query', None)
     if search_query:
-        s = get_search_backend()
-        search_results = s.search(search_query)
+        s = get_search_backend(backend='default')
+        search_results = s.search(search_query, Page.objects.live().specific().reverse())
 
 
         # Log the query so Wagtail can suggest promoted results
         Query.get(search_query).add_hit()
     else:
-        search_results = SEOPage.objects.none()
+        search_results = Page.objects.none()
 
     # Render template
     return render(request, 'search/search_results.html', {
