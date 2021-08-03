@@ -52,7 +52,7 @@
                     <form action="{% url 'search' %}" method="get">
                         <div class="form-group row g-1 my-1 pb-1">
                             <div class="col">
-                                <input type="text" name="query" class="form-control py-1 ps-2" value="{% if search_query %}{{ search_query }}{% endif %}">
+                                <input type="text" name="query" id="searchbox" class="form-control py-1 ps-2" value="{% if search_query %}{{ search_query }}{% endif %}">
                             </div>
                             <div class="col-auto">
                                 <input type="submit" value="Search" class="btn-primary form-control py-1">
@@ -66,16 +66,16 @@
     <div class="collapse navbar-collapse dual-collapse2 order-5 order-md-0 pt-2 p-md-0 m-md-0" id="navbarCollapseItems">
         <ul class="navbar-nav ps-3 d-md-none">
             <li class="nav-item">
-                    <form action="{% url 'search' %}" method="get">
-                        <div class="form-group row g-1 my-1 pb-1">
-                            <div class="col">
-                                <input type="text" name="query" class="form-control py-1 px-2" value="{% if search_query %}{{ search_query }}{% endif %}">
-                            </div>
-                            <div class="col-auto">
-                                <input type="submit" value="Search" class="btn-primary form-control py-1">
-                            </div>
+                <form action="{% url 'search' %}" method="get">
+                    <div class="form-group row g-1 my-1 pb-1">
+                        <div class="col">
+                            <input type="text" name="query" class="form-control py-1 px-2" value="{% if search_query %}{{ search_query }}{% endif %}">
                         </div>
-                    </form>
+                        <div class="col-auto">
+                            <input type="submit" value="Search" class="btn-primary form-control py-1">
+                        </div>
+                    </div>
+                </form>
             </li>
         </ul>
     </div>
