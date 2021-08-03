@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load wagtailcore_tags wagtailimages_tags %}
+{% load static wagtailcore_tags wagtailimages_tags %}
 
 {% block extra_head %}
     <title>Enzed Online - Search Results</title>
@@ -25,11 +25,11 @@
     {% if search_results %}
 
         <div class="grid" data-masonry='{ "itemSelector": ".grid-item", "columnWidth": ".grid-sizer",  "gutter": ".gutter-sizer",  "percentPosition": "true" }'>
-            <div class="grid-sizer"></div>
             <div class="gutter-sizer"></div>
+            <div class="grid-sizer"></div>
             {% for post in search_results %}
                 <div class="grid-item">
-                    <div class="col mx-0 mb-4">
+                    <div class="col mx-0 mb-3">
                         <div class="card p-2">
                             {% image post.search_image fill-900x600-c100 format-webp as webp_img_w_900 %} 
                             {% image post.search_image fill-600x400-c100 format-webp as webp_img_w_600 %}
@@ -69,5 +69,5 @@
 {% endblock %}
 
 {% block extra_js %}
-    <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.js"></script>
+    <script src="{% static 'js/masonry.pkgd.js'%}"></script>
 {% endblock %}

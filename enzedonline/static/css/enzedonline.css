@@ -348,6 +348,10 @@ a {
 .blog-summary {
   line-height: 1.2;
   color: #868e96 !important;
+  font-size: var(--font-size-6);
+}
+.blog-summary.small {
+  font-size: 0.875em;
 }
 .avatar {
   border-radius: 8px;
