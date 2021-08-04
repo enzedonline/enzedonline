@@ -1,4 +1,4 @@
-{% load static adv_cache seo_metadata_tags %}
+{% load static adv_cache seo_metadata_tags core_tags %}
 
 {% comment %} {# Google Analytics#}
 <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -11,7 +11,8 @@
   gtag('config', 'UA-196836685-1');
 </script> {% endcomment %}
 
-{% cache None page.slug "head" self.last_published_at %}
+{% get_cache_key_settings self as cache_settings %}
+{% cache None cache_settings.slug "head" cache_settings.last_published_at %}
 
   {# Meta Tags #}
   <meta charset="utf-8" />

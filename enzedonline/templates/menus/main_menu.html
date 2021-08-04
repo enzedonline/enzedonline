@@ -1,4 +1,4 @@
-{% load adv_cache wagtailimages_tags menu_tags socialaccount static %}
+{% load adv_cache wagtailimages_tags menu_tags socialaccount core_tags static %}
 
 {% company_logo as logo %}
 {% image logo.logo height-30 as logo_lg %} 
@@ -6,9 +6,11 @@
 {% image logo.logo height-30 as logo_sm %} 
 
 {# Page top menu bar loaded on all pages #}
-<nav class="navbar navbar-expand-md navbar-dark bg-primary p-2 pe-md-1">
 
-    {% cache None page.slug "menu" self.last_published_at %}
+{% get_cache_key_settings self as cache_settings %}
+{% cache None cache_settings.slug "menu" cache_settings.last_published_at %}
+
+    <nav class="navbar navbar-expand-md navbar-dark bg-primary p-2 pe-md-1">
 
         {# Logo top left #}
         <div class="ps-2">
@@ -260,7 +262,8 @@
             <span class="navbar-toggler-icon"></span>
         </button>
 
-    {% endcache %}
+    </nav>
 
-</nav>
+{% endcache %}
+
 <script src="{% static 'js/navbar.js'%}"></script>

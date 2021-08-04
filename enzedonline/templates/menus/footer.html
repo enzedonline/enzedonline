@@ -1,6 +1,7 @@
-{% load adv_cache wagtailimages_tags menu_tags static %}
+{% load adv_cache wagtailimages_tags menu_tags core_tags static %}
 
-{% cache None "footer" "body" self.last_published_at %}
+{% get_cache_key_settings self as cache_settings %}
+{% cache None cache_settings.slug "footer" cache_settings.last_published_at %}
 
   {% get_menu 'Privacy' as privacy_menu %} 
   {% get_social_media_icons as social_media_icons %}

@@ -1,8 +1,10 @@
-import wagtail.admin.rich_text.editors.draftail.features as draftail_features
 from django.urls import reverse
+from django.utils.translation import gettext_lazy as _
 from wagtail.admin.menu import MenuItem
 from wagtail.admin.rich_text.converters.html_to_contentstate import \
     InlineStyleElementHandler
+from wagtail.admin.rich_text.editors.draftail import \
+    features as draftail_features
 from wagtail.core import hooks
 
 from .utils import purge_page_cache_fragments
@@ -10,7 +12,7 @@ from .utils import purge_page_cache_fragments
 
 @hooks.register('register_settings_menu_item')
 def register_refresh_cache_menu_item():
-    return MenuItem('Refresh Cache', reverse('refresh-page-cache'), classnames='icon icon-folder-inverse', order=1)
+    return MenuItem(_('Empty Cache'), reverse('refresh-page-cache'), classnames='icon icon-bin', order=1)
 
 @hooks.register('after_delete_page')
 def do_after_page_create(request, page):
