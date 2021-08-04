@@ -1,40 +1,43 @@
-{% load wagtailimages_tags menu_tags static %}
+{% load adv_cache wagtailimages_tags menu_tags static %}
 
-{% get_menu 'Privacy' as privacy_menu %} 
-{% get_social_media_icons as social_media_icons %}
+{% cache None "footer" "body" self.last_published_at %}
 
-<footer class="footer">
-  <nav class="navbar navbar-dark bg-dark py-1">
-    <div>
-      <ul class="nav bg-transparent px-2">
-        {% for icon in social_media_icons %}
-        <li class="nav-item px-2">
-          <a href="{{ icon.link }}" title="{{ icon.alt }}">
-            <img src="{{ icon.image }}" alt="{{ icon.alt }}" />
-          </a>
-        </li>
+  {% get_menu 'Privacy' as privacy_menu %} 
+  {% get_social_media_icons as social_media_icons %}
+
+  <footer class="footer">
+    <nav class="navbar navbar-dark bg-dark py-1">
+      <div>
+        <ul class="nav bg-transparent px-2">
+          {% for icon in social_media_icons %}
+          <li class="nav-item px-2">
+            <a href="{{ icon.link }}" title="{{ icon.alt }}">
+              <img src="{{ icon.image }}" alt="{{ icon.alt }}" />
+            </a>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      {% get_menu 'privacy' as privacy_menu %}
+      {% if privacy_menu %}
+        {% get_menu_items privacy_menu request as privacy_menu_items %}
+        {% for privacy_page in privacy_menu_items %}
+          <span class="justify-content-center content-align-middle">
+            <a class="footer-nav-link" href="{{ privacy_page.url }}"
+              >{{ privacy_page.title }}</a
+            >
+          </span>
         {% endfor %}
-      </ul>
-    </div>
+      {% endif %}
 
-    {% get_menu 'privacy' as privacy_menu %}
-    {% if privacy_menu %}
-      {% get_menu_items privacy_menu request as privacy_menu_items %}
-      {% for privacy_page in privacy_menu_items %}
-        <span class="justify-content-center content-align-middle">
-          <a class="footer-nav-link" href="{{ privacy_page.url }}"
-            >{{ privacy_page.title }}</a
-          >
-        </span>
-      {% endfor %}
-    {% endif %}
+      <div class="py-0 mb-n3 d-none d-sm-block justify-content-end content-align-middle text-muted">
+        <a class="footer-nav-link" href="http://enzedonline.com">
+          <span class="fw-light small">Website by Enzed Online</span>
+        </a>
+      </div>
+    </nav>
 
-    <div class="py-0 mb-n3 d-none d-sm-block justify-content-end content-align-middle text-muted">
-      <a class="footer-nav-link" href="http://enzedonline.com">
-        <span class="fw-light small">Website by Enzed Online</span>
-      </a>
-    </div>
-  </nav>
+  </footer>
 
-</footer>
-
+{% endcache %}

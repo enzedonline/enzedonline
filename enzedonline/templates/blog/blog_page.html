@@ -1,5 +1,49 @@
 {% extends "base.html" %} 
-{% load static i18n wagtailcore_tags wagtailimages_tags widget_tweaks comments comments_xtd socialaccount %} 
+{% load static i18n adv_cache wagtailcore_tags wagtailimages_tags widget_tweaks comments comments_xtd socialaccount %} 
+
+{% block header %}
+
+  {# Page Banner #}
+  {% cache None page.slug "banner" self.last_published_at %}
+
+    {% with self.get_parent.specific as blog_index %} 
+      {% image blog_index.banner_image fill-2100x525-c100 format-webp as webp_img_w_2100 %} 
+      {% image blog_index.banner_image fill-1500x375-c100 format-webp as webp_img_w_1500 %} 
+      {% image blog_index.banner_image fill-900x225-c100 format-webp as webp_img_w_900 %} 
+      {% image blog_index.banner_image fill-600x150-c100 format-webp as webp_img_w_600 %} 
+      {% image blog_index.banner_image fill-2100x525-c100 as fallback %}
+
+      <div class="banner-overlay-container">
+        <picture>
+          <source media="(min-width: 1800px)" srcset="{{ webp_img_w_2100.url }} 2100w" type="image/webp"/>
+          <source media="(min-width: 1200px)" srcset="{{ webp_img_w_1500.url }} 1500w" type="image/webp"/>
+          <source media="(min-width: 750px)" srcset="{{ webp_img_w_900.url }} 900w" type="image/webp"/>
+          <source srcset="{{ webp_img_w_600.url }} 600w" type="image/webp"/>
+          <source srcset="{{ fallback.url }} 2100w" />
+          <img src="{{ fallback.url }}" alt="{{ self.title }}" style="width: 100%; height: auto"/>
+        </picture>
+        {% if blog_index.banner_headline or blog_index.banner_small_text %}
+          <div class="banner-overlay-text-block ps-2 ps-md-3 ps-lg-4 pt-1 pt-md-0">
+            {% if blog_index.banner_headline %}
+              <div class="banner-headline">
+                {{ blog_index.banner_headline }}
+              </div>
+            {% endif %} 
+            {% if blog_index.banner_small_text %}
+              <div class="banner-subheading">
+                <a href="{{ blog_index.url }}" class="text-light">{{ blog_index.banner_small_text }}</a>
+              </div>
+            {% endif %}
+          </div>
+        {% endif %}
+      </div>
+
+    {% endwith%}
+
+  {% endcache %}
+
+{% endblock header %}
+
 
 {% block content %}
 
@@ -31,98 +75,67 @@
   });
 </script>
 
-{# Code Block JS - only load if tech blog #}
-{% if self.blog_type == 'TechBlogDetailPage' %}
-  <link rel="stylesheet" type="text/css" href="{% static 'css/prism.css' %}">
-  <script src="{% static 'js/prism.js' %}"></script>
-{% endif %} 
+{% cache None page.slug "body" self.last_published_at %}
 
-{# Page Banner #}
-{% with self.get_parent.specific as blog_index %} 
-  {% image blog_index.banner_image fill-2100x525-c100 format-webp as webp_img_w_2100 %} 
-  {% image blog_index.banner_image fill-1500x375-c100 format-webp as webp_img_w_1500 %} 
-  {% image blog_index.banner_image fill-900x225-c100 format-webp as webp_img_w_900 %} 
-  {% image blog_index.banner_image fill-600x150-c100 format-webp as webp_img_w_600 %} 
-  {% image blog_index.banner_image fill-2100x525-c100 as fallback %}
+  {# Code Block JS - only load if tech blog #}
+  {% if self.blog_type == 'TechBlogDetailPage' %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/prism.css' %}">
+    <script src="{% static 'js/prism.js' %}"></script>
+  {% endif %} 
 
-  <div class="banner-overlay-container">
-    <picture>
-      <source media="(min-width: 1800px)" srcset="{{ webp_img_w_2100.url }} 2100w" type="image/webp"/>
-      <source media="(min-width: 1200px)" srcset="{{ webp_img_w_1500.url }} 1500w" type="image/webp"/>
-      <source media="(min-width: 750px)" srcset="{{ webp_img_w_900.url }} 900w" type="image/webp"/>
-      <source srcset="{{ webp_img_w_600.url }} 600w" type="image/webp"/>
-      <source srcset="{{ fallback.url }} 2100w" />
-      <img src="{{ fallback.url }}" alt="{{ self.title }}" style="width: 100%; height: auto"/>
-    </picture>
-    {% if blog_index.banner_headline or blog_index.banner_small_text %}
-      <div class="banner-overlay-text-block ps-2 ps-md-3 ps-lg-4 pt-1 pt-md-0">
-        {% if blog_index.banner_headline %}
-          <div class="banner-headline">
-            {{ blog_index.banner_headline }}
-          </div>
-        {% endif %} 
-        {% if blog_index.banner_small_text %}
-          <div class="banner-subheading">
-            <a href="{{ blog_index.url }}" class="text-light">{{ blog_index.banner_small_text }}</a>
-          </div>
-        {% endif %}
-      </div>
+  <div class="container-fluid mt-4 px-2 px-sm-5">
+
+    {# Categories #}
+    <div class="row rounded bg-info py-2 px-3 mx-1 mt-2 mb-4 border-primary border-1">
+        <div class="col-auto flex-nowrap px-1 px-sm-2 px-md-3">
+            <span class="category-link active">Posted in:</span>
+        </div>
+        <div class="col">
+            <div class="row">
+              {% for item in self.categories.all %}
+                <div class="col-auto">
+                  <a class="category-link active" href="{{ self.get_parent.url }}?category={{item.slug}}#filter">
+                    {{ item.name }}
+                  </a>
+                </div>        
+              {% endfor %}
+            </div>        
+        </div>        
+    </div>
+
+    {# Title #}
+    <div class="row mt-2 mb-2 mb-md-4 text-center">
+      <h1 class="fw-bolder">{{ self.title }}</h1>
+    </div>
+
+    {# Blog Content #}
+    {% for block in page.body %} 
+      {% include_block block %} 
+    {% endfor %}
+
+    {# Tags #}
+    {% if page.tags.count %} 
+      <div class="row rounded bg-info p-2 m-0 border-primary border-1">
+        <div class="col-auto tag-link active d-flex flex-nowrap pe-3">
+            Tagged with:
+        </div>
+        <div class="col">
+            <div class="row">
+              {% for tag in page.tags.all %} 
+                <div class="col-auto">
+                  <a class="tag-link" href="{{ self.get_parent.url }}?tag={{ tag.slug }}#filter">
+                    #{{ tag }}
+                  </a>
+                </div>        
+              {% endfor %}
+            </div>        
+        </div>        
+      </div>  
     {% endif %}
+
   </div>
 
-{% endwith%}
-
-<div class="container-fluid mt-4 px-2 px-sm-5">
-
-  {# Categories #}
-  <div class="row rounded bg-info py-2 px-3 mx-1 mt-2 mb-4 border-primary border-1">
-      <div class="col-auto flex-nowrap px-1 px-sm-2 px-md-3">
-          <span class="category-link active">Posted in:</span>
-      </div>
-      <div class="col">
-          <div class="row">
-            {% for item in self.categories.all %}
-              <div class="col-auto">
-                <a class="category-link active" href="{{ self.get_parent.url }}?category={{item.slug}}#filter">
-                  {{ item.name }}
-                </a>
-              </div>        
-            {% endfor %}
-          </div>        
-      </div>        
-  </div>
-
-  {# Title #}
-  <div class="row mt-2 mb-2 mb-md-4 text-center">
-    <h1 class="fw-bolder">{{ self.title }}</h1>
-  </div>
-
-  {# Blog Content #}
-  {% for block in page.body %} 
-    {% include_block block %} 
-  {% endfor %}
-
-  {# Tags #}
-  {% if page.tags.count %} 
-    <div class="row rounded bg-info p-2 m-0 border-primary border-1">
-      <div class="col-auto tag-link active d-flex flex-nowrap pe-3">
-          Tagged with:
-      </div>
-      <div class="col">
-          <div class="row">
-            {% for tag in page.tags.all %} 
-              <div class="col-auto">
-                <a class="tag-link" href="{{ self.get_parent.url }}?tag={{ tag.slug }}#filter">
-                  #{{ tag }}
-                </a>
-              </div>        
-            {% endfor %}
-          </div>        
-      </div>        
-    </div>  
-  {% endif %}
-
-</div>
+{% endcache %}
 
 {# Comments #}
 {% get_comment_count for page as comment_count %}
@@ -195,70 +208,77 @@
   
 </div>
 
-<div class="px-5 pt-3">
-  <hr />
-</div>
+{% cache None page.slug "footer" request.GET.urlencode self.last_published_at %}
 
-{# Next and Previous blog posts #}
-<div class="row">
-  <div class="col-md-6">
-    {% if next_post %}
-      <div class="card h-100 border-0">
-        <div class="px-0 py-2 fw-bolder">
-          <h4 class="fw-bolder">Next Post</h4>
-        </div>
-        <div class="card h-100 p-2">
-          {% image next_post.search_image fill-400x200-c100 format-webp as webp_img_w_400 %} 
-          {% image next_post.search_image fill-400x200-c100 as fallback %}
-          <picture>
-            <source srcset="{{ webp_img_w_400.url }} 400w" type="image/webp" />
-            <source srcset="{{ fallback.url }} 400w" />
-            <img
-              src="{{ fallback.url }}"
-              alt="{{ next_post.title }}"
-              style="width: 100%; height: auto"
-            />
-          </picture>
-          <div class="card-body">
-              <h4 class="card-title fw-bolder">{{ next_post.title }}</h4>
-              <p class="blog-summary">{{ next_post.summary|linebreaksbr }}</p>
-              <p class="blog-summary small">{{ next_post.first_published_at }}</small></p>
-          </div>
-        </div>
-        <a href="{{next_post.url}}{{filter}}" class="stretched-link"></a>
-      </div>
-    {% endif %}
+  <div class="px-5 pt-3">
+    <hr />
   </div>
-  <div class="col-md-6">
-  {% if previous_post %}
-    <div class="card h-100 border-0">
-      <div class="px-0 py-2 text-end">
-        <h4 class="fw-bolder">Previous Post</h4>
-      </div>
-      <div class="card h-100 p-2">
-        {% image previous_post.search_image fill-400x200-c100 format-webp as webp_img_w_400 %} 
-        {% image previous_post.search_image fill-400x200-c100 as fallback %}
-        <picture>
-          <source srcset="{{ webp_img_w_400.url }} 400w" type="image/webp" />
-          <source srcset="{{ fallback.url }} 400w" />
-          <img
-            src="{{ fallback.url }}"
-            alt="{{ previous_post.title }}"
-            style="width: 100%; height: auto"
-          />
-        </picture>
-        <div class="card-body">
-            <h4 class="card-title fw-bolder">{{ previous_post.title }}</h4>
-            <p class="blog-summary">{{ previous_post.summary|linebreaksbr }}</p>
-            <p class="blog-summary small">{{ previous_post.first_published_at }}</small></p>
-        </div>
-      </div>
-      <a href="{{previous_post.url}}{{filter}}" class="stretched-link"></a>
-    </div>
-  {% endif %}
-</div>
 
-<p>&nbsp;</p>
+  {# Next and Previous blog posts #}
+  <div class="container-fluid mt-4 px-2 px-sm-5">
+    <div class="row">
+      <div class="col-md-6">
+        {% if next_post %}
+          <div class="card h-100 border-0">
+            <div class="px-0 py-2 fw-bolder">
+              <h4 class="fw-bolder">Next Post</h4>
+            </div>
+            <div class="card h-100 p-2">
+              {% image next_post.search_image fill-400x200-c100 format-webp as webp_img_w_400 %} 
+              {% image next_post.search_image fill-400x200-c100 as fallback %}
+              <picture>
+                <source srcset="{{ webp_img_w_400.url }} 400w" type="image/webp" />
+                <source srcset="{{ fallback.url }} 400w" />
+                <img
+                  src="{{ fallback.url }}"
+                  alt="{{ next_post.title }}"
+                  style="width: 100%; height: auto"
+                />
+              </picture>
+              <div class="card-body">
+                  <h4 class="card-title fw-bolder">{{ next_post.title }}</h4>
+                  <p class="blog-summary">{{ next_post.summary|linebreaksbr }}</p>
+                  <p class="blog-summary small">{{ next_post.first_published_at }}</small></p>
+              </div>
+            </div>
+            <a href="{{next_post.url}}{{filter}}" class="stretched-link"></a>
+          </div>
+        {% endif %}
+      </div>
+      <div class="col-md-6">
+      {% if previous_post %}
+        <div class="card h-100 border-0">
+          <div class="px-0 py-2 text-end">
+            <h4 class="fw-bolder">Previous Post</h4>
+          </div>
+          <div class="card h-100 p-2">
+            {% image previous_post.search_image fill-400x200-c100 format-webp as webp_img_w_400 %} 
+            {% image previous_post.search_image fill-400x200-c100 as fallback %}
+            <picture>
+              <source srcset="{{ webp_img_w_400.url }} 400w" type="image/webp" />
+              <source srcset="{{ fallback.url }} 400w" />
+              <img
+                src="{{ fallback.url }}"
+                alt="{{ previous_post.title }}"
+                style="width: 100%; height: auto"
+              />
+            </picture>
+            <div class="card-body">
+                <h4 class="card-title fw-bolder">{{ previous_post.title }}</h4>
+                <p class="blog-summary">{{ previous_post.summary|linebreaksbr }}</p>
+                <p class="blog-summary small">{{ previous_post.first_published_at }}</small></p>
+            </div>
+          </div>
+          <a href="{{previous_post.url}}{{filter}}" class="stretched-link"></a>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+
+  <p>&nbsp;</p>
+
+{% endcache %}
+
 {% endblock content %}
 
 {# jquery needed to show login form #}

@@ -15,6 +15,7 @@ INSTALLED_APPS = [
     'contact',
     'userauth',
 
+    'adv_cache_tag',
     'rest_framework',
     'dbbackup',
     'wagtailmetadata',
@@ -139,6 +140,27 @@ WAGTAIL_CONTENT_LANGUAGES = LANGUAGES = [
     ('en', "English"),
 ]
 
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
+        'LOCATION': 'cache_table',
+        'TIMEOUT': None,
+    },
+    'renditions': {
+        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
+        'LOCATION': 'image_cache',
+        'TIMEOUT': 600,
+        'OPTIONS': {
+            'MAX_ENTRIES': 2000
+        }
+    }
+}
+
+# ADVANCED CACHE
+ADV_CACHE_RESOLVE_NAME = True
+ADV_CACHE_INCLUDE_PK = True
+ADV_CACHE_VERSIONING = True
+
 # Static files (CSS, JavaScript, Images)
 
 STATICFILES_FINDERS = [
@@ -245,5 +267,4 @@ DBBACKUP_STORAGE_OPTIONS = {'location': os.path.join(BASE_DIR, '../backups')}
 
 # FIX NEEDED FOR DJANGO 3.2.x
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
-
 

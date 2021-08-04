@@ -1,5 +1,5 @@
 {% extends 'base.html' %} 
-{% load wagtailcore_tags widget_tweaks contact_page_tags wagtailimages_tags %} 
+{% load adv_cache wagtailcore_tags widget_tweaks contact_page_tags wagtailimages_tags %} 
 {% block content %} 
 
 {# Responsive column border, reduce standard block gaps #}
@@ -21,37 +21,43 @@
 
 <div class="container-fluid pt-4 px-2 px-sm-5 pb-4">
   <div class="row">
-    {# Column break at md #}
-    <div class="col-md-5 px-sm-5">
-      {# Intro text stream block #}
-      {% for block in page.intro_text %}
-          {% include_block block %}
-      {% endfor %}
 
-      {# Optional image only visible md & above, <hr> for widths below this only #}
-      {% if self.intro_image %}
-        <div class="d-none d-md-block">
-          {% image self.intro_image width-900 format-webp as webp_img_w_900 %} 
-          {% image self.intro_image width-600 format-webp as webp_img_w_600 %}
-          {% image self.intro_image width-900 as fallback %}
-          <picture>
-            <source media="(min-width: 1200px)" srcset="{{ webp_img_w_900.url }} 900w" type="image/webp" />
-            <source srcset="{{ webp_img_w_600.url }} 600w" type="image/webp" />
-            <source srcset="{{ fallback.url }} 900w" />
-            <img
-              src="{{ fallback.url }}"
-              alt="{{ self.intro_image.title }}"
-              style="width: 100%; height: auto"
-              class="mt-4"
-            />
-          </picture>
+    {# Column break at md #}
+    {% cache None page.slug "body" self.last_published_at %}
+
+      <div class="col-md-5 px-sm-5">
+        {# Intro text stream block #}
+        {% for block in page.intro_text %}
+            {% include_block block %}
+        {% endfor %}
+
+        {# Optional image only visible md & above, <hr> for widths below this only #}
+        {% if self.intro_image %}
+          <div class="d-none d-md-block">
+            {% image self.intro_image width-900 format-webp as webp_img_w_900 %} 
+            {% image self.intro_image width-600 format-webp as webp_img_w_600 %}
+            {% image self.intro_image width-900 as fallback %}
+            <picture>
+              <source media="(min-width: 1200px)" srcset="{{ webp_img_w_900.url }} 900w" type="image/webp" />
+              <source srcset="{{ webp_img_w_600.url }} 600w" type="image/webp" />
+              <source srcset="{{ fallback.url }} 900w" />
+              <img
+                src="{{ fallback.url }}"
+                alt="{{ self.intro_image.title }}"
+                style="width: 100%; height: auto"
+                class="mt-4"
+              />
+            </picture>
+          </div>
+        {% endif %}
+        <div class="d-block d-md-none">
+          <hr>
         </div>
-      {% endif %}
-      <div class="d-block d-md-none">
-        <hr>
+
       </div>
 
-    </div>
+    {% endcache %}
+
     {# Column break at md, hide border below this width #}
     <div class="col-md-7 px-sm-5 divider">
       <div class="card bg-warning p-1 lh-sm">
@@ -137,6 +143,7 @@
         </form>
       </div>
     </div>
+
   </div>
 </div>
 

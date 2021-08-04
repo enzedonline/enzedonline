@@ -1,9 +1,20 @@
-"""Richtext hooks."""
 import wagtail.admin.rich_text.editors.draftail.features as draftail_features
-from wagtail.admin.rich_text.converters.html_to_contentstate import (
+from django.urls import reverse
+from wagtail.admin.menu import MenuItem
+from wagtail.admin.rich_text.converters.html_to_contentstate import \
     InlineStyleElementHandler
-)
 from wagtail.core import hooks
+
+from .utils import purge_page_cache_fragments
+
+
+@hooks.register('register_settings_menu_item')
+def register_refresh_cache_menu_item():
+    return MenuItem('Refresh Cache', reverse('refresh-page-cache'), classnames='icon icon-folder-inverse', order=1)
+
+@hooks.register('after_delete_page')
+def do_after_page_create(request, page):
+    purge_page_cache_fragments(page.slug)
 
 @hooks.register("register_rich_text_features")
 def register_code_styling(features):

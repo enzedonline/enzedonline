@@ -8,23 +8,26 @@
         {% block extra_head %}{% endblock extra_head %}
     </head>
 
-    {% comment %} <div class="sharethis-sticky-share-buttons"></div> {% endcomment %}
-    <body>
+    <header>
+        <div class="sticky-top">
+            {% include 'menus/main_menu.html' %}
+        </div>
+        {% block header %}{% endblock header %}
+    </header>
+
+    <main>
         {% comment %} <!-- Google Tag Manager (noscript) -->
         <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KH92MLK"
         height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <!-- End Google Tag Manager (noscript) -->{% endcomment %}
-        {% wagtailuserbar %} 
-        <div class="sticky-top">
-            {% include 'menus/main_menu.html' %}
-        </div>
+        {% comment %} {% wagtailuserbar %}  {% endcomment %}
         <div mt-4>
             {% block content %}{% endblock %}
             {% block extra_js %}
                 {# Override this in templates to add extra javascript #}
             {% endblock %}
         </div>
-    </body>
+    </main>
 
     <footer>
         <div class="container">

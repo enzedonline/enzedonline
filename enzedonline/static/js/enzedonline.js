@@ -1,4 +1,4 @@
-window.fbAsyncInit = function() {
+   window.fbAsyncInit = function() {
     FB.init({
       appId      : '492927945342914',
       cookie     : true,
@@ -17,7 +17,3 @@ window.fbAsyncInit = function() {
      js.src = "https://connect.facebook.net/en_US/sdk.js";
      fjs.parentNode.insertBefore(js, fjs);
    }(document, 'script', 'facebook-jssdk'));
-
-
-  
-   

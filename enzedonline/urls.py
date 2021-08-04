@@ -7,7 +7,7 @@ from django.urls import include, path
 from django.views import defaults as default_views
 from django.views.i18n import JavaScriptCatalog
 # from search import views as search_views
-from core.views import search
+from core.views import search, refresh_page_cache
 from userauth.views import *
 from wagtail.admin import urls as wagtailadmin_urls
 from wagtail.contrib.sitemaps.views import sitemap
@@ -63,6 +63,7 @@ urlpatterns = urlpatterns + i18n_patterns(
     path('<slug:url>/update/', CustomUserUpdateView.as_view(template_name='account/update.html'), name='account_update'),
     path('<slug:url>/delete/', CustomUserDeleteView.as_view(template_name='account/delete.html'), name='account_delete'),
 
+    path('clear-cache', refresh_page_cache, name="refresh-page-cache"),
 
     # Wagtail's page serving mechanism. This should be the last pattern in
     # the list:

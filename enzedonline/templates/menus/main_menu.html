@@ -1,4 +1,4 @@
-{% load wagtailimages_tags menu_tags socialaccount static %}
+{% load adv_cache wagtailimages_tags menu_tags socialaccount static %}
 
 {% company_logo as logo %}
 {% image logo.logo height-30 as logo_lg %} 
@@ -7,137 +7,31 @@
 
 {# Page top menu bar loaded on all pages #}
 <nav class="navbar navbar-expand-md navbar-dark bg-primary p-2 pe-md-1">
-    {# Logo top left #}
-    <div class="ps-2">
-        <a class="navbar-brand" href="/">
-            <picture>
-            <source media="(min-width: 992px)" srcset="{{ logo_lg.url }}" />
-            <source media="(min-width: 800px)" srcset="{{ logo_md.url }}"  />
-            <source srcset="{{ logo_sm.url }}" />
-            <img
-                src="{{ logo_sm.url }}"
-                alt="{{ logo.name }}"
-            />
-            </picture>
-        </a>
-    </div>
 
-    {# Contact menu - leave visible after collapse #}
-    {% get_menu 'contact' as contact_menu %}
-    {% if contact_menu %}
-        {% get_menu_items contact_menu request as contact_menu_items %}
-        {% for item in contact_menu_items %}
-            <div class="order-0 order-md-1 pe-2 pe-md-0 ms-auto me-0">
-                <ul class="navbar-nav flex-row flex-nowrap ms-auto me-0">
-                    <li class="nav-item">
-                        <a class="nav-link {% if request.path == item.url %} active{% endif %}" href="{{item.url}}">                            
-                            {% if item.icon %}
-                                {% image item.icon fill-25x25 class="image-menu" %}
-                            {% endif %}
-                            {{ item.title }}
-                        </a>
-                    </li>
-                </ul>
-            </div>    
-        {% endfor %}
-    {% endif %}
+    {% cache None page.slug "menu" self.last_published_at %}
 
-    <div class="collapse navbar-collapse dual-collapse3 d-none d-md-block order-3 pe-2 pe-md-0 ms-auto me-0 flex-grow-1 flex-md-grow-0" id="navbarCollapseItems">
-        <ul class="navbar-nav ms-auto me-0 ps-3 ps-md-0">
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" title="Search" id="navbardrop" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                    <i class="fas fa-search"></i>
-                </a>
-                <div class="dropdown-menu dropdown-menu-end search-menu">
-                    <form action="{% url 'search' %}" method="get">
-                        <div class="form-group row g-1 my-1 pb-1">
-                            <div class="col">
-                                <input type="text" name="query" id="searchbox" class="form-control py-1 ps-2" value="{% if search_query %}{{ search_query }}{% endif %}">
-                            </div>
-                            <div class="col-auto">
-                                <input type="submit" value="Search" class="btn-primary form-control py-1">
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </li>
-        </ul>
-    </div>
-    <div class="collapse navbar-collapse dual-collapse2 order-5 order-md-0 pt-2 p-md-0 m-md-0" id="navbarCollapseItems">
-        <ul class="navbar-nav ps-3 d-md-none">
-            <li class="nav-item">
-                <form action="{% url 'search' %}" method="get">
-                    <div class="form-group row g-1 my-1 pb-1">
-                        <div class="col">
-                            <input type="text" name="query" class="form-control py-1 px-2" value="{% if search_query %}{{ search_query }}{% endif %}">
-                        </div>
-                        <div class="col-auto">
-                            <input type="submit" value="Search" class="btn-primary form-control py-1">
-                        </div>
-                    </div>
-                </form>
-            </li>
-        </ul>
-    </div>
-
-    {# User menu - add social logins after loaded menu #}
-    {% get_menu 'user' as user_menu %}
-    {% if user_menu %}
-        {% get_menu_items user_menu request as user_menu_items %}
-
-        <div class="collapse navbar-collapse dual-collapse2 order-3 pe-2 pe-md-0 ms-auto me-0 flex-grow-1 flex-md-grow-0" id="navbarCollapseItems">
-            <ul class="navbar-nav ms-auto me-0 ps-3 ps-md-0">
-                <li class="nav-item dropdown">
-                    {% if request.user.is_authenticated %}
-                        <a class="nav-link dropdown-toggle" title="{{ request.user.display_name }}" id="navbardrop" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                            <img src="/media/{{request.user.photo}}" class="profile-menu-image">&nbsp;{{ request.user.display_name }}
-                        </a>
-                    {% else %}
-                        <a class="nav-link dropdown-toggle" id="navbardrop" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                            {% image user_menu.icon fill-30x30 class="profile-menu-image" %}
-                            &nbsp;Login
-                        </a>
-                    {% endif %}
-                    <div class="dropdown-menu dropdown-menu-end">
-                        {% for subitem in user_menu_items %}
-                            {% if not subitem.is_submenu %}
-                                <a class="dropdown-item{% if request.path == subitem.url %} active{% endif %}" href="{{subitem.url}}">
-                                    {% if subitem.icon %}
-                                        {% image subitem.icon fill-25x25 class="image-menu" %}
-                                    {% endif %}
-                                    {{ subitem.title }}
-                                </a>
-                            {% endif %}
-                        {% endfor %}
-                        {% if not request.user.is_authenticated %}
-                            <hr class="dropdown-divider">
-                            {% get_providers as socialaccount_providers %}
-                            {% if socialaccount_providers %}
-                                <span class="text-nowrap px-3">Log in with social account</span>
-                                <div class="dropdown-item">
-                                    {% for provider in socialaccount_providers %}
-                                        <a title="{{ provider.name }}" class="socialaccount_provider {{ provider.id }} social-login-link" 
-                                            href="{% provider_login_url provider.id process="login" next=request.path  scope=scope auth_params=auth_params %}">
-                                            <img alt="{{ provider.name }}" class="social-login-icon" src="{% static 'images/' %}{{ provider.name }}logo.png" width="40" height="40">
-                                        </a>
-                                    {% endfor %}
-                                </div>
-                            {% endif %}
-                        {% endif %}
-                    </div>
-                </li>
-            </ul>
+        {# Logo top left #}
+        <div class="ps-2">
+            <a class="navbar-brand" href="/">
+                <picture>
+                <source media="(min-width: 992px)" srcset="{{ logo_lg.url }}" />
+                <source media="(min-width: 800px)" srcset="{{ logo_md.url }}"  />
+                <source srcset="{{ logo_sm.url }}" />
+                <img
+                    src="{{ logo_sm.url }}"
+                    alt="{{ logo.name }}"
+                />
+                </picture>
+            </a>
         </div>
-    {% endif %}
 
-    {# Main menu - allow 2 levels of submenu #}
-    <div class="collapse navbar-collapse order-2 order-md-0 dual-collapse2" id="navbarCollapseItems">
-        <ul class="navbar-nav ms-auto align-items-md-center ps-3 ps-md-0">
-            {% get_menu 'main_menu' as main_menu %}
-            {% if main_menu %}
-                {% get_menu_items main_menu request as navigation %}
-                {% for item in navigation %}
-                    {% if not item.is_submenu %}
+        {# Contact menu - leave visible after collapse #}
+        {% get_menu 'contact' as contact_menu %}
+        {% if contact_menu %}
+            {% get_menu_items contact_menu request as contact_menu_items %}
+            {% for item in contact_menu_items %}
+                <div class="order-0 order-md-1 pe-2 pe-md-0 ms-auto me-0">
+                    <ul class="navbar-nav flex-row flex-nowrap ms-auto me-0">
                         <li class="nav-item">
                             <a class="nav-link {% if request.path == item.url %} active{% endif %}" href="{{item.url}}">                            
                                 {% if item.icon %}
@@ -146,108 +40,227 @@
                                 {{ item.title }}
                             </a>
                         </li>
-                    {% else %}
-                        {% get_menu item.submenu_id as sub_menu %}
-                        {% if sub_menu %}
-                            {% get_menu_items sub_menu request as sub_menu_items %}
-                            {% if sub_menu_items %}
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" id="navbardrop" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                        {% if item.display_option != 'text' and sub_menu.icon %}
-                                            {% image sub_menu.icon fill-25x25 class="image-menu" %}
-                                        {% endif %}
-                                        {% if item.display_option != 'icon'%}
-                                            {{ sub_menu.title }}
-                                        {% endif %}
-                                    </a>
-                                    <div class="dropdown-menu">
-                                        {% for subitem in sub_menu_items %}
-                                            {% if not subitem.is_submenu %}
-                                                <a class="dropdown-item{% if request.path == subitem.url %} active{% endif %}" href="{{subitem.url}}">
-                                                    {% if subitem.icon %}
-                                                        {% image subitem.icon fill-25x25 class="image-menu" %}
-                                                    {% endif %}
-                                                    {{ subitem.title }}
+                    </ul>
+                </div>    
+            {% endfor %}
+        {% endif %}
+
+        {# Search Menu #}
+        <div class="collapse navbar-collapse dual-collapse3 d-none d-md-block order-3 pe-2 pe-md-0 ms-auto me-0 flex-grow-1 flex-md-grow-0" id="navbarCollapseItems">
+            <ul class="navbar-nav ms-auto me-0 ps-3 ps-md-0">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" title="Search" id="navbardrop" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-search"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end search-menu">
+                        <form action="{% url 'search' %}" method="get">
+                            <div class="form-group row g-1 my-1 pb-1">
+                                <div class="col">
+                                    <input type="text" name="query" id="searchbox" class="form-control py-1 ps-2" value="{% if search_query %}{{ search_query }}{% endif %}">
+                                </div>
+                                <div class="col-auto">
+                                    <input type="submit" value="Search" class="btn-primary form-control py-1">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="collapse navbar-collapse dual-collapse2 order-5 order-md-0 pt-2 p-md-0 m-md-0" id="navbarCollapseItems">
+            <ul class="navbar-nav ps-3 d-md-none">
+                <li class="nav-item">
+                    <form action="{% url 'search' %}" method="get">
+                        <div class="form-group row g-1 my-1 pb-1">
+                            <div class="col">
+                                <input type="text" name="query" class="form-control py-1 px-2" value="{% if search_query %}{{ search_query }}{% endif %}">
+                            </div>
+                            <div class="col-auto">
+                                <input type="submit" value="Search" class="btn-primary form-control py-1">
+                            </div>
+                        </div>
+                    </form>
+                </li>
+            </ul>
+        </div>
+
+
+        {% nocache %}
+
+            {# User menu - add social logins after loaded menu #}
+            {% get_menu 'user' as user_menu %}
+            {% if user_menu %}
+                {% get_menu_items user_menu request as user_menu_items %}
+
+                <div class="collapse navbar-collapse dual-collapse2 order-3 pe-2 pe-md-0 ms-auto me-0 flex-grow-1 flex-md-grow-0" id="navbarCollapseItems">
+                    <ul class="navbar-nav ms-auto me-0 ps-3 ps-md-0">
+                        <li class="nav-item dropdown">
+                            {% if request.user.is_authenticated %}
+                                <a class="nav-link dropdown-toggle" title="{{ request.user.display_name }}" id="navbardrop" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                    <img src="/media/{{request.user.photo}}" class="profile-menu-image">&nbsp;{{ request.user.display_name }}
+                                </a>
+                            {% else %}
+                                <a class="nav-link dropdown-toggle" id="navbardrop" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                    {% image user_menu.icon fill-30x30 class="profile-menu-image" %}
+                                    &nbsp;Login
+                                </a>
+                            {% endif %}
+                            <div class="dropdown-menu dropdown-menu-end">
+                                {% for subitem in user_menu_items %}
+                                    {% if not subitem.is_submenu %}
+                                        <a class="dropdown-item{% if request.path == subitem.url %} active{% endif %}" href="{{subitem.url}}">
+                                            {% if subitem.icon %}
+                                                {% image subitem.icon fill-25x25 class="image-menu" %}
+                                            {% endif %}
+                                            {{ subitem.title }}
+                                        </a>
+                                    {% endif %}
+                                {% endfor %}
+                                {% if not request.user.is_authenticated %}
+                                    <hr class="dropdown-divider">
+                                    {% get_providers as socialaccount_providers %}
+                                    {% if socialaccount_providers %}
+                                        <span class="text-nowrap px-3">Log in with social account</span>
+                                        <div class="dropdown-item">
+                                            {% for provider in socialaccount_providers %}
+                                                <a title="{{ provider.name }}" class="socialaccount_provider {{ provider.id }} social-login-link" 
+                                                    href="{% provider_login_url provider.id process="login" next=request.path  scope=scope auth_params=auth_params %}">
+                                                    <img alt="{{ provider.name }}" class="social-login-icon" src="{% static 'images/' %}{{ provider.name }}logo.png" width="40" height="40">
                                                 </a>
-                                            {% else %}
-                                                {% get_menu subitem.submenu_id as subsubmenu %}
-                                                {% if subsubmenu %}
-                                                    {% get_menu_items subsubmenu request as sub_sub_menu_items %}
-                                                    {% if sub_sub_menu_items %}
-                                                        <div class="dropright"> 
-                                                            <button class="btn btn-dark btn-block text-left bg-transparent dropdown-toggle" data-toggle="dropdown">
-                                                                {% if subitem.display_option != 'text' and subsubmenu.icon %}
-                                                                    {% image subsubmenu.icon fill-25x25 %}
-                                                                {% endif %}
-                                                                {% if subitem.display_option != 'icon'%}
-                                                                    {{ subsubmenu.title }}
-                                                                {% endif %}
-                                                            </button>
-                                                            <div class="dropdown-menu dropdown-menu-left">
-                                                                {% for subitem in sub_sub_menu_items %}
-                                                                    {% if not subitem.is_submenu %}
-                                                                        <a class="dropdown-item{% if request.path == subitem.url %} active{% endif %}" href="{{subitem.url}}">
-                                                                            {% if subitem.icon %}
-                                                                                {% image subitem.icon fill-25x25 class="image-menu" %}
-                                                                            {% endif %}
-                                                                            {{ subitem.title }}
-                                                                        </a>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                {% endif %}
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            {% endif %}
+
+        {% endnocache %}
+
+
+        {# Main menu - allow 2 levels of submenu #}
+        <div class="collapse navbar-collapse order-2 order-md-0 dual-collapse2" id="navbarCollapseItems">
+            <ul class="navbar-nav ms-auto align-items-md-center ps-3 ps-md-0">
+                {% get_menu 'main_menu' as main_menu %}
+                {% if main_menu %}
+                    {% get_menu_items main_menu request as navigation %}
+                    {% for item in navigation %}
+                        {% if not item.is_submenu %}
+                            <li class="nav-item">
+                                <a class="nav-link {% if request.path == item.url %} active{% endif %}" href="{{item.url}}">                            
+                                    {% if item.icon %}
+                                        {% image item.icon fill-25x25 class="image-menu" %}
+                                    {% endif %}
+                                    {{ item.title }}
+                                </a>
+                            </li>
+                        {% else %}
+                            {% get_menu item.submenu_id as sub_menu %}
+                            {% if sub_menu %}
+                                {% get_menu_items sub_menu request as sub_menu_items %}
+                                {% if sub_menu_items %}
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" id="navbardrop" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                            {% if item.display_option != 'text' and sub_menu.icon %}
+                                                {% image sub_menu.icon fill-25x25 class="image-menu" %}
+                                            {% endif %}
+                                            {% if item.display_option != 'icon'%}
+                                                {{ sub_menu.title }}
+                                            {% endif %}
+                                        </a>
+                                        <div class="dropdown-menu">
+                                            {% for subitem in sub_menu_items %}
+                                                {% if not subitem.is_submenu %}
+                                                    <a class="dropdown-item{% if request.path == subitem.url %} active{% endif %}" href="{{subitem.url}}">
+                                                        {% if subitem.icon %}
+                                                            {% image subitem.icon fill-25x25 class="image-menu" %}
+                                                        {% endif %}
+                                                        {{ subitem.title }}
+                                                    </a>
+                                                {% else %}
+                                                    {% get_menu subitem.submenu_id as subsubmenu %}
+                                                    {% if subsubmenu %}
+                                                        {% get_menu_items subsubmenu request as sub_sub_menu_items %}
+                                                        {% if sub_sub_menu_items %}
+                                                            <div class="dropright"> 
+                                                                <button class="btn btn-dark btn-block text-left bg-transparent dropdown-toggle" data-toggle="dropdown">
+                                                                    {% if subitem.display_option != 'text' and subsubmenu.icon %}
+                                                                        {% image subsubmenu.icon fill-25x25 %}
                                                                     {% endif %}
-                                                                {% endfor %}
+                                                                    {% if subitem.display_option != 'icon'%}
+                                                                        {{ subsubmenu.title }}
+                                                                    {% endif %}
+                                                                </button>
+                                                                <div class="dropdown-menu dropdown-menu-left">
+                                                                    {% for subitem in sub_sub_menu_items %}
+                                                                        {% if not subitem.is_submenu %}
+                                                                            <a class="dropdown-item{% if request.path == subitem.url %} active{% endif %}" href="{{subitem.url}}">
+                                                                                {% if subitem.icon %}
+                                                                                    {% image subitem.icon fill-25x25 class="image-menu" %}
+                                                                                {% endif %}
+                                                                                {{ subitem.title }}
+                                                                            </a>
+                                                                        {% endif %}
+                                                                    {% endfor %}
+                                                                </div>
                                                             </div>
-                                                        </div>
+                                                        {% endif %}
                                                     {% endif %}
                                                 {% endif %}
-                                            {% endif %}
-                                            {% if subitem.divider %}
-                                                <div class="dropdown-divider"></div>
-                                            {% endif %}
-                                        {% endfor %}
-                                    </div>
-                                </li>
+                                                {% if subitem.divider %}
+                                                    <div class="dropdown-divider"></div>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </div>
+                                    </li>
+                                {% endif %}
                             {% endif %}
                         {% endif %}
-                    {% endif %}
-                {% endfor %}
-            {% endif %}
-        </ul>
-    </div>
-
-    {% comment %} 
-        Language switcher:
-        Flag of currently selected language displayed on drop down menu heading
-        language_switcher menu tag iterates through site locales, finds equivalent url for each locale
-        Template code loops through results, adds menu item flag + locale name + link to equiv page
-        Assumes image for each language uploaded to Wagtail with title 'flag-lang_code' (eg flag-en, flag-fr etc) 
-        
-        <div class="collapse navbar-collapse order-2 dual-collapse2" style="max-width: 50px;" id="navbarCollapseItems">
-
-            <ul class="navbar-nav ms-auto bd-example-container-sidebar">   
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                        {% get_lang_flag as flag %}
-                        {% image flag fill-16x11 class="image-menu" %}
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right switcher-menu">
-                        {% language_switcher self as switcher %}
-                        {% for lang in switcher.switch_pages %}
-                            <a class="dropdown-item switcher-item" href="{{ lang.url }}">
-                                {% image lang.flag fill-16x11 class="image-menu" %}&nbsp
-                                {{ lang.language }}
-                            </a>
-                            {{ lang.alternate | safe}}
-                        {% endfor %}
-                        {{ switcher.default_link | safe }}
-                    </div>
-                </li>       
+                    {% endfor %}
+                {% endif %}
             </ul>
-        </div> 
-    {% endcomment %}
+        </div>
 
-    {# Collapse button #}
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapseItems" 
-            aria-controls="navbarCollapseItems" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
+        {% comment %} 
+            Language switcher:
+            Flag of currently selected language displayed on drop down menu heading
+            language_switcher menu tag iterates through site locales, finds equivalent url for each locale
+            Template code loops through results, adds menu item flag + locale name + link to equiv page
+            Assumes image for each language uploaded to Wagtail with title 'flag-lang_code' (eg flag-en, flag-fr etc) 
+            
+            <div class="collapse navbar-collapse order-2 dual-collapse2" style="max-width: 50px;" id="navbarCollapseItems">
+
+                <ul class="navbar-nav ms-auto bd-example-container-sidebar">   
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            {% get_lang_flag as flag %}
+                            {% image flag fill-16x11 class="image-menu" %}
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right switcher-menu">
+                            {% language_switcher self as switcher %}
+                            {% for lang in switcher.switch_pages %}
+                                <a class="dropdown-item switcher-item" href="{{ lang.url }}">
+                                    {% image lang.flag fill-16x11 class="image-menu" %}&nbsp
+                                    {{ lang.language }}
+                                </a>
+                                {{ lang.alternate | safe}}
+                            {% endfor %}
+                            {{ switcher.default_link | safe }}
+                        </div>
+                    </li>       
+                </ul>
+            </div> 
+        {% endcomment %}
+
+        {# Collapse button #}
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapseItems" 
+                aria-controls="navbarCollapseItems" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+    {% endcache %}
+
 </nav>
 <script src="{% static 'js/navbar.js'%}"></script>
