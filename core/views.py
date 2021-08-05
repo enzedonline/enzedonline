@@ -40,7 +40,7 @@ def search(request):
     else:
         search_results = Page.objects.none()
 
-    paginator = Paginator(search_results, 3)
+    paginator = Paginator(search_results, 8)
     requested_page = request.GET.get("page")
 
     try:

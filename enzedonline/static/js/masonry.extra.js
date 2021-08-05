@@ -1,3 +1,3 @@
-document.addEventListener("DOMContentLoaded", function(){
+window.onload = function() {
     $('.grid').masonry('layout');
-});        
+}
