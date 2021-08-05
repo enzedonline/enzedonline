@@ -70,4 +70,9 @@
 
 {% block extra_js %}
     <script src="{% static 'js/masonry.pkgd.js'%}"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function(){
+            $('.grid').masonry('layout');
+        });        
+    </script>
 {% endblock %}
