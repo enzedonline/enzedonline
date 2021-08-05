@@ -1,6 +1,6 @@
 {
-    "name": "Hélène Roden Poszler - Language School & Translation Services",
-    "short_name": "Hélène Roden Poszler",
+    "name": "Enzed Online",
+    "short_name": "EnzedOnline",
     "icons": [
         {
             "src": "/static/favicon/android-chrome-192x192.png",
@@ -8,11 +8,12 @@
             "type": "image/png"
         },
         {
-            "src": "/static/favicon/android-chrome-384x384.png",
-            "sizes": "384x384",
+            "src": "/static/favicon/android-chrome-512x512.png",
+            "sizes": "512x512",
             "type": "image/png"
         }
     ],
-    "theme_color": "#ffffff",
-    "background_color": "#ffffff"
+    "theme_color": "#4582ec",
+    "background_color": "#4582ec",
+    "display": "standalone"
 }
