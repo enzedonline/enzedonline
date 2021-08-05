@@ -6,8 +6,9 @@ from django.views.generic import TemplateView
 from wagtail.core.models import Page
 from wagtail.search.backends import get_search_backend
 from wagtail.search.models import Query
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 
-from .utils import clear_page_cache
+from .utils import clear_page_cache, paginator_range
 
 
 @login_required()
@@ -39,8 +40,33 @@ def search(request):
     else:
         search_results = Page.objects.none()
 
+    paginator = Paginator(search_results, 3)
+    requested_page = request.GET.get("page")
+
+    try:
+        search_results = paginator.page(requested_page)
+    except PageNotAnInteger:
+        search_results = paginator.page(1)
+    except EmptyPage:
+        search_results = paginator.page(paginator.num_pages)
+    
+    page_range = paginator_range(
+        requested_page=search_results.number,
+        last_page_num=paginator.num_pages,
+        wing_size=4
+    )
+    # Next two are needed as Django templates don't support accessing range properties
+    page_range_first = page_range[0]
+    page_range_last = page_range[-1]
+    
     # Render template
     return render(request, 'search/search_results.html', {
         'search_query': search_query,
+        'query_string': '?query=' + search_query,
         'search_results': search_results,
+        'page_range': page_range,
+        'page_range_first': page_range_first,
+        'page_range_last': page_range_last,
     })        
+
+
