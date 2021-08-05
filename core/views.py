@@ -38,6 +38,7 @@ def search(request):
         # Log the query so Wagtail can suggest promoted results
         Query.get(search_query).add_hit()
     else:
+        search_query = ''
         search_results = Page.objects.none()
 
     paginator = Paginator(search_results, 8)
