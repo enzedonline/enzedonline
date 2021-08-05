@@ -8,11 +8,11 @@
         {% block extra_head %}{% endblock extra_head %}
     </head>
 
-    
+    <div class="sticky-top">
+        {% include 'menus/main_menu.html' %}
+    </div>
+
     <header>
-        <div class="fixed-top">
-            {% include 'menus/main_menu.html' %}
-        </div>
         {% block header %}{% endblock header %}
     </header>
 
