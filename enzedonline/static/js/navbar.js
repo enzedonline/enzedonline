@@ -32,6 +32,5 @@ respondToVisibility = function (element, callback) {
 respondToVisibility(document.getElementById("searchbox"), (visible) => {
   if (visible) {
     document.getElementById("searchbox").focus();
-    console.log("clicked");
   }
 });
