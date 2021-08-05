@@ -58,21 +58,16 @@
             {% endfor %}
         </div>
 
-
-    {% elif search_query %}
-        No results found
-    {% else %}
-        Please type something into the search box
-    {% endif %}
+        {% elif search_query %}
+            No results found
+        {% else %}
+            Please type something into the search box
+        {% endif %}
     </div>
 </div>
 {% endblock %}
 
 {% block extra_js %}
     <script src="{% static 'js/masonry.pkgd.js'%}"></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function(){
-            $('.grid').masonry('layout');
-        });        
-    </script>
+    <script src="{% static 'js/masonry.extra.js'%}"></script>
 {% endblock %}
