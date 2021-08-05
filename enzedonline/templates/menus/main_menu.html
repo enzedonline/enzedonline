@@ -2,8 +2,9 @@
 
 {% company_logo as logo %}
 {% image logo.logo height-30 as logo_lg %} 
-{% image logo.logo height-30 as logo_md %} 
-{% image logo.logo height-30 as logo_sm %} 
+{% image logo.logo height-28 as logo_md %} 
+{% image logo.logo height-25 as logo_sm %} 
+{% image logo.logo height-20 as logo_xs %} 
 
 {# Page top menu bar loaded on all pages #}
 
@@ -17,10 +18,11 @@
             <a class="navbar-brand" href="/">
                 <picture>
                 <source media="(min-width: 992px)" srcset="{{ logo_lg.url }}" />
-                <source media="(min-width: 800px)" srcset="{{ logo_md.url }}"  />
-                <source srcset="{{ logo_sm.url }}" />
+                <source media="(min-width: 600px)" srcset="{{ logo_md.url }}"  />
+                <source media="(min-width: 350px)" srcset="{{ logo_sm.url }}"  />
+                <source srcset="{{ logo_xs.url }}" />
                 <img
-                    src="{{ logo_sm.url }}"
+                    src="{{ logo_xs.url }}"
                     alt="{{ logo.name }}"
                 />
                 </picture>
