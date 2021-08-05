@@ -73,15 +73,3 @@ class HomePage(SEOPage):
                     sitemap.append(entry)
         return sitemap        
 
-    # def flush_cache_fragments(self, fragment_keys):
-    #     for fragment in fragment_keys:
-    #         key = make_template_fragment_key(
-    #             fragment,
-    #             [self.id],
-    #         )
-    #         cache.delete(key)
-
-    # def save(self, *args, **kwargs):
-    #     self.flush_cache_fragments(["base", "head", "home_page", "main_menu", "banner_image", "footer"])
-    #     return super().save(*args, **kwargs)
-

@@ -136,18 +136,6 @@ class BlogDetailPage(SEOPage):
     def blog_type(self):
         return self.__class__.__name__
 
-    # def flush_cache_fragments(self, fragment_keys):
-    #     for fragment in fragment_keys:
-    #         key = make_template_fragment_key(
-    #             fragment,
-    #             [self.id],
-    #         )
-    #         cache.delete(key)
-
-    # def save(self, *args, **kwargs):
-    #     self.flush_cache_fragments(["base", "head", "blog_page", "main_menu", "banner_image", "footer"])
-    #     return super().save(*args, **kwargs)
-
 class TechBlogDetailPage(BlogDetailPage):
     template = "blog/blog_page.html"
     parent_page_types = ['blog.TechBlogListingPage']
@@ -315,18 +303,6 @@ class BlogListingPage(SEOPage):
         context['page_range_last'] = context['page_range'][-1]
 
         return context
-    
-    # def flush_cache_fragments(self, fragment_keys):
-    #     for fragment in fragment_keys:
-    #         key = make_template_fragment_key(
-    #             fragment,
-    #             [self.id],
-    #         )
-    #         cache.delete(key)
-
-    # def save(self, *args, **kwargs):
-    #     self.flush_cache_fragments(["base", "head", "blog_index_page", "main_menu", "banner_image", "footer"])
-    #     return super().save(*args, **kwargs)
 
 class TechBlogListingPage(BlogListingPage):
     template = "blog/blog_index_page.html"
