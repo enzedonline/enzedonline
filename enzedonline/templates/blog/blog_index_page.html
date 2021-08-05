@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load static adv_cache wagtailimages_tags wagtailcore_tags %}
+{% load static adv_cache wagtailimages_tags wagtailcore_tags core_tags %}
 
 {% block header %}
     {# Page Banner #}
@@ -8,7 +8,7 @@
 
 {% block content %}
 <div class="container-fluid pt-0 pt-md-2 px-2 px-sm-5 pb-4">
-
+{{request.uuencode}}
     {# Top Content Section #}
     {% cache None page.slug "body" self.last_published_at %}
 
@@ -100,13 +100,14 @@
 {# Paginator #}
 <div>
     {% if posts.paginator.num_pages > 1 %}
+        {% paginator_filter filter as pgn_filter %}
         <nav aria-label="...">
             <ul class="pagination justify-content-center">
                 <li class="page-item {% if not posts.has_previous %}disabled{% endif %}">
-                    <a class="page-link" href="{% if posts.has_previous %}?page=1#list{% endif %}" tabindex="-1" {% if not posts.has_previous %}aria-disabled="true"{% endif %}><span>&laquo;&laquo;</span></a>
+                    <a class="page-link" href="{% if posts.has_previous %}{{ pgn_filter }}page=1#list{% endif %}" tabindex="-1" {% if not posts.has_previous %}aria-disabled="true"{% endif %}><span>&laquo;&laquo;</span></a>
                 </li>
                 <li class="page-item {% if not posts.has_previous %}disabled{% endif %}">
-                    <a class="page-link" href="{% if posts.has_previous %}?page={{ posts.previous_page_number }}#list{% endif %}" tabindex="-1" {% if not posts.has_previous %}aria-disabled="true"{% endif %}><span>&laquo;</span></a>
+                    <a class="page-link" href="{% if posts.has_previous %}{{ pgn_filter }}page={{ posts.previous_page_number }}#list{% endif %}" tabindex="-1" {% if not posts.has_previous %}aria-disabled="true"{% endif %}><span>&laquo;</span></a>
                 </li>
                 {% if page_range_first > 1 %}
                     <li class="page-item disabled">
@@ -116,11 +117,11 @@
                 {% for page_num in page_range %}
                     {% if page_num == posts.number %}
                         <li class="page-item active" aria-current="page">
-                            <a class="page-link" href="?page={{ page_num }}#list">{{ page_num }} <span class="sr-only">(current)</span></a>
+                            <a class="page-link" href="{{ pgn_filter }}page={{ page_num }}#list">{{ page_num }} <span class="sr-only">(current)</span></a>
                         </li>      
                     {% else %}
                         <li class="page-item" aria-current="page">
-                            <a class="page-link" href="?page={{ page_num }}#list">{{ page_num }}</a>
+                            <a class="page-link" href="{{ pgn_filter }}page={{ page_num }}#list">{{ page_num }}</a>
                         </li>      
                     {% endif %}          
                 {% endfor %}
@@ -130,10 +131,10 @@
                     </li>      
                 {% endif %}
                 <li class="page-item {% if not posts.has_next %}disabled{% endif %}">
-                    <a class="page-link" href="{% if posts.has_next %}?page={{ posts.next_page_number }}#list{% endif %}" {% if not posts.has_previous %}aria-disabled="true"{% endif %}><span>&raquo;</span></a>
+                    <a class="page-link" href="{% if posts.has_next %}{{ pgn_filter }}page={{ posts.next_page_number }}#list{% endif %}" {% if not posts.has_previous %}aria-disabled="true"{% endif %}><span>&raquo;</span></a>
                 </li>
                 <li class="page-item {% if not posts.has_next %}disabled{% endif %}">
-                    <a class="page-link" href="{% if posts.has_next %}?page={{ posts.paginator.num_pages }}#list{% endif %}" {% if not posts.has_next %}aria-disabled="true"{% endif %}><span>&raquo;&raquo;</span></a>
+                    <a class="page-link" href="{% if posts.has_next %}{{ pgn_filter }}page={{ posts.paginator.num_pages }}#list{% endif %}" {% if not posts.has_next %}aria-disabled="true"{% endif %}><span>&raquo;&raquo;</span></a>
                 </li>
             </ul>
         </nav>    

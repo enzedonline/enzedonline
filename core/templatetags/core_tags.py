@@ -15,3 +15,10 @@ def get_cache_key_settings(page):
         page['slug'] = '_DynamicPage'
         page['last_published_at'] = datetime.now()
     return page
+
+@register.simple_tag()
+def paginator_filter(filter):
+    if filter:
+        return filter + '&'
+    else:
+        return '?'
