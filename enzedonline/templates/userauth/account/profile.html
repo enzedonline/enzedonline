@@ -44,7 +44,11 @@
         <div class="row pb-2">
             <div class="col pb-2">
                 <p class="alert alert-light p-2 mb-2">{% trans "Avatar" %}</p>
-                <img src="{{ request.user.photo.url }}" class="profile-image mt-2 ms-2 avatar" alt="{% trans 'User photo' %}" height="60px" width="60px">
+                {% if request.user.photo %}
+                    <img src="{{ request.user.photo.url }}" class="profile-image mt-2 ms-2 avatar" alt="{% trans 'User photo' %}" height="60px" width="60px">
+                {% else %}
+                    <span><i class="fas fa-user fa-5x"></i></span>
+                {% endif %}
             </div>
         </div>
     </div>

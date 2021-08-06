@@ -8,9 +8,7 @@ from .models import CustomUser
 class CustomUserUpdateForm(ModelForm):
     class Meta:
         model = CustomUser
-        # fields = ['first_name', 'last_name', 'display_name', 'date_of_birth', 'address1', 'address2', 'zip_code', 'city', 'country', 'mobile_phone', 'additional_information', 'photo',]
         fields = ['first_name', 'last_name', 'display_name', 'city', 'country', 'photo',]
-        # widgets = {'date_of_birth': forms.DateInput(attrs={'type':'date'})}
 
 class SignupForm(forms.Form):
     first_name = forms.CharField(max_length=30, label=_("First name"))
