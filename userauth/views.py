@@ -29,7 +29,7 @@ class CustomUserUpdateView(UpdateView):
 
 class CustomUserDeleteView(DeleteView):
     model = CustomUser
-    success_url = reverse_lazy('account_signup')
+    success_url = reverse_lazy('delete_success')
     slug_field = 'url'
     slug_url_kwarg = 'url'
 
@@ -44,6 +44,9 @@ class CustomUserDeleteView(DeleteView):
             return super().post(request, *args, **kwargs)
         else:
             raise PermissionDenied()
+
+def delete_success(request):
+    return render(request, 'account/delete_success.html')
 
 def validate_user(request, user_object) -> bool:
     try:

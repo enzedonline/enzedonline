@@ -1,12 +1,21 @@
 from django import template
-from adv_cache_tag.tag import CacheTag
 from datetime import datetime
-
+from wagtail.core.models import Page
 register = template.Library()
 
 @register.simple_tag()
 def trans_url(link):
     return link.localized.url
+
+@register.simple_tag()
+def trans_page_from_slug(slug, specific=False):
+    try:
+        if specific:
+            return Page.objects.get(slug=slug).specific.localized
+        else:
+            return Page.objects.get(slug=slug).localized
+    except Page.DoesNotExist:
+        return Page.objects.none()
 
 @register.simple_tag()
 def get_cache_key_settings(page):

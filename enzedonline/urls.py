@@ -49,6 +49,7 @@ if settings.DEBUG:
 # These paths are translatable so will be given a language prefix (eg, '/en', '/fr')
 urlpatterns = urlpatterns + i18n_patterns(
     path('search/', search, name='search'),
+    url(r'^403/$', default_views.permission_denied, kwargs={'exception': Exception("Permission Denied")}),
     url(r'^404/$', default_views.page_not_found, kwargs={'exception': Exception("Page not Found")}),
     url(r'^500/$', default_views.server_error),    # For anything not caught by a more specific rule above, hand over to
     url(r'^accounts/password/change/', CustomPasswordChangeView.as_view(), name="account_change_password"),
@@ -62,6 +63,7 @@ urlpatterns = urlpatterns + i18n_patterns(
     url(r'^accounts/profile/', profile_view, name='account_profile'),
     path('<slug:url>/update/', CustomUserUpdateView.as_view(template_name='account/update.html'), name='account_update'),
     path('<slug:url>/delete/', CustomUserDeleteView.as_view(template_name='account/delete.html'), name='account_delete'),
+    path('accounts/deleted/', delete_success, name='delete_success'),
 
     path('clear-cache', refresh_page_cache, name="refresh-page-cache"),
 
