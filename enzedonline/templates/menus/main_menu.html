@@ -127,7 +127,7 @@
                                     {% get_providers as socialaccount_providers %}
                                     {% if socialaccount_providers %}
                                         <span class="text-nowrap px-3">Log in with social account</span>
-                                        <div class="dropdown-item">
+                                        <div class="dropdown-row">
                                             {% for provider in socialaccount_providers %}
                                                 <a title="{{ provider.name }}" class="socialaccount_provider {{ provider.id }} social-login-link" 
                                                     href="{% provider_login_url provider.id process="login" next=request.path  scope=scope auth_params=auth_params %}">

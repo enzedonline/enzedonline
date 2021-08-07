@@ -405,7 +405,7 @@ a {
 }
 
 .social-login-icon {
-  border-radius: 8px;
+  border-radius: 10px;
   width: 30px;
   height: 30px;
   max-width: 100%;
@@ -420,6 +420,9 @@ a {
   white-space: nowrap;
   background-color: transparent;
   border: 0;
+}
+.dropdown-row {
+  padding: 0.25rem 1rem;
 }
 .block-container {
   margin-top: 1rem;
