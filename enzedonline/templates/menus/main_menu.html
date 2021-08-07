@@ -99,7 +99,7 @@
                 <div class="collapse navbar-collapse dual-collapse2 order-3 pe-md-0 ms-auto me-1 flex-grow-1 flex-md-grow-0" id="navbarCollapseItems">
                     <ul class="navbar-nav ps-3 ps-md-0">
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" title="{{ request.user.display_name }}" id="navbardrop" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle ps-md-1" title="{{ request.user.display_name }}" id="navbardrop" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                                 {% if request.user.is_authenticated %}
                                     {% if request.user.photo %}
                                         <img src="/media/{{request.user.photo}}" width="30" height="30" class="profile-menu-image" alt="">

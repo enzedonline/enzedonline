@@ -288,6 +288,7 @@ a {
   float: left;
   width: 30px;
   height: 30px;
+  margin-right: 5px;
   max-width: 100%;
   border-radius: 5px;
 }
