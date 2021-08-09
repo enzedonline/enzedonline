@@ -4,16 +4,17 @@
 {% block body_class %}template-403{% endblock %}
 
 {% block extra_head %}
-    <title>Enzed Online - Permission Denied</title>
 {% endblock extra_head %}
 
 {% block content %}
+    {% get_template_set '403 h' as trans %}
+    <title>Enzed Online - Permission Denied</title>
     <div class="container-fluid text-center" style="position: absolute; top: 50%;-ms-transform: translateY(-50%); transform: translateY(-50%);" >
         <div class="px-3">
             <p><i class="far fa-hand-paper fa-3x text-danger"></i></p>
-            <h1>You do not have permission for the requested page.</h1>
+            <h1>{{ trans.heading }}</h1>
             {% trans_page_from_slug 'contact' as contact %}
-            <h5>If you believe this to be a bug, please <a href='{{ contact.url }}'> let me know</a>.</h5>
+            <h5>{{ trans.bug_part_1 }} <a href='{{ contact.url }}'> {{ trans.bug_part_2 }}</a>.</h5>
         </div>
     </div>
 {% endblock %}

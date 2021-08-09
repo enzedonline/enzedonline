@@ -1,12 +1,17 @@
-from django.db import models
 from django import forms
+from django.db import models
 from django.utils.translation import gettext_lazy as _
-from wagtail.admin.edit_handlers import FieldPanel, RichTextFieldPanel
+from modelcluster.fields import ParentalKey
+from modelcluster.models import ClusterableModel
+from wagtail.admin.edit_handlers import (FieldPanel, InlinePanel,
+                                         RichTextFieldPanel, MultiFieldPanel)
 from wagtail.contrib.settings.models import BaseSetting, register_setting
-from wagtail.core.models import TranslatableMixin
+from wagtail.core.fields import RichTextField
+from wagtail.core.models import Orderable, TranslatableMixin
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.snippets.models import register_snippet
-from wagtail.core.fields import RichTextField
+from wagtail_localize.fields import TranslatableField
+from core.edit_handlers import RegexPanel
 
 class PasswordField(forms.CharField):
     widget = forms.PasswordInput
@@ -157,3 +162,67 @@ class EmailSignature(TranslatableMixin, models.Model):
         verbose_name = _('Email Signature')
         verbose_name_plural = _('Email Signatures')
         unique_together = ('translation_key', 'locale')
+
+@register_snippet
+class TemplateText(TranslatableMixin, ClusterableModel):
+    template_set = models.CharField(
+        unique=True,
+        max_length=50,
+        verbose_name="Set Name",
+        help_text=_("The set needs to be loaded in template tags then text references as {{set.tag}}")
+    )    
+
+    translatable_fields = []
+    
+    panels = [
+        FieldPanel("template_set"),
+        MultiFieldPanel(
+            [
+                InlinePanel("templatetext_items"),
+            ],
+            heading=_("Text Items"),
+        ),
+    ]
+
+    # base_form_class = TemplateTextForm
+
+    def __str__(self):
+        return self.template_set
+    
+    class Meta:
+        verbose_name = _('Template Text')
+        unique_together = ('translation_key', 'locale')
+
+class TemplateTextSetItem(TranslatableMixin, Orderable):
+    set = ParentalKey(
+        "TemplateText",
+        related_name="templatetext_items",
+        help_text=_("Template Set to which this item belongs."),
+        verbose_name="Set Name",
+    )
+    template_tag = models.SlugField(
+        max_length=50,
+        help_text=_("Enter a tag without spaces, consisting of letters, numbers, underscores or hyphens."),
+        verbose_name="Template Tag",
+    )    
+    text = models.TextField(
+        null=True,
+        blank=True,
+        help_text=_("The text to be inserted in the template.")
+    )
+
+    translatable_fields = [
+        TranslatableField('text'),
+    ]
+
+    panels = [
+        RegexPanel('template_tag', '^[-\w]+$'),
+        FieldPanel('text'),
+    ]
+
+    def __str__(self):
+        return self.template_tag
+
+    class Meta:
+        unique_together = ('set', 'template_tag'), ('translation_key', 'locale')
+
