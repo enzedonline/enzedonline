@@ -1,4 +1,5 @@
-{% load i18n comments %}
+{% load i18n comments core_tags %}
+{% get_template_set 'comments' as trans %}
 
 <form method="POST" action="{% comment_form_target %}" class="needs-validation" novalidate>
     {% csrf_token %}
@@ -40,7 +41,7 @@
     </fieldset>
 
     <div class="form-group">
-        <input type="submit" name="post" value="{% trans 'Send' %}" class="btn btn-primary me-3" />
-        <input type="submit" name="preview" value="{% trans 'Preview' %}" class="btn btn-secondary" />
+        <input type="submit" name="post" value="{{ trans.send }}" class="btn btn-primary me-3" />
+        <input type="submit" name="preview" value="{{ trans.preview }}" class="btn btn-secondary" />
     </div>
 </form>

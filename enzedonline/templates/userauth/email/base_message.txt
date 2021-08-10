@@ -1,7 +1,10 @@
-{% load i18n %}{% autoescape off %}{% blocktrans with site_name=current_site.site_name %}Hello from {{ site_name }}!{% endblocktrans %}
+{% load core_tags %}
+{% autoescape off %}
+{% get_template_set 'email' as trans %}
+{{ trans.hello_from }} {{ current_site.site_name }}!
 
 {% block content %}{% endblock %}
 
-{% blocktrans with site_name=current_site.site_name site_domain=current_site.domain %}Thank you for using {{ site_name }}!
-{{ site_domain }}{% endblocktrans %}
+{{ trans.thank_you_for_using }} {{ current_site.site_name }}!
+{{ current_site.domain }}
 {% endautoescape %}

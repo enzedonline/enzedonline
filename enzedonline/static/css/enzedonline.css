@@ -111,6 +111,14 @@ a {
   color: var(--bs-white) !important;
   padding: 0.6rem 0.8rem;
 }
+.comments-image-thumbnail {
+  float: left;
+  width: 60px;
+  height: 60px;
+  max-width: 100%;
+  margin-right: 8px;
+  margin-bottom: 8px;
+}
 .category-link {
   font-family: var(--font-family-headings);
   font-size: var(--font-size-5);

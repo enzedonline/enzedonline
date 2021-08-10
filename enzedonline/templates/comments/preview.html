@@ -1,0 +1,61 @@
+{% extends "django_comments_xtd/base.html" %}
+{% load comments_xtd core_tags %}
+
+
+{% block content %}
+{% get_template_set 'comments' as trans %}
+<title>EnzedOnline - {{ trans.preview_title }}</title>
+<div class="container">
+  <div class="my-4">
+    <h3 class="text-center">{{ trans.preview_header}}</h3>
+    <hr/>
+  </div>
+  <p class="lead text-center">
+    {{ trans.previewing }}:<br/>
+    <a href="{{ form.target_object.get_absolute_url }}">{{ form.target_object }}</a>
+  </p>
+  <div class="row">
+    <div class="col-md-12">
+      <hr/>
+      {% if not comment %}
+        <div class="alert alert-warning" role="alert">
+          {{ trans.empty }}
+        </div>
+      {% else %}
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card bg-light mb-3">
+              <div class="row">
+                <div class="col-auto ms-3 mt-2">
+                    {% if request.user.photo %}
+                        <img alt="" src="{{ request.user.photo.url }}" class="comments-image-thumbnail">
+                    {% else %}
+                        {{ form.cleaned_data.email|xtd_comment_gravatar }}
+                    {% endif %}   
+                </div>
+                <div class="col ps-0">
+                  <div class="card-body ps-0 py-1">
+                    <p class="card-text">{{ comment|linebreaksbr }}</p>
+                        <h6 class="card-text pb-0">
+                          -&nbsp;
+                          {% if form.cleaned_data.url %}
+                          <a href="{{ comment.user_url }}" target="_new">{% endif %}
+                            {{ form.cleaned_data.name }}{% if form.cleaned_data.url %}</a>{% endif %}
+                        </h6>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endif %}
+      <div class="card mt-4 mb-5">
+        <div class="card-body">
+          <h4 class="card-title text-center pb-3">{{ trans.post_prompt }}</h4>
+          {% include "comments/form.html" %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

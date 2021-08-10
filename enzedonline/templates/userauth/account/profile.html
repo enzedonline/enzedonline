@@ -1,51 +1,52 @@
 {% extends 'account/base_card.html' %}
 
-{% load i18n %}
-
-{% block title %}{% trans "Profile" %}{% endblock %}
+{% load core_tags %}
 
 {% block card-header %}
-    <h3>{% trans "Account profile" %}</h3>
+    {% get_template_set 'accounts' as trans %}
+    <title>Enzed Online - {{ trans.profile_title }}</title>
+    <h3>{{ trans.profile_title }}</h3>
 {% endblock %}
 
 {% block card-body %}
+    {% get_template_set 'accounts' as trans %}
 
     <div class="container">
         <div class="row">
             <div class="col-md-6 pb-2">
-                <p class="alert alert-light p-2 mb-2">{% trans "E-mail" %}</p>
+                <p class="alert alert-light p-2 mb-2">{{ trans.email }}</p>
                 <span class="ps-2">{{ request.user.email }}</span>
             </div>
             <div class="col-md-6 pb-2">
-                <p class="alert alert-light p-2 mb-2">{% trans "Display name" %}</p>
+                <p class="alert alert-light p-2 mb-2">{{ trans.display_name }}</p>
                 <span class="ps-2">{{ request.user.display_name }}</span>
             </div>
         </div>
         <div class="row pb-2">
             <div class="col-sm-6 pb-2">
-                <p class="alert alert-light p-2 mb-2">{% trans "First name" %}</p>
+                <p class="alert alert-light p-2 mb-2">{{ trans.first_name }}</p>
                 <span class="ps-2">{{ request.user.first_name|default:'-' }}</span>
             </div>
             <div class="col-sm-6 pb-2">
-                <p class="alert alert-light p-2 mb-2">{% trans "Last name" %}</p>
+                <p class="alert alert-light p-2 mb-2">{{ trans.last_name }}</p>
                 <span class="ps-2">{{ request.user.last_name|default:'-' }}</span>
             </div>
         </div>
         <div class="row pb-2">
             <div class="col-sm-6 pb-2">
-                <p class="alert alert-light p-2 mb-2">{% trans "City" %}</p>
+                <p class="alert alert-light p-2 mb-2">{{ trans.city }}</p>
                 <span class="ps-2">{{ request.user.city|default:'-' }}</span>
             </div>
             <div class="col-sm-6 pb-2">
-                <p class="alert alert-light p-2 mb-2">{% trans "Country" %}</p>
+                <p class="alert alert-light p-2 mb-2">{{ trans.country }}</p>
                 <span class="ps-2">{{ request.user.country|default:'-' }}</span>
             </div>
         </div>
         <div class="row pb-2">
             <div class="col pb-2">
-                <p class="alert alert-light p-2 mb-2">{% trans "Avatar" %}</p>
+                <p class="alert alert-light p-2 mb-2">{{ trans.icon }}</p>
                 {% if request.user.photo %}
-                    <img src="{{ request.user.photo.url }}" class="profile-image mt-2 ms-2 avatar" alt="{% trans 'User photo' %}" height="60px" width="60px">
+                    <img src="{{ request.user.photo.url }}" class="profile-image mt-2 ms-2 avatar" height="60px" width="60px">
                 {% else %}
                     <span><i class="fas fa-user fa-5x"></i></span>
                 {% endif %}
@@ -56,5 +57,6 @@
 {% endblock %}
 
 {% block card-footer %}
-    <a href="{% url 'account_update' request.user.url %}">{% trans "Update your profile" %}</a>
+    {% get_template_set 'accounts' as trans %}
+    <a href="{% url 'account_update' request.user.url %}">{{ trans.update_profile }}</a>
 {% endblock %}

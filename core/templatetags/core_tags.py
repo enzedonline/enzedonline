@@ -16,9 +16,9 @@ def trans_url(link):
 def trans_page_from_slug(slug, specific=False):
     try:
         if specific:
-            return Page.objects.get(slug=slug).specific.localized
+            return Page.objects.all().filter(slug=slug).first().specific.localized
         else:
-            return Page.objects.get(slug=slug).localized
+            return Page.objects.all().filter(slug=slug).first().localized
     except Page.DoesNotExist:
         return Page.objects.none()
 

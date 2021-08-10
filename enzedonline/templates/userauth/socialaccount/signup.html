@@ -1,17 +1,17 @@
 {% extends 'account/base_card.html' %}
 
-{% load i18n %}
-
-{% block title %}{% trans "Sign up" %}{% endblock %}
+{% load core_tags %}
 
 {% block card-header %}
-    <h3>{% trans "Sign up" %}</h3>
+    {% get_template_set 'allauth social' as trans %}
+    <title>EnzedOnline - {{ trans.signup_title }}</title>    
+    <h3>{{ trans.signup_title }}</h3>
 {% endblock %}
 
 {% block card-body %}
 
-    <p>{% blocktrans with provider_name=account.get_provider.name site_name=site.name %}You are about to use your {{provider_name}} account to login to
-    {{site_name}}. As a final step, please complete the following form:{% endblocktrans %}</p>
+    <p>{{ trans.signup_warning1 }} {{ account.get_provider.name }} {{ trans.signup_warning2 }}
+    {{ site.name }}. {{ trans.signup_warning3 }}</p>
 
     <form method="POST" action="{% url 'socialaccount_signup' %}" class="needs-validation" novalidate>
         {% csrf_token %}
@@ -31,12 +31,12 @@
                 {% with field=form.last_name %}{% include "account/form_field.html" %}{% endwith %}
             </div>
         </div>
-        <button type="submit" class="btn btn-outline-primary">{% trans "Sign up" %}</button>
+        <button type="submit" class="btn btn-outline-primary">{{ trans.signup_title }}</button>
     </form>
 
 {% endblock %}
 
 {% block card-footer %}
-    <p>{% trans "Sign up with e-mail and password?" %} <a href="{% url 'account_signup' %}">{% trans "Sign up" %}</a></p>
-    <p>{% trans "Already have an account?" %} <a href="{% url 'account_login' %}">{% trans "Sign in first" %}</a>{% trans " and connect to your social account in your profile." %}</p>
+    <p>{{ trans.signup_email }} <a href="{% url 'account_signup' %}">{{ trans.signup_title }}</a></p>
+    <p>{{ trans.account_already }} <a href="{% url 'account_login' %}">{{ sign_in_first }}</a>{{ trans.connect_existing_account }}</p>
 {% endblock %}

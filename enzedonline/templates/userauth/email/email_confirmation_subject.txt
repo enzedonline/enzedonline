@@ -1,4 +1,6 @@
-{% load i18n %}
+{% load core_tags %}
+{% get_template_set 'email' as trans %}
+
 {% autoescape off %}
-{% blocktrans %}Please Confirm Your E-mail Address{% endblocktrans %}
+{{ trans.pls_confirm_email }}
 {% endautoescape %}

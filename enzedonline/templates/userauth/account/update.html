@@ -1,14 +1,15 @@
 {% extends 'account/base_card.html' %}
 
-{% load i18n socialaccount social_accounts %}
-
-{% block title %}{% trans "Update account" %}{% endblock %}
+{% load core_tags socialaccount social_accounts %}
 
 {% block card-header %}
-    <h3>{% trans "Update account" %}</h3>
+    {% get_template_set 'accounts' as trans %}
+    <title>Enzed Online - {{ trans.update_account }}</title>
+    <h3>{{ trans.update_account }}</h3>
 {% endblock %}
 
 {% block card-body %}
+    {% get_template_set 'accounts' as trans %}
 
     {% get_providers as socialaccount_providers %}
     <div class="row">
@@ -37,52 +38,51 @@
                 <div class="form-group border-top border-bottom py-2">
                     <h5>{{form.photo.label}}:</h5>
                     {% if request.user.photo %}
-                        <img src="{{ request.user.photo.url }}" class="profile-image my-2 ms-2 avatar" alt="{% trans 'User photo' %}" height="60px" width="60px">
+                        <img src="{{ request.user.photo.url }}" class="profile-image my-2 ms-2 avatar" height="60px" width="60px">
                     {% else %}
                         <span><i class="fas fa-user fa-5x pb-3"></i></span>
                     {% endif %}
                     <input type="file" name="photo" accept="image/*" class="form-control input-field-photo" id="id_photo">
                 </div>
-                <button type="submit" class="btn btn-primary">{% trans "Update" %}</button>
+                <button type="submit" class="btn btn-primary">{{ trans.update }}</button>
             </form>
         </div>
         <div class="col-md-4 pt-3 pt-md-0">
             {% if socialaccount_providers %}
-                {% comment %} <p>{% blocktrans with site.name as site_name %}Connect your existing account to one of your social accounts:{% endblocktrans %}</p> {% endcomment %}
                 {% include "socialaccount/provider_list.html" with process="connect" %}
 
-    {% social_accounts request as accounts %}
-    {% if accounts %}
-    <p>{% blocktrans %}The following social accounts are connected to your account (select to remove):{% endblocktrans %}</p>
+                {% social_accounts request as accounts %}
+                {% if accounts %}
+                <p>{{ trans.connected_social }}</p>
 
-        <form method="POST" action="{% url 'socialaccount_connections' %}" class="needs-validation" novalidate>
-            {% csrf_token %}
-            <fieldset>
-                {% if form.non_field_errors %}
-                    <div id="errorMsg">{{ form.non_field_errors }}</div>
+                    <form method="POST" action="{% url 'socialaccount_connections' %}" class="needs-validation" novalidate>
+                        {% csrf_token %}
+                        <fieldset>
+                            {% if form.non_field_errors %}
+                                <div id="errorMsg">{{ form.non_field_errors }}</div>
+                            {% endif %}
+                            {% for base_account in accounts %}
+                                {% with base_account.get_provider_account as account %}
+                                    <div class="form-check">
+                                        <label for="id_account_{{ base_account.id }}" class="form-check-label">
+                                            <input id="id_account_{{ base_account.id }}" type="radio" name="account" value="{{ base_account.id }}" class="form-check-input"/>
+                                            <span class="socialaccount_provider {{ base_account }} {{ account.get_brand.id }}">{{account.get_brand.name}}</span>
+                                            {{ account }}
+                                        </label>
+                                    </div>
+                                {% endwith %}
+                            {% endfor %}
+
+                            <br>
+                            <div>
+                                <button type="submit" class="btn btn-outline-danger">{{ trans.remove }}</button>
+                            </div>
+                        </fieldset>
+                    </form>
+
+                {% else %}
+                    <p>{{ trans.noconnected_social }}</p>
                 {% endif %}
-                {% for base_account in accounts %}
-                    {% with base_account.get_provider_account as account %}
-                        <div class="form-check">
-                            <label for="id_account_{{ base_account.id }}" class="form-check-label">
-                                <input id="id_account_{{ base_account.id }}" type="radio" name="account" value="{{ base_account.id }}" class="form-check-input"/>
-                                <span class="socialaccount_provider {{ base_account }} {{ account.get_brand.id }}">{{account.get_brand.name}}</span>
-                                {{ account }}
-                            </label>
-                        </div>
-                    {% endwith %}
-                {% endfor %}
-
-                <br>
-                <div>
-                    <button type="submit" class="btn btn-outline-danger">{% trans "Remove" %}</button>
-                </div>
-            </fieldset>
-        </form>
-
-    {% else %}
-        <p>{% trans "You currently have no social network accounts connected to this account." %}</p>
-    {% endif %}
 
             {% endif %}
         </div>
@@ -91,9 +91,10 @@
 {% endblock %}
 
 {% block card-footer %}
+    {% get_template_set 'accounts' as trans %}
     <div class="text-center">
         <small>
-            <a href="{% url 'account_delete' request.user.url %}" class="btn btn-sm btn-outline-danger">{% trans "Delete your account" %}</a>
+            <a href="{% url 'account_delete' request.user.url %}" class="btn btn-sm btn-outline-danger">{{ trans.delete_account }}</a>
         </small>
     </div>
 {% endblock %}

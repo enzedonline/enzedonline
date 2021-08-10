@@ -1,23 +1,24 @@
 {% extends 'account/base_card.html' %}
 
-{% load i18n %}
-
-{% block title %}{% trans "Sign out" %}{% endblock %}
+{% load core_tags %}
 
 {% block card-header %}
-    <h3>{% trans "Sign out" %}</h3>
+    {% get_template_set 'accounts' as trans %}
+    <title>Enzed Online - {{ trans.logout_title }}</title>
+    <h3>{{ trans.logout_title }}</h3>
 {% endblock %}
 
 {% block card-body %}
+    {% get_template_set 'accounts' as trans %}
 
-    <p>{% trans "Are you sure you want to sign out?" %}</p>
+    <p>{{ trans.logout_confirm }}</p>
 
     <form method="POST" action="{% url 'account_logout' %}">
         {% csrf_token %}
-        <button type="submit" class="btn btn-danger">{% trans "Sign out" %}</button>
+        <button type="submit" class="btn btn-danger">{{ trans.logout_title }}</button>
     </form>
 
-    <br><p>{% trans "Stay logged in:" %}</p>
-    <a href="/" class="btn btn-success">{% trans "Return to site" %}</a>
+    <br><p>{{ trans.stay_logged_in }}</p>
+    <a href="/" class="btn btn-success">{{ trans.return_to_site }}</a>
 
 {% endblock %}

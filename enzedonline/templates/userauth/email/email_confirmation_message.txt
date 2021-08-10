@@ -1,10 +1,10 @@
 {% extends "account/email/base_message.txt" %}
-{% load account %}
-{% load i18n %}
+{% load account core_tags %}
+{% get_template_set 'email' as trans %}
 
-{% block content %}{% autoescape off %}{% blocktrans with site_name=current_site.name site_domain=current_site.domain %}You're receiving this e-mail because your e-mail address has been given to register an account on {{ site_domain }}.
+{% block content %}{% autoescape off %}{{ trans.register_confirm_msg }} {{ current_site.domain }}.
 
-To confirm this is correct, go to {{ activate_url }}
+{{ trans.to_confirm }} {{ activate_url }}
 
-If you did not request access to {{ site_domain }}, this message can be ignored.
+{{ trans.ignore_request }}
 {% endblocktrans %}{% endautoescape %}{% endblock %}

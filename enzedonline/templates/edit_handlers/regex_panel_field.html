@@ -1,4 +1,6 @@
-{% load core_tags wagtailadmin_tags i18n %}
+{% load core_tags wagtailadmin_tags %}
+{% get_template_set 'common' as trans %}
+
 <div class="field {{ field|fieldtype }} {{ field|widgettype }} {{ field_classes }}" {% if include_contentpath|default_if_none:True %}data-contentpath="{{ field.name }}"{% endif %}>
     {% if show_label|default_if_none:True %}{{ field.label_tag }}{% endif %}
     <div class="field-content">
@@ -26,7 +28,7 @@
 
     {% if show_add_comment_button %}
         <div class="field-comment-control">
-            <button type="button" data-component="add-comment-button" data-comment-add class="u-hidden" aria-label="{% trans 'Add comment' %}">
+            <button type="button" data-component="add-comment-button" data-comment-add class="u-hidden" aria-label="{{ trans.add_comment }}">
                 <svg class="icon icon-comment-add initial icon-default" aria-hidden="true" focusable="false"><use href="#icon-comment-add"></use></svg>
                 <svg class="icon icon-comment-add initial icon-reversed" aria-hidden="true" focusable="false"><use href="#icon-comment-add-reversed"></use></svg>
             </button>

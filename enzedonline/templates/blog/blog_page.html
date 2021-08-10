@@ -1,5 +1,5 @@
 {% extends "base.html" %} 
-{% load static i18n adv_cache wagtailcore_tags wagtailimages_tags widget_tweaks comments comments_xtd socialaccount %} 
+{% load static core_tags adv_cache wagtailcore_tags wagtailimages_tags widget_tweaks comments comments_xtd socialaccount %} 
 
 {% block header %}
 
@@ -46,6 +46,8 @@
 
 
 {% block content %}
+{% get_template_set 'comments' as trans %}
+{% get_template_set 'common' as common_trans %}
 
 {# Login Form JS #}
 <script>
@@ -88,7 +90,7 @@
     {# Categories #}
     <div class="row rounded bg-info py-2 px-3 mx-1 mt-2 mb-4 border-primary border-1">
         <div class="col-auto flex-nowrap px-1 px-sm-2 px-md-3">
-            <span class="category-link active">Posted in:</span>
+            <span class="category-link active">{{ common_trans.posted_in }}</span>
         </div>
         <div class="col">
             <div class="row">
@@ -117,7 +119,7 @@
     {% if page.tags.count %} 
       <div class="row rounded bg-info p-2 m-0 border-primary border-1">
         <div class="col-auto tag-link active d-flex flex-nowrap pe-3">
-            Tagged with:
+            {{ common_trans.tagged_with }}
         </div>
         <div class="col">
             <div class="row">
@@ -142,7 +144,7 @@
 <div class="container-fluid pt-3 px-2 px-sm-5 pb-1">
   <div class="card">
     <div class="comments-header bg-info ">
-      Comments:
+      {{ trans.comments }}
     </div>
     <div class="card-body">
       {# Show Comments #}
@@ -153,9 +155,9 @@
       {% if not request.user.is_authenticated %}
         <div id="id_comment_invite" class="mt-3">
             <a href="#" id="id_login_first_link">
-              {% trans "Sign in" %}
+              {{ trans.sign_in }}
             </a>
-            {% trans " to leave a comment." %}
+            {{ trans.to_comment }}
         </div>
       {% else %}
         <div class="mt-3">
@@ -181,14 +183,14 @@
           </div>
           <div class="col-md-2 form-group">
             <button id="id_submit_login_form" class="btn btn-outline-primary">
-              {% trans "Sign in" %}
+              {{ trans.sign_in }}
             </button>
           </div>
         </div>
         {# Social Connections #}
         {% get_providers as socialaccount_providers %}
         {% if socialaccount_providers %}
-            {% blocktrans with site.name as site_name %}Connect with Social Media:{% endblocktrans %}
+            {{ trans.connect_with_social}}
             <div class="py-2">
             {% for provider in socialaccount_providers %}
                 <a title="{{ provider.name }}" class="socialaccount_provider {{ provider.id }} social-login-link" 
@@ -199,7 +201,7 @@
             </div>
         {% endif %}
         {# Invite to Sign Up #}
-        <p><a href="{% url 'account_signup' %}">Sign up</a> with email address.</p>
+        <p><a href="{% url 'account_signup' %}">{{ trans.sign_up }}</a> {{ trans.with_email }}</p>
       </form>
     </div>
   
@@ -221,7 +223,7 @@
         {% if next_post %}
           <div class="card h-100 border-0">
             <div class="px-0 py-0 py-sm-2 fw-bolder">
-              <h4 class="fw-bolder">Next Post</h4>
+              <h4 class="fw-bolder">{{ common_trans.next_post }}</h4>
             </div>
             <div class="card h-100 p-2">
               {% image next_post.search_image fill-400x200-c100 format-webp as webp_img_w_400 %} 
@@ -249,7 +251,7 @@
       {% if previous_post %}
         <div class="card h-100 border-0">
           <div class="px-0 pt-3 py-sm-2 text-end">
-            <h4 class="fw-bolder">Previous Post</h4>
+            <h4 class="fw-bolder">{{ common_trans.previous_post }}</h4>
           </div>
           <div class="card h-100 p-2">
             {% image previous_post.search_image fill-400x200-c100 format-webp as webp_img_w_400 %} 

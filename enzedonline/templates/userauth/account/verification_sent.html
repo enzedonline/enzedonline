@@ -1,15 +1,16 @@
 {% extends 'account/base_card.html' %}
 
-{% load i18n %}
-
-{% block title %}{% trans "Verify your e-mail address" %}{% endblock %}
+{% load core_tags %}
 
 {% block card-header %}
-    <h3>{% trans "Verify your e-mail address" %}</h3>
+    {% get_template_set 'accounts' as trans %}
+    <title>Enzed Online - {{ trans.verification_sent_title }}</title>
+    <h3>{{ trans.verification_sent_header }}</h3>
 {% endblock %}
 
 {% block card-body %}
+    {% get_template_set 'accounts' as trans %}
 
-    <p>{% blocktrans %}We have sent an e-mail to you for verification. Follow the link provided to finalize the signup process. Please contact us if you do not receive it within a few minutes.{% endblocktrans %}</p>
+    <p>{{ trans.verficiation_sent_msg|linebreaksbr }}</p>
 
 {% endblock %}

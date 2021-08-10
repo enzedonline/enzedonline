@@ -1,21 +1,22 @@
 {% extends 'account/base_card.html' %}
 
-{% load i18n %}
-
-{% block title %}{% trans "Delete account" %}{% endblock %}
+{% load core_tags %}
 
 {% block card-header %}
-    <h3>{% trans "Delete account" %}</h3>
+    {% get_template_set 'accounts' as trans %}
+    <title>Enzed Online - {{ trans.account_delete_title }}</title>
+    <h3>{{ trans.account_delete_title }}</h3>
 {% endblock %}
 
 {% block card-body %}
 
+    {% get_template_set 'accounts' as trans %}
     <form method="POST">
         {% csrf_token %}
-        <p>{% trans "Are you sure you want to delete the account" %} {{ object.email }}?</p>
-        <button type="submit" class="btn btn-danger">{% trans "Delete" %}</button>
+        <p>{{ trans.delete_confirm }}</p>
+        <button type="submit" class="btn btn-danger">{{ trans.delete }}</button>
     </form>
-    <br><p>{% trans "No, keep my account" %}</p>
-    <a href="/" class="btn btn-success">{% trans "Return to site" %}</a>
+    <br><p>{{ trans.do_not_delete }}</p>
+    <a href="/" class="btn btn-success">{{ trans.return_to_site }}</a>
 
 {% endblock %}

@@ -1,29 +1,31 @@
 {% extends 'account/base_card.html' %}
 
-{% load i18n account %}
-
-{% block title %}{% trans "Confirm e-mail address" %}{% endblock %}
+{% load account core_tags %}
 
 {% block card-header %}
-    <h3>{% trans "Confirm e-mail address" %}</h3>
+    {% get_template_set 'accounts' as trans %}
+    <title>Enzed Online - {{ trans.email_confirm_title }}</title>
+    <h3>{{ trans.email_confirm_title }}</h3>
 {% endblock %}
 
 {% block card-body %}
+    {% get_template_set 'accounts' as trans %}
 
     {% if confirmation %}
 
-        <p>{% blocktrans with confirmation.email_address.email as email %}Please confirm that <a href="mailto:{{ email }}">{{ email }}</a> is your e-mail address.{% endblocktrans %}</p>
+        <p>{{ trans.confirm_msg1 }} <a href="mailto:{{ confirmation.email_address.email }}">{{ confirmation.email_address.email }}</a> {{ trans.confirm_msg2 }}</p>
 
         <form method="post" action="{% url 'account_confirm_email' confirmation.key %}">
             {% csrf_token %}
-            <button type="submit">{% trans "Confirm" %}</button>
+            <button class="btn btn-success" type="submit">{{ trans.confirm }}</button>
         </form>
 
     {% else %}
 
         {% url 'account_email' as email_url %}
 
-        <p>{% blocktrans %}This e-mail confirmation link expired or is invalid. Please <a href="{{ email_url }}">issue a new e-mail confirmation request</a>.{% endblocktrans %}</p>
+        <p>{{ trans.email_link_expired }}</p> 
+        <a href="{{ email_url }}" class="btn btn-danger" role="button">{{ trans.email_expired_resend_button }}</a>
 
     {% endif %}
 
