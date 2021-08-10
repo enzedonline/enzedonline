@@ -142,13 +142,15 @@ a {
 .nav-link {
   font-family: var(--font-family-headings);
   font-size: var(--font-size-5);
-  font-weight: 400;
+  font-weight: 500;
 }
 .nav-link.active {
   font-weight: 600;
+  border-bottom-width: 1px; 
+  border-bottom-style: solid;
 }
 .navbar-dark .navbar-nav .nav-link {
-  color: rgba(255, 255, 255, 0.9);
+  color: white;
 }
 .navbar.bg-dark {
   background-color: rgb(2, 184, 117, 0.8) !important;
