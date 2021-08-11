@@ -210,14 +210,14 @@
   
 </div>
 
-{% cache None page.slug "footer" request.GET.urlencode self.last_published_at %}
+{% cache None page.slug "next_prev" request.GET.urlencode self.last_published_at %}
 
-  <div class="px-5 pt-3">
+  <div class="pt-3 pt-3">
     <hr />
   </div>
 
   {# Next and Previous blog posts #}
-  <div class="container-fluid mt-4 px-2 px-sm-5">
+  <div class="container-fluid mt-1 px-0">
     <div class="row">
       <div class="col-sm-6">
         {% if next_post %}
