@@ -1,0 +1,177 @@
+{% load wagtailimages_tags %}
+<table border="0" width="100%" cellpadding="0" cellspacing="0" class="bg_color">
+  <tr>
+    <td align="center">
+      <table border="0" align="center" width="590" cellpadding="0" cellspacing="0" class="container590">
+        <tr>
+          <td height="20" style="font-size: 20px; line-height: 20px;display: block;">&nbsp;</td>
+        </tr>
+        <tr>
+          <td align="center">
+            <table border="0" align="center" width="590" cellpadding="0" cellspacing="0" class="container590">
+              <tr>
+                <td align="center">
+                  <table border="0" align="center" width="590" cellpadding="0" cellspacing="0" class="container590">
+                    <tr>
+                      {% if footer.signature_image %}
+                        {% image footer.signature_image fill-64x64 as img %}
+                        <td nowrap style="vertical-align: top;width: 80px;">
+                            <img src={{ base_url }}{{ img.url }} width="64px" height="64px">
+                            &nbsp;&nbsp;
+                        </td>                    
+                      {% endif %}
+                      <td>
+                        <table border="0" align="left" cellpadding="0" cellspacing="0"
+                          style="border-collapse:collapse;">
+                          <!-- heading -->
+                          <tr>
+                              <td align="left" height="30"
+                                  style="color: #343434;font-size: 24px;font-family: Quicksand, Calibri, sans-serif;font-weight:700;letter-spacing: 3px;line-height: 25px;">
+                                  {% if footer.signature_heading_link %}
+                                    <a href="{{ footer.signature_heading_link }}"
+                                    style="display: block; border-style: none !important; border: 0 !important;color: #343434;">
+                                  {% endif %}
+                                      {{ footer.signature_heading }}
+                                  {% if footer.signature_heading_link %}
+                                    </a>
+                                  {% endif %}
+                              </td>
+                              {% if footer.signature_sub_heading %}
+                                <tr>
+                                  <td align="left" height="20"
+                                      style="color: #343434;font-size: 14px;font-family: Quicksand, Calibri, sans-serif;font-weight:600;letter-spacing: 2px;">
+                                      {{ footer.signature_sub_heading|linebreaksbr }}
+                                  </td>
+                                </tr>
+                              {% endif %}
+                          </tr>
+                          <tr>
+                            <td align="left">
+                              <table border="0" width="100%" align="left" cellpadding="0" cellspacing="0">
+                                <tr>
+                                  <td height="1px" style="font-size: 1px; line-height: 1px;">&nbsp;</td>
+                                </tr>
+                              </table>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td align="left"
+                              style="color: #434343; font-size: 14px; font-family: 'Work Sans', Calibri, sans-serif; line-height: 23px;"
+                              class="text_color">
+                              {% if footer.address %}
+                                  <div style="color: #434343; font-size: 14px; font-family: 'Work Sans', Calibri, sans-serif; font-weight: 500; line-height: 1.3;">
+                                      {% if footer.map_link %}<a href="{{ footer.map_link }}" style="color: #434343;">{% endif %}
+                                        <table>
+                                          <tr>
+                                            {% if footer.map_icon %}
+                                              <td style="vertical-align: text-bottom; min-width:20px;">
+                                                {% image footer.map_icon fill-15x15 as img %}
+                                                <img border="0" width="15" height="15" src="{{ base_url }}{{ img.url }}" alt="" />
+                                              </td>
+                                            {% endif %}
+                                            <td>
+                                              <span style="color: #434343; font-size: 14px; font-family: 'Work Sans', Calibri, Sans-serif; font-weight: 500;">
+                                                {{ footer.address|linebreaksbr }}
+                                              </span>
+                                            </td>
+                                          </tr>
+                                        </table>
+                                      {% if footer.map_link %}</a>{% endif %}
+                                  </div>
+                                  <table border="0" width="100%" align="left" cellpadding="0" cellspacing="0">
+                                      <tr>
+                                          <td height="1px" style="font-size: 1px; line-height: 1px;">&nbsp;</td>
+                                      </tr>
+                                  </table>
+                              {% endif %}
+                              {% if footer.contact_email_address %}
+                                  <div style="color: #434343; font-size: 14px; font-family: 'Work Sans', Calibri, sans-serif; font-weight: 500; line-height: 1.3;">
+                                    <a href="mailto: {{ footer.contact_email_address }}" style="color: #434343">
+                                      <table>
+                                        <tr>
+                                          {% if footer.email_icon %}
+                                            <td style="vertical-align: text-bottom; min-width:20px;">
+                                              {% image footer.email_icon fill-15x15 as img %}
+                                              <img border="0" width="15" height="15" src="{{ base_url }}{{ img.url }}" alt="" />
+                                            </td>
+                                          {% endif %}
+                                          <td>
+                                            <span style="color: #434343; font-size: 14px; font-family: 'Work Sans', Calibri, Sans-serif; font-weight: 500;">
+                                              {{ footer.contact_email_label }} 
+                                              {{ footer.contact_email_address }}
+                                            </span>
+                                          </td>
+                                        </tr>
+                                      </table>
+                                    </a>
+                                  </div>
+                                  <table border="0" width="100%" align="left" cellpadding="0" cellspacing="0">
+                                      <tr>
+                                          <td height="1px" style="font-size: 1px; line-height: 1px;">&nbsp;</td>
+                                      </tr>
+                                  </table>
+                              {% endif %}
+                              {% if footer.contact_phone_number %}
+                                  <div style="color: #434343; font-size: 14px; font-family: 'Work Sans', Calibri, sans-serif; font-weight: 500; line-height: 1.3;">
+                                    <a href="tel: {{ footer.contact_phone_number }}" style="color: #434343;">
+                                      <table>
+                                        <tr>
+                                          {% if footer.phone_icon %}
+                                            <td style="vertical-align: text-bottom; min-width:20px;">
+                                              {% image footer.phone_icon fill-15x15 as img %}
+                                              <img border="0" width="15" height="15" src="{{ base_url }}{{ img.url }}" alt="" />
+                                            </td>
+                                          {% endif %}
+                                          <td>
+                                            <span style="color: #434343; font-size: 14px; font-family: 'Work Sans', Calibri, Sans-serif; font-weight: 500;">
+                                              {{ footer.contact_phone_label }} 
+                                              {{ footer.contact_phone_number }}
+                                            </span>
+                                          </td>
+                                        </tr>
+                                      </table>
+                                    </a>
+                                  </div>
+                              {% endif %}
+                            </td>
+                          </tr>
+                        </table>
+                        <table border="0" width="2" align="left" cellpadding="0" cellspacing="0"
+                          style="border-collapse:collapse;">
+                          <tr>
+                            <td width="2" height="10" style="font-size: 10px; line-height: 10px;"></td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td height="40" style="font-size: 40px; line-height: 40px;">
+              <table border="0" width="200" align="right" cellpadding="0" cellspacing="0"
+                style="border-collapse:collapse;">
+                <tr>
+                  <td height="3px" style="font-size: 3px; line-height: 3px;">&nbsp;</td>
+                </tr>
+                <tr>
+                  <td>
+                    <table border="0" align="right" cellpadding="0" cellspacing="0">
+                      <tr>
+                        <td>
+                          {% include './social_media.html' %}
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>          
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>

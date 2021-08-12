@@ -2,29 +2,28 @@ import os
 from datetime import datetime
 
 from bs4 import BeautifulSoup
-from core.blocks import HtmlBlock, SimpleCard, SimpleRichTextBlock, SpacerStaticBlock
+from core.blocks import HtmlBlock, SimpleRichTextBlock, SpacerStaticBlock
 from core.models import SEOPage, SEOWagtailCaptchaEmailForm
 from django.conf import settings
 from django.core import mail
-from django.core.files import File
 from django.core.mail import EmailMultiAlternatives
 from django.db import models
 from django.db.models.fields import CharField, EmailField
 from django.template.defaultfilters import linebreaksbr
+from django.template.loader import get_template
 from django.utils.translation import gettext_lazy as _
 from modelcluster.models import ParentalKey
-from site_settings.models import EmailSettings, EmailSignature, SocialMedia
+from site_settings.models import EmailSettings
 from wagtail.admin.edit_handlers import (FieldPanel, FieldRowPanel,
                                          InlinePanel, MultiFieldPanel,
                                          StreamFieldPanel)
 from wagtail.contrib.forms.models import AbstractFormField
-from wagtail.core.blocks import StreamBlock, RichTextBlock
+from wagtail.core.blocks import StreamBlock
 from wagtail.core.fields import RichTextField, StreamField
 from wagtail.core.models import TranslatableMixin
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.images.models import Image
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
-from wagtail_localize.synctree import Locale
 
 FORM_FIELD_CHOICES = (
     ('singleline', _('Single line text')),
@@ -133,9 +132,28 @@ class ContactPage(SEOWagtailCaptchaEmailForm):
         help_text=_("Where to send replies made to the receipt email")
     )
     receipt_email_subject = CharField(
-        max_length=80,
+        max_length=150,
         verbose_name=_("Receipt Email Subject"),
         help_text=_("Subject for email sent to client")
+    )
+    receipt_email_banner = models.ForeignKey(
+        'wagtailimages.Image',
+        related_name='+',
+        blank=False,
+        null=True,
+        on_delete=models.SET_NULL,
+        verbose_name=_("Banner Image"),
+        help_text=_("Image to display at top of email (letterbox format)")
+    )
+    receipt_email_banner_link = models.URLField(
+        max_length=200,
+        verbose_name=_("Receipt Email Subject"),
+        help_text=_("Subject for email sent to client")
+    )
+    receipt_email_headline = CharField(
+        max_length=150,
+        verbose_name=_("Receipt Email Headline"),
+        help_text=_("Large text header on receipt.")
     )
     receipt_email_content = RichTextField(
         features= [
@@ -175,7 +193,10 @@ class ContactPage(SEOWagtailCaptchaEmailForm):
         ], heading=_("Notification Email Settings")),
         MultiFieldPanel([
             FieldPanel("reply_to"),
+            ImageChooserPanel("receipt_email_banner"),
+            FieldPanel("receipt_email_banner_link"),
             FieldPanel("receipt_email_subject"),
+            FieldPanel("receipt_email_headline"),
             FieldPanel("receipt_email_content"),
             SnippetChooserPanel('receipt_email_footer'),
         ], heading=_("Client Receipt Email Settings")),
@@ -223,32 +244,39 @@ class ContactPage(SEOWagtailCaptchaEmailForm):
         email['subject'] = self.subject + " - " + submitted_date_str
         return email
 
+    # def get_receipt_email_html(self):
+    #     locale_footer = self.receipt_email_footer.localized
+    #     image = Image.objects.get(id=locale_footer.signature_image.id)
+    #     signature_image = settings.BASE_URL + image.get_rendition('original').url       
+    #     template = os.path.join(settings.PROJECT_DIR, 'templates', 'contact','receipt_email_template.html')
+    #     with open(template, 'r') as f:
+    #         content = f.read()
+    #     content = content.replace("{{ image }}", signature_image)
+    #     content = content.replace("{{ content }}", self.receipt_email_content)
+    #     content = content.replace("{{ footer_text }}", locale_footer.signature_content)
+    #     # email address, email label, phone, phone label, headline
+    #     return content
+
+    def get_receipt_email_html_test(self):
+        locale_footer = self.receipt_email_footer.localized
+        template = get_template(os.path.join(settings.PROJECT_DIR, 'templates', 'contact','receipt_email', 'base.html'))
+        output = os.path.join(settings.PROJECT_DIR, 'templates', 'contact','receipt_email', 'test.html')
+        html = template.render({'body': self, 'footer': locale_footer, 'base_url': settings.BASE_URL})
+        with open(output, 'w') as f:
+            f.write(html)
+        return html
+
     def get_receipt_email_html(self):
         locale_footer = self.receipt_email_footer.localized
-        social_media_icons = SocialMedia.objects.all().filter(locale_id=1)
-        icons = ''
-        for item in social_media_icons:
-            icon = item.localized
-            icons += '<a href="{}"><img src="{}" width="32" height="32" style="padding-right: 10; padding-top: 10;"></a>&nbsp&nbsp'.format(
-                icon.url,
-                settings.BASE_URL + icon.photo.get_rendition('original').url
-            )
-        image = Image.objects.get(id=locale_footer.signature_image.id)
-        signature_image = settings.BASE_URL + image.get_rendition('original').url       
-        template = os.path.join(settings.PROJECT_DIR, 'templates', 'contact','receipt_email_template.html')
-        with open(template, 'r') as f:
-            content = f.read()
-        content = content.replace("{{ image }}", signature_image)
-        content = content.replace("{{ content }}", self.receipt_email_content)
-        content = content.replace("{{ footer_text }}", locale_footer.signature_content)
-        content = content.replace("{{ social_media }}", icons)
-        return content
+        template = get_template(os.path.join(settings.PROJECT_DIR, 'templates', 'contact','receipt_email', 'base.html'))
+        html = template.render({'body': self, 'footer': locale_footer, 'base_url': settings.BASE_URL})
+        return html
 
     def get_receipt_email(self, contact_email_address):
         email={}
         email['addresses'] = [x.strip() for x in contact_email_address.split(',')]
         email['subject'] = self.receipt_email_subject
-        email['content'] = self.get_receipt_email_html()
+        email['content'] = self.get_receipt_email_html_test()
         return email
 
     def html_email(self, email):

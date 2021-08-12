@@ -3,8 +3,7 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from modelcluster.fields import ParentalKey
 from modelcluster.models import ClusterableModel
-from wagtail.admin.edit_handlers import (FieldPanel, InlinePanel,
-                                         RichTextFieldPanel, MultiFieldPanel)
+from wagtail.admin.edit_handlers import (FieldPanel, InlinePanel, RichTextFieldPanel, MultiFieldPanel, FieldRowPanel)
 from wagtail.contrib.settings.models import BaseSetting, register_setting
 from wagtail.core.fields import RichTextField
 from wagtail.core.models import Orderable, TranslatableMixin
@@ -122,21 +121,49 @@ class EmailSignature(TranslatableMixin, models.Model):
         max_length=30,
         null=False,
         blank=False,
-        verbose_name=_("Email Signature Title"),
+        verbose_name=_("Signature Name"),
         help_text=_("Used to identify this signature")
     )
-    signature_content = RichTextField(
-        features= [
-            'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
-            'bold',
-            'italic',
-            'ol',
-            'ul',
-            'link',
-            'hr',
-        ],
-        verbose_name=_("Email Signature Content"),
-        help_text=_("Text for the Email Signature")
+    signature_heading = models.CharField(
+        max_length=50,
+        null=False,
+        blank=False,
+        verbose_name=_("Heading"),
+        help_text=_("Company/Organisation name or other heading.")
+    )
+    signature_sub_heading = models.TextField(
+        null=True,
+        blank=True,
+        verbose_name=_("Sub Heading"),
+        help_text=_("Optional sub heading such as address, motto, department, title etc.")
+    )
+    signature_heading_link = models.URLField(
+        max_length=200,
+        null=True,
+        blank=True,
+        verbose_name=_("Heading Link"),
+        help_text=_("Optional hyperlink address for heading.")
+    )
+    address = models.TextField(
+        null=True,
+        blank=True,
+        verbose_name=_("Address"),
+        help_text=_("Optional"),
+    )
+    map_link = models.URLField(
+        null=True,
+        blank=True,
+        verbose_name=_("Map Link"),
+        help_text=_("Option link to online map (eg Google Maps)")
+    )
+    map_icon = models.ForeignKey(
+        'wagtailimages.Image',
+        blank=True,
+        null=True,
+        related_name='+',
+        on_delete=models.SET_NULL,
+        verbose_name=_("Map Icon"),
+        help_text=_("Optional icon displayed alongside address @ 15x15px")
     )
     signature_image = models.ForeignKey(
         'wagtailimages.Image',
@@ -144,14 +171,77 @@ class EmailSignature(TranslatableMixin, models.Model):
         null=True,
         related_name='+',
         on_delete=models.SET_NULL,
-        verbose_name=_("Image for Left Column"),
-        help_text=_("Image to display in left column of Email Signature")
+        verbose_name=_("Signature Image"),
+        help_text=_("Optional image to display in Email Signature @ 64x64px")
+    )
+    contact_email_label = models.CharField(
+        max_length=80,
+        default=_("Email:"),
+        verbose_name=_("Contact Email Label"),
+        help_text=_("Label for email address displayed in footer.")
+    )
+    contact_email_address = models.EmailField(
+        max_length=80,
+        verbose_name=_("Contact Email Address"),
+        help_text=_("Email address displayed in footer.")
+    )
+    email_icon = models.ForeignKey(
+        'wagtailimages.Image',
+        blank=True,
+        null=True,
+        related_name='+',
+        on_delete=models.SET_NULL,
+        verbose_name=_("Email Icon"),
+        help_text=_("Optional icon displayed alongside email address @ 15x15px")
+    )
+    contact_phone_label = models.CharField(
+        max_length=80,
+        default=_("Phone:"),
+        verbose_name=_("Contact Phone Label"),
+        help_text=_("Label for phone number displayed in footer.")
+    )
+    contact_phone_number = models.CharField(
+        max_length=80,
+        verbose_name=_("Contact Phone Number"),
+        help_text=_("Phone number displayed in footer.")
+    )
+    phone_icon = models.ForeignKey(
+        'wagtailimages.Image',
+        blank=True,
+        null=True,
+        related_name='+',
+        on_delete=models.SET_NULL,
+        verbose_name=_("Phone Icon"),
+        help_text=_("Optional icon displayed alongside phone number @ 15x15px")
     )
 
     panels = [
         FieldPanel('signature_name'),
-        RichTextFieldPanel('signature_content'),
+        MultiFieldPanel([
+            FieldPanel('signature_heading'),
+            FieldPanel('signature_sub_heading'),
+            FieldPanel('signature_heading_link'),
+        ], heading=_("Heading Settings")),
+        MultiFieldPanel([
+            FieldPanel('address'),
+            FieldPanel('map_link'),
+            ImageChooserPanel('map_icon'),
+        ], heading=_("Address Settings")),
         ImageChooserPanel('signature_image'),
+        MultiFieldPanel([
+            FieldRowPanel([
+                FieldPanel("contact_email_label", classname='col-6'),
+                FieldPanel("contact_email_address", classname='col-6'),
+            ]),
+            ImageChooserPanel("email_icon"),
+        ], heading=_("Contact Email Settings")),
+        MultiFieldPanel([
+            FieldRowPanel([
+                FieldPanel("contact_phone_label", classname='col-6'),
+                FieldPanel("contact_phone_number", classname='col-6'),
+            ]),
+            ImageChooserPanel("phone_icon"),
+        ], heading=_("Contact Phone Settings")),
     ]
 
     def __str__(self):
