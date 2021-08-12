@@ -244,39 +244,21 @@ class ContactPage(SEOWagtailCaptchaEmailForm):
         email['subject'] = self.subject + " - " + submitted_date_str
         return email
 
-    # def get_receipt_email_html(self):
-    #     locale_footer = self.receipt_email_footer.localized
-    #     image = Image.objects.get(id=locale_footer.signature_image.id)
-    #     signature_image = settings.BASE_URL + image.get_rendition('original').url       
-    #     template = os.path.join(settings.PROJECT_DIR, 'templates', 'contact','receipt_email_template.html')
-    #     with open(template, 'r') as f:
-    #         content = f.read()
-    #     content = content.replace("{{ image }}", signature_image)
-    #     content = content.replace("{{ content }}", self.receipt_email_content)
-    #     content = content.replace("{{ footer_text }}", locale_footer.signature_content)
-    #     # email address, email label, phone, phone label, headline
-    #     return content
-
-    def get_receipt_email_html_test(self):
-        locale_footer = self.receipt_email_footer.localized
-        template = get_template(os.path.join(settings.PROJECT_DIR, 'templates', 'contact','receipt_email', 'base.html'))
-        output = os.path.join(settings.PROJECT_DIR, 'templates', 'contact','receipt_email', 'test.html')
-        html = template.render({'body': self, 'footer': locale_footer, 'base_url': settings.BASE_URL})
-        with open(output, 'w') as f:
-            f.write(html)
-        return html
-
     def get_receipt_email_html(self):
         locale_footer = self.receipt_email_footer.localized
         template = get_template(os.path.join(settings.PROJECT_DIR, 'templates', 'contact','receipt_email', 'base.html'))
         html = template.render({'body': self, 'footer': locale_footer, 'base_url': settings.BASE_URL})
+    #   Enable next 3 lines to test html output
+    #     output = os.path.join(settings.PROJECT_DIR, 'templates', 'contact','receipt_email', 'test.html')
+    #     with open(output, 'w') as f:
+    #         f.write(html)
         return html
 
     def get_receipt_email(self, contact_email_address):
         email={}
         email['addresses'] = [x.strip() for x in contact_email_address.split(',')]
         email['subject'] = self.receipt_email_subject
-        email['content'] = self.get_receipt_email_html_test()
+        email['content'] = self.get_receipt_email_html()
         return email
 
     def html_email(self, email):
