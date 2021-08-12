@@ -4,4 +4,5 @@ $("body").niceScroll({
     cursorborderradius: "6px",
     bouncescroll: false,
     smoothscroll: true,  
+    hidecursordelay: 1500,
 });

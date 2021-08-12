@@ -1,10 +1,17 @@
 {% load static wagtailcore_tags  %}
 <div class="block-container">
-    <div class="row {{ value.columns }} justify-content-center">
+    {% comment %} <div class="row {{ value.columns }} justify-content-center"> {% endcomment %}
+    <div class="grid" data-masonry='{ "itemSelector": ".grid-item", "columnWidth": ".grid-sizer",  "gutter": ".gutter-sizer",  "percentPosition": "true" }'>
+        <div class="gutter-sizer"></div>
+        <div class="grid-sizer"></div>
         {% for block in value.cards %}
-            <div class="col mx-0 mb-2">
+        {% comment %} <div class="col mx-0 mb-2"> {% endcomment %}
+            <div class="grid-item">
                 {% include_block block %}
             </div>
         {% endfor %}
     </div>
 </div>
+
+    <script src="{% static 'js/masonry.pkgd.js'%}"></script>
+    <script src="{% static 'js/masonry.extra.js'%}"></script>
