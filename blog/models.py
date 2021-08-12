@@ -277,7 +277,7 @@ class BlogListingPage(SEOPage):
             context["filter"] = ''
             context["showing"] = None
 
-        paginator = Paginator(all_posts, 8)
+        paginator = Paginator(all_posts, 12)
 
         requested_page = request.GET.get("page")
 
