@@ -23,24 +23,7 @@
       {% else %}
         <div class="row">
           <div class="col-md-12">
-            <div class="card bg-light mb-3">
-              <div class="row">
-                <div class="col-auto ms-3 mt-2">
-                    {% include 'comments/avatar.html' %}   
-                </div>
-                <div class="col ps-0">
-                  <div class="card-body ps-0 py-1">
-                    <p class="card-text">{{ comment|linebreaksbr }}</p>
-                        <h6 class="card-text pb-0">
-                          -&nbsp;
-                          {% if form.cleaned_data.url %}
-                          <a href="{{ comment.user_url }}" target="_new">{% endif %}
-                            {{ form.cleaned_data.name }}{% if form.cleaned_data.url %}</a>{% endif %}
-                        </h6>
-                  </div>
-                </div>
-              </div>
-            </div>
+          {% include 'comments/comment_preview_card.html' %}
           </div>
         </div>
       {% endif %}

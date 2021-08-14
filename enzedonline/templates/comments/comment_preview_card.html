@@ -3,7 +3,15 @@
     <div class="card bg-light mb-3">
         <div class="row vw-80" style="min-height: 80px;">
         <div class="col-auto ms-3 mt-2">
-            {% include 'comments/avatar.html' %}   
+            {% if request.user.photo %}
+                <img alt="" src="{{ comment.user.photo.url }}" class="comments-image-thumbnail avatar">
+            {% else %}
+                {% if request.user.display_name %}
+                    <span class="text-primary text-center"><i class="fas fa-user fa-4x"></i></span>
+                {% else %}
+                    <span class="text-secondary text-center"><i class="far fa-user fa-4x"></i></span>
+                {% endif %}
+            {% endif %}
         </div>
         <div class="col ps-0">
             <div class="card-body ps-0 py-1">

@@ -24,7 +24,7 @@
                         {% include "includes/django_comments_xtd/comment_content.html" with content=item.comment.comment %}
                     </div>
                     <div class="flex me-auto small text-muted pt-1">
-                        {{ item.comment.submit_date|localize }}
+                        <span id='date_{{item.comment.pk}}'></span>
                         &nbsp;-&nbsp;
                         {% if item.comment.url and not item.comment.is_removed %}
                             <a href="{{ item.comment.url }}" target="_new">
@@ -62,7 +62,7 @@
                         {% if not item.comment.is_removed %}
                             {% if perms.comments.can_moderate %}
                                 {% if item.flagged_count %}
-                                    <span class="badge badge-danger" title="{{ trans.inappropriate1 }}. {{ item.flagged_count }} {{ trans.inappropriate2 }}.</span>
+                                    <span class="badge badge-danger" title="{{ trans.inappropriate1 }}. {{ item.flagged_count }} {{ trans.inappropriate2 }}."</span>
                                 {% endif %}
                             {% endif %}
                             {% if allow_flagging and item.flagged %}
@@ -83,4 +83,7 @@
             </div>
         </div>
     </div>
+    <script>
+    document.getElementById("date_{{item.comment.pk}}").innerHTML = convertUTCDateToLocalDate(new Date('{{ item.comment.submit_date|date:"d M Y H:i:s" }}'));
+    </script>
 {% endfor %}
