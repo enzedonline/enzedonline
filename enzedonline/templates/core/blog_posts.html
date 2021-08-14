@@ -1,4 +1,4 @@
-{% load static wagtailimages_tags  %}
+{% load static %}
 
 <div class="grid" data-masonry='{ "itemSelector": ".grid-item", "columnWidth": ".grid-sizer",  "gutter": ".gutter-sizer",  "percentPosition": "true" }'>
     <div class="gutter-sizer"></div>
@@ -6,7 +6,8 @@
     {% for post in posts %}
         <div class="grid-item">
             <div class="col mx-0 mb-4">
-                <div class="card h-100 p-2">
+                {% include 'core/blog_card.html' %}
+                {% comment %} <div class="card h-100 p-2">
                     {% image post.search_image fill-900x600-c100 format-webp as webp_img_w_900 %} 
                     {% image post.search_image fill-600x400-c100 format-webp as webp_img_w_600 %}
                     {% image post.search_image fill-300x200-c100 format-webp as webp_img_w_300 %}
@@ -28,7 +29,7 @@
                         <p class="blog-summary small">{{ post.first_published_at }}</small></p>
                     </div>
                     <a href="{{post.url}}{{filter}}" class="stretched-link"></a>
-                </div>
+                </div> {% endcomment %}
             </div>
         </div>
     {% endfor %}

@@ -31,7 +31,8 @@
             {% for post in search_results %}
                 <div class="grid-item">
                     <div class="col mx-0 mb-3">
-                        <div class="card p-2">
+                        {% include 'core/blog_card.html' %}
+                        {% comment %} <div class="card p-2">
                             {% image post.search_image fill-900x600-c100 format-webp as webp_img_w_900 %} 
                             {% image post.search_image fill-600x400-c100 format-webp as webp_img_w_600 %}
                             {% image post.search_image fill-300x200-c100 format-webp as webp_img_w_300 %}
@@ -53,7 +54,7 @@
                                 <p class="blog-summary small">{{ post.first_published_at }}</small></p>
                             </div>
                             <a href="{{post.url}}{{filter}}" class="stretched-link"></a>
-                        </div>
+                        </div> {% endcomment %}
                     </div>
                 </div>
             {% endfor %}

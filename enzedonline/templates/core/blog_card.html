@@ -1,0 +1,23 @@
+{% load static wagtailimages_tags  %}
+<div class="card h-100 p-2">
+    {% image post.search_image fill-400x200-c100 format-webp as webp_img_w_400 %} 
+    {% image post.search_image fill-400x200-c100 as fallback %}
+    <picture>
+    <source srcset="{{ webp_img_w_400.url }} 400w" type="image/webp" />
+    <source srcset="{{ fallback.url }} 400w" />
+    <img
+        src="{{ fallback.url }}"
+        alt="{{ post.title }}"
+        style="width: 100%; height: auto"
+    />
+    </picture>
+    <div class="card-body">
+        <h4 class="card-title fw-bolder">{{ post.title }}</h4>
+        <p class="blog-summary">{{ post.summary|linebreaksbr }}</p>
+        <p class="blog-summary small mb-0" id="post_{{post.pk}}"></p>
+    </div>
+    <a href="{{post.url}}{{filter}}" class="stretched-link"></a>
+</div>
+<script>
+    document.getElementById("post_{{post.pk}}").innerHTML = convertUTCDateToLocalDate(new Date('{{ post.first_published_at|date:"d M Y H:i:s" }}'));
+</script>

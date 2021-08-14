@@ -225,24 +225,7 @@
             <div class="px-0 py-0 py-sm-2 fw-bolder">
               <h4 class="fw-bolder">{{ common_trans.next_post }}</h4>
             </div>
-            <div class="card h-100 p-2">
-              {% image next_post.search_image fill-400x200-c100 format-webp as webp_img_w_400 %} 
-              {% image next_post.search_image fill-400x200-c100 as fallback %}
-              <picture>
-                <source srcset="{{ webp_img_w_400.url }} 400w" type="image/webp" />
-                <source srcset="{{ fallback.url }} 400w" />
-                <img
-                  src="{{ fallback.url }}"
-                  alt="{{ next_post.title }}"
-                  style="width: 100%; height: auto"
-                />
-              </picture>
-              <div class="card-body">
-                  <h4 class="card-title fw-bolder">{{ next_post.title }}</h4>
-                  <p class="blog-summary">{{ next_post.summary|linebreaksbr }}</p>
-                  <p class="blog-summary small">{{ next_post.first_published_at }}</small></p>
-              </div>
-            </div>
+            {% include 'core/blog_card.html' with post=next_post %}
             <a href="{{next_post.url}}{{filter}}" class="stretched-link"></a>
           </div>
         {% endif %}
@@ -253,24 +236,7 @@
           <div class="px-0 pt-3 py-sm-2 text-end">
             <h4 class="fw-bolder">{{ common_trans.previous_post }}</h4>
           </div>
-          <div class="card h-100 p-2">
-            {% image previous_post.search_image fill-400x200-c100 format-webp as webp_img_w_400 %} 
-            {% image previous_post.search_image fill-400x200-c100 as fallback %}
-            <picture>
-              <source srcset="{{ webp_img_w_400.url }} 400w" type="image/webp" />
-              <source srcset="{{ fallback.url }} 400w" />
-              <img
-                src="{{ fallback.url }}"
-                alt="{{ previous_post.title }}"
-                style="width: 100%; height: auto"
-              />
-            </picture>
-            <div class="card-body">
-                <h4 class="card-title fw-bolder">{{ previous_post.title }}</h4>
-                <p class="blog-summary">{{ previous_post.summary|linebreaksbr }}</p>
-                <p class="blog-summary small">{{ previous_post.first_published_at }}</small></p>
-            </div>
-          </div>
+            {% include 'core/blog_card.html' with post=previous_post %}
           <a href="{{previous_post.url}}{{filter}}" class="stretched-link"></a>
         </div>
       {% endif %}
