@@ -1,0 +1,22 @@
+{% if item %}
+    {% if item.comment.user.photo %}
+        <img alt="" src="{{ item.comment.user.photo.url }}" class="comments-image-thumbnail avatar">
+    {% else %}
+        {% if item.comment.user.display_name %}
+            <span class="text-primary text-center"><i class="fas fa-user fa-4x"></i></span>
+        {% else %}
+            <span class="text-secondary text-center"><i class="far fa-user fa-4x"></i></span>
+        {% endif %}
+    {% endif %}
+{% else %}
+    {% if comment.user.photo %}
+        <img alt="" src="{{ comment.user.photo.url }}" class="comments-image-thumbnail avatar">
+    {% else %}
+        {% if comment.user.display_name %}
+            <span class="text-primary text-center"><i class="fas fa-user fa-4x"></i></span>
+        {% else %}
+            <span class="text-secondary text-center"><i class="far fa-user fa-4x"></i></span>
+        {% endif %}
+    {% endif %}
+{% endif %}
+

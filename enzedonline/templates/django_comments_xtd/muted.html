@@ -1,0 +1,18 @@
+{% extends "django_comments_xtd/base.html" %}
+{% load comments comments_xtd core_tags %}
+
+{% block content %}
+  {% get_template_set 'comments' as trans %}
+  <title>EnzedOnline - {{ trans.comment_thread_muted }}</title>
+  <div class="container">
+    <div class="my-4">
+      <h3 class="text-center">{{ trans.comment_thread_muted_verbose }}</h3>
+      <hr/>
+    </div>
+    <div class="my-4">
+      <h5 class="text-center">
+        {{ trans.comment_thread_muted_msg }} <a href="{{ content_object.get_absolute_url }}">{{ content_object }}</a>
+      </h5>
+    </div>
+  </div>
+{% endblock %}

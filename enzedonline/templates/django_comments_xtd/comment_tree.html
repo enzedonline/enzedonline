@@ -4,15 +4,19 @@
 {% for item in comments %}
     <div class="card bg-light border-0 pt-1 mb-1">
         <div class="row">
-            <div class="ms-3 mt-2" style="width: 80px;">
+            <div class="ms-3 mt-2 text-center" style="width: 80px;">
                 <a name="c{{ item.comment.id }}"></a>
                 {% if item.comment.user.photo %}
                     <img alt="" src="{{ item.comment.user.photo.url }}" class="comments-image-thumbnail avatar">
                 {% else %}
-                    {{ item.comment.user_email|xtd_comment_gravatar }}
+                    {% if item.comment.user.display_name %}
+                        <span class="text-primary text-center"><i class="fas fa-user fa-4x"></i></span>
+                    {% else %}
+                        <span class="text-secondary text-center"><i class="far fa-user fa-4x"></i></span>
+                    {% endif %}
                 {% endif %}
             </div>
-            <div class="col ps-2 pt-1">
+            <div class="col me-1 ps-2 pt-1" style="text-align: left !important;">
                 {% if item.comment.is_removed %}
                     <p class="text-muted{% if not allow_feedback and not item.comment.allow_thread %} pb-3{% endif %}"><em>{{ trans.comment_removed }}</em></p>
                 {% else %}
@@ -25,13 +29,13 @@
                         {% if item.comment.url and not item.comment.is_removed %}
                             <a href="{{ item.comment.url }}" target="_new">
                         {% endif %}
-                        {{ item.comment.user.display_name }}
+                        {% include 'comments/display_name.html' %}
                         {% if item.comment.url %}
                             </a>
                         {% endif %}
                         {% if item.comment.user and item.comment.user|has_permission:"django_comments.can_moderate" %}
                             &nbsp;
-                            <span class="badge rounded-pill bg-light text-muted">
+                            <span class="badge rounded-pill bg-secondary text-light">
                                 {{ trans.moderator }}
                             </span>
                         {% endif %}

@@ -1,0 +1,18 @@
+<div class="card bg-light mb-3">
+    <div class="row" style="min-height: 80px;">
+        <div class="col-auto ms-3 mt-2">
+            {% include 'comments/avatar.html' %}   
+        </div>
+        <div class="col ps-0">
+        <div class="card-body ps-0 py-1">
+            <p class="card-text">{{ comment.comment }}</p>
+                <h6 class="card-text pb-0">
+                {{ comment.submit_date|date:"N j, Y, P" }}&nbsp;-&nbsp;
+                    {% if comment.user_url %}<a href="{{ comment.user_url }}" target="_new">{% endif %}
+                    {% include 'comments/display_name.html' %}
+                    {% if comment.user_url %}</a>{% endif %}
+                </h6>
+        </div>
+        </div>
+    </div>
+</div>

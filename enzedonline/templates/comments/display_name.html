@@ -1,0 +1,13 @@
+{% if item %}
+    {% if item.comment.user.display_name %} 
+        {{ item.comment.user.display_name }}
+    {% else %}    
+        {{ item.comment.user_name }} ({{ trans.deleted }})
+    {% endif %}
+{% else %}
+    {% if comment.user.display_name %} 
+        {{ comment.user.display_name }}
+    {% else %}    
+        {{ comment.user_name }} ({{ trans.deleted }})
+    {% endif %}
+{% endif %}

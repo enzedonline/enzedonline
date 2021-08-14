@@ -1,0 +1,31 @@
+{% extends "django_comments_xtd/base.html" %}
+{% load comments_xtd core_tags %}
+
+
+{% block content %}
+{% get_template_set 'comments' as trans %}
+<title>EnzedOnline - {{ trans.remove_comment }}</title>
+<div class="container">
+
+<div class="my-4">
+  <h3 class="text-center">{{ trans.remove_comment_confirm }}</h3>
+  <hr/>
+</div>
+{% include 'comments/comment_card.html' %}
+<p class="h6 text-muted">{{ trans.remove_comment_help_text|linebreaksbr }}</p>
+<div class="row">
+  <div class="offset-md-1 col-md-10">
+    <form action="." method="post">{% csrf_token %}
+      <input type="hidden" name="next" value="{{ comment.get_absolute_url }}"/>
+        <div class="form-group">
+          <div class="text-center">
+            <h5>{{ trans.remove_comment_instruction }}</h5>
+            <input type="submit" name="submit" class="btn btn-danger" value="{{ trans.remove }}"/>
+            <a class="btn btn-secondary" href="{{ comment.get_absolute_url }}">{{ trans.cancel }}</a>
+          </div>
+        </div>
+    </form>
+  </div>
+</div>
+</div>
+{% endblock %}

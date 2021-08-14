@@ -1,0 +1,13 @@
+{% load comments_xtd core_tags %}
+{% get_template_set 'comments' as trans %}
+Enzed Online
+
+{{ trans.new_comment_notice }}
+
+{{ content_object.get_absolute_url }}
+
+{{ trans.submitted_by}} {{ comment.user_name }}
+{{  trans.email_address_label }} {{ comment.user_email }}
+
+--- {{ trans.comment_label }} ---
+{{ comment.comment }}

@@ -1,0 +1,14 @@
+{% extends "django_comments_xtd/base.html" %}
+{% load comments_xtd core_tags %}
+{% get_template_set 'comments' as trans %}
+
+{% block title %}{{ trans.comment_removed }}.{% endblock %}
+
+{% block header %}
+<a href="{{ comment.content_object.get_absolute_url }}">{{ comment.content_object }}</a>
+{% endblock %}
+
+{% block content %}
+<h4 class="text-center">{{ trans.comment_removed_verbose }}</h4>
+<p class="text-center">{{ trans.comment_removed_thanks }}<p>
+{% endblock %}
