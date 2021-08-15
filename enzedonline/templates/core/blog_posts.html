@@ -7,29 +7,6 @@
         <div class="grid-item">
             <div class="col mx-0 mb-4">
                 {% include 'core/blog_card.html' %}
-                {% comment %} <div class="card h-100 p-2">
-                    {% image post.search_image fill-900x600-c100 format-webp as webp_img_w_900 %} 
-                    {% image post.search_image fill-600x400-c100 format-webp as webp_img_w_600 %}
-                    {% image post.search_image fill-300x200-c100 format-webp as webp_img_w_300 %}
-                    {% image post.search_image fill-900x600-c100 as fallback %} 
-                    <picture>
-                        <source media="(min-width: 750px)" srcset="{{ webp_img_w_900.url }} 900w" type="image/webp" />
-                        <source media="(min-width: 500px)" srcset="{{ webp_img_w_600.url }} 600w" type="image/webp" />
-                        <source srcset="{{ webp_img_w_300.url }} 300w" type="image/webp" />
-                        <source srcset="{{ fallback.url }} 900w" />
-                        <img
-                            src="{{ fallback.url }}"
-                            alt="{{ post.title }}"
-                            style="width: 100%; height: auto"
-                        />
-                    </picture>
-                    <div class="card-body">
-                        <h4 class="card-title fw-bolder">{{ post.title }}</h4>
-                        <p class="blog-summary">{{ post.summary|linebreaksbr }}</p>
-                        <p class="blog-summary small">{{ post.first_published_at }}</small></p>
-                    </div>
-                    <a href="{{post.url}}{{filter}}" class="stretched-link"></a>
-                </div> {% endcomment %}
             </div>
         </div>
     {% endfor %}
