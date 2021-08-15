@@ -12,7 +12,7 @@
 
     <div class="p-1 p-sm-2 p-md-3 mt-2 mt-sm-3 mt-md-4 bg-light rounded">
     <form action="{% url 'search' %}" method="get">
-        <div class="form-group row g-1 mt-1">
+        <div class="form-group row g-1 my-1">
             <div class="col">
                 <input type="text" onfocus="this.select();" onmouseup="return false;" name="query" class="form-control px-3" value="{% if search_query %}{{ search_query }}{% endif %}">
             </div>
@@ -23,7 +23,13 @@
     </form>
 
     {% if search_results %}
-
+        <div class="text-end h5">
+            {% if order %}
+                <a href="./{{ query_string }}">{{ trans.sort_by_relevance }}</a>         
+            {% else %}
+                <a href="./{{ query_string }}&order=date">{{ trans.sort_by_date }}</a> 
+            {% endif %}
+        </div>
         <span id='list'></span>
         <div class="grid" data-masonry='{ "itemSelector": ".grid-item", "columnWidth": ".grid-sizer",  "gutter": ".gutter-sizer",  "percentPosition": "true" }'>
             <div class="gutter-sizer"></div>
@@ -32,29 +38,6 @@
                 <div class="grid-item">
                     <div class="col mx-0 mb-3">
                         {% include 'core/blog_card.html' %}
-                        {% comment %} <div class="card p-2">
-                            {% image post.search_image fill-900x600-c100 format-webp as webp_img_w_900 %} 
-                            {% image post.search_image fill-600x400-c100 format-webp as webp_img_w_600 %}
-                            {% image post.search_image fill-300x200-c100 format-webp as webp_img_w_300 %}
-                            {% image post.search_image fill-900x600-c100 as fallback %} 
-                            <picture>
-                                <source media="(min-width: 750px)" srcset="{{ webp_img_w_900.url }} 900w" type="image/webp" />
-                                <source media="(min-width: 500px)" srcset="{{ webp_img_w_600.url }} 600w" type="image/webp" />
-                                <source srcset="{{ webp_img_w_300.url }} 300w" type="image/webp" />
-                                <source srcset="{{ fallback.url }} 900w" />
-                                <img
-                                    src="{{ fallback.url }}"
-                                    alt="{{ post.title }}"
-                                    style="width: 100%; height: auto"
-                                />
-                            </picture>
-                            <div class="card-body">
-                                <h4 class="card-title text-start fw-bolder">{{ post.title }}</h4>
-                                <p class="blog-summary">{{ post.summary|linebreaksbr }}</p>
-                                <p class="blog-summary small">{{ post.first_published_at }}</small></p>
-                            </div>
-                            <a href="{{post.url}}{{filter}}" class="stretched-link"></a>
-                        </div> {% endcomment %}
                     </div>
                 </div>
             {% endfor %}

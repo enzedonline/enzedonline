@@ -30,10 +30,16 @@ class RobotsView(TemplateView):
 def search(request):
     # Search
     search_query = request.GET.get('query', None)
+    order_by = request.GET.get('order', None)
     if search_query:
         s = get_search_backend(backend='default')
-        search_results = s.search(search_query, Page.objects.live().specific().reverse())
 
+        if order_by == 'date':
+            search_results = s.search(search_query, Page.objects.live().order_by('last_published_at').reverse().specific(), order_by_relevance=False) 
+        else:            
+            search_results = s.search(search_query, Page.objects.live().specific())
+            order_by = None
+        
         # Log the query so Wagtail can suggest promoted results
         Query.get(search_query).add_hit()
 
@@ -61,6 +67,7 @@ def search(request):
             'search_query': search_query,
             'query_string': '?query=' + search_query,
             'search_results': search_results,
+            'order': order_by,
             'page_range': page_range,
             'page_range_first': page_range_first,
             'page_range_last': page_range_last,

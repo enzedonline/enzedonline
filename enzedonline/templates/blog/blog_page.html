@@ -219,7 +219,7 @@
   {# Next and Previous blog posts #}
   <div class="container-fluid mt-1 px-0">
     <div class="row">
-      <div class="col-sm-6">
+      <div class="col-sm-6 col-md-5 col-xl-4">
         {% if next_post %}
           <div class="card h-100 border-0">
             <div class="px-0 py-0 py-sm-2 fw-bolder">
@@ -230,7 +230,10 @@
           </div>
         {% endif %}
       </div>
-      <div class="col-sm-6">
+      <div class="col-md-2 col-xl-4 d-none d-md-block">
+        &nbsp;
+      </div>
+      <div class="col-sm-6 col-md-5 col-xl-4">
       {% if previous_post %}
         <div class="card h-100 border-0">
           <div class="px-0 pt-3 py-sm-2 text-end">
