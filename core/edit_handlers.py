@@ -19,7 +19,4 @@ class RegexPanel(FieldPanel):
 
     def on_form_bound(self):
         self.form.fields[self.field_name].__setattr__('pattern',self.pattern)
-        print(self.form.fields[self.field_name].__dir__())
-        
-        # self.form.fields[self.field_name].__class__.__name__ = 'typed_choice_field'
         super().on_form_bound()

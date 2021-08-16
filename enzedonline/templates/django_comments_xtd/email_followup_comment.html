@@ -1,79 +1,46 @@
 {% load core_tags comments l10n %}
 {% get_template_set 'comments' as trans %}
-<style>
-@font-face
-	{font-family:Calibri;
-	panose-1:2 15 5 2 2 2 4 3 2 4;
-	mso-font-charset:0;
-	mso-generic-font-family:swiss;
-	mso-font-pitch:variable;
-	mso-font-signature:-469750017 -1073732485 9 0 511 0;}
-@font-face
-	{font-family:Tahoma;
-	panose-1:2 11 6 4 3 5 4 4 2 4;
-	mso-font-charset:0;
-	mso-generic-font-family:swiss;
-	mso-font-pitch:variable;
-	mso-font-signature:-520081665 -1073717157 41 0 66047 0;}
-body
-	{mso-style-noshow:yes;
-	mso-style-priority:99;
-	mso-margin-top-alt:auto;
-	margin-right:0cm;
-	mso-margin-bottom-alt:auto;
-	margin-left:0cm;
-	mso-pagination:widow-orphan;
-	font-size:11.0pt;
-	font-family:"Tahoma","Calibri",sans-serif;
-	mso-fareast-font-family:Calibri;
-	mso-fareast-theme-font:minor-latin;}
-p.msonormal0, li.msonormal0, div.msonormal0
-	{mso-style-name:msonormal;
-	mso-style-unhide:no;
-	mso-margin-top-alt:auto;
-	margin-right:0cm;
-	mso-margin-bottom-alt:auto;
-	margin-left:0cm;
-	mso-pagination:widow-orphan;
-	font-size:11.0pt;
-	font-family:"Tahoma","Calibri",sans-serif;
-	mso-fareast-font-family:Calibri;
-	mso-fareast-theme-font:minor-latin;}
-</style>
-<p>{{ trans.salutation}} {{ user_name }},</p>
 
-<p>{{ trans.new_comment_notice }}</p>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:v="urn:schemas-microsoft-com:vml">
 
-<table width="90%" style="max-width: 1000px;border: 1px solid #adb5bd;border-collapse: collapse;"  align="center">
-    <tr>
-        <td bgcolor="#f8f9fa" style="max-width: 800px;border: 1px solid #adb5bd;border-collapse: collapse;">
-            <h4 style="margin: 10px;">{{ comment.content_object.title }}</h4>
-        </td>
-    </tr>
-    <tr>
-        <td style="max-width: 1000px;border: 1px solid #adb5bd;border-collapse: collapse;">
-            <p style="margin: 10px;margin-left: 20px;">{{ comment.comment|linebreaksbr }}</p>
-        </td>
-    </tr>
-    <tr>
-        <td bgcolor="#f8f9fa" style="max-width: 1000px;border: 1px solid #adb5bd;border-collapse: collapse;">
-            <p style="color: #868e96;margin: 6px;font-size: 12px;">{{ trans.comment_posted_by_label }} {{ comment.name }} - {{ comment.submit_date|localize }}</p>
-        </td>
-    </tr>
-</table>
+  <head>
 
-<p><a href="https://{{ site.domain }}{% get_comment_permalink comment %}">{{ trans.view_comment }}</a></p>
+    {% include 'contact/receipt_email/head.html' %}
+
+  </head>
 
 
-{{ trans.sign_off }}<br/>
-<a href="https://{{ site.domain }}">{{ site.name }}</a>
-<br/>&nbsp;<br/>
-<table border="0" width="100%" align="center" cellpadding="0" cellspacing="0" bgcolor="#696969">
-    <tr>
-        <td height="1" style="font-size: 1px; line-height: 1px;">&nbsp;</td>
-    </tr>
-</table>
-<br/>
-{{ trans.mute_follow_up }}<br/>
-<a href="https://{{ site.domain }}{{ mute_url }}">{{ trans.unfollow_link_label }}</a>
+  <body class="respond" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" bgcolor="17a2b8">
+	{% with base_url="http://localhost:8000"%}
+    {% include 'django_comments_xtd/follow_up_email/body.html' %}
 
+	{% get_email_signature 'Default' as footer %}
+    {% include 'contact/receipt_email/signature.html' %}
+	{% endwith %}
+
+      <table border="0" width="100%" cellpadding="0" cellspacing="0" class="bg_color">
+        <tr>
+          <td align="center">
+            <table border="0" align="center" width="590" cellpadding="0" cellspacing="0" class="container590" style="border-radius: 10px;">
+				<tr>
+					<td height="10x" style="font-size: 10px; line-height: 10px;">&nbsp;</td>
+				</tr>
+				<tr>
+					<td style="color:#434343;">
+						{{ trans.mute_follow_up }}
+						<a style="text-decoration:underline;" href="https://{{ site.domain }}{{ mute_url }}">{{ trans.unfollow_link_label }}</a>
+					</td>
+				</tr>
+				<tr>
+					<td height="20x" style="font-size: 20px; line-height: 20px;">&nbsp;</td>
+				</tr>
+			</table>
+          </td>
+        </tr>
+      </table>
+
+  </body>
+
+</html>

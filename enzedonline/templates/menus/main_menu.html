@@ -1,6 +1,6 @@
 {% load adv_cache wagtailimages_tags menu_tags socialaccount core_tags static %}
 
-{% company_logo as logo %}
+{% get_logo 'menu' as logo %}
 {% image logo.logo height-30 as logo_lg %} 
 {% image logo.logo height-28 as logo_md %} 
 {% image logo.logo height-25 as logo_sm %} 

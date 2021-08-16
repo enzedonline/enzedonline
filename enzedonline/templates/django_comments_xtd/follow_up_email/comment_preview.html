@@ -1,0 +1,20 @@
+{% load core_tags comments l10n %}
+<table width='100%' style="max-width: 1000px;border: 0px solid #adb5bd;border-collapse: collapse;">
+    <tr>
+        <td bgcolor="#f8f9fa" style="max-width: 1000px;border: 1px solid #adb5bd;border-collapse: collapse;">
+            <h4 style="margin: 10px;font-weight: 500;">{{ comment.content_object.title }}</h4>
+        </td>
+    </tr>
+    <tr>
+        <td style="max-width: 1000px;border: 1px solid #adb5bd;border-collapse: collapse;">
+            <p style="margin: 10px;margin-left: 20px;">{{ comment.comment|linebreaksbr }}</p>
+        </td>
+    </tr>
+    <tr>
+        <td bgcolor="#f8f9fa" style="max-width: 1000px;border: 1px solid #adb5bd;border-collapse: collapse;">
+            <p style="color: #868e96;margin: 6px;font-size: 12px;">{{ trans.comment_posted_by_label }} {{ comment.name }} - {{ comment.submit_date|localize }} UTC</p>
+        </td>
+    </tr>
+</table>
+<p>&nbsp;</p>
+<p><a style="text-decoration: underline;color: blue;" href="https://{{ site.domain }}{% get_comment_permalink comment %}">{{ trans.view_comment }}</a></p>

@@ -3,9 +3,8 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from modelcluster.fields import ParentalKey
 from modelcluster.models import ClusterableModel
-from wagtail.admin.edit_handlers import (FieldPanel, InlinePanel, RichTextFieldPanel, MultiFieldPanel, FieldRowPanel)
+from wagtail.admin.edit_handlers import (FieldPanel, InlinePanel, MultiFieldPanel, FieldRowPanel)
 from wagtail.contrib.settings.models import BaseSetting, register_setting
-from wagtail.core.fields import RichTextField
 from wagtail.core.models import Orderable, TranslatableMixin
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.snippets.models import register_snippet
@@ -316,3 +315,17 @@ class TemplateTextSetItem(TranslatableMixin, Orderable):
     class Meta:
         unique_together = ('set', 'template_tag'), ('translation_key', 'locale')
 
+@register_snippet
+class CompanyLogo(TranslatableMixin, models.Model):
+    name = models.CharField(max_length=250)
+    logo = models.ForeignKey(
+        "wagtailimages.Image", on_delete=models.CASCADE, related_name="+"
+    )
+
+    panels = [
+        FieldPanel("name", classname="full"),
+        ImageChooserPanel("logo"),
+    ]
+
+    def __str__(self):
+        return self.name

@@ -1,5 +1,5 @@
 from site_settings.models import SocialMedia
-from menu.models import Menu, CompanyLogo
+from menu.models import Menu
 from django import template
 from wagtail_localize.synctree import Locale, Page
 from wagtail.images.models import Image
@@ -171,10 +171,6 @@ def get_lang_flag(language_code=None):
     if not language_code:
         language_code = Locale.get_active().language_code
     return Image.objects.all().filter(title='flag-' + language_code).first()
-
-@register.simple_tag()
-def company_logo():
-    return CompanyLogo.objects.first()
 
 @register.simple_tag()
 def get_social_media_icons():

@@ -5,6 +5,7 @@ from django.utils.html import mark_safe
 from site_settings.models import TemplateText
 from wagtail.admin.templatetags.wagtailadmin_tags import render_with_errors
 from wagtail.core.models import Page
+from site_settings.models import EmailSignature, CompanyLogo
 
 register = template.Library()
 
@@ -16,9 +17,9 @@ def trans_url(link):
 def trans_page_from_slug(slug, specific=False):
     try:
         if specific:
-            return Page.objects.all().filter(slug=slug).first().specific.localized
+            return Page.objects.live().filter(slug=slug).first().specific.localized
         else:
-            return Page.objects.all().filter(slug=slug).first().localized
+            return Page.objects.live().filter(slug=slug).first().localized
     except Page.DoesNotExist:
         return Page.objects.none()
 
@@ -54,6 +55,24 @@ def get_template_set(set):
         return TemplateText.objects.none()    
 
 @register.simple_tag()
+def get_email_signature(signature):
+    try:
+        signature = EmailSignature.objects.filter(signature_name=signature).first().localized 
+        return signature if signature else EmailSignature.objects.none()
+                
+    except (AttributeError, EmailSignature.DoesNotExist):
+        return EmailSignature.objects.none()    
+
+@register.simple_tag()
+def get_logo(logo):
+    try:
+        logo = CompanyLogo.objects.filter(name=logo).first().localized.logo
+        return logo if logo else CompanyLogo.objects.none()
+                
+    except (AttributeError, CompanyLogo.DoesNotExist):
+        return CompanyLogo.objects.none()    
+
+@register.simple_tag()
 def regex_render_with_errors(bound_field):
     id = bound_field.auto_id
     rendered_field = render_with_errors(bound_field)
@@ -67,6 +86,3 @@ def regex_render_with_errors(bound_field):
         return mark_safe(rendered_field.replace('>', script))
     return rendered_field
 
-@register.simple_tag()
-def panel(panel):
-    print(panel.__dir__())

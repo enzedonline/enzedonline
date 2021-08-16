@@ -412,18 +412,4 @@ class SubMenuItem(MenuItem):
         unique_together = ('translation_key', 'locale')
  
 
-@register_snippet
-class CompanyLogo(models.Model):
-    name = models.CharField(max_length=250)
-    logo = models.ForeignKey(
-        "wagtailimages.Image", on_delete=models.CASCADE, related_name="+"
-    )
-
-    panels = [
-        FieldPanel("name", classname="full"),
-        ImageChooserPanel("logo"),
-    ]
-
-    def __str__(self):
-        return self.name
 
