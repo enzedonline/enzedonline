@@ -12,14 +12,7 @@ db.sqlite3-journal
 media
 venv.ps1
 .venv/
-blog/migrations/*
-contact/migrations/*
-core/migrations/*
-home/migrations/*
-menu/migrations/*
-service/migrations/*
-site_settings/migrations/*
-userauth/migrations/*
+*/migrations/*
 !blog/migrations/__init__.py
 !contact/migrations/__init__.py
 !core/migrations/__init__.py
