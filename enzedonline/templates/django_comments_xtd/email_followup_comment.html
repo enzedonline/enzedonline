@@ -6,11 +6,8 @@
 <html xmlns:v="urn:schemas-microsoft-com:vml">
 
   <head>
-
     {% include 'contact/receipt_email/head.html' %}
-
   </head>
-
 
   <body class="respond" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" bgcolor="17a2b8">
 	{% with base_url="http://localhost:8000"%}
@@ -20,6 +17,7 @@
     {% include 'contact/receipt_email/signature.html' %}
 	{% endwith %}
 
+	{% if not author %}
       <table border="0" width="100%" cellpadding="0" cellspacing="0" class="bg_color">
         <tr>
           <td align="center">
@@ -40,6 +38,7 @@
           </td>
         </tr>
       </table>
+	{% endif %}
 
   </body>
 
