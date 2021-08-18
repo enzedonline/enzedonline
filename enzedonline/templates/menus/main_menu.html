@@ -1,11 +1,5 @@
 {% load adv_cache wagtailimages_tags menu_tags socialaccount core_tags static %}
 
-{% get_logo 'menu' as logo %}
-{% image logo.logo height-30 as logo_lg %} 
-{% image logo.logo height-28 as logo_md %} 
-{% image logo.logo height-25 as logo_sm %} 
-{% image logo.logo height-20 as logo_xs %} 
-
 {# Page top menu bar loaded on all pages #}
 
 {% get_cache_key_settings self as cache_settings %}
@@ -14,6 +8,11 @@
     <nav class="navbar navbar-expand-md navbar-dark bg-primary p-2 pe-md-1">
 
         {# Logo top left #}
+        {% get_logo 'menu' as logo %}
+        {% image logo height-30 as logo_lg %} 
+        {% image logo height-28 as logo_md %} 
+        {% image logo height-25 as logo_sm %} 
+        {% image logo height-20 as logo_xs %} 
         <div class="ps-2">
             <a class="navbar-brand" href="/">
                 <picture>
