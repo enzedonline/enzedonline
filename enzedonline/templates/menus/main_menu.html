@@ -59,7 +59,7 @@
                         <form action="{% url 'search' %}" method="get">
                             <div class="form-group row g-1 my-1 pb-1">
                                 <div class="col">
-                                    <input type="text" onfocus="this.select();" onmouseup="return false;" name="query" id="searchbox" class="form-control py-1 ps-2" value="{% if search_query %}{{ search_query }}{% endif %}">
+                                    <input type="text" onfocus="this.select();" onmouseup="return false;" name="query" id="searchbox" class="form-control py-1 ps-2" value="{% if not search_query is None %}{{ search_query }}{% endif %}">
                                 </div>
                                 <div class="col-auto">
                                     <input type="submit" value="Search" class="btn-primary form-control py-1">
