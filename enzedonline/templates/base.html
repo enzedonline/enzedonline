@@ -3,10 +3,13 @@
 
 <!DOCTYPE html>
 <html lang={{ LANGUAGE_CODE }}>
+
     <head>
         {% include 'head.html' %}
         {% block extra_head %}{% endblock extra_head %}
     </head>
+
+    {% if not request.path == '/' %}
 
     <div class="sticky-top">
         {% include 'menus/main_menu.html' %}
@@ -38,4 +41,6 @@
     
     <script src="{% static 'js/navbar.js'%}"></script>
 
+    {% endif %}
+    
 </html>
