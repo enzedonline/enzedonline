@@ -22,7 +22,7 @@ venv.ps1
 !site_settings/migrations/__init__.py
 !userauth/migrations/__init__.py
 local.py
-enzedonline/static/wagalytics/
+enzedonline/static/json/wagalytics.json
 restart.sh
 manage.py 
 dev.py
@@ -168,4 +168,4 @@ dmypy.json
 # End of https://www.toptal.com/developers/gitignore/api/django
 .vscode/settings.json
 
-enzedonline/static/json/wagalytics.json
+

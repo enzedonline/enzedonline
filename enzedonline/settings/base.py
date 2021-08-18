@@ -261,9 +261,9 @@ SOCIALACCOUNT_PROVIDERS = {
 
 }
 
-# Backup Settings
-DBBACKUP_STORAGE = 'django.core.files.storage.FileSystemStorage'
-DBBACKUP_STORAGE_OPTIONS = {'location': os.path.join(BASE_DIR, '../backups')}
+# # Backup Settings
+# DBBACKUP_STORAGE = 'django.core.files.storage.FileSystemStorage'
+# DBBACKUP_STORAGE_OPTIONS = {'location': os.path.join(BASE_DIR, '../backups')}
 
 # FIX NEEDED FOR DJANGO 3.2.x
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
