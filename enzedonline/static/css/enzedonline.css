@@ -19,6 +19,26 @@
   height: 80px;
   margin-top: -80px;
 }
+/* ======= Scroll Bar ======= */
+/* width */
+::-webkit-scrollbar {
+  width: 12px;
+}
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px grey; 
+  border-radius: 8px;
+}
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: grey; 
+  border-radius: 8px;
+}
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #adb5bd; 
+}
+/* ======= End Scroll Bar ======= */
 body {
   margin: 0;
   font-family: var(--font-family-body);

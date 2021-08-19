@@ -1,14 +1,3 @@
-window.onload = function() {
-    $("body").niceScroll({
-    cursorcolor:"#adb5bd",
-    cursorwidth:"12px",
-    cursorborderradius: "6px",
-    bouncescroll: false,
-    smoothscroll: true,  
-    hidecursordelay: 1500,
-});
-}
-
 // Usage: document.getElementById("id").innerHTML = convertUTCDateToLocalDate(new Date('02 Aug 2021 09:58:22'));
 function convertUTCDateToLocalDate(date) {
     local_date = new Date(date.getTime() - date.getTimezoneOffset() * 60000)
