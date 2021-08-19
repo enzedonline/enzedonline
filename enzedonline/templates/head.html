@@ -10,7 +10,7 @@
   gtag('config', 'G-H9FSLJLLYF');
 </script>
 
-{% get_cache_key_settings self as cache_settings %}
+{% get_cache_key_settings as cache_settings %}
 {% cache None cache_settings.slug "head" cache_settings.last_published_at %}
 
   {# Meta Tags #}

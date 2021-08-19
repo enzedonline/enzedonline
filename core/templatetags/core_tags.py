@@ -23,8 +23,9 @@ def trans_page_from_slug(slug, specific=False):
     except Page.DoesNotExist:
         return Page.objects.none()
 
-@register.simple_tag()
-def get_cache_key_settings(page):
+@register.simple_tag(takes_context=True)
+def get_cache_key_settings(context):
+    page = get_context_var_or_none(context, 'self')
     if not page:
         page = {}
         page['slug'] = '_DynamicPage'
@@ -66,7 +67,7 @@ def get_email_signature(signature):
 @register.simple_tag()
 def get_logo(logo):
     try:
-        logo = CompanyLogo.objects.filter(name=logo).first().localized.logo
+        logo = CompanyLogo.objects.filter(name=logo).first().localized
         return logo if logo else CompanyLogo.objects.none()
                 
     except (AttributeError, CompanyLogo.DoesNotExist):
@@ -86,3 +87,31 @@ def regex_render_with_errors(bound_field):
         return mark_safe(rendered_field.replace('>', script))
     return rendered_field
 
+@register.simple_tag(takes_context=True)
+def var_exists(context, name):
+    dicts = context.dicts  # array of dicts
+    if dicts:
+        for d in dicts:
+            if name in d:
+                return True
+    return False
+
+@register.simple_tag(takes_context=True)
+def get_context_var_or_none(context, name):
+    dicts = context.dicts  # array of dicts
+    if dicts:
+        for d in dicts:
+            if name in d:
+                return d[name]
+    return None
+
+# modified version of get_context_var_or_none to get search context if exists without throwing error if not
+# {% if context_var %} throws an error in logs if var doesn't exist
+@register.simple_tag(takes_context=True)
+def get_search_or_none(context):
+    dicts = context.dicts  # array of dicts
+    if dicts:
+        for d in dicts:
+            if 'search_query' in d:
+                return d['search_query']
+    return ''

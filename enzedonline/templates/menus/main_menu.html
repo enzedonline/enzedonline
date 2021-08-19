@@ -2,17 +2,17 @@
 
 {# Page top menu bar loaded on all pages #}
 
-{% get_cache_key_settings self as cache_settings %}
+{% get_cache_key_settings as cache_settings %}
 {% cache None cache_settings.slug "menu" cache_settings.last_published_at %}
 
     <nav class="navbar navbar-expand-md navbar-dark bg-primary p-2 pe-md-1">
 
         {# Logo top left #}
-        {% get_logo 'menu' as logo %}
-        {% image logo height-30 as logo_lg %} 
-        {% image logo height-28 as logo_md %} 
-        {% image logo height-25 as logo_sm %} 
-        {% image logo height-20 as logo_xs %} 
+        {% get_logo 'menu' as brand %}
+        {% image brand.logo height-30 as logo_lg %} 
+        {% image brand.logo height-28 as logo_md %} 
+        {% image brand.logo height-25 as logo_sm %} 
+        {% image brand.logo height-20 as logo_xs %} 
         <div class="ps-2">
             <a class="navbar-brand" href="/">
                 <picture>
@@ -22,7 +22,7 @@
                 <source srcset="{{ logo_xs.url }}" />
                 <img
                     src="{{ logo_xs.url }}"
-                    alt="{{ logo.name }}"
+                    alt="{{ brand.name }}"
                 />
                 </picture>
             </a>
@@ -59,7 +59,7 @@
                         <form action="{% url 'search' %}" method="get">
                             <div class="form-group row g-1 my-1 pb-1">
                                 <div class="col">
-                                    <input type="text" onfocus="this.select();" onmouseup="return false;" name="query" id="searchbox" class="form-control py-1 ps-2" value="{% if not search_query is None %}{{ search_query }}{% endif %}">
+                                    <input type="text" onfocus="this.select();" onmouseup="return false;" name="query" id="searchbox" class="form-control py-1 ps-2" value={% get_search_or_none %}>
                                 </div>
                                 <div class="col-auto">
                                     <input type="submit" value="Search" class="btn-primary form-control py-1">
@@ -76,7 +76,7 @@
                     <form action="{% url 'search' %}" method="get">
                         <div class="form-group row g-1 my-1 pb-1">
                             <div class="col">
-                                <input type="text" onfocus="this.select();" onmouseup="return false;" name="query" class="form-control py-1 px-2" value="{% if search_query %}{{ search_query }}{% endif %}">
+                                <input type="text" onfocus="this.select();" onmouseup="return false;" name="query" class="form-control py-1 px-2" value="{% get_search_or_none %}">
                             </div>
                             <div class="col-auto">
                                 <input type="submit" value="Search" class="btn-primary form-control py-1">
