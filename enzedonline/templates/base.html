@@ -11,32 +11,35 @@
         {% block extra_head %}{% endblock extra_head %}
     </head>
     
-    <div class="sticky-top">
-        {% include 'menus/main_menu.html' %}
-    </div>
+    <body>
+        <script src="{% static 'js/facebook_sdk.js'%}"></script>
 
-    <header>
-        {% block header %}{% endblock header %}
-    </header>
+        <div class="sticky-top">
+            {% include 'menus/main_menu.html' %}
+        </div>
 
-    <main>
-        {% comment %} <script defer src="{% static 'js/facebook_sdk.js'%}"></script> {% endcomment %}
+        <header>
+            {% block header %}{% endblock header %}
+        </header>
 
-        <div class="mt-1">
-            {% block content %}{% endblock %}
-            {% block extra_js %}
-                {# Override this in templates to add extra javascript #}
-            {% endblock %}
-        </div>
-    </main>
-    <footer>
-        <div class="container">
-            <p class="py-2">&nbsp;</p>
-        </div>
-        <div class="fixed-bottom">
-            {% include 'menus/footer.html' %}
-        </div>
-    </footer>
+        <main>
+
+            <div class="mt-1">
+                {% block content %}{% endblock %}
+                {% block extra_js %}
+                    {# Override this in templates to add extra javascript #}
+                {% endblock %}
+            </div>
+        </main>
+        <footer>
+            <div class="container">
+                <p class="py-2">&nbsp;</p>
+            </div>
+            <div class="fixed-bottom">
+                {% include 'menus/footer.html' %}
+            </div>
+        </footer>
+    </body>
 
     {% endif %}
 
