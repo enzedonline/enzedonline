@@ -19,7 +19,7 @@
   }  
 </style>
 
-<div class="container-fluid pt-4 px-2 px-sm-5 pb-4">
+<div class="container-fluid px-2 px-sm-5 pb-4">
   <div class="row">
 
     {# Column break at md #}
@@ -59,7 +59,7 @@
     {% endcache %}
 
     {# Column break at md, hide border below this width #}
-    <div class="col-md-7 px-sm-5 divider">
+    <div class="col-md-7 px-sm-5 pt-md-3 divider">
       <div class="card bg-warning p-1 lh-sm">
         <div class="card-body pb-0 privacy-notice">
           {{ self.privacy_notice|richtext }}
