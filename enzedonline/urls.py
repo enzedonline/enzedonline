@@ -81,7 +81,7 @@ urlpatterns = urlpatterns + i18n_patterns(
 
 urlpatterns = urlpatterns + [
     # # Creates urls like yourwebsite.com/login/
-    url(r'', include('allauth.urls')),
-    # # Creates urls like yourwebsite.com/accounts/login/
-    url(r'^accounts/', include('allauth.urls')),
+    # url(r'', include('allauth.urls')),
+    # # # Creates urls like yourwebsite.com/accounts/login/
+    # url(r'^accounts/', include('allauth.urls')),
 ]
