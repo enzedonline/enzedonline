@@ -20,7 +20,14 @@ lang = Locale.get_active().language_code
 
 def trigger_error(request):
     division_by_zero = 1 / 0
-    
+
+allauth_patterns = [
+    # # Creates urls like yourwebsite.com/login/
+    url(r'', include('allauth.urls')),
+    # # # Creates urls like yourwebsite.com/accounts/login/
+    url(r'^accounts/', include('allauth.urls')),
+]
+
 urlpatterns = [
     path('django-admin/', admin.site.urls),
     path('admin/', include(wagtailadmin_urls)),
@@ -34,7 +41,7 @@ urlpatterns = [
     url(r'^accounts/password/reset/done/', RedirectView.as_view(pattern_name='password_change_success', permanent=False)),
     url(r'^accounts/profile/', RedirectView.as_view(pattern_name='account_profile', permanent=False)),
     path('', RedirectView.as_view(url='/' + lang +'/', permanent=False)),
-
+    url(r'^' + lang +'/', include(allauth_patterns)),
     # Language Switcher
     # path('lang/<str:language_code>/', set_language_from_url, name='set_language_from_url'),
 
