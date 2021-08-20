@@ -13,7 +13,10 @@ from wagtail.admin import urls as wagtailadmin_urls
 from wagtail.contrib.sitemaps.views import sitemap
 from wagtail.core import urls as wagtail_urls
 from wagtail.documents import urls as wagtaildocs_urls
+from wagtail.core.models import Locale
+from django.views.generic import RedirectView
 
+lang = Locale.get_active().language_code
 
 def trigger_error(request):
     division_by_zero = 1 / 0
@@ -27,6 +30,9 @@ urlpatterns = [
     url(r'^comments/', include('django_comments_xtd.urls')),
     path('sentry-debug/', trigger_error),
     path(r'jsi18n/', JavaScriptCatalog.as_view(), name='javascript-catalog'),
+    # url(r'^accounts/password/success/', RedirectView.as_view(url='/' + lang +'/accounts/password/success/', permanent=False)),
+    url(r'^accounts/password/success/', RedirectView.as_view(pattern_name='password_change_success', permanent=False)),
+    path('', RedirectView.as_view(url='/' + lang +'/', permanent=False)),
 
     # Language Switcher
     # path('lang/<str:language_code>/', set_language_from_url, name='set_language_from_url'),
