@@ -5,6 +5,7 @@ from django.urls import reverse_lazy
 from django.views.generic.edit import DeleteView, UpdateView
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
+from wagtail.core.models import Locale
 
 from .forms import CustomUserUpdateForm
 from .models import CustomUser
@@ -64,8 +65,8 @@ def password_change_success(request):
     return render(request, 'account/password_change_success.html')
    
 class CustomPasswordChangeView(LoginRequiredMixin, PasswordChangeView):
-    success_url = '/accounts/password/success/'
+    success_url = '/' + Locale.get_active().language_code + '/accounts/password/success/'
     
 class CustomPasswordSetView(LoginRequiredMixin, PasswordSetView):
-    success_url = '/accounts/password/success/'
+    success_url = '/' + Locale.get_active().language_code + '/accounts/password/success/'
     

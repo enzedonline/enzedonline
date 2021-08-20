@@ -31,11 +31,11 @@ urlpatterns = [
     # Language Switcher
     # path('lang/<str:language_code>/', set_language_from_url, name='set_language_from_url'),
 
-    # Creates urls like yourwebsite.com/login/
-    url(r'', include('allauth.urls')),
-    # Creates urls like yourwebsite.com/accounts/login/
-    url(r'^accounts/', include('allauth.urls')),
-    path('accounts/', include('userauth.urls')),
+    # # Creates urls like yourwebsite.com/login/
+    # url(r'', include('allauth.urls')),
+    # # Creates urls like yourwebsite.com/accounts/login/
+    # url(r'^accounts/', include('allauth.urls')),
+    # path('accounts/', include('userauth.urls')),
 ]
 
 if settings.DEBUG:
@@ -48,13 +48,13 @@ if settings.DEBUG:
 
 # These paths are translatable so will be given a language prefix (eg, '/en', '/fr')
 urlpatterns = urlpatterns + i18n_patterns(
+    url(r'^accounts/password/success/', password_change_success, name="password_change_success"),
+    url(r'^accounts/password/change/', CustomPasswordChangeView.as_view(), name="account_change_password"),
+    url(r'^accounts/password/set/', CustomPasswordSetView.as_view(), name="account_set_password"),
     path('search/', search, name='search'),
     url(r'^403/$', default_views.permission_denied, kwargs={'exception': Exception("Permission Denied")}),
     url(r'^404/$', default_views.page_not_found, kwargs={'exception': Exception("Page not Found")}),
     url(r'^500/$', default_views.server_error),    # For anything not caught by a more specific rule above, hand over to
-    url(r'^accounts/password/change/', CustomPasswordChangeView.as_view(), name="account_change_password"),
-    url(r'^accounts/password/set/', CustomPasswordSetView.as_view(), name="account_set_password"),
-    url(r'^accounts/password/success/', password_change_success, name="password_change_success"),
     # Creates urls like yourwebsite.com/login/
     url(r'', include('allauth.urls')),
     # Creates urls like yourwebsite.com/accounts/login/
