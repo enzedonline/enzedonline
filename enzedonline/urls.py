@@ -32,15 +32,12 @@ urlpatterns = [
     path(r'jsi18n/', JavaScriptCatalog.as_view(), name='javascript-catalog'),
     url(r'^accounts/password/success/', RedirectView.as_view(pattern_name='password_change_success', permanent=False)),
     url(r'^accounts/password/reset/done/', RedirectView.as_view(pattern_name='password_change_success', permanent=False)),
+    url(r'^accounts/profile/', RedirectView.as_view(pattern_name='account_profile', permanent=False)),
     path('', RedirectView.as_view(url='/' + lang +'/', permanent=False)),
 
     # Language Switcher
     # path('lang/<str:language_code>/', set_language_from_url, name='set_language_from_url'),
 
-    # # Creates urls like yourwebsite.com/login/
-    url(r'', include('allauth.urls')),
-    # # Creates urls like yourwebsite.com/accounts/login/
-    url(r'^accounts/', include('allauth.urls')),
     # path('accounts/', include('userauth.urls')),
 ]
 
@@ -57,6 +54,7 @@ urlpatterns = urlpatterns + i18n_patterns(
     url(r'^accounts/password/success/', password_change_success, name="password_change_success"),
     url(r'^accounts/password/change/', CustomPasswordChangeView.as_view(), name="account_change_password"),
     url(r'^accounts/password/set/', CustomPasswordSetView.as_view(), name="account_set_password"),
+    url(r'^accounts/profile/', profile_view, name='account_profile'),
     path('search/', search, name='search'),
     url(r'^403/$', default_views.permission_denied, kwargs={'exception': Exception("Permission Denied")}),
     url(r'^404/$', default_views.page_not_found, kwargs={'exception': Exception("Page not Found")}),
@@ -66,7 +64,6 @@ urlpatterns = urlpatterns + i18n_patterns(
     # Creates urls like yourwebsite.com/accounts/login/
     url(r'^accounts/', include('allauth.urls')),
 
-    url(r'^accounts/profile/', profile_view, name='account_profile'),
     path('<slug:url>/update/', CustomUserUpdateView.as_view(template_name='account/update.html'), name='account_update'),
     path('<slug:url>/delete/', CustomUserDeleteView.as_view(template_name='account/delete.html'), name='account_delete'),
     path('accounts/deleted/', delete_success, name='delete_success'),
@@ -81,3 +78,10 @@ urlpatterns = urlpatterns + i18n_patterns(
     # of your site, rather than the site root:
     #    path("pages/", include(wagtail_urls)),
 )
+
+urlpatterns = urlpatterns + [
+    # # Creates urls like yourwebsite.com/login/
+    url(r'', include('allauth.urls')),
+    # # Creates urls like yourwebsite.com/accounts/login/
+    url(r'^accounts/', include('allauth.urls')),
+]

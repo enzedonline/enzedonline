@@ -9,6 +9,7 @@
 {% endblock %}
 
 {% block card-body %}
+    {% get_template_set 'allauth social' as trans %}
 
     <p>{{ trans.signup_warning1 }} {{ account.get_provider.name }} {{ trans.signup_warning2 }}
     {{ site.name }}. {{ trans.signup_warning3 }}</p>

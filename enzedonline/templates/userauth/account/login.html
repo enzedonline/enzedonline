@@ -34,6 +34,7 @@
 {% endblock %}
 
 {% block card-footer %}
+    {% get_template_set 'accounts' as trans %}
     <p>{{ trans.no_account_question }} <a href="{{ signup_url }}">{{ trans.sign_up }}</a></p>
     <small>
         <a class="text-muted" href="{% url 'account_reset_password' %}">{{ trans.forgot_password }}</a>
