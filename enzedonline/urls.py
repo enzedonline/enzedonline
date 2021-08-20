@@ -32,6 +32,7 @@ urlpatterns = [
     path(r'jsi18n/', JavaScriptCatalog.as_view(), name='javascript-catalog'),
     # url(r'^accounts/password/success/', RedirectView.as_view(url='/' + lang +'/accounts/password/success/', permanent=False)),
     url(r'^accounts/password/success/', RedirectView.as_view(pattern_name='password_change_success', permanent=False)),
+    url(r'^accounts/password/reset/done/', RedirectView.as_view(pattern_name='password_change_success', permanent=False)),
     path('', RedirectView.as_view(url='/' + lang +'/', permanent=False)),
 
     # Language Switcher
