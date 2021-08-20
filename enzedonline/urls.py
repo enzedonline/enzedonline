@@ -30,7 +30,6 @@ urlpatterns = [
     url(r'^comments/', include('django_comments_xtd.urls')),
     path('sentry-debug/', trigger_error),
     path(r'jsi18n/', JavaScriptCatalog.as_view(), name='javascript-catalog'),
-    # url(r'^accounts/password/success/', RedirectView.as_view(url='/' + lang +'/accounts/password/success/', permanent=False)),
     url(r'^accounts/password/success/', RedirectView.as_view(pattern_name='password_change_success', permanent=False)),
     url(r'^accounts/password/reset/done/', RedirectView.as_view(pattern_name='password_change_success', permanent=False)),
     path('', RedirectView.as_view(url='/' + lang +'/', permanent=False)),
@@ -39,9 +38,9 @@ urlpatterns = [
     # path('lang/<str:language_code>/', set_language_from_url, name='set_language_from_url'),
 
     # # Creates urls like yourwebsite.com/login/
-    # url(r'', include('allauth.urls')),
+    url(r'', include('allauth.urls')),
     # # Creates urls like yourwebsite.com/accounts/login/
-    # url(r'^accounts/', include('allauth.urls')),
+    url(r'^accounts/', include('allauth.urls')),
     # path('accounts/', include('userauth.urls')),
 ]
 
