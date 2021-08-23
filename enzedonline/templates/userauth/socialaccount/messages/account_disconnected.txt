@@ -1,0 +1,3 @@
+{% load core_tags %}
+{% get_template_set 'allauth social' as trans %}
+{{ trans.disconnected_success }}
