@@ -1,17 +1,17 @@
 {% load static adv_cache seo_metadata_tags core_tags %}
 
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-H9FSLJLLYF"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-H9FSLJLLYF');
-</script>
-
 {% get_cache_key_settings as cache_settings %}
 {% cache None cache_settings.slug "head" cache_settings.last_published_at %}
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-KBHK3VBP5T"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-KBHK3VBP5T');
+  </script>
 
   {# Meta Tags #}
   <meta charset="utf-8" />
