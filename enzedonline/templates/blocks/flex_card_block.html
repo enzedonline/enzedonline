@@ -8,7 +8,7 @@
 
 {% padding self.border self.background as pad %}
 
-<div class="block-container">
+<div class="block-container m-0">
   {% if self.format == 'vertical' %}
     <div class="card {{ self.background }} {% if not self.border %}border-0{% endif %} p-{{pad}} h-100">
       <a href="{{ self.link }}" target="_blank">
