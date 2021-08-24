@@ -94,8 +94,8 @@ p {
   font-family: var(--font-family-body);
 }
 a {
-  color: #4582ec;
-  text-decoration: none;
+  color: inherit;
+  font-weight: bolder;
 }
 .btn,
 .link-button {
@@ -187,6 +187,7 @@ a {
   font-family: var(--font-family-headings);
   font-weight: 400;
   color: var(--bs-white) !important;
+  text-decoration: none;
   padding: 0em 1em;
 }
 .dropdown-item{
