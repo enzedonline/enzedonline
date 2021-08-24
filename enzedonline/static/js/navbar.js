@@ -10,9 +10,9 @@ $(document).ready(function () {
       $(this).next("div").removeClass("show");
     }
   });
-});
-$(".navbar-toggler").mouseup(function () {
-  $(this).blur();
+  $(".navbar-toggler").mouseup(function () {
+    $(this).blur();
+  });
 });
 
 respondToVisibility = function (element, callback) {
