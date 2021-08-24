@@ -98,7 +98,6 @@ a {
 }
 a:hover {
   color: inherit;
-  font-weight: bolder;
 }
 .btn,
 .link-button {
