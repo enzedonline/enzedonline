@@ -7,8 +7,8 @@
 {% image self.image.file original as fallback %}
 
 <div class="block-container">
-  <div class="{{ self.background }} p-1">
-    <figure>
+  <div class="{{ self.background }} p-0">
+    <figure class="p-1">
       <picture class="srcset">
         <source
           media="(min-width: 1500px)" 
@@ -39,7 +39,7 @@
         <figcaption class="image-block-caption text-end px-1 pt-1 pb-2 lh-sm">
           {% if self.caption %}{{ self.caption }}{% endif %}
           {% if self.caption and self.attribution %}<br>{% endif %}
-          {% if self.attribution %}<small><i>{{ self.attribution }}</i></small>{% endif %}
+          {% if self.attribution %}<small class="fw-lighter">{{ self.attribution }}</small>{% endif %}
         </figcaption>
       {% endif %}
     </figure>
