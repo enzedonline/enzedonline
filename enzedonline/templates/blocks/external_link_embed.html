@@ -3,7 +3,7 @@
 
 <div class="block-container">
   {% if self.format == 'vertical' %}
-    <div class="card {{ self.background }} {% if not self.border %}border-0{% endif %} p-{{pad}} {% if self.full_height %} h-100 {% endif %}">
+    <div class="card {{ self.background }} {% if not self.border %}border-0 {% endif %}p-{{pad}}{% if self.full_height %} h-100{% endif %}">
       <a href="{{ self.external_link }}" target="_blank">
         <img
           src="{{ self.image }}"
@@ -11,18 +11,18 @@
           style="width: 100%; height: auto"
         />
       </a>
-      <div class="card-body pb-0 pt-2" style="object-fit: cover;">
+      <div class="card-body text-break p-0 pt-3" style="object-fit: cover;">
         <h5 class="card-title fw-bolder">{{ self.title }}</h5>
-        <p class="fw-light lh-sm mb-1">{{ self.description|linebreaksbr }}</p>
+        <p class="lh-sm mb-1">{{ self.description|linebreaksbr }}</p>
       </div>
       <div class="card-footer pb-0 px-0 border-0 {{ self.background }}" style="text-align: {{ self.button_placement }};">
         <a class="btn stretched-link {{ self.button_appearance }} {{ self.button_size }}" onclick=" window.open('{{ self.external_link }}','_blank')" role="button">{{ self.button_text | upper }}</a>
       </div>
     </div>
   {% elif self.format == 'image-left-responsive' %}
-    <div class="card {{ self.background }} {% if not self.border %}border-0{% endif %} p-{{pad}} {% if self.full_height %}h-100{% endif %}">
+    <div class="card {{ self.background }} {% if not self.border %}border-0 {% endif %}p-{{pad}} {% if self.full_height %}h-100{% endif %}">
       <div class="row no-gutters">
-        <div class="col-md-4 pt-2" style="min-width: 200px;">
+        <div class="col-sm-4" style="min-width: 200px;">
             <a href="{{ self.external_link }}" target="_blank">
               <img
                 src="{{ self.image }}"
@@ -31,21 +31,21 @@
               />
             </a>
         </div>
-        <div class="d-flex flex-column col pt-2">
-          <div class="card-body pt-2 pt-sm-1 pt-md-0 pb-0 px-0 mt-0 mt-sm-n2 mt-md-n1" style="object-fit: cover;">
+        <div class="d-flex flex-column col">
+          <div class="card-body text-break p-0 pt-3 pt-sm-0">
             <h5 class="card-title fw-bolder">{{ self.title }}</h5>
-            <p class="fw-light lh-sm mb-1">{{ self.description|linebreaksbr }}</p>
+            <p class="lh-sm mb-1">{{ self.description|linebreaksbr }}</p>
           </div>
-          <div class="card-footer pt-2 pb-0 px-0 border-0 {{ self.background }}" style="text-align: {{ self.button_placement }};">
+          <div class="card-footer p-0 pt-2 border-0 {{ self.background }}" style="text-align: {{ self.button_placement }};">
             <a class="btn stretched-link {{ self.button_appearance }} {{ self.button_size }}" onclick=" window.open('{{ self.external_link }}','_blank')" role="button">{{ self.button_text | upper }}</a>
           </div>
         </div>
       </div>
     </div>
   {% elif self.format == 'image-left-fixed' %}
-    <div class="card {{ self.background }} {% if not self.border %}border-0{% endif %} p-{{pad}} {% if self.full_height %} h-100{% endif %}">
+    <div class="card {{ self.background }} {% if not self.border %}border-0 {% endif %}p-{{pad}}{% if self.full_height %} h-100{% endif %}">
       <div class="row no-gutters">
-        <div class="col-4 pt-2" style="min-width: 200px;">
+        <div class="col-4 mb-2 mb-sm-0" style="min-width: 200px;">
             <a href="{{ self.external_link }}" target="_blank">
               <img
                 src="{{ self.image }}"
@@ -54,21 +54,21 @@
               />
             </a>
         </div>
-        <div class="d-flex flex-column col pt-2">
-          <div class="card-body p-0 mt-n2 mt-md-n1" style="object-fit: cover;">
+        <div class="d-flex flex-column col">
+          <div class="card-body text-break p-0">
             <h5 class="card-title fw-bolder">{{ self.title }}</h5>
-            <p class="fw-light lh-sm mb-1">{{ self.description|linebreaksbr }}</p>
+            <p class="lh-sm mb-1">{{ self.description|linebreaksbr }}</p>
           </div>
-          <div class="card-footer pt-2 pb-0 px-0 border-0 {{ self.background }}" style="text-align: {{ self.button_placement }};">
+          <div class="card-footer p-0 pt-2 border-0 {{ self.background }}" style="text-align: {{ self.button_placement }};">
             <a class="btn stretched-link {{ self.button_appearance }} {{ self.button_size }}" onclick=" window.open('{{ self.external_link }}','_blank')" role="button">{{ self.button_text | upper }}</a>
           </div>
         </div>
       </div>
     </div>
   {% elif self.format == 'image-right-responsive' %}
-    <div class="card {{ self.background }} {% if not self.border %}border-0{% endif %} p-{{pad}} {% if self.full_height %} h-100{% endif %}">
+    <div class="card {{ self.background }} {% if not self.border %}border-0 {% endif %}p-{{pad}}{% if self.full_height %} h-100{% endif %}">
       <div class="row flex-row-reverse no-gutters">
-        <div class="col-md-4 pt-2" style="min-width: 200px;">
+        <div class="col-sm-4" style="min-width: 200px;">
             <a href="{{ self.external_link }}" target="_blank">
               <img
                 src="{{ self.image }}"
@@ -77,21 +77,21 @@
               />
             </a>
         </div>      
-        <div class="d-flex flex-column col pt-2">
-          <div class="card-body pt-2 pt-sm-1 pt-md-0 pb-0 px-0 mt-0 mt-sm-n2 mt-md-n1">
+        <div class="d-flex flex-column col">
+          <div class="card-body text-break p-0 pt-3 pt-sm-0">
             <h5 class="card-title fw-bolder">{{ self.title }}</h5>
-            <p class="fw-light lh-sm mb-1">{{ self.description|linebreaksbr }}</p>
+            <p class="lh-sm mb-1">{{ self.description|linebreaksbr }}</p>
           </div>
-          <div class="card-footer pt-2 pb-0 px-0 border-0 {{ self.background }}" style="text-align: {{ self.button_placement }};">
+          <div class="card-footer p-0 pt-2 border-0 {{ self.background }}" style="text-align: {{ self.button_placement }};">
             <a class="btn stretched-link {{ self.button_appearance }} {{ self.button_size }}" onclick=" window.open('{{ self.external_link }}','_blank')" role="button">{{ self.button_text | upper }}</a>
           </div>
         </div>
       </div>
     </div>
   {% else %}
-    <div class="card {{ self.background }} {% if not self.border %}border-0{% endif %} p-{{pad}} {% if self.full_height %} h-100{% endif %}">
+    <div class="card {{ self.background }} {% if not self.border %}border-0 {% endif %}p-{{pad}}{% if self.full_height %} h-100{% endif %}">
       <div class="row flex-row-reverse no-gutters">
-        <div class="col-4 pt-2" style="min-width: 200px;">
+        <div class="col-4 mb-2 mb-sm-0" style="min-width: 200px;">
             <a href="{{ self.external_link }}" target="_blank">
               <img
                 src="{{ self.image }}"
@@ -100,12 +100,12 @@
               />
             </a>
         </div>      
-        <div class="d-flex flex-column col pt-2">
-          <div class="card-body p-0 mt-n2 mt-md-n1">
+        <div class="d-flex flex-column col">
+          <div class="card-body text-break p-0">
             <h5 class="card-title fw-bolder">{{ self.title }}</h5>
-            <p class="fw-light lh-sm mb-1">{{ self.description|linebreaksbr }}</p>
+            <p class="lh-sm mb-1">{{ self.description|linebreaksbr }}</p>
           </div>
-          <div class="card-footer pt-2 pb-0 px-0 border-0 {{ self.background }}" style="text-align: {{ self.button_placement }};">
+          <div class="card-footer p-0 pt-2 border-0 {{ self.background }}" style="text-align: {{ self.button_placement }};">
             <a class="btn stretched-link {{ self.button_appearance }} {{ self.button_size }}" onclick=" window.open('{{ self.external_link }}','_blank')" role="button">{{ self.button_text | upper }}</a>
           </div>
         </div>
