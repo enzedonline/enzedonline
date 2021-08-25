@@ -93,10 +93,12 @@ p {
   font-size: var(--font-size-body);
   font-family: var(--font-family-body);
 }
-a {
+.text-white a {
+  font-weight: bolder;
   color: inherit;
 }
-a:hover {
+.text-light a {
+  font-weight: bolder;
   color: inherit;
 }
 .btn,
@@ -146,6 +148,7 @@ a:hover {
   font-size: var(--font-size-5);
   font-weight: 500;
   line-height: 0.8;
+  text-decoration: none;
   color: rgba(255, 255, 255, 0.9);
   padding: 0px;
 }
