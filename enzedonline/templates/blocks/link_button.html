@@ -1,5 +1,5 @@
 <div class="block-container" style="text-align: {{ self.placement }};">
-    <a class="link-button btn {{ self.appearance }} {{ self.size }}" href="{{ self.url }}" {% if self.open_in_new_tab %} target="_blank"{% endif %} role="button">{{ self.button_text | upper }}</a>
+    <a class="link-button btn {{ self.appearance }} {{ self.size }}" href="{{ self.url }}"{% if self.open_in_new_tab %} target="_blank"{% endif %} role="button">{{ self.button_text }}</a>
 </div>
 
 {# link-button is a dummy class used to lose focus after mouse-click otherwise button stays focussed after new-tab click #}
