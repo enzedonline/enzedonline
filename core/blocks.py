@@ -493,7 +493,7 @@ class ImageCarouselBlock(wagtail_blocks.StructBlock):
         help_text=_("Disable for clickable vertical carousels.")
     )
     carousel_images = CarouselImageStreamBlock(min_num=2, max_num=5)
-    
+
     class Meta:
         template='blocks/image_carousel.html'
         icon="fa-clone"
@@ -571,11 +571,38 @@ class DocumentBlock(wagtail_blocks.StructBlock):
         help_text = _("Optional FontAwesome icon to appear left of the link (eg fas fa-file)"),
         required = False,
     )
+    appearance = ButtonChoiceBlock(
+        max_length=15,
+        default='btn-link',
+        label=_("Link Appearance")
+    )
+    full_width = wagtail_blocks.BooleanBlock(
+        label = _("Full width button"),
+        help_text = _("Link button fills available width"),
+        default = False,
+        required = False
+    )
+    alignment = wagtail_blocks.ChoiceBlock(
+        choices = [
+            ('start', 'Left'), 
+            ('center', 'Centre'), 
+            ('end', 'Right')
+        ],
+        default = 'center',
+        label = _("Text Alignment"),
+        help_text = _("Only used if full width button")
+    )
 
     class Meta:
         template = "blocks/document_block.html"
         icon = "fa-file-alt"
         label = "Document Block"
+
+# ====idea for document list filtered by tag=====
+# >>> from wagtail.documents.models import Document
+# >>> docs=Document.objects.all()
+# >>> tag_filter=['tag1', 'tag2'])
+# >>> docs.filter(tags__slug__in=tag_filter.split(','))
 
 class EmptyStaticBlock(wagtail_blocks.StaticBlock):
     class Meta:
