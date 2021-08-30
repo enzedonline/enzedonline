@@ -7,6 +7,7 @@ from wagtail.embeds.blocks import EmbedBlock
 from wagtail.core import blocks as wagtail_blocks
 from wagtail.core.blocks import CharBlock, TextBlock, StreamBlock, StructBlock, RawHTMLBlock
 from wagtail_localize.synctree import Locale
+from wagtail.documents.blocks import DocumentChooserBlock
 
 import core.metadata 
 
@@ -38,6 +39,17 @@ class ButtonChoiceBlock(wagtail_blocks.ChoiceBlock):
         ('btn-info', _("Info Button")),
         ('btn-light', _("Light Button")),
         ('btn-dark', _("Dark Button")),
+    ]
+
+class HeadingSizeChoiceBlock(wagtail_blocks.ChoiceBlock):
+    choices=[
+        ('p', _("Standard body text")),
+        ('h1', 'H1'),
+        ('h2', 'H2'),
+        ('h3', 'H3'),
+        ('h4', 'H4'),
+        ('h5', 'H5'),
+        ('h6', 'H6'),
     ]
 
 class ImageFormatChoiceBlock(wagtail_blocks.ChoiceBlock):
@@ -542,6 +554,29 @@ class BlogCodeBlock(wagtail_blocks.StructBlock):
         icon = "fa-code"
         label = "Code Block"
 
+class DocumentBlock(wagtail_blocks.StructBlock):
+    document = DocumentChooserBlock(
+        label=_("Document")
+    )
+    link_label = wagtail_blocks.CharBlock(
+        label = _("Link Label"),
+        help_text = _("The text to appear on the link")
+    )
+    text_size = HeadingSizeChoiceBlock(
+        label = _("Text Size"),
+        default = 'p'
+    )
+    icon = wagtail_blocks.CharBlock(
+        label = _("Link Icon"),
+        help_text = _("Optional FontAwesome icon to appear left of the link (eg fas fa-file)"),
+        required = False,
+    )
+
+    class Meta:
+        template = "blocks/document_block.html"
+        icon = "fa-file-alt"
+        label = "Document Block"
+
 class EmptyStaticBlock(wagtail_blocks.StaticBlock):
     class Meta:
         template = 'blocks/empty_block.html'
@@ -592,6 +627,7 @@ class BaseStreamBlock(StreamBlock):
     inline_video_block = InlineVideoBlock()
     image_carousel = ImageCarouselBlock()
     code_block = BlogCodeBlock()
+    document_block = DocumentBlock()
     latest_blog_posts = LatestBlogPostGrid()
     spacer_block = SpacerStaticBlock()
     empty_block = EmptyStaticBlock()

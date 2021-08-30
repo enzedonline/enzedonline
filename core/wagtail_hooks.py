@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from wagtail.admin.menu import MenuItem
@@ -85,3 +86,13 @@ def register_code_styling(features):
     # Step 6. This is optional
     # This will register this feature with all richtext editors by default
     features.default_features.append(feature_name)
+
+@hooks.register('before_serve_document')
+def serve_pdf(document, request):
+    if document.file_extension != 'pdf':
+        return  # Empty return results in the existing response
+    response = HttpResponse(document.file.read(), content_type='application/pdf')
+    response['Content-Disposition'] = 'filename="' + document.file.name.split('/')[-1] + '"'
+    if request.GET.get('download', False) in [True, 'True', 'true']:
+        response['Content-Disposition'] = 'attachment; ' + response['Content-Disposition']
+    return response
