@@ -63,8 +63,8 @@ urlpatterns = urlpatterns + i18n_patterns(
     # Creates urls like yourwebsite.com/accounts/login/
     url(r'^accounts/', include('allauth.urls')),
 
-    path('<slug:url>/update/', CustomUserUpdateView.as_view(template_name='account/update.html'), name='account_update'),
-    path('<slug:url>/delete/', CustomUserDeleteView.as_view(template_name='account/delete.html'), name='account_delete'),
+    path('accounts/<slug:url>/update/', CustomUserUpdateView.as_view(template_name='account/update.html'), name='account_update'),
+    path('accounts/<slug:url>/delete/', CustomUserDeleteView.as_view(template_name='account/delete.html'), name='account_delete'),
     path('accounts/deleted/', delete_success, name='delete_success'),
 
     path('clear-cache', refresh_page_cache, name="refresh-page-cache"),
