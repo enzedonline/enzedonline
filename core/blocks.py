@@ -595,7 +595,7 @@ class DocumentBlock(wagtail_blocks.StructBlock):
 
     class Meta:
         template = "blocks/document_block.html"
-        icon = "fa-file-alt"
+        icon = "fa-file"
         label = "Document Block"
 
 # ====idea for document list filtered by tag=====
