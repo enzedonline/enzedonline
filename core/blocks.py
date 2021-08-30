@@ -576,6 +576,12 @@ class DocumentBlock(wagtail_blocks.StructBlock):
         default='btn-link',
         label=_("Link Appearance")
     )
+    outline = wagtail_blocks.BooleanBlock(
+        label = _("Outline button"),
+        help_text = _("Blank for solid fill, checked for outline only"),
+        default = False,
+        required = False
+    )
     full_width = wagtail_blocks.BooleanBlock(
         label = _("Full width button"),
         help_text = _("Link button fills available width"),
