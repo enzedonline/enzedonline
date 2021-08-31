@@ -24,6 +24,7 @@ INSTALLED_APPS = [
     'wagalytics',
     'django_comments_xtd',
     'django_comments',
+    'django_extensions',
     'wagtail_localize',
     'wagtail_localize.locales',
 

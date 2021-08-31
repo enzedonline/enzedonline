@@ -1,0 +1,13 @@
+{% load document_block_tags %}
+{% button_appearance value.appearance value.outline as btn_style %}
+
+{% document_list value.sort_by value.tag_list as documents %}
+{% for document in documents %}
+    {% if value.full_width %}<div class="d-grid gap-2">{% endif %}
+        <a class="btn {{ btn_style }} {{ value.text_size }} text-{{ value.alignment }}{% if value.appearance == 'btn-link' %} pb-0 mb-0{% endif %}" 
+            href="{{ document.url }}" target="_blank">
+            {% if value.icon %}<i class="{{ value.icon }}">&nbsp;</i>{% endif %}{{ document.title }}
+        </a>
+        <br>
+    {% if value.full_width %}</div>{% endif %}
+{% endfor %}

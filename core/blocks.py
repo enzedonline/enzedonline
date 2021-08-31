@@ -1,15 +1,17 @@
 from django.core.exceptions import ValidationError
-from django.utils.translation import gettext_lazy as _
 from django.forms.utils import ErrorList
-from wagtail.core.blocks.field_block import IntegerBlock, URLBlock
-from wagtail.images.blocks import ImageChooserBlock
-from wagtail.embeds.blocks import EmbedBlock
+from django.utils.translation import gettext_lazy as _
 from wagtail.core import blocks as wagtail_blocks
-from wagtail.core.blocks import CharBlock, TextBlock, StreamBlock, StructBlock, RawHTMLBlock
-from wagtail_localize.synctree import Locale
+from wagtail.core.blocks import (CharBlock, RawHTMLBlock, StreamBlock,
+                                 StructBlock, TextBlock)
+from wagtail.core.blocks.field_block import IntegerBlock, URLBlock
 from wagtail.documents.blocks import DocumentChooserBlock
+from wagtail.embeds.blocks import EmbedBlock
+from wagtail.images.blocks import ImageChooserBlock
+from wagtail_localize.synctree import Locale
 
-import core.metadata 
+import core.metadata
+
 
 class HiddenCharBlock(CharBlock):
     pass
@@ -63,7 +65,10 @@ class ImageFormatChoiceBlock(wagtail_blocks.ChoiceBlock):
     ]
 
 class SEOImageChooseBlock(StructBlock):
-    file = ImageChooserBlock(required=True, label=_("Image"))
+    file = ImageChooserBlock(
+        required=True, 
+        label=_("Image")
+    )
     seo_title = CharBlock(
         required=True,
         label=_("SEO Title")
@@ -84,6 +89,7 @@ class ImageBlock(StructBlock):
     class Meta:
         icon = 'image'
         template = "blocks/image_block.html"
+        label = _("Image Block")
 
 class BlockQuote(StructBlock):
     """
@@ -100,6 +106,7 @@ class BlockQuote(StructBlock):
     class Meta:
         icon = "fa-quote-left"
         template = "blocks/blockquote.html"
+        label = _("Quote Block")
 
 class Link_Value(wagtail_blocks.StructValue):
     """ Additional logic for the Link class """
@@ -176,21 +183,21 @@ class Link(wagtail_blocks.StructBlock):
         url_link = value.get('url_link')
 
         if not(bool(internal_page) ^ bool(url_link)):
-            errors['internal_page'] = ErrorList(["Please select an internal page or an external link (but not both)"])
-            errors['url_link'] = ErrorList(["Please select an internal page or an external link (but not both)"])
+            errors['internal_page'] = ErrorList([_("Please select an internal page or an external link (but not both)")])
+            errors['url_link'] = ErrorList([_("Please select an internal page or an external link (but not both)")])
 
         if errors:
-            raise ValidationError("Please check the errors below and correct before saving", params=errors)
+            raise ValidationError(_("Please check the errors below and correct before saving"), params=errors)
 
         return super().clean(value)
 
 class SimpleRichTextBlock(wagtail_blocks.StructBlock):
     alignment = wagtail_blocks.ChoiceBlock(
         choices = [
-            ('justify', 'Justified'), 
-            ('start', 'Left'), 
-            ('center', 'Centre'), 
-            ('end', 'Right')
+            ('justify', _('Justified')), 
+            ('start', _('Left')), 
+            ('center', _('Centre')), 
+            ('end', _('Right'))
         ],
         default='justify'
     )
@@ -552,7 +559,7 @@ class BlogCodeBlock(wagtail_blocks.StructBlock):
     class Meta:
         template = "blocks/code_block.html"
         icon = "fa-code"
-        label = "Code Block"
+        label = _("Code Block")
 
 class DocumentBlock(wagtail_blocks.StructBlock):
     document = DocumentChooserBlock(
@@ -602,13 +609,63 @@ class DocumentBlock(wagtail_blocks.StructBlock):
     class Meta:
         template = "blocks/document_block.html"
         icon = "fa-file"
-        label = "Document Block"
+        label = _("Document Block")
 
-# ====idea for document list filtered by tag=====
-# >>> from wagtail.documents.models import Document
-# >>> docs=Document.objects.all()
-# >>> tag_filter=['tag1', 'tag2'])
-# >>> docs.filter(tags__slug__in=tag_filter.split(','))
+class DocumentListBlock(wagtail_blocks.StructBlock):
+    tag_list = wagtail_blocks.CharBlock(
+        label = _("Tag List"),
+        help_text = _("Comma seperated list of tags to filter by. Leave blank to list all documents."),
+        required = False,
+    )
+    text_size = HeadingSizeChoiceBlock(
+        label = _("Text Size"),
+        default = 'p'
+    )
+    icon = wagtail_blocks.CharBlock(
+        label = _("Link Icon"),
+        help_text = _("Optional FontAwesome icon to appear left of the link (eg fas fa-file)"),
+        required = False,
+    )
+    appearance = ButtonChoiceBlock(
+        max_length=15,
+        default='btn-link',
+        label=_("Link Appearance")
+    )
+    outline = wagtail_blocks.BooleanBlock(
+        label = _("Outline button"),
+        help_text = _("Blank for solid fill, checked for outline only"),
+        default = False,
+        required = False
+    )
+    full_width = wagtail_blocks.BooleanBlock(
+        label = _("Full width button"),
+        help_text = _("Link button fills available width"),
+        default = False,
+        required = False
+    )
+    alignment = wagtail_blocks.ChoiceBlock(
+        choices = [
+            ('start', _('Left')), 
+            ('center', _('Centre')), 
+            ('end', _('Right'))
+        ],
+        default = 'center',
+        label = _("Text Alignment"),
+        help_text = _("Only used if full width button")
+    )
+    sort_by = wagtail_blocks.ChoiceBlock(
+        choices = [
+            ('created_at', _('Date (newest first)')), 
+            ('title', _('Document Title')), 
+        ],
+        default = 'created_at',
+        label = _("Sort Order"),
+    )
+
+    class Meta:
+        template = "blocks/document_list_block.html"
+        icon = "fa-list"
+        label = "Document List"
 
 class EmptyStaticBlock(wagtail_blocks.StaticBlock):
     class Meta:
@@ -661,6 +718,7 @@ class BaseStreamBlock(StreamBlock):
     image_carousel = ImageCarouselBlock()
     code_block = BlogCodeBlock()
     document_block = DocumentBlock()
+    document_list_block = DocumentListBlock()
     latest_blog_posts = LatestBlogPostGrid()
     spacer_block = SpacerStaticBlock()
     empty_block = EmptyStaticBlock()
