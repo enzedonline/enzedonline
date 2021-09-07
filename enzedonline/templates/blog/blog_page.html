@@ -211,6 +211,7 @@
 </div>
 
 {% cache None page.slug "next_prev" request.GET.urlencode self.last_published_at %}
+<div class="container-fluid pt-3 px-2 px-sm-5 pb-1">
 
   <div class="pt-3 pt-3">
     <hr />
@@ -245,8 +246,9 @@
       {% endif %}
     </div>
   </div>
+</div>
 
-  <p>&nbsp;</p>
+<p>&nbsp;</p>
 
 {% endcache %}
 
