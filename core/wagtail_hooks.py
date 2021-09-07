@@ -19,6 +19,15 @@ def register_refresh_cache_menu_item():
 def do_after_page_create(request, page):
     purge_page_cache_fragments(page.slug)
 
+# === Enable after Wagtail 2.5 to have external links open in new tab ===
+# def external_link_handler(attrs):
+#     href = attrs["href"]
+#     return '<a href="%s" target="_blank" rel="noopener nofollower">' % escape(href)
+
+# @hooks.register('register_rich_text_features')
+# def register_external_link(features):
+#     features.register_link_type('external', external_link_handler)
+
 @hooks.register("register_rich_text_features")
 def register_code_styling(features):
     """Add the <small> to the richtext editor and page."""
