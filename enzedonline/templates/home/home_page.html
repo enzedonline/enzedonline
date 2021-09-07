@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load adv_cache static wagtailcore_tags %}
+{% load adv_cache static wagtailcore_tags latest_blog_posts_block_tags core_tags %}
 
 {% block header %}
     {# Page Banner #}
@@ -17,6 +17,17 @@
         </div>
 
     {% endcache %}
+
+    {% get_latest_posts 10 as posts %}
+    {% if posts %}
+        {% cache None page.slug "blog_list" self.last_published_at %}
+            {% get_template_set 'common' as trans %}
+            <div class="container-fluid pt-0 pt-md-2 px-2 px-sm-5 pb-4">
+                <h3 class="fw-bold">{{ trans.latest_blogs }}</h3>
+                {% include 'core/blog_posts.html' %}
+            </div>
+        {% endcache %}
+    {% endif %}
 
 {% endblock content %}
 

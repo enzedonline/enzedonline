@@ -26,7 +26,7 @@ from wagtail.core.models import TranslatableMixin
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.search import index
 from wagtail.snippets.models import register_snippet
-
+from core.utils import purge_blog_list_cache_fragments
 
 @register_snippet
 class TechBlogCategory(TranslatableMixin, models.Model):
@@ -132,6 +132,14 @@ class BlogDetailPage(SEOPage):
         context["previous_post"] = siblings.filter(path__lt=self.path).last()
 
         return context
+
+    def save(self, *args, **kwargs):
+        purge_blog_list_cache_fragments()
+        super().save(*args, **kwargs)
+
+    def delete(self, *args, **kwargs):
+        purge_blog_list_cache_fragments()
+        super().delete(*args, **kwargs)
 
     def serve(self, request, *args, **kwargs):
         response = super().serve(request, 'blog/blog_page.html')
