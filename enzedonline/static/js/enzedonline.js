@@ -5,3 +5,10 @@ function convertUTCDateToLocalDate(date) {
     const time_options = { hour: '2-digit', minute: '2-digit', hour12: false };
     return (local_date.toLocaleDateString(undefined, date_options) + ' ' + local_date.toLocaleTimeString(undefined, time_options));
 }
+
+$(document).ready(function(){
+    $('a[href^="http://"]').attr('target', '_blank');
+    $('a[href^="http://"]').attr('rel', 'nofollow noopener');
+    $('a[href^="https://"]').attr('target', '_blank');
+    $('a[href^="https://"]').attr('rel', 'nofollow noopener');
+    });  
