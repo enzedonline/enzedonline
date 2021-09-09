@@ -20,7 +20,7 @@ def trans_page_from_slug(slug, specific=False):
             return Page.objects.live().filter(slug=slug).first().specific.localized
         else:
             return Page.objects.live().filter(slug=slug).first().localized
-    except Page.DoesNotExist:
+    except:
         return Page.objects.none()
 
 @register.simple_tag(takes_context=True)
