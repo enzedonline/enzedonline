@@ -19,7 +19,7 @@ pre[class*="language-"] {
 	word-break: normal;
 	word-wrap: normal;
 	line-height: 1.5;
-	padding: 0;
+	padding: 0 !important;
 
 	-moz-tab-size: 4;
 	-o-tab-size: 4;
