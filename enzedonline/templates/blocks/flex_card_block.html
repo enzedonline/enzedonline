@@ -56,7 +56,7 @@
           {% if self.link %}</a>{% endif %}
         </div>
         <div class="col">
-          <div class="py-0 text-break">
+          <div class="p-0 pt-md-1 text-break">
             {% include_block self.text %}
           </div>
           {% if self.link %}
@@ -68,7 +68,7 @@
       </div>
     </div>
   {% elif self.format == 'image-left-fixed' %}
-    <div class="card {{ self.background }}{% if not self.border %}border-0 {% endif %} p-{{pad}} pt-0 {% if self.full_height %}h-100{% endif %}">
+    <div class="card {{ self.background }} {% if not self.border %}border-0 {% endif %}p-{{pad}} pt-0 {% if self.full_height %}h-100{% endif %}">
       <div class="row">
         <div class="col-4 pt-4" style="min-width: 200px;">
           <a href="{{ self.link }}">
@@ -88,7 +88,7 @@
           </a>
         </div>
         <div class="col">
-          <div class="p-0 pe-2 text-break">
+          <div class="p-0 pt-1 pe-2 text-break">
             {% include_block self.text %}
           </div>
           {% if self.link %}
@@ -100,7 +100,7 @@
       </div>
     </div>
   {% elif self.format == 'image-right-responsive' %}
-    <div class="card {{ self.background }}{% if not self.border %}border-0 {% endif %} p-{{pad}} pt-0 {% if self.full_height %}h-100{% endif %}">
+    <div class="card {{ self.background }} {% if not self.border %}border-0 {% endif %}p-{{pad}} pt-0 {% if self.full_height %}h-100{% endif %}">
       <div class="row flex-row-reverse">
         <div class="col-md-4 pt-4" style="min-width: 200px;">
           <a href="{{ self.link }}">
@@ -120,7 +120,7 @@
           </a>
         </div>      
         <div class="col">
-          <div class="p-0 text-break">
+          <div class="p-0 pt-md-1 text-break">
             {% include_block self.text %}
           </div>
           {% if self.link %}
@@ -132,7 +132,7 @@
       </div>
     </div>
   {% else %}
-    <div class="card {{ self.background }}{% if not self.border %}border-0 {% endif %} p-{{pad}} pt-0 {% if self.full_height %}h-100{% endif %}">
+    <div class="card {{ self.background }} {% if not self.border %}border-0 {% endif %}p-{{pad}} pt-0 {% if self.full_height %}h-100{% endif %}">
       <div class="row flex-row-reverse">
         <div class="col-4 pt-4" style="min-width: 200px;">
           <a href="{{ self.link }}">
@@ -152,7 +152,7 @@
           </a>
         </div>      
         <div class="col">
-          <div class="p-0 pe-2 text-break">
+          <div class="p-0 pe-2 pt-1 text-break">
             {% include_block self.text %}
           </div>
           {% if self.link %}
