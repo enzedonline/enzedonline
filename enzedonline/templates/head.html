@@ -25,7 +25,7 @@
   {# Meta Tags #}
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="robots" content="index, follow, archive, imageindex, odp, snippet, translate, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+  {% robots %}
   {% meta_tags as meta_tags %}
   {% if meta_tags is not None %}{{ meta_tags }}{% endif %}
   <meta property="og:type" content="website"/>
@@ -35,7 +35,6 @@
   <meta name="distribution" content="Global">
   <meta name="rating" content="safe for kids"/>
   <meta property="fb:app_id" content="492927945342914" />
-  {% noindex %}
 
   {# Global javascript #}
   <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>  
