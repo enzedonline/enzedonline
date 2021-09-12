@@ -36,8 +36,6 @@ urlpatterns = [
     path('', RedirectView.as_view(url='/' + lang +'/', permanent=False)),
     # Language Switcher
     # path('lang/<str:language_code>/', set_language_from_url, name='set_language_from_url'),
-
-    # path('accounts/', include('userauth.urls')),
 ]
 
 if settings.DEBUG:
