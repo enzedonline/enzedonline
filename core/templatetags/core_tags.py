@@ -2,10 +2,10 @@ from datetime import datetime
 
 from django import template
 from django.utils.html import mark_safe
-from site_settings.models import TemplateText
+from django.utils.safestring import mark_safe
+from site_settings.models import CompanyLogo, EmailSignature, TemplateText
 from wagtail.admin.templatetags.wagtailadmin_tags import render_with_errors
 from wagtail.core.models import Page
-from site_settings.models import EmailSignature, CompanyLogo
 
 register = template.Library()
 
@@ -22,6 +22,14 @@ def trans_page_from_slug(slug, specific=False):
             return Page.objects.live().filter(slug=slug).first().localized
     except:
         return Page.objects.none()
+
+@register.simple_tag(takes_context=True)
+def noindex(context):
+    page = get_context_var_or_none(context, 'self')
+    if not page:
+        return mark_safe('<meta name="robots" content="noindex">')
+    else:
+        return ''
 
 @register.simple_tag(takes_context=True)
 def get_cache_key_settings(context):
