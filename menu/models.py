@@ -12,6 +12,7 @@ from wagtail.snippets.models import register_snippet
 from wagtail_localize.synctree import Locale, Page as LocalizePage
 
 from .edit_handlers import ReadOnlyPanel, RichHelpPanel, SubMenuFieldPanel
+from core.utils import purge_menu_cache_fragments
 
 class MenuListQuerySet(object):
     # Call as class()() to act as a function call, passes all menus to SubMenuPanel dropdown
@@ -168,6 +169,10 @@ class Menu(TranslatableMixin, ClusterableModel):
 
     def __str__(self):
         return self.title
+
+    def save(self, *args, **kwargs):
+        purge_menu_cache_fragments()
+        super(ClusterableModel, self).save(*args, **kwargs)
 
 class MenuItem(TranslatableMixin, Orderable):
     """ MenuItem Class - orderables to display in Menu class

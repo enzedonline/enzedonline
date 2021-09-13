@@ -10,6 +10,14 @@ def purge_page_cache_fragments(slug):
     with connection.cursor() as cursor:
         cursor.execute(sql)
 
+def purge_menu_cache_fragments():
+    sql = f"DELETE FROM public.cache_table WHERE cache_key LIKE '%.menu.%';"
+    with connection.cursor() as cursor:
+        cursor.execute(sql)
+    sql = f"DELETE FROM public.cache_table WHERE cache_key LIKE '%.footer.%';"
+    with connection.cursor() as cursor:
+        cursor.execute(sql)
+
 def purge_blog_list_cache_fragments():
     sql = f"DELETE FROM public.cache_table WHERE cache_key LIKE '%next_prev%';"
     with connection.cursor() as cursor:
