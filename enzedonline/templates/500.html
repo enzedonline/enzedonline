@@ -11,7 +11,7 @@
     <title>{{ trans.500_title }}</title>
     <div class="container-fluid text-center" style="position: absolute; top: 50%;-ms-transform: translateY(-50%); transform: translateY(-50%);" >
         <div class="px-3">
-            <p><i class="fas fa-bug fa-3x text-warning"></i></p>
+            <p><i class="fas fa-bug fa-3x text-danger"></i></p>
             <h1>{{ trans.500_heading }}</h1>
             {% trans_page_from_slug 'contact' True as contact %}
             <h5>{{ trans.bug_part_1 }} <a href='{{ contact.url }}'> {{ trans.bug_part_2 }}</a>.</h5>
