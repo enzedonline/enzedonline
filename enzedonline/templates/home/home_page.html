@@ -8,7 +8,7 @@
 
 {% block content %}
 
-    {% cache None page.slug "body" self.last_published_at %}
+    {% cache None page.slug "body" self.latest_revision_created_at %}
 
         <div class="container-fluid pt-0 pt-md-2 px-2 px-sm-5 pb-4">
             {% for block in page.body %}
@@ -20,7 +20,7 @@
 
     {% get_latest_posts 10 as posts %}
     {% if posts %}
-        {% cache None page.slug "blog_list" self.last_published_at %}
+        {% cache None page.slug "blog_list" self.latest_revision_created_at %}
             {% get_template_set 'common' as trans %}
             <div class="container-fluid pt-0 pt-md-2 px-2 px-sm-5 pb-4">
                 <h3 class="fw-bold">{{ trans.latest_blogs }}</h3>

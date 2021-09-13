@@ -11,7 +11,7 @@
 <div class="container-fluid pt-0 pt-md-2 px-2 px-sm-5 pb-4">
 
     {# Top Content Section #}
-    {% cache None page.slug "body" self.last_published_at %}
+    {% cache None page.slug "body" self.latest_revision_created_at %}
 
         {% for block in page.top_section %}
             {% include_block block %}

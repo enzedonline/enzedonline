@@ -4,7 +4,7 @@
 {% block header %}
 
   {# Page Banner #}
-  {% cache None page.slug "banner" self.last_published_at %}
+  {% cache None page.slug "banner" self.latest_revision_created_at %}
 
     {% with self.get_parent.specific as blog_index %} 
       {% image blog_index.banner_image fill-2100x525-c100 format-webp as webp_img_w_2100 %} 
@@ -77,7 +77,7 @@
   });
 </script>
 
-{% cache None page.slug "body" self.last_published_at %}
+{% cache None page.slug "body" self.latest_revision_created_at %}
 
   {# Code Block JS - only load if tech blog #}
   {% if self.blog_type == 'TechBlogDetailPage' %}
@@ -210,7 +210,7 @@
   
 </div>
 
-{% cache None page.slug "next_prev" request.GET.urlencode self.last_published_at %}
+{% cache None page.slug "next_prev" request.GET.urlencode self.latest_revision_created_at %}
 <div class="container-fluid pt-3 px-2 px-sm-5 pb-1">
 
   <div class="pt-3 pt-3">
