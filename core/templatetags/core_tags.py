@@ -49,7 +49,7 @@ def paginator_filter(filter):
 @register.simple_tag()
 def get_template_set(set):
     try:
-        template_set = TemplateText.objects.all().filter(template_set=set).first().localized 
+        template_set = TemplateText.objects.filter(template_set=set).first().localized 
         if template_set:
             items = template_set.templatetext_items.all()
             if items:

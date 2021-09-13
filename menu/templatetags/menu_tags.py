@@ -91,7 +91,11 @@ def get_menu_items(menu, request):
     # returns a list of dictionaries with title, url, page and icon of all items in the menu
     # use get_menu first to load the menu object then pass that instance to this function
 
-    authenticated = request.user.is_authenticated
+
+    if not request: # 500 error has no request
+        authenticated = False
+    else:
+        authenticated = request.user.is_authenticated
 
     if not isinstance(menu, Menu):
         if isinstance(menu, int):

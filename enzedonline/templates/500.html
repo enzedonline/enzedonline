@@ -1,23 +1,20 @@
-<!DOCTYPE html>
-<html class="no-js">
-    <head>
-        <meta charset="utf-8" />
-        <title>Error</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-    </head>
-    <body>
-        <h1>Internal server error</h1>
+{% extends "base.html" %}
+{% load core_tags %}
 
-        <h2>Sorry, there seems to be an error. Please try again soon.</h2>
+{% block body_class %}template-500{% endblock %}
 
-        <h1>Erreur Interne du Serveur</h1>
+{% block extra_head %}
+{% endblock extra_head %}
 
-        <h2>Désolé, il semble y avoir une erreur. Veuillez réessayer bientôt.</h2>
-
-        <h1>Error de servidor interno</h1>
-
-        <h2>Lo siento, parece haber un error. Inténtelo de nuevo pronto.</h2>
-
-        
-    </body>
-</html>
+{% block content %}
+    {% get_template_set 'page-error' as trans %}
+    <title>{{ trans.500_title }}</title>
+    <div class="container-fluid text-center" style="position: absolute; top: 50%;-ms-transform: translateY(-50%); transform: translateY(-50%);" >
+        <div class="px-3">
+            <p><i class="fas fa-bug fa-3x text-warning"></i></p>
+            <h1>{{ trans.500_heading }}</h1>
+            {% trans_page_from_slug 'contact' True as contact %}
+            <h5>{{ trans.bug_part_1 }} <a href='{{ contact.url }}'> {{ trans.bug_part_2 }}</a>.</h5>
+        </div>
+    </div>
+{% endblock %}
