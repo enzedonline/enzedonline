@@ -1,15 +1,22 @@
+from urllib.parse import parse_qsl, urlparse
+
+from core.edit_handlers import RegexPanel
 from django import forms
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from modelcluster.fields import ParentalKey
 from modelcluster.models import ClusterableModel
-from wagtail.admin.edit_handlers import (FieldPanel, InlinePanel, MultiFieldPanel, FieldRowPanel)
+from wagtail.admin.edit_handlers import (FieldPanel, FieldRowPanel,
+                                         InlinePanel, MultiFieldPanel)
+from wagtail.admin.forms import WagtailAdminPageForm
 from wagtail.contrib.settings.models import BaseSetting, register_setting
 from wagtail.core.models import Orderable, TranslatableMixin
+from wagtail.core.models.i18n import Locale
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.snippets.models import register_snippet
 from wagtail_localize.fields import TranslatableField
-from core.edit_handlers import RegexPanel
+
 
 class PasswordField(forms.CharField):
     widget = forms.PasswordInput
@@ -255,14 +262,16 @@ class EmailSignature(TranslatableMixin, models.Model):
 @register_snippet
 class TemplateText(TranslatableMixin, ClusterableModel):
     template_set = models.CharField(
-        unique=True,
+        # unique=True,
         max_length=50,
         verbose_name="Set Name",
         help_text=_("The set needs to be loaded in template tags then text references as {{set.tag}}")
     )    
 
-    translatable_fields = []
-    
+    translatable_fields = [
+        TranslatableField('templatetext_items'),
+    ]    
+
     panels = [
         FieldPanel("template_set"),
         MultiFieldPanel(
@@ -273,14 +282,38 @@ class TemplateText(TranslatableMixin, ClusterableModel):
         ),
     ]
 
-    # base_form_class = TemplateTextForm
-
     def __str__(self):
         return self.template_set
     
     class Meta:
         verbose_name = _('Template Text')
-        unique_together = ('translation_key', 'locale')
+        unique_together = ('translation_key', 'locale'), ('locale', 'template_set')
+
+    def clean(self):
+        # Check unique_together constraint
+        # Stop instances being created outside of default locale
+        # ASSUMPTION: the field in the unique_together (template_set) is non-translatable
+
+        def_lang = Locale.get_default()
+        
+        if self.locale==Locale.get_default():
+            # If in default locale, look for other sets with the template_set value (checking pre-save value)
+            # Exclude other locales (will be translations of current locale)
+            # Exclude self to cater for editing existing instance. Name change still checked against other instances.
+            if TemplateText.objects.filter(template_set=self.template_set).filter(locale=self.locale_id).exclude(pk=self.pk).count()>0:
+                raise ValidationError(_("This template set name is already in use. Please only use a unique name."))
+        elif self.get_translations().count()==0:
+            # If not in default locale and has no translations, new instance being created outside of default, raise error
+            raise ValidationError(_(f"Template sets can only be created in the default language ({def_lang}). \
+                                      Please create the set in {def_lang} and use the translate option."))
+
+    def delete(self):
+        # If deleting instance in default locale, delete translations
+        # Remove if clause if using multi-level translations (eg EN > ES > CA)
+        if self.locale==Locale.get_default():
+            for trans in self.get_translations():
+                trans.delete()
+        super().delete()
 
 class TemplateTextSetItem(TranslatableMixin, Orderable):
     set = ParentalKey(
