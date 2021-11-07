@@ -1,5 +1,3 @@
-from urllib.parse import parse_qsl, urlparse
-
 from core.edit_handlers import RegexPanel
 from django import forms
 from django.core.exceptions import ValidationError
@@ -9,7 +7,6 @@ from modelcluster.fields import ParentalKey
 from modelcluster.models import ClusterableModel
 from wagtail.admin.edit_handlers import (FieldPanel, FieldRowPanel,
                                          InlinePanel, MultiFieldPanel)
-from wagtail.admin.forms import WagtailAdminPageForm
 from wagtail.contrib.settings.models import BaseSetting, register_setting
 from wagtail.core.models import Orderable, TranslatableMixin
 from wagtail.core.models.i18n import Locale
