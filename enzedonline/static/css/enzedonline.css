@@ -398,6 +398,13 @@ p {
 
 .bg-black {
   background-color: rgb(0, 0, 0) !important;
+  color: white;
+}
+.bg-transparent, .bg-light {
+  color: black;
+}
+.bg-primary, .bg-secondary, .bg-success, .bg-info, .bg-warning, .bg-danger, .bg-dark {
+  color: white;
 }
 .blog-summary {
   line-height: 1.2;

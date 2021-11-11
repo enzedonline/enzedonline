@@ -18,16 +18,16 @@ class HiddenCharBlock(CharBlock):
 
 class ColourThemeChoiceBlock(wagtail_blocks.ChoiceBlock):
     choices=[
-        ('text-black bg-transparent', _("Transparent")),
-        ('text-white bg-primary', _("Primary")),
-        ('text-white bg-secondary', _("Secondary")),
-        ('text-white bg-success', _("Success")),
-        ('text-white bg-info', _("Info")),
-        ('text-white bg-warning', _("Warning")),
-        ('text-white bg-danger', _("Danger")),
-        ('text-black bg-light', _("Light")),
-        ('text-white bg-dark', _("Dark")),
-        ('text-white bg-black', _("Black")),
+        ('bg-transparent', _("Transparent")),
+        ('bg-primary', _("Primary")),
+        ('bg-secondary', _("Secondary")),
+        ('bg-success', _("Success")),
+        ('bg-info', _("Info")),
+        ('bg-warning', _("Warning")),
+        ('bg-danger', _("Danger")),
+        ('bg-light', _("Light")),
+        ('bg-dark', _("Dark")),
+        ('bg-black', _("Black")),
     ]
 
 class ButtonChoiceBlock(wagtail_blocks.ChoiceBlock):
