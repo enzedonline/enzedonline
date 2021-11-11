@@ -751,6 +751,27 @@ class LatestBlogPostGrid(StructBlock):
         label = _("Latest Blog Post(s)")
         icon = 'fa-edit'
 
+class TableOfContentsBlock(StructBlock):
+    toc_title = CharBlock(
+        max_length=60, 
+        null=True, 
+        blank=True,
+        required=False,
+        help_text=_("Optional title to display at the top of the table."),
+    )
+    
+    lowest_index_level = IntegerBlock(
+        default = 4,
+        min_value=2,
+        max_value=6,
+        help_text=_("Lowest level of header to include (H1 tags are ignored)."),
+    )
+
+    class Meta:
+        template = 'blocks/table_of_contents.html'
+        icon = 'fas fa-stream'
+        label = 'Table of Contents'
+
 class BaseStreamBlock(StreamBlock):
     richtext_block = SimpleRichTextBlock()
     image_block = ImageBlock()
@@ -771,6 +792,7 @@ class BaseStreamBlock(StreamBlock):
     document_block = DocumentBlock()
     document_list_block = DocumentListBlock()
     latest_blog_posts = LatestBlogPostGrid()
+    table_of_contents = TableOfContentsBlock()
     spacer_block = SpacerStaticBlock()
     empty_block = EmptyStaticBlock()
 

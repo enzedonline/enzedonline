@@ -93,6 +93,10 @@ p {
   font-size: var(--font-size-body);
   font-family: var(--font-family-body);
 }
+.toc {
+  font-size: var(--font-size-5);
+  font-family: var(--font-family-headings);
+}
 .text-white a {
   font-weight: bolder;
   color: inherit;
