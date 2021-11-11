@@ -24,28 +24,27 @@
 
     const list = contact.appendChild(document.createElement("DIV"));
     list.classList.add("toc");
+    list.classList.add("toc-list");
     
     for (let i = 0; i < headers.length; i++) {
+      level = Number((headers[i].nodeName)[1]) - 1;
       let id = `${i+1}-${slugify(headers[i].innerText)}`;
       headers[i].id = id;
-      list.appendChild(
-        document.createTextNode(`${indent(headers[i].nodeName)}`)
-      );
-      let link = list.appendChild(document.createElement("A"));
-      let text = document.createTextNode(`${headers[i].innerText}`);
-      link.appendChild(text);
+
+      let linkLine = list.appendChild(document.createElement("P"));
+      linkLine.classList.add(`toc`);
+      linkLine.classList.add(`toc-item-l${level}`);
+
+      let link = linkLine.appendChild(document.createElement("A"));
+      link.appendChild(document.createTextNode(`${headers[i].innerText}`));
       link.href = `#${id}`;
-      list.appendChild(document.createElement("BR"));
+
     }
   }
 
   document.addEventListener("DOMContentLoaded", (event) => {
     listContents();
   });
-
-  function indent(level) {
-    return "⠀".repeat(Number(level[1] - 2));
-  }
 
   function slugify(str) {
     str = str.replace(/^\s+|\s+$/g, "");

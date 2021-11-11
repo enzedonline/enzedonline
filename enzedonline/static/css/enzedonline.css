@@ -63,6 +63,7 @@ h6 {
   margin-bottom: 0.8rem;
   font-weight: 400;
   line-height: 1.2;
+  text-align: left;
 }
 .h1,
 h1 {
@@ -94,8 +95,30 @@ p {
   font-family: var(--font-family-body);
 }
 .toc {
-  font-size: var(--font-size-5);
+  font-size: var(--font-size-5); 
   font-family: var(--font-family-headings);
+  text-align: left;
+  margin-bottom: 0;
+}
+.toc-list {
+  padding: 0rem;
+  border-style: none;
+  border-width: 1px;
+}
+.toc-item-l1{
+  text-indent: 0rem;
+}
+.toc-item-l2{
+  text-indent: 0.8rem;  
+}
+.toc-item-l3{
+  text-indent: 1.6rem;
+}
+.toc-item-l4{
+  text-indent: 2.4rem;
+}
+.toc-item-l5{
+  text-indent: 3.2rem;
 }
 .text-white a {
   font-weight: bolder;
