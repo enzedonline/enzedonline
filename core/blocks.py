@@ -323,6 +323,53 @@ class SimpleCardGridBlock(wagtail_blocks.StructBlock):
         icon = 'fa-th'
         label = _("Flexible Grid of Simple Cards")
 
+class SimpleImageCard(wagtail_blocks.StructBlock):
+    
+    background = ColourThemeChoiceBlock(
+        default='bg-transparent',
+        label=_("Card Background Colour")
+    )
+    border = wagtail_blocks.BooleanBlock(
+        default=True,
+        required=False,
+        label=_("Border"),
+        help_text=_("Draw a border around the card?")
+    )
+    text = SimpleRichTextBlock(
+        label=_("Card Body Text"),
+        help_text=_("Body text for this card."),
+    )
+    image = SEOImageChooseBlock(
+        label=_("Select Image & Enter Details"),
+        help_text=_("Card Image (display size limited to 300-400px range)."),
+    )
+
+    class Meta:
+        template = 'blocks/simple_image_card_block.html'
+        label = _("Simple Image & Text Card")
+        icon = 'far fa-image'
+
+class SimpleImageCardStreamBlock(StreamBlock):
+    simple_image_card = SimpleImageCard()
+
+class SimpleImageCardGridBlock(wagtail_blocks.StructBlock):
+    alignment = wagtail_blocks.ChoiceBlock(
+        choices = [
+            ('align-items-top', _('Top')), 
+            ('align-items-center', _('Middle')), 
+        ],
+        label=_("Vertical Alignment"),
+        help_text=_("Choose if row items should be vertically aligned to their tops or middles."),
+        default='align-items-top'
+    )
+
+    cards = SimpleImageCardStreamBlock()
+
+    class Meta:
+        template = "blocks/simple_image_card_grid_block.html"
+        icon = 'fab fa-stack-overflow'
+        label = _("Flexible Grid of Simple Image Cards")
+
 class InlineVideoBlock(wagtail_blocks.StructBlock):
     video = EmbedBlock(
         label=_("Video URL"),
@@ -556,6 +603,8 @@ class BlogCodeBlock(wagtail_blocks.StructBlock):
     language = wagtail_blocks.ChoiceBlock(choices=CODE_CHOICES, default='python')
     code = wagtail_blocks.TextBlock()
 
+    translatable_fields = []
+
     class Meta:
         template = "blocks/code_block.html"
         icon = "fa-code"
@@ -711,6 +760,8 @@ class BaseStreamBlock(StreamBlock):
     call_to_action_card = CallToActionCard()
     simple_card = SimpleCard()
     simple_card_grid = SimpleCardGridBlock()
+    simple_image_card = SimpleImageCard()
+    simple_image_card_grid = SimpleImageCardGridBlock()
     collapsible_card_block = CollapsableCardBlock()
     social_media_embed = SocialMediaEmbedBlock()
     external_link_embed = ExternalLinkEmbedBlock()
