@@ -10,21 +10,20 @@
       return;
     }
 
-    const headers = main[0].querySelectorAll("{% get_query_selector value.lowest_index_level %}");
+    const headers = main[0].querySelectorAll("{% get_query_selector value.levels %}");
 
     if (headers.length < 1) {
       return;
     }
 
     {% if value.toc_title %}
-    contact.appendChild(document.createElement("HR"));
-    contact.appendChild(document.createElement("H2")).innerText = "{{ value.toc_title }}";
-    contact.appendChild(document.createElement("HR"));
+    let title = contact.appendChild(document.createElement("H2"));
+    title.innerText = "{{ value.toc_title }}";
+    title.classList.add("toc", "toc-title");
     {% endif %}
 
     const list = contact.appendChild(document.createElement("DIV"));
-    list.classList.add("toc");
-    list.classList.add("toc-list");
+    list.classList.add("toc", "toc-list");
     
     for (let i = 0; i < headers.length; i++) {
       level = Number((headers[i].nodeName)[1]) - 1;
@@ -32,8 +31,7 @@
       headers[i].id = id;
 
       let linkLine = list.appendChild(document.createElement("P"));
-      linkLine.classList.add(`toc`);
-      linkLine.classList.add(`toc-item-l${level}`);
+      linkLine.classList.add(`toc`, "toc-list", `toc-item-l${level}`);
 
       let link = linkLine.appendChild(document.createElement("A"));
       link.appendChild(document.createTextNode(`${headers[i].innerText}`));

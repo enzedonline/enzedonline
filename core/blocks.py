@@ -757,14 +757,16 @@ class TableOfContentsBlock(StructBlock):
         null=True, 
         blank=True,
         required=False,
+        label=_("Title (optional)"),
         help_text=_("Optional title to display at the top of the table."),
     )
     
-    lowest_index_level = IntegerBlock(
-        default = 4,
-        min_value=2,
-        max_value=6,
-        help_text=_("Lowest level of header to include (H1 tags are ignored)."),
+    levels = IntegerBlock(
+        default = 3,
+        min_value=1,
+        max_value=5,
+        label=_("Number of levels to include"),
+        help_text=_("H1 tags are ignored. 1 level includes H2 only, 5 levels will include H2 to H6."),
     )
 
     class Meta:

@@ -95,15 +95,13 @@ p {
   font-family: var(--font-family-body);
 }
 .toc {
-  font-size: var(--font-size-5); 
   font-family: var(--font-family-headings);
   text-align: left;
-  margin-bottom: 0;
 }
 .toc-list {
+  font-size: var(--font-size-5); 
   padding: 0rem;
-  border-style: none;
-  border-width: 1px;
+  margin-bottom: 0;
 }
 .toc-item-l1{
   text-indent: 0rem;
