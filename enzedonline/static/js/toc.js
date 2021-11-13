@@ -1,15 +1,3 @@
-function getQuerySelector(levels) {
-  // Return a fomatted list of header tags to include in the element search
-  // H1 tags are not included in the ToC -> base level = H2
-  // levels=1 returns "h2" only, levels=5 returns "h2,h3,h4,h5,h6"
-  const baseLevel = 2;
-  const selector = [];
-  for (let hLevel = baseLevel; hLevel < baseLevel + levels; hLevel++) {
-    selector.push("h" + hLevel);
-  }
-  return selector.join();
-}
-
 function listContents(
   tocElement,
   scopeElement = "body",
@@ -26,8 +14,11 @@ function listContents(
   const scope = document.getElementsByTagName(scopeElement);
 
   if (scope.length > 0 && toc) {
+    // determine which header tags to search
+    const tags = ["h2","h3","h4","h5","h6"].slice(0,levels).join();
+
     // scope is HTMLElementArray, take the first element, find the relevant header tags in that element
-    const headers = scope[0].querySelectorAll(getQuerySelector(levels));
+    const headers = scope[0].querySelectorAll(tags);
 
     // create ToC only if headers found
     if (headers.length > 0) {
