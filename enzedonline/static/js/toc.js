@@ -2,8 +2,8 @@ function getQuerySelector(levels) {
   // Return a fomatted list of header tags to include in the element search
   // H1 tags are not included in the ToC -> base level = H2
   // levels=1 returns "h2" only, levels=5 returns "h2,h3,h4,h5,h6"
-  let baseLevel = 2;
-  let selector = [];
+  const baseLevel = 2;
+  const selector = [];
   for (let hLevel = baseLevel; hLevel < baseLevel + levels; hLevel++) {
     selector.push("h" + hLevel);
   }
