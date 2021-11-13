@@ -1,72 +1,9 @@
-{% load toc_block_tags %}
+{% load static %}
 <div id="autoToC"></div>
 
+<script src="{% static 'js/toc.js'%}"></script>
 <script>
-  function listContents() {
-    const main = document.getElementsByTagName("main");
-    const contact = document.getElementById("autoToC");
-
-    if (!(main && contact)) {
-      return;
-    }
-
-    const headers = main[0].querySelectorAll("{% get_query_selector value.levels %}");
-
-    if (headers.length < 1) {
-      return;
-    }
-
-    {% if value.toc_title %}
-    let title = contact.appendChild(document.createElement("H2"));
-    title.innerText = "{{ value.toc_title }}";
-    title.classList.add("toc", "toc-title");
-    {% endif %}
-
-    const list = contact.appendChild(document.createElement("DIV"));
-    list.classList.add("toc", "toc-list");
-    
-    for (let i = 0; i < headers.length; i++) {
-      level = Number((headers[i].nodeName)[1]) - 1;
-      let id = `${i+1}-${slugify(headers[i].innerText)}`;
-      headers[i].id = id;
-
-      let linkLine = list.appendChild(document.createElement("P"));
-      linkLine.classList.add(`toc`, "toc-list", `toc-item-l${level}`);
-
-      let link = linkLine.appendChild(document.createElement("A"));
-      link.appendChild(document.createTextNode(`${headers[i].innerText}`));
-      link.href = `#${id}`;
-
-    }
-  }
-
   document.addEventListener("DOMContentLoaded", (event) => {
-    listContents();
+    listContents("autoToC", "main", {{ value.levels }}, "{{ value.toc_title }}");
   });
-
-  function slugify(str) {
-    str = str.replace(/^\s+|\s+$/g, "");
-
-    // Make the string lowercase
-    str = str.toLowerCase();
-
-    // Remove accents, swap ñ for n, etc
-    var from =
-      "ÁÄÂÀÃÅČÇĆĎÉĚËÈÊẼĔȆÍÌÎÏŇÑÓÖÒÔÕØŘŔŠŤÚŮÜÙÛÝŸŽáäâàãåčçćďéěëèêẽĕȇíìîïňñóöòôõøðřŕšťúůüùûýÿžþÞĐđßÆa·/_,:;";
-    var to =
-      "AAAAAACCCDEEEEEEEEIIIINNOOOOOORRSTUUUUUYYZaaaaaacccdeeeeeeeeiiiinnooooooorrstuuuuuyyzbBDdBAa------";
-    for (var i = 0, l = from.length; i < l; i++) {
-      str = str.replace(new RegExp(from.charAt(i), "g"), to.charAt(i));
-    }
-
-    // Remove invalid chars
-    str = str
-      .replace(/[^a-z0-9 -]/g, "")
-      // Collapse whitespace and replace by -
-      .replace(/\s+/g, "-")
-      // Collapse dashes
-      .replace(/-+/g, "-");
-
-    return str;
-  }
 </script>

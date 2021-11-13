@@ -98,6 +98,10 @@ p {
   font-family: var(--font-family-headings);
   text-align: left;
 }
+.toc-title {
+  font-family: var(--font-family-headings);
+  font-size: var(--font-size-2); 
+}
 .toc-list {
   font-size: var(--font-size-5); 
   padding: 0rem;
@@ -111,12 +115,15 @@ p {
 }
 .toc-item-l3{
   text-indent: 1.6rem;
+  font-size: var(--font-size-body); 
 }
 .toc-item-l4{
   text-indent: 2.4rem;
+  font-size: var(--font-size-6); 
 }
 .toc-item-l5{
   text-indent: 3.2rem;
+  font-size: var(--font-size-6); 
 }
 .text-white a {
   font-weight: bolder;
