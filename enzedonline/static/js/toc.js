@@ -5,20 +5,35 @@ function listContents(
   tocTitle = false
 ) {
   // Create Table of Contents (ToC) based on header tags (H2 to H6)
-  // Required: tocElement - element ID to create ToC in (<DIV> recommended)
-  // Optional: scopeElement - element to limit the search to, defaults to <body>. Change definition below to search by ID.
+  // Required: tocElement - element ID to create ToC in (<DIV> only)
+  // Optional: scopeElement - element to limit the search to, defaults to <body>. 
+  //                          Can be element tag or element ID.
   // Optional: levels - number of levels to include in ToC (1 to 5 starting with H2). Default=3 (H2-H4)
   // Optional: tocTitle - string to display as ToC title, defaults to no title (false)
 
-  const toc = document.getElementById(tocElement);
-  const scope = document.getElementsByTagName(scopeElement);
+  let toc, scope
+  
+  // find target DIV element to write ToC to, only accept DIV as valid element type
+  toc = document.getElementById(tocElement);
+  if (toc){
+    if (toc.tagName !== "DIV"){
+      console.error(`ToC: Target element is type <${toc.tagName}>, only <DIV> is valid element type.`);
+      toc = null;  
+    }
+  }
 
-  if (scope.length > 0 && toc) {
-    // determine which header tags to search
+  // find tag name matching scopeElement, if scope tag not found, try finding element by ID
+  scope = document.getElementsByTagName(scopeElement)[0];
+  if (!scope){
+    scope = document.getElementById(scopeElement);
+  }
+ 
+  if (scope && toc) {
+    // determine which header tags to search by slicing list 'levels' deep
     const tags = ["h2","h3","h4","h5","h6"].slice(0,levels).join();
 
     // scope is HTMLElementArray, take the first element, find the relevant header tags in that element
-    const headers = scope[0].querySelectorAll(tags);
+    const headers = scope.querySelectorAll(tags);
 
     // create ToC only if headers found
     if (headers.length > 0) {
@@ -38,7 +53,7 @@ function listContents(
         // determine nesting level (h2->1, h3->2 etc)
         const level = Number(headers[i].nodeName[1]) - 1;
         
-        // if header has no id, create one and assign to header
+        // if header has no id, create one from slugified title and assign to header
         // pre-fix id with index to avoid duplicate id's
         if (!headers[i].id) {
           headers[i].id = `${i + 1}-${slugify(headers[i].innerText)}`;
@@ -55,11 +70,11 @@ function listContents(
       }
     }
   } else {
-    if (scope.length == 0) {
-      console.error(`ToC: Missing <${scopeElement}> element`);
+    if (!scope) {
+      console.error(`ToC: Missing either <${scopeElement}> or element with id=${scopeElement}`);
     }
     if (!toc) {
-      console.error(`ToC: Missing ToC target element with ID ${tocElement}`);
+      console.error(`ToC: Missing ToC target <DIV> element with id=${tocElement}`);
     }
   }
 }

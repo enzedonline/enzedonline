@@ -23,15 +23,16 @@
         </header>
 
         <main>
-
             <div class="mt-1">
-                {% block content %}{% endblock %}
+                {% block content %}{% endblock %}                
                 {% block extra_js %}
                     {# Override this in templates to add extra javascript #}
                 {% endblock %}
             </div>
         </main>
+        
         <footer>
+            {% block next_prev %}{% endblock %}
             <div class="container">
                 <p class="py-2">&nbsp;</p>
             </div>
