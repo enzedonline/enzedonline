@@ -203,9 +203,10 @@ class SimpleRichTextBlock(wagtail_blocks.StructBlock):
     )
     content = wagtail_blocks.RichTextBlock(
         features= [
-            'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
+            'h2', 'h3', 'h4', 'h5', 'h6',
             'bold',
             'italic',
+            'underline',
             'ol',
             'ul',
             'link',
