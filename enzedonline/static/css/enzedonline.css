@@ -104,6 +104,7 @@ p {
 }
 .toc-list {
   padding-bottom: 1rem;
+  padding-left: 10px;
 }
 .toc-item-l1{
   font-size: var(--font-size-5); 
