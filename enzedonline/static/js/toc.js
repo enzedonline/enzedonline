@@ -32,7 +32,7 @@ function listContents(
     // determine which header tags to search by slicing list 'levels' deep
     const tags = ["h2","h3","h4","h5","h6"].slice(0,levels).join();
 
-    // scope is HTMLElementArray, take the first element, find the relevant header tags in that element
+    // find the relevant header tags contained within the scope element
     const headers = scope.querySelectorAll(tags);
 
     // create ToC only if headers found
