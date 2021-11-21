@@ -103,7 +103,7 @@ p {
   margin-bottom: 0;
 }
 .toc-list {
-  padding-bottom: 2rem;
+  padding-bottom: 1rem;
 }
 .toc-item-l1{
   font-size: var(--font-size-5); 

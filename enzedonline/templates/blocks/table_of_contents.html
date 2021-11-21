@@ -1,5 +1,7 @@
 {% load static %}
-<div id="autoToC"></div>
+{% nocache %}
+  <div id="autoToC"></div>
+{% endnocache %}
 
 <script src="{% static 'js/toc.js'%}"></script>
 <script>
