@@ -61,7 +61,7 @@ function listContents(
 
         // create element to hold link, add css including level specific css class
         const linkLine = list.appendChild(document.createElement("P"));
-        linkLine.classList.add(`toc`, "toc-list", `toc-item-l${level}`);
+        linkLine.classList.add(`toc`, `toc-item-l${level}`);
 
         // create link to point to ID of header
         const link = linkLine.appendChild(document.createElement("A"));

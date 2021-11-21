@@ -100,29 +100,35 @@ p {
 .toc-title {
   font-family: var(--font-family-headings);
   font-size: var(--font-size-2); 
-}
-.toc-list {
-  font-size: var(--font-size-5); 
-  padding: 0rem;
   margin-bottom: 0;
 }
+.toc-list {
+  padding-bottom: 2rem;
+}
 .toc-item-l1{
+  font-size: var(--font-size-5); 
   text-indent: 0rem;
+  margin-bottom: 0;
 }
 .toc-item-l2{
+  font-size: var(--font-size-5); 
   text-indent: 0.8rem;  
+  margin-bottom: 0;
 }
 .toc-item-l3{
   text-indent: 1.6rem;
   font-size: var(--font-size-body); 
+  margin-bottom: 0;
 }
 .toc-item-l4{
   text-indent: 2.4rem;
   font-size: var(--font-size-6); 
+  margin-bottom: 0;
 }
 .toc-item-l5{
   text-indent: 3.2rem;
   font-size: var(--font-size-6); 
+  margin-bottom: 0;
 }
 .text-white a {
   font-weight: bolder;
