@@ -46,7 +46,6 @@ class ButtonChoiceBlock(wagtail_blocks.ChoiceBlock):
 class HeadingSizeChoiceBlock(wagtail_blocks.ChoiceBlock):
     choices=[
         ('p', _("Standard body text")),
-        ('h1', 'H1'),
         ('h2', 'H2'),
         ('h3', 'H3'),
         ('h4', 'H4'),
@@ -119,8 +118,7 @@ class Link_Value(wagtail_blocks.StructValue):
         elif url_link:
             if url_link.startswith('/'): # presumes internal link starts with '/' and no lang code
                 url = '/' + Locale.get_active().language_code + url_link
-            else: # external link, do not translate but add new tab instruction
-                #@TODO: target blank doesn't work on buttons, look for a workaround
+            else:
                 url = url_link 
             return url
         else:
