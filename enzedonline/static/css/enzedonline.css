@@ -42,7 +42,7 @@
 body {
   margin: 0;
   font-family: var(--font-family-body);
-  font-size: 0.9375rem;
+  font-size: var(--font-size-body);
   font-weight: 400;
   line-height: 1.5;
   text-align: justify;
@@ -92,6 +92,10 @@ h6 {
 p {
   font-size: var(--font-size-body);
   font-family: var(--font-family-body);
+}
+.a, 
+a {
+  color: inherit;
 }
 .toc {
   font-family: var(--font-family-headings);
