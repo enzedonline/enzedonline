@@ -1,7 +1,6 @@
 {% load static adv_cache seo_metadata_tags core_tags %}
 test
 {% get_cache_key_settings as cache_settings %}
-{% cache None cache_settings.slug "head" 0 %}
 
   <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-708W2MWJN7"></script>
@@ -67,4 +66,3 @@ test
     <link rel="stylesheet" href="{% static 'css/enzedonline.css' %}" media="print" onload="this.media='all'">
   {% endblock %}
 
-{% endcache %}
