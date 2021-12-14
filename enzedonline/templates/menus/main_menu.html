@@ -49,7 +49,7 @@
         {% endif %}
 
         {# Search Menu #}
-        <div class="collapse navbar-collapse dual-collapse3 d-none d-md-block order-3 pe-2 pe-md-0 ms-auto me-0 flex-grow-1 flex-md-grow-0" id="search-desktop">
+        <div class="collapse navbar-collapse dual-collapse3 d-none d-md-block order-3 pe-2 pe-md-0 ms-auto me-0 flex-grow-1 flex-md-grow-0 enzed-menu-collapse" id="desktop-search" aria-label="Search on desktop">
             <ul class="navbar-nav ms-auto me-0 ps-3 ps-md-0">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" title="Search" id="navbardrop" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
@@ -70,7 +70,7 @@
                 </li>
             </ul>
         </div>
-        <div class="collapse navbar-collapse dual-collapse2 order-5 order-md-0 pt-2 p-md-0 m-md-0" id="search-mobile">
+        <div class="collapse navbar-collapse dual-collapse2 order-5 order-md-0 pt-2 p-md-0 m-md-0 enzed-menu-collapse" id="mobile-search" aria-label="Search on mobile">
             <ul class="navbar-nav ps-3 d-md-none">
                 <li class="nav-item">
                     <form action="{% url 'search' %}" method="get">
@@ -95,7 +95,7 @@
             {% if user_menu %}
                 {% get_menu_items user_menu request as user_menu_items %}
 
-                <div class="collapse navbar-collapse dual-collapse2 order-3 pe-md-0 ms-auto me-1 flex-grow-1 flex-md-grow-0" id="profile-menu">
+                <div class="collapse navbar-collapse dual-collapse2 order-3 pe-md-0 ms-auto me-1 flex-grow-1 flex-md-grow-0 enzed-menu-collapse" id="user-profile-menu" aria-label="User profile menu">
                     <ul class="navbar-nav ps-3 ps-md-0">
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle ps-md-1" title="{{ request.user.display_name }}" id="navbardrop" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
@@ -154,7 +154,7 @@
 
 
         {# Main menu - allow 2 levels of submenu #}
-        <div class="collapse navbar-collapse order-2 order-md-0 dual-collapse2" id="main-menu">
+        <div class="collapse navbar-collapse order-2 order-md-0 dual-collapse2 enzed-menu-collapse" id="navigation-items" aria-label="Navigation">
             <ul class="navbar-nav ms-auto align-items-md-center ps-3 ps-md-0">
                 {% get_menu 'main_menu' as main_menu %}
                 {% if main_menu %}
@@ -269,8 +269,8 @@
         {% endcomment %}
 
         {# Collapse button #}
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapseItems" 
-                aria-controls="navbarCollapseItems" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".enzed-menu-collapse" 
+                aria-controls=".enzed-menu-collapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
