@@ -13,8 +13,9 @@
         {% image brand.logo height-28 as logo_md %} 
         {% image brand.logo height-25 as logo_sm %} 
         {% image brand.logo height-20 as logo_xs %} 
+        {% trans_page_from_slug 'en' as homepage %}
         <div class="ps-2">
-            <a class="navbar-brand" href="{{ current_site.root_url }}">
+            <a class="navbar-brand" href="{{ homepage.url }}">
                 <picture>
                 <source media="(min-width: 992px)" srcset="{{ logo_lg.url }}" />
                 <source media="(min-width: 600px)" srcset="{{ logo_md.url }}"  />
