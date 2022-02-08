@@ -583,8 +583,10 @@ a {
 code {
   font-family: var(--font-family-monospace);
   font-size: var(--font-size-body);
-  background-color: var(--bs-light);
+  color: darkslateblue;
+  background-color: lightgrey;
   padding: 2px 5px;
+  border-radius: 3px;
 }
 label {
   font-family: var(--font-family-headings);
