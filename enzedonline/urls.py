@@ -8,7 +8,7 @@ from django.urls import include, path
 from django.views import defaults as default_views
 from django.views.i18n import JavaScriptCatalog
 # from search import views as search_views
-from core.views import search, refresh_page_cache
+from core.views import refresh_page_cache
 from userauth.views import *
 from wagtail.admin import urls as wagtailadmin_urls
 from wagtail.contrib.sitemaps.views import sitemap
