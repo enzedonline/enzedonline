@@ -20,7 +20,6 @@ INSTALLED_APPS = [
     'wagtailmetadata',
     'wagtailfontawesome',
     'widget_tweaks',
-    'wagalytics',
     'django_comments_xtd',
     'django_comments',
     'django_extensions',
