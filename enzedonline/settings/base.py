@@ -17,7 +17,6 @@ INSTALLED_APPS = [
 
     'adv_cache_tag',
     'rest_framework',
-    'dbbackup',
     'wagtailmetadata',
     'wagtailfontawesome',
     'widget_tweaks',
@@ -32,7 +31,6 @@ INSTALLED_APPS = [
     'wagtail.contrib.redirects',
     'wagtail.contrib.routable_page',
     'wagtail.contrib.modeladmin',
-    'wagtail.contrib.postgres_search',
     'wagtail.contrib.settings',
     'wagtail.contrib.sitemaps',
     'wagtail.embeds',
@@ -206,7 +204,7 @@ WAGTAILEMBEDS_FINDERS = [
 
 WAGTAILSEARCH_BACKENDS = {
     'default': {
-        'BACKEND': 'wagtail.contrib.postgres_search.backend',
+        'BACKEND': 'wagtail.search.backends.database',
         'SEARCH_CONFIG': 'english',
     }
 }
