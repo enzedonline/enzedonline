@@ -1,17 +1,17 @@
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.template.response import TemplateResponse
 
-from wagtail.core.models import Page
+from wagtail.core.models import Page, Locale
 from wagtail.search.models import Query
 
 
-def search(request):
+def enzed_search(request):
     search_query = request.GET.get('query', None)
     page = request.GET.get('page', 1)
-
+    
     # Search
     if search_query:
-        search_results = Page.objects.live().search(search_query)
+        search_results = Page.objects.live().filter(locale=Locale.get_active()).search(search_query)
         query = Query.get(search_query)
 
         # Record hit
@@ -28,7 +28,7 @@ def search(request):
     except EmptyPage:
         search_results = paginator.page(paginator.num_pages)
 
-    return TemplateResponse(request, 'search/search.html', {
+    return TemplateResponse(request, 'search/search_results.html', {
         'search_query': search_query,
         'search_results': search_results,
     })

@@ -34,10 +34,12 @@
         <div class="grid" data-masonry='{ "itemSelector": ".grid-item", "columnWidth": ".grid-sizer",  "gutter": ".gutter-sizer",  "percentPosition": "true" }'>
             <div class="gutter-sizer"></div>
             <div class="grid-sizer"></div>
-            {% for post in search_results %}
+            {% for result in search_results %}
                 <div class="grid-item">
                     <div class="col mx-0 mb-3">
-                        {% include 'core/blog_card.html' %}
+                        {% with post=result.specific %}
+                            {% include 'core/blog_card.html' %}
+                        {% endwith %}
                     </div>
                 </div>
             {% endfor %}

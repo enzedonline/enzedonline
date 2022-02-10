@@ -1,4 +1,5 @@
 from core.views import RobotsView
+from search.views import enzed_search
 from django.conf import settings
 from django.conf.urls import url
 from django.conf.urls.i18n import i18n_patterns
@@ -52,7 +53,7 @@ urlpatterns = urlpatterns + i18n_patterns(
     url(r'^accounts/password/change/', CustomPasswordChangeView.as_view(), name="account_change_password"),
     url(r'^accounts/password/set/', CustomPasswordSetView.as_view(), name="account_set_password"),
     url(r'^accounts/profile/', profile_view, name='account_profile'),
-    path('search/', search, name='search'),
+    path('search/', enzed_search, name='search'),
     url(r'^403/$', default_views.permission_denied, kwargs={'exception': Exception("Permission Denied")}),
     url(r'^404/$', default_views.page_not_found, kwargs={'exception': Exception("Page not Found")}),
     url(r'^500/$', default_views.server_error),    # For anything not caught by a more specific rule above, hand over to
