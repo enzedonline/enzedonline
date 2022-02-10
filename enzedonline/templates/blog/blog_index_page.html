@@ -19,13 +19,11 @@
 
         {# Filter #}
 
-        <div class="container-fluid py-2 ps-3 ps-md-4 rounded bg-info border-primary border-1">
+        <div class="container-fluid py-2 ps-2 rounded bg-info border-primary border-1">
+            <a href=".#filter" class="btn btn-sm btn-close btn-close-white float-end" role="button" title="{{ trans.clear_filter }}"></a>
             <div class="row">
                 <div class="col-auto text-white order-0">
                     <span class="category-link active" id='filter'>{{ trans.filter }}</span>
-                </div>
-                <div class="col-auto text-light ms-auto me-3 justify-content-end px-0 order-2">
-                    <a href=".#filter" class="btn btn-sm btn-close btn-close-white m-n2" role="button" title="{{ trans.clear_filter }}"></a>
                 </div>
                 <div class="col-sm-auto text-light order-3 order-sm-1">
                     {% nocache %}
