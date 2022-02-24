@@ -14,7 +14,7 @@ from django_resized import ResizedImageField
 
 
 def rename_avatar(instance, filename):
-    upload_to = 'avatars'
+    upload_to = 'images/avatars'
     if instance.url:
         ext = filename.split('.')[-1]
         filename = '{}.{}'.format(instance.url, ext)
@@ -54,12 +54,12 @@ class CustomUser(AbstractUser):
         return ''.join((random.choice(string.ascii_uppercase + string.digits) for i in range(12)))
          
     def delete_avatar(self):
-        avatar = os.path.join(settings.BASE_DIR, 'media', 'avatars', self.url + '*.*') 
+        avatar = os.path.join(settings.BASE_DIR, 'media', 'images', 'avatars', self.url + '*.*') 
         for filename in glob.glob(avatar):
             os.remove(filename)
 
     def save(self, *args, **kwargs):
-        avatar = 'avatars/' + self.url + '.apng'
+        avatar = 'images/avatars/' + self.url + '.apng'
         if avatar != self.photo:
             self.delete_avatar()
         if not self.display_name:
