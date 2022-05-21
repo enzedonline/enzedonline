@@ -1,11 +1,10 @@
 from datetime import datetime
 
 from django import template
-# from django.utils.html import mark_safe
 from django.utils.safestring import mark_safe
 from site_settings.models import CompanyLogo, EmailSignature, TemplateText
 from wagtail.admin.templatetags.wagtailadmin_tags import render_with_errors
-from wagtail.core.models import Page
+from wagtail.models import Page
 
 register = template.Library()
 

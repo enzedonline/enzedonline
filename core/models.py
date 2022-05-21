@@ -1,9 +1,8 @@
 from django.conf import settings
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel
-from wagtail.core.models import Page
-from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.admin.panels import FieldPanel, MultiFieldPanel
+from wagtail.models import Page
 from wagtail.search import index
 from wagtailcaptcha.models import WagtailCaptchaEmailForm
 from wagtailmetadata.models import WagtailImageMetadataMixin
@@ -43,7 +42,7 @@ class SEOPageMixin(index.Indexed, WagtailImageMetadataMixin, models.Model):
             FieldPanel('slug'),
             FieldPanel('seo_title'),
             FieldPanel('search_description'),
-            ImageChooserPanel('search_image'),
+            FieldPanel('search_image'),
         ], _('Common page configuration')),
     ]
 

@@ -19,11 +19,9 @@ from modelcluster.fields import ParentalManyToManyField
 from modelcluster.models import ParentalKey
 from taggit.models import Tag, TaggedItemBase
 from userauth.models import CustomUser
-from wagtail.admin.edit_handlers import (FieldPanel, InlinePanel,
-                                         MultiFieldPanel, StreamFieldPanel)
-from wagtail.core.fields import StreamField
-from wagtail.core.models import TranslatableMixin
-from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
+from wagtail.fields import StreamField
+from wagtail.models import TranslatableMixin
 from wagtail.search import index
 from wagtail.snippets.models import register_snippet
 from core.utils import purge_blog_list_cache_fragments
@@ -93,11 +91,11 @@ class BlogDetailPage(SEOPage):
     parent_page_types = []
 
     body = StreamField(
-        GridStreamBlock(), verbose_name="Page body", blank=True
+        GridStreamBlock(), verbose_name="Page body", blank=True, use_json_field=True
     )
 
     content_panels = SEOPage.content_panels + [
-        StreamFieldPanel("body"),
+        FieldPanel("body"),
         InlinePanel('customcomments', label=_("Comments")),    
     ]
 
@@ -273,25 +271,27 @@ class BlogListingPage(SEOPage):
     top_section = StreamField(
         GridStreamBlock(), 
         verbose_name="Content to go above the index", 
-        blank=True
+        blank=True, 
+        use_json_field=True
     )
     bottom_section = StreamField(
         GridStreamBlock(), 
         verbose_name="Content to go below the index", 
-        blank=True
+        blank=True, 
+        use_json_field=True
     )
 
     content_panels = SEOPage.content_panels + [
         MultiFieldPanel(
             [
-                ImageChooserPanel('banner_image'),
+                FieldPanel('banner_image'),
                 FieldPanel('banner_headline'),
                 FieldPanel('banner_small_text'),
             ], 
             heading=_("Choose banner image and text/button overlay options.")
         ),
-        StreamFieldPanel("top_section"),
-        StreamFieldPanel("bottom_section"),
+        FieldPanel("top_section"),
+        FieldPanel("bottom_section"),
     ]
 
     class Meta:

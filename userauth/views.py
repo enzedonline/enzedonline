@@ -5,7 +5,7 @@ from django.urls import reverse_lazy
 from django.views.generic.edit import DeleteView, UpdateView
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
-from wagtail.core.models import Locale
+from wagtail.models import Locale
 
 from .forms import CustomUserUpdateForm
 from .models import CustomUser

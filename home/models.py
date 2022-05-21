@@ -1,13 +1,9 @@
 from core.blocks import GridStreamBlock
 from core.models import SEOPage
-# from django.core.cache import cache
-# from django.core.cache.utils import make_template_fragment_key
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from wagtail.admin.edit_handlers import (FieldPanel, MultiFieldPanel,
-                                         StreamFieldPanel)
-from wagtail.core.fields import StreamField
-from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.admin.panels import (FieldPanel, MultiFieldPanel)
+from wagtail.fields import StreamField
 from wagtail.search import index
 
 class HomePage(SEOPage):
@@ -40,19 +36,19 @@ class HomePage(SEOPage):
     )
 
     body = StreamField(
-        GridStreamBlock(), verbose_name="Page body", blank=True
+        GridStreamBlock(), verbose_name="Page body", blank=True, use_json_field=True
     )
 
     content_panels = SEOPage.content_panels + [
         MultiFieldPanel(
             [
-                ImageChooserPanel('banner_image'),
+                FieldPanel('banner_image'),
                 FieldPanel('banner_headline'),
                 FieldPanel('banner_small_text'),
             ], 
             heading=_("Choose banner image and text/button overlay options.")
         ),
-        StreamFieldPanel("body"),
+        FieldPanel("body"),
     ]
 
     search_fields = SEOPage.search_fields + [

@@ -3,13 +3,12 @@ from django.utils.datastructures import MultiValueDictKeyError
 from django.utils.translation import gettext_lazy as _
 from modelcluster.fields import ParentalKey
 from modelcluster.models import ClusterableModel
-from wagtail.admin.edit_handlers import (FieldPanel, HelpPanel, InlinePanel,
-                                         MultiFieldPanel, PageChooserPanel)
+from wagtail.admin.panels import (FieldPanel, HelpPanel, InlinePanel,
+                                         MultiFieldPanel)
 from wagtail.admin.forms import WagtailAdminPageForm
-from wagtail.core.models import Orderable, TranslatableMixin
-from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.models import Orderable, TranslatableMixin
 from wagtail.snippets.models import register_snippet
-from wagtail_localize.synctree import Locale, Page as LocalizePage
+from wagtail_localize.synctree import Page as LocalizePage
 
 from .edit_handlers import ReadOnlyPanel, RichHelpPanel, SubMenuFieldPanel
 from core.utils import purge_menu_cache_fragments
@@ -20,14 +19,6 @@ class MenuListQuerySet(object):
     def __call__(self, *args, **kwds):
         return Menu.objects.all()
         
-# class MenuFormMetaclass(WagtailAdminModelFormMetaclass):
-    # Leaving in commented for future reference - when you want to have a custom form class for your orderables
-    # use this to declare it. 
-    # Parent form class needs to be declared as class MenuForm(WagtailAdminPageForm, metaclass=MenuFormMetaclass)
-    # @classmethod
-    # def child_form(cls):
-    #     return MenuItemForm
-
 class MenuForm(WagtailAdminPageForm):
     """ MenuForm - provides validation for Menu & Menu Item orderables
         self.data['id'] comes from the read_only_edit_handler which injects a 
@@ -97,13 +88,13 @@ class MenuPanelsIterable(object):
         #                 also allows basic html (formatting, links etc)
 
         msg=_('Items in the menu will be arranged by <b>Menu Display Order</b> over the order in which they appear below.')
-        style="margin-top: -1.5em; margin-bottom: -1.5em;"
+        style="margin-top: -1.5em; margin-bottom: -1.0em;"
         panels = [
             MultiFieldPanel(
                 [
                     ReadOnlyPanel("id", heading="Menu ID", add_hidden_input=True),
                     FieldPanel("title"),
-                    ImageChooserPanel("icon"),
+                    FieldPanel("icon"),
                 ],
                 heading=_("Menu Heading"),
             ),
@@ -283,8 +274,8 @@ class LinkMenuItem(MenuItem):
 
     panels = [
         FieldPanel("title"),
-        ImageChooserPanel("icon"),
-        PageChooserPanel("link_page"),
+        FieldPanel("icon"),
+        FieldPanel("link_page"),
         FieldPanel("link_url"),
         FieldPanel("show_when"),
         FieldPanel("menu_display_order"),
@@ -363,7 +354,7 @@ class AutofillMenuItem(MenuItem):
     )
     panels = [
         FieldPanel("description"),
-        PageChooserPanel("link_page"),
+        FieldPanel("link_page"),
         FieldPanel("include_linked_page"),
         FieldPanel("only_show_in_menus"),
         FieldPanel("max_items"),

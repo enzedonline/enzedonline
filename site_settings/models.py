@@ -5,12 +5,11 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from modelcluster.fields import ParentalKey
 from modelcluster.models import ClusterableModel
-from wagtail.admin.edit_handlers import (FieldPanel, FieldRowPanel,
+from wagtail.admin.panels import (FieldPanel, FieldRowPanel,
                                          InlinePanel, MultiFieldPanel)
 from wagtail.contrib.settings.models import BaseSetting, register_setting
-from wagtail.core.models import Orderable, TranslatableMixin
-from wagtail.core.models.i18n import Locale
-from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.models import Orderable, TranslatableMixin
+from wagtail.models.i18n import Locale
 from wagtail.snippets.models import register_snippet
 from wagtail_localize.fields import TranslatableField
 
@@ -106,7 +105,7 @@ class SocialMedia(TranslatableMixin, models.Model):
     panels = [
         FieldPanel('site_name'),
         FieldPanel('url'),
-        ImageChooserPanel('photo'),
+        FieldPanel('photo'),
     ]
 
     def __str__(self):
@@ -228,22 +227,22 @@ class EmailSignature(TranslatableMixin, models.Model):
         MultiFieldPanel([
             FieldPanel('address'),
             FieldPanel('map_link'),
-            ImageChooserPanel('map_icon'),
+            FieldPanel('map_icon'),
         ], heading=_("Address Settings")),
-        ImageChooserPanel('signature_image'),
+        FieldPanel('signature_image'),
         MultiFieldPanel([
             FieldRowPanel([
                 FieldPanel("contact_email_label", classname='col-6'),
                 FieldPanel("contact_email_address", classname='col-6'),
             ]),
-            ImageChooserPanel("email_icon"),
+            FieldPanel("email_icon"),
         ], heading=_("Contact Email Settings")),
         MultiFieldPanel([
             FieldRowPanel([
                 FieldPanel("contact_phone_label", classname='col-6'),
                 FieldPanel("contact_phone_number", classname='col-6'),
             ]),
-            ImageChooserPanel("phone_icon"),
+            FieldPanel("phone_icon"),
         ], heading=_("Contact Phone Settings")),
     ]
 
@@ -335,7 +334,7 @@ class TemplateTextSetItem(TranslatableMixin, Orderable):
     ]
 
     panels = [
-        RegexPanel('template_tag', '^[-\w]+$'),
+        RegexPanel(field_name='template_tag', pattern='^[-\w]+$'),
         FieldPanel('text'),
     ]
 
@@ -354,7 +353,7 @@ class CompanyLogo(TranslatableMixin, models.Model):
 
     panels = [
         FieldPanel("name", classname="full"),
-        ImageChooserPanel("logo"),
+        FieldPanel("logo"),
     ]
 
     def __str__(self):

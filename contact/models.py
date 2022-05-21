@@ -14,16 +14,12 @@ from django.template.loader import get_template
 from django.utils.translation import gettext_lazy as _
 from modelcluster.models import ParentalKey
 from site_settings.models import EmailSettings
-from wagtail.admin.edit_handlers import (FieldPanel, FieldRowPanel,
-                                         InlinePanel, MultiFieldPanel,
-                                         StreamFieldPanel)
+from wagtail.admin.panels import (FieldPanel, FieldRowPanel,
+                                         InlinePanel, MultiFieldPanel)
 from wagtail.contrib.forms.models import AbstractFormField
-from wagtail.core.blocks import StreamBlock
-from wagtail.core.fields import RichTextField, StreamField
-from wagtail.core.models import TranslatableMixin
-from wagtail.images.edit_handlers import ImageChooserPanel
-from wagtail.images.models import Image
-from wagtail.snippets.edit_handlers import SnippetChooserPanel
+from wagtail.blocks import StreamBlock
+from wagtail.fields import RichTextField, StreamField
+from wagtail.models import TranslatableMixin
 
 FORM_FIELD_CHOICES = (
     ('singleline', _('Single line text')),
@@ -66,7 +62,7 @@ class ContactPage(SEOWagtailCaptchaEmailForm):
     subpage_types = []
     max_count = 1
 
-    intro_text = StreamField(IntroStreamBlock())
+    intro_text = StreamField(IntroStreamBlock(), use_json_field=True)
     intro_image = models.ForeignKey(
         'wagtailimages.Image',
         blank=True,
@@ -177,8 +173,8 @@ class ContactPage(SEOWagtailCaptchaEmailForm):
     )
     
     content_panels = SEOPage.content_panels + [
-        StreamFieldPanel('intro_text'),
-        ImageChooserPanel('intro_image'),
+        FieldPanel('intro_text'),
+        FieldPanel('intro_image'),
         FieldPanel("privacy_notice"),
         InlinePanel("form_fields", label = "Form Fields"),
         FieldPanel("submit_button_text"),
@@ -193,12 +189,12 @@ class ContactPage(SEOWagtailCaptchaEmailForm):
         ], heading=_("Notification Email Settings")),
         MultiFieldPanel([
             FieldPanel("reply_to"),
-            ImageChooserPanel("receipt_email_banner"),
+            FieldPanel("receipt_email_banner"),
             FieldPanel("receipt_email_banner_link"),
             FieldPanel("receipt_email_subject"),
             FieldPanel("receipt_email_headline"),
             FieldPanel("receipt_email_content"),
-            SnippetChooserPanel('receipt_email_footer'),
+            FieldPanel('receipt_email_footer'),
         ], heading=_("Client Receipt Email Settings")),
     ]
 

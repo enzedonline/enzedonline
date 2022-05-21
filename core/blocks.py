@@ -1,10 +1,10 @@
 from django.core.exceptions import ValidationError
 from django.forms.utils import ErrorList
 from django.utils.translation import gettext_lazy as _
-from wagtail.core import blocks as wagtail_blocks
-from wagtail.core.blocks import (CharBlock, RawHTMLBlock, StreamBlock,
+from wagtail import blocks as wagtail_blocks
+from wagtail.blocks import (CharBlock, RawHTMLBlock, StreamBlock,
                                  StructBlock, TextBlock)
-from wagtail.core.blocks.field_block import IntegerBlock, URLBlock
+from wagtail.blocks.field_block import IntegerBlock, URLBlock
 from wagtail.documents.blocks import DocumentChooserBlock
 from wagtail.embeds.blocks import EmbedBlock
 from wagtail.images.blocks import ImageChooserBlock
@@ -210,7 +210,8 @@ class SimpleRichTextBlock(wagtail_blocks.StructBlock):
             'link',
             'hr',
 			'small',
-            'code',
+            'code', 
+            'document-link'
         ]
     )
 

@@ -1,9 +1,7 @@
 from django import template
-
 from core import tags
 
 register = template.Library()
-
 
 @register.simple_tag(takes_context=True)
 def meta_tags(context, model=None):
