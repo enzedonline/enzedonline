@@ -40,9 +40,9 @@ class SEOPageMixin(index.Indexed, WagtailImageMetadataMixin, models.Model):
     promote_panels = [
         MultiFieldPanel([
             FieldPanel('slug'),
+            FieldPanel('search_image'),
             FieldPanel('seo_title'),
             FieldPanel('search_description'),
-            FieldPanel('search_image'),
         ], _('Common page configuration')),
     ]
 
