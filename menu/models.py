@@ -1,17 +1,19 @@
+from core.utils import purge_menu_cache_fragments
 from django.db import models
 from django.utils.datastructures import MultiValueDictKeyError
 from django.utils.translation import gettext_lazy as _
 from modelcluster.fields import ParentalKey
 from modelcluster.models import ClusterableModel
-from wagtail.admin.panels import (FieldPanel, HelpPanel, InlinePanel,
-                                         MultiFieldPanel)
 from wagtail.admin.forms import WagtailAdminPageForm
+from wagtail.admin.panels import (FieldPanel, HelpPanel, InlinePanel,
+                                  MultiFieldPanel)
 from wagtail.models import Orderable, TranslatableMixin
 from wagtail.snippets.models import register_snippet
+from wagtail_localize.fields import SynchronizedField
 from wagtail_localize.synctree import Page as LocalizePage
 
 from .edit_handlers import ReadOnlyPanel, RichHelpPanel, SubMenuFieldPanel
-from core.utils import purge_menu_cache_fragments
+
 
 class MenuListQuerySet(object):
     # Call as class()() to act as a function call, passes all menus to SubMenuPanel dropdown
@@ -158,6 +160,10 @@ class Menu(TranslatableMixin, ClusterableModel):
     
     panels = MenuPanelsIterable()
 
+    override_translatable_fields = [
+        SynchronizedField("icon", overridable=False),
+    ]    
+
     def __str__(self):
         return self.title
 
@@ -282,6 +288,11 @@ class LinkMenuItem(MenuItem):
         FieldPanel("show_divider_after_this_item"),
     ]
 
+    override_translatable_fields = [
+        SynchronizedField("icon", overridable=False),
+        SynchronizedField("link_page", overridable=False),
+    ]    
+
     class Meta:
         unique_together = ('translation_key', 'locale')
 
@@ -363,6 +374,10 @@ class AutofillMenuItem(MenuItem):
         FieldPanel("menu_display_order"),
         FieldPanel("show_divider_after_this_item"),
     ]
+
+    override_translatable_fields = [
+        SynchronizedField("link_page", overridable=False),
+    ]    
 
     class Meta:
         unique_together = ('translation_key', 'locale')
