@@ -1,9 +1,9 @@
-from django.core.exceptions import ValidationError
 from django.forms.utils import ErrorList
 from django.utils.translation import gettext_lazy as _
 from wagtail import blocks as wagtail_blocks
 from wagtail.blocks import (CharBlock, RawHTMLBlock, StreamBlock,
                                  StructBlock, TextBlock)
+from wagtail.blocks.struct_block import StructBlockValidationError
 from wagtail.blocks.field_block import IntegerBlock, URLBlock
 from wagtail.documents.blocks import DocumentChooserBlock
 from wagtail.embeds.blocks import EmbedBlock
@@ -11,7 +11,7 @@ from wagtail.images.blocks import ImageChooserBlock
 from wagtail_localize.synctree import Locale
 
 import core.metadata
-
+from core.utils import isfloat
 
 class HiddenCharBlock(CharBlock):
     pass
@@ -185,7 +185,7 @@ class Link(wagtail_blocks.StructBlock):
             errors['url_link'] = ErrorList([_("Please select an internal page or an external link (but not both)")])
 
         if errors:
-            raise ValidationError(_("Please check the errors below and correct before saving"), params=errors)
+            raise StructBlockValidationError(block_errors=errors)
 
         return super().clean(value)
 
@@ -512,7 +512,7 @@ class ExternalLinkEmbedBlock(wagtail_blocks.StructBlock):
                 errors['external_link'] = ErrorList([_("No information for the URL was found, please check the URL and ensure the full URL is included and try again.")])
 
             if errors:
-                raise ValidationError(_("Please check the errors below and correct before saving"), params=errors)
+                raise StructBlockValidationError(block_errors=errors)
 
         return super().clean(value)
 
@@ -581,6 +581,70 @@ class CollapsableCardBlock(wagtail_blocks.StructBlock):
         icon="fa-stack-overflow"
         label = _("Collapsable Text Block")
 
+class MapWaypointBlock(wagtail_blocks.StructBlock):
+    gps_coord = TextBlock(
+        label=_('GPS Coordinates (Latitude, Longtitude)'),
+        help_text=_('Ensure latitude follwed by longitude separated by a comma (e.g. 42.597486, 1.429252).')
+        )
+    pin_label = TextBlock(
+        label=_('Map Pin Label (optional)'),
+        help_text=_('Text for map pin pop-up (if used).'),
+        required=False
+    )
+    show_pin = wagtail_blocks.BooleanBlock(
+        label=_('Show Pin on Map'),
+        default=True,
+        required=False
+    )
+    class Meta:
+        icon = 'plus-inverse'
+        label = _("Map Waypoint")
+        
+    def clean(self, value):
+        errors = {}
+        gps = value.get('gps_coord')
+
+        if gps.count(',') != 1:
+            errors['gps_coord'] = ErrorList([_("Please enter latitude followed by longitude, separated by a comma.")])
+            raise StructBlockValidationError(block_errors=errors)
+
+        lat = gps.split(',')[0].strip()
+        lng = gps.split(',')[1].strip()
+
+        if not(isfloat(lat) and isfloat(lng)):
+            errors['gps_coord'] = ErrorList([_("Please enter latitude and longitude in numeric format (e.g. 42.603552, 1.442655 not 42°36'12.8\"N 1°26'33.6\"E).")])
+            raise StructBlockValidationError(block_errors=errors)
+
+        if (float(lat) < -90 or float(lat) > 90 or float(lng) < -180 or float(lng) > 360):
+            errors['gps_coord'] = ErrorList([_("Please enter latitude between -90 and 90 and longitude between -180 and 360.")])
+            raise StructBlockValidationError(block_errors=errors)
+
+        return super().clean(value)        
+        
+class MapWayPointStreamBlock(StreamBlock):
+    waypoint = MapWaypointBlock()
+    
+ROUTE_OPTIONS = (
+    ('no-route', "None"),
+    ('walking', "Walking"),
+    ('cycling', "Cycling"),
+    ('driving', "Driving"),
+    ('driving-traffic', "Driving (with traffic conditions)")
+)
+        
+class MapBlock(StructBlock):
+    waypoints = MapWayPointStreamBlock(min_num=2, max_num=25)
+    route_type = wagtail_blocks.ChoiceBlock(choices=ROUTE_OPTIONS, default='walking')
+    padding_top = IntegerBlock(default=50, min_value=0)
+    padding_right = IntegerBlock(default=50, min_value=0)
+    padding_bottom = IntegerBlock(default=50, min_value=0)
+    padding_left = IntegerBlock(default=50, min_value=0)
+
+    class Meta:
+        template='blocks/map_block.html'
+        icon="site"
+        label = _("Interactive Map")
+        
 CODE_CHOICES  = (
     ('python', 'Python'),
     ('css', 'CSS'),
@@ -790,6 +854,7 @@ class BaseStreamBlock(StreamBlock):
     external_link_embed = ExternalLinkEmbedBlock()
     inline_video_block = InlineVideoBlock()
     image_carousel = ImageCarouselBlock()
+    map_block = MapBlock()
     code_block = BlogCodeBlock()
     document_block = DocumentBlock()
     document_list_block = DocumentListBlock()

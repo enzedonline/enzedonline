@@ -59,3 +59,10 @@ def paginator_range(requested_page, last_page_num, wing_size=5):
     if end_page == last_page_num - 1:
         end_page = last_page_num
     return range(start_page, end_page + 1)
+
+def isfloat(element: str) -> bool:
+    try:
+        float(element)
+        return True
+    except ValueError:
+        return False

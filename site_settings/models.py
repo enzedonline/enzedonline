@@ -78,6 +78,15 @@ class Facebook_Script_Src(BaseSetting):
     class Meta:
         verbose_name = 'Facebook Javascript SDK'
 
+@register_setting(icon='password')
+class MapBoxToken(BaseSetting):
+    key = models.CharField(
+        max_length=100,
+        null=True,
+        blank=False,
+        verbose_name=_("Mapbox Access Token")
+    )
+
 @register_snippet
 class SocialMedia(TranslatableMixin, models.Model):
 
