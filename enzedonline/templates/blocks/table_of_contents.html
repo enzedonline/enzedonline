@@ -3,9 +3,10 @@
   <div id="autoToC"></div>
 {% endnocache %}
 
+{{ "autoToC"|json_script:"tocElement" }}
+{{ "main"|json_script:"scopeElement" }}
+{{ value.levels |json_script:"levels" }}
+{{ value.toc_title |json_script:"tocTitle" }} 
+
 <script src="{% static 'js/toc.js'%}"></script>
-<script>
-  document.addEventListener("DOMContentLoaded", (event) => {
-    listContents("autoToC", "main", {{ value.levels }}, "{{ value.toc_title }}");
-  });
-</script>
+
