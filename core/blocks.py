@@ -584,7 +584,7 @@ class CollapsableCardBlock(wagtail_blocks.StructBlock):
 class MapWaypointBlock(wagtail_blocks.StructBlock):
     gps_coord = TextBlock(
         label=_('GPS Coordinates (Latitude, Longtitude)'),
-        help_text=_('Ensure latitude follwed by longitude separated by a comma (e.g. 42.597486, 1.429252).')
+        help_text=_('Ensure latitude followed by longitude separated by a comma (e.g. 42.597486, 1.429252).')
         )
     pin_label = TextBlock(
         label=_('Map Pin Label (optional)'),
@@ -633,7 +633,7 @@ ROUTE_OPTIONS = (
 )
         
 class MapBlock(StructBlock):
-    waypoints = MapWayPointStreamBlock(min_num=2, max_num=25)
+    waypoints = MapWayPointStreamBlock(min_num=2, max_num=25, label=_("Add Waypoints (minimum 2, maximum 25)"))
     route_type = wagtail_blocks.ChoiceBlock(choices=ROUTE_OPTIONS, default='walking')
     show_route_info = wagtail_blocks.BooleanBlock(
         label=_('Show Route Distance and Duration on Map'),
