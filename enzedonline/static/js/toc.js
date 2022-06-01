@@ -12,7 +12,6 @@ function listContents(
   // Optional: tocTitle - string to display as ToC title, defaults to no title (false)
 
   let toc, scope
-  alert('here')
   // find target DIV element to write ToC to, only accept DIV as valid element type
   toc = document.getElementById(tocElement);
   if (toc){
@@ -110,6 +109,5 @@ $(document).ready(function() {
   const scopeElement = JSON.parse(document.getElementById("scopeElement").textContent);
   const levels = JSON.parse(document.getElementById("levels").textContent);
   const tocTitle = JSON.parse(document.getElementById("tocTitle").textContent);
-  alert('loaded')
   listContents(tocElement, scopeElement, levels, tocTitle);
 });
