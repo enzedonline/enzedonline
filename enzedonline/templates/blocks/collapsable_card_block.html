@@ -1,4 +1,4 @@
-{% load wagtailcore_tags collapsable_card_tags %} 
+{% load static wagtailcore_tags collapsable_card_tags %} 
 {% button_colour value.header_colour as banner %}
 
 <div class="block-container">
@@ -20,8 +20,4 @@
   </div>
 </div>
 
-<script>
-    $(".accordion-button").mouseup(function(){
-        $(this).blur();
-    })
-</script>
+<script src="{% static 'js/collapsable_card.js'%}"></script>
