@@ -48,32 +48,9 @@
   {% get_template_set 'common' as common_trans %}
 
   {# Login Form JS #}
-  <script>
-    $(document).ready(function () {
-      $("#id_login_first_link").click(function (event) {
-        event.preventDefault();
-        $("#id_login_form").show();
-      });
-
-      $("#id_submit_login_form").click(function (event) {
-        event.preventDefault();
-
-        $.ajax({
-          type: "POST",
-          url: "{% url 'account_login' %}",
-          data: $("#id_login_form").serialize(),
-          success: function (response, status) {
-            $("#id_login_form").hide();
-            $("#id_login_first_link").hide();
-            location.reload();
-          },
-          error: function (xhr, status, error) {
-            $("#id_login_form").submit();
-          },
-        });
-      });
-    });
-  </script>
+  {% url 'account_login' as login_url %}
+  {{ login_url |json_script:"login_url" }} 
+  <script src="{% static 'js/comment_login.js'%}"></script>
 
   {% cache None page.slug "body" self.latest_revision_created_at %}
 
@@ -156,10 +133,7 @@
         {# Show Comment if Signed In, Show Login Invite If Not #}
         {% if not request.user.is_authenticated %}
           <div id="id_comment_invite" class="mt-3">
-              <a href="#" id="id_login_first_link">
-                {{ trans.sign_in }}
-              </a>
-              {{ trans.to_comment }}
+              <a href="#" id="id_login_first_link">{{ trans.sign_in }}</a> {{ trans.to_comment }}
           </div>
         {% else %}
           <div class="mt-3">
