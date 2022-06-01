@@ -1,28 +1,20 @@
 {% load static map_block_tags core_tags %}
 {% get_template_set 'maps' as trans %}
 
-<script src="https://api.tiles.mapbox.com/mapbox-gl-js/v2.8.1/mapbox-gl.js"></script>
 <link
   href="https://api.tiles.mapbox.com/mapbox-gl-js/v2.8.1/mapbox-gl.css"
   rel="stylesheet"
 />
+<script src="https://api.tiles.mapbox.com/mapbox-gl-js/v2.8.1/mapbox-gl.js"></script>
 
-<style>
-  .map-block {
-    position: relative;
-    top: 0px;
-    right: 0px;
-    height: 70vh;
-    width: 100%;
-  }
-</style>
-
-<div>
+<div class="block-container vh-70">
   <div id="map-{{ block.id }}" class="map-block"></div>
-  <div id="route-{{ block.id }}" style="display:none;">
-    {{ trans.route_length }}: <span id="distance-{{ block.id }}"></span>{{ trans.km }}, 
-    {{ trans.approximate_time }} <span id="hours-{{ block.id }}"></span> {{ trans.hours }}.
-  </div>
+  {% if block.value.show_route_info and self.route_type != 'no-route' %}
+    <div id="route-{{ block.id }}" style="display:none;">
+      {{ trans.route_length }}: <span id="distance-{{ block.id }}"></span>{{ trans.km }}, 
+      {{ trans.approximate_time }} <span id="hours-{{ block.id }}"></span> {{ trans.hours }}.
+    </div>
+  {% endif %}
 </div>
 
 {% get_waypoints self.waypoints as waypoint_list %} 
@@ -30,8 +22,10 @@
 {% get_mapbox_token as token %} 
 {{ waypoint_list|json_script:"waypoint_list" }} 
 {{ self.route_type|json_script:"method" }} 
+{{ self.show_route_info|json_script:"show_route_info" }} 
 {{ block.id|json_script:"uid" }} 
 {{ padding|json_script:"padding" }} 
 {{ token|json_script:"token" }}
 
 <script src="{% static 'js/map_block.js' %}"></script>
+

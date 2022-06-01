@@ -639,6 +639,11 @@ class MapBlock(StructBlock):
     padding_right = IntegerBlock(default=50, min_value=0)
     padding_bottom = IntegerBlock(default=50, min_value=0)
     padding_left = IntegerBlock(default=50, min_value=0)
+    show_route_info = wagtail_blocks.BooleanBlock(
+        label=_('Show Route Distance and Duration on Map'),
+        default=True,
+        required=False
+    )
 
     class Meta:
         template='blocks/map_block.html'
