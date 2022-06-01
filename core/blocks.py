@@ -567,11 +567,11 @@ class CollapsableCardStreamBlock(StreamBlock):
 
 class CollapsableCardBlock(wagtail_blocks.StructBlock):
     header_colour  = ColourThemeChoiceBlock(
-        default='text-white bg-dark',
+        default='bg-dark',
         label=_("Card Header Background Colour")
     )    
     body_colour  = ColourThemeChoiceBlock(
-        default='text-black bg-light',
+        default='bg-light',
         label=_("Card Body Background Colour")
     )
     cards = CollapsableCardStreamBlock(min_num=2)
