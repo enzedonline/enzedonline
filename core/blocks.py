@@ -1,10 +1,11 @@
 from django.forms.utils import ErrorList
 from django.utils.translation import gettext_lazy as _
-from wagtail import blocks as wagtail_blocks
-from wagtail.blocks import (CharBlock, RawHTMLBlock, StreamBlock,
-                                 StructBlock, TextBlock)
-from wagtail.blocks.struct_block import StructBlockValidationError
+from wagtail.blocks import (BooleanBlock, CharBlock, ChoiceBlock,
+                            PageChooserBlock, RawHTMLBlock, RichTextBlock,
+                            StaticBlock, StreamBlock, StructBlock, StructValue,
+                            TextBlock)
 from wagtail.blocks.field_block import IntegerBlock, URLBlock
+from wagtail.blocks.struct_block import StructBlockValidationError
 from wagtail.documents.blocks import DocumentChooserBlock
 from wagtail.embeds.blocks import EmbedBlock
 from wagtail.images.blocks import ImageChooserBlock
@@ -13,10 +14,11 @@ from wagtail_localize.synctree import Locale
 import core.metadata
 from core.utils import isfloat
 
+
 class HiddenCharBlock(CharBlock):
     pass
 
-class ColourThemeChoiceBlock(wagtail_blocks.ChoiceBlock):
+class ColourThemeChoiceBlock(ChoiceBlock):
     choices=[
         ('bg-transparent', _("Transparent")),
         ('bg-primary', _("Primary")),
@@ -30,7 +32,7 @@ class ColourThemeChoiceBlock(wagtail_blocks.ChoiceBlock):
         ('bg-black', _("Black")),
     ]
 
-class ButtonChoiceBlock(wagtail_blocks.ChoiceBlock):
+class ButtonChoiceBlock(ChoiceBlock):
     choices=[
         ('btn-primary', _("Standard Button")),
         ('btn-secondary', _("Secondary Button")),
@@ -43,7 +45,7 @@ class ButtonChoiceBlock(wagtail_blocks.ChoiceBlock):
         ('btn-dark', _("Dark Button")),
     ]
 
-class HeadingSizeChoiceBlock(wagtail_blocks.ChoiceBlock):
+class HeadingSizeChoiceBlock(ChoiceBlock):
     choices=[
         ('p', _("Standard body text")),
         ('h2', 'H2'),
@@ -53,7 +55,7 @@ class HeadingSizeChoiceBlock(wagtail_blocks.ChoiceBlock):
         ('h6', 'H6'),
     ]
 
-class ImageFormatChoiceBlock(wagtail_blocks.ChoiceBlock):
+class ImageFormatChoiceBlock(ChoiceBlock):
     choices=[
         ('4-1', _("4:1 Horizontal Letterbox Banner")),
         ('3-1', _("3:1 Horizontal Panorama Banner")),
@@ -107,7 +109,7 @@ class BlockQuote(StructBlock):
         template = "blocks/blockquote.html"
         label = _("Quote Block")
 
-class Link_Value(wagtail_blocks.StructValue):
+class Link_Value(StructValue):
     """ Additional logic for the Link class """
 
     def url(self) -> str:
@@ -124,22 +126,22 @@ class Link_Value(wagtail_blocks.StructValue):
         else:
             return None
 
-class Link(wagtail_blocks.StructBlock):
-    button_text = wagtail_blocks.CharBlock(
+class Link(StructBlock):
+    button_text = CharBlock(
         max_length=50,
         null=False,
         blank=False,
         label=_("Button Text")
     )
-    internal_page = wagtail_blocks.PageChooserBlock(
+    internal_page = PageChooserBlock(
         required=False,
         label=_("Link to internal page")
     )
-    url_link = wagtail_blocks.CharBlock(
+    url_link = CharBlock(
         required=False,
         label=_("Link to external site or internal URL")
     )
-    open_in_new_tab = wagtail_blocks.BooleanBlock(
+    open_in_new_tab = BooleanBlock(
         required=False,
         default=False,
         label=_("Open in New Tab"),
@@ -150,7 +152,7 @@ class Link(wagtail_blocks.StructBlock):
         default='btn-primary',
         label=_("Button Appearance")
     )
-    placement = wagtail_blocks.ChoiceBlock(
+    placement = ChoiceBlock(
         max_length=15,
         default='end',
         choices=[
@@ -160,7 +162,7 @@ class Link(wagtail_blocks.StructBlock):
         ],
         label=_("Button Placement")
     )
-    size = wagtail_blocks.ChoiceBlock(
+    size = ChoiceBlock(
         max_length=10,
         default=' ',
         choices=[
@@ -189,8 +191,8 @@ class Link(wagtail_blocks.StructBlock):
 
         return super().clean(value)
 
-class SimpleRichTextBlock(wagtail_blocks.StructBlock):
-    alignment = wagtail_blocks.ChoiceBlock(
+class SimpleRichTextBlock(StructBlock):
+    alignment = ChoiceBlock(
         choices = [
             ('justify', _('Justified')), 
             ('start', _('Left')), 
@@ -199,7 +201,7 @@ class SimpleRichTextBlock(wagtail_blocks.StructBlock):
         ],
         default='justify'
     )
-    content = wagtail_blocks.RichTextBlock(
+    content = RichTextBlock(
         features= [
             'h2', 'h3', 'h4', 'h5', 'h6',
             'bold',
@@ -220,9 +222,9 @@ class SimpleRichTextBlock(wagtail_blocks.StructBlock):
         label = _("Formatted Text Block")
         icon = 'fa-text-height'
 
-class FlexCard(wagtail_blocks.StructBlock):
+class FlexCard(StructBlock):
     
-    format = wagtail_blocks.ChoiceBlock(
+    format = ChoiceBlock(
         max_length=15,
         default='vertical',
         choices=[
@@ -238,13 +240,13 @@ class FlexCard(wagtail_blocks.StructBlock):
         default='bg-transparent',
         label=_("Card Background Colour")
     )
-    border = wagtail_blocks.BooleanBlock(
+    border = BooleanBlock(
         default=True,
         required=False,
         label=_("Border"),
         help_text=_("Draw a border around the card?")
     )
-    full_height = wagtail_blocks.BooleanBlock(
+    full_height = BooleanBlock(
         default=True,
         required=False,
         label=_("Full Height"),
@@ -275,18 +277,18 @@ class CallToActionCard(FlexCard):
         label = _("Call-To-Action Card (Image/Text/Button)")
         icon = 'fa-address-card'
 
-class SimpleCard(wagtail_blocks.StructBlock):
+class SimpleCard(StructBlock):
     background = ColourThemeChoiceBlock(
         default='bg-transparent',
         label=_("Card Background Colour")
     )    
-    border = wagtail_blocks.BooleanBlock(
+    border = BooleanBlock(
         default=True,
         required=False,
         label=_("Border"),
         help_text=_("Draw a border around the card?")
     )
-    full_height = wagtail_blocks.BooleanBlock(
+    full_height = BooleanBlock(
         default=True,
         required=False,
         label=_("Full Height"),
@@ -305,8 +307,8 @@ class SimpleCard(wagtail_blocks.StructBlock):
 class SimpleCardStreamBlock(StreamBlock):
     simple_card = SimpleCard()
 
-class SimpleCardGridBlock(wagtail_blocks.StructBlock):
-    columns = wagtail_blocks.ChoiceBlock(
+class SimpleCardGridBlock(StructBlock):
+    columns = ChoiceBlock(
         max_length=40,
         default='row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4',
         choices=[
@@ -323,13 +325,13 @@ class SimpleCardGridBlock(wagtail_blocks.StructBlock):
         icon = 'fa-th'
         label = _("Flexible Grid of Simple Cards")
 
-class SimpleImageCard(wagtail_blocks.StructBlock):
+class SimpleImageCard(StructBlock):
     
     background = ColourThemeChoiceBlock(
         default='bg-transparent',
         label=_("Card Background Colour")
     )
-    border = wagtail_blocks.BooleanBlock(
+    border = BooleanBlock(
         default=True,
         required=False,
         label=_("Border"),
@@ -352,8 +354,8 @@ class SimpleImageCard(wagtail_blocks.StructBlock):
 class SimpleImageCardStreamBlock(StreamBlock):
     simple_image_card = SimpleImageCard()
 
-class SimpleImageCardGridBlock(wagtail_blocks.StructBlock):
-    alignment = wagtail_blocks.ChoiceBlock(
+class SimpleImageCardGridBlock(StructBlock):
+    alignment = ChoiceBlock(
         choices = [
             ('align-items-top', _('Top')), 
             ('align-items-center', _('Middle')), 
@@ -370,7 +372,7 @@ class SimpleImageCardGridBlock(wagtail_blocks.StructBlock):
         icon = 'fab fa-stack-overflow'
         label = _("Flexible Grid of Simple Image Cards")
 
-class InlineVideoBlock(wagtail_blocks.StructBlock):
+class InlineVideoBlock(StructBlock):
     video = EmbedBlock(
         label=_("Video URL"),
         help_text = _("eg 'https://www.youtube.com/watch?v=kqN1HUMr22I'")
@@ -386,7 +388,7 @@ class InlineVideoBlock(wagtail_blocks.StructBlock):
         template = 'blocks/inline_video_block.html'
         label = _("Embed external video")    
 
-class SocialMediaEmbedBlock(wagtail_blocks.StructBlock):
+class SocialMediaEmbedBlock(StructBlock):
     embed_code = RawHTMLBlock(
         label=_("Paste Embed code block from Provider"),
         help_text=_("Paste in only embed code. For Facebook, only Step 2 on the JavaScript SDK tab")
@@ -396,7 +398,7 @@ class SocialMediaEmbedBlock(wagtail_blocks.StructBlock):
         icon = 'fa-share-alt-square'
         label = _("Embed Social Media Post")
 
-class HtmlBlock(wagtail_blocks.StructBlock):
+class HtmlBlock(StructBlock):
     code = RawHTMLBlock(
         label=_("Enter HTML Code")
     )
@@ -405,7 +407,7 @@ class HtmlBlock(wagtail_blocks.StructBlock):
         icon = 'fa-file-code'
         label = _("Embed HTML Code")
 
-class ExternalLinkEmbedBlock(wagtail_blocks.StructBlock):
+class ExternalLinkEmbedBlock(StructBlock):
     external_link = URLBlock(
         label=_("URL to External Article"),
         help_text=_("For articles in external websites without embed share option"),
@@ -427,7 +429,7 @@ class ExternalLinkEmbedBlock(wagtail_blocks.StructBlock):
         blank=True,
         help_text=_("Leave blank to autofill from website. Delete text to refresh from website.")
     )
-    format = wagtail_blocks.ChoiceBlock(
+    format = ChoiceBlock(
         max_length=15,
         default='vertical',
         choices=[
@@ -443,19 +445,19 @@ class ExternalLinkEmbedBlock(wagtail_blocks.StructBlock):
         default='bg-transparent',
         label=_("Card Background Colour")
     )
-    border = wagtail_blocks.BooleanBlock(
+    border = BooleanBlock(
         default=True,
         required=False,
         label=_("Border"),
         help_text=_("Draw a border around the card?")
     )
-    full_height = wagtail_blocks.BooleanBlock(
+    full_height = BooleanBlock(
         default=True,
         required=False,
         label=_("Full Height"),
         help_text=_("Card uses all available height")
     )
-    button_text = wagtail_blocks.CharBlock(
+    button_text = CharBlock(
         label=_("Text for link to article"),
         default=_("Read Full Article")
     )
@@ -464,7 +466,7 @@ class ExternalLinkEmbedBlock(wagtail_blocks.StructBlock):
         default='btn-primary',
         label=_("Button Appearance")
     )
-    button_placement = wagtail_blocks.ChoiceBlock(
+    button_placement = ChoiceBlock(
         max_length=15,
         default='right',
         choices=[
@@ -474,7 +476,7 @@ class ExternalLinkEmbedBlock(wagtail_blocks.StructBlock):
         ],
         label=_("Button Placement")
     )
-    button_size = wagtail_blocks.ChoiceBlock(
+    button_size = ChoiceBlock(
         max_length=10,
         default=' ',
         choices=[
@@ -516,11 +518,11 @@ class ExternalLinkEmbedBlock(wagtail_blocks.StructBlock):
 
         return super().clean(value)
 
-class CarouselImageBlock(wagtail_blocks.StructBlock):
+class CarouselImageBlock(StructBlock):
     image = SEOImageChooseBlock(label=_("Select Image & Enter Details"))
-    title = wagtail_blocks.CharBlock(label=_("Optional Image Title"), required=False)
-    caption = wagtail_blocks.TextBlock(label=_("Optional Image Caption"), required=False)
-    link = wagtail_blocks.PageChooserBlock(
+    title = CharBlock(label=_("Optional Image Title"), required=False)
+    caption = TextBlock(label=_("Optional Image Caption"), required=False)
+    link = PageChooserBlock(
         required=False,
         label=_("Optional Link to Internal Page")
     )
@@ -531,16 +533,16 @@ class CarouselImageBlock(wagtail_blocks.StructBlock):
 class CarouselImageStreamBlock(StreamBlock):
     carousel_image = CarouselImageBlock()
 
-class ImageCarouselBlock(wagtail_blocks.StructBlock):
+class ImageCarouselBlock(StructBlock):
     format = ImageFormatChoiceBlock(
         default='4-3',
         label=_("Select image aspect ratio"),
     )
-    heading = wagtail_blocks.CharBlock(
+    heading = CharBlock(
         label=_("Carousel Title"), 
         required=False,
     )
-    show_scroll_buttons = wagtail_blocks.BooleanBlock(
+    show_scroll_buttons = BooleanBlock(
         default=True,
         required=False,
         label=_("Show Scroll Buttons"),
@@ -553,8 +555,8 @@ class ImageCarouselBlock(wagtail_blocks.StructBlock):
         icon="fa-clone"
         label = _("Image Carousel")
 
-class CollapsableCard(wagtail_blocks.StructBlock):
-    header = wagtail_blocks.CharBlock(
+class CollapsableCard(StructBlock):
+    header = CharBlock(
         label=_("Card Banner Title")
     )
     text = SimpleRichTextBlock(
@@ -565,7 +567,7 @@ class CollapsableCard(wagtail_blocks.StructBlock):
 class CollapsableCardStreamBlock(StreamBlock):
     collapsable_card = CollapsableCard()
 
-class CollapsableCardBlock(wagtail_blocks.StructBlock):
+class CollapsableCardBlock(StructBlock):
     header_colour  = ColourThemeChoiceBlock(
         default='bg-dark',
         label=_("Card Header Background Colour")
@@ -581,7 +583,7 @@ class CollapsableCardBlock(wagtail_blocks.StructBlock):
         icon="fa-stack-overflow"
         label = _("Collapsable Text Block")
 
-class MapWaypointBlock(wagtail_blocks.StructBlock):
+class MapWaypointBlock(StructBlock):
     gps_coord = TextBlock(
         label=_('GPS Coordinates (Latitude, Longtitude)'),
         help_text=_('Ensure latitude followed by longitude separated by a comma (e.g. 42.597486, 1.429252).')
@@ -591,7 +593,7 @@ class MapWaypointBlock(wagtail_blocks.StructBlock):
         help_text=_('Text for map pin pop-up (if used).'),
         required=False
     )
-    show_pin = wagtail_blocks.BooleanBlock(
+    show_pin = BooleanBlock(
         label=_('Show Pin on Map'),
         default=True,
         required=False
@@ -634,8 +636,8 @@ ROUTE_OPTIONS = (
         
 class MapBlock(StructBlock):
     waypoints = MapWayPointStreamBlock(min_num=2, max_num=25, label=_("Add Waypoints (minimum 2, maximum 25)"))
-    route_type = wagtail_blocks.ChoiceBlock(choices=ROUTE_OPTIONS, default='walking')
-    show_route_info = wagtail_blocks.BooleanBlock(
+    route_type = ChoiceBlock(choices=ROUTE_OPTIONS, default='walking')
+    show_route_info = BooleanBlock(
         label=_('Show Route Distance and Duration on Map'),
         default=True,
         required=False
@@ -669,9 +671,9 @@ CODE_CHOICES  = (
     ('bash', 'Bash/Shell'),
 )
 
-class BlogCodeBlock(wagtail_blocks.StructBlock):
-    language = wagtail_blocks.ChoiceBlock(choices=CODE_CHOICES, default='python')
-    code = wagtail_blocks.TextBlock()
+class BlogCodeBlock(StructBlock):
+    language = ChoiceBlock(choices=CODE_CHOICES, default='python')
+    code = TextBlock()
 
     translatable_fields = []
 
@@ -680,11 +682,11 @@ class BlogCodeBlock(wagtail_blocks.StructBlock):
         icon = "fa-code"
         label = _("Code Block")
 
-class DocumentBlock(wagtail_blocks.StructBlock):
+class DocumentBlock(StructBlock):
     document = DocumentChooserBlock(
         label=_("Document")
     )
-    link_label = wagtail_blocks.CharBlock(
+    link_label = CharBlock(
         label = _("Link Label"),
         help_text = _("The text to appear on the link")
     )
@@ -692,7 +694,7 @@ class DocumentBlock(wagtail_blocks.StructBlock):
         label = _("Text Size"),
         default = 'p'
     )
-    icon = wagtail_blocks.CharBlock(
+    icon = CharBlock(
         label = _("Link Icon"),
         help_text = _("Optional FontAwesome icon to appear left of the link (eg fas fa-file)"),
         required = False,
@@ -702,19 +704,19 @@ class DocumentBlock(wagtail_blocks.StructBlock):
         default='btn-link',
         label=_("Link Appearance")
     )
-    outline = wagtail_blocks.BooleanBlock(
+    outline = BooleanBlock(
         label = _("Outline button"),
         help_text = _("Blank for solid fill, checked for outline only"),
         default = False,
         required = False
     )
-    full_width = wagtail_blocks.BooleanBlock(
+    full_width = BooleanBlock(
         label = _("Full width button"),
         help_text = _("Link button fills available width"),
         default = False,
         required = False
     )
-    alignment = wagtail_blocks.ChoiceBlock(
+    alignment = ChoiceBlock(
         choices = [
             ('start', 'Left'), 
             ('center', 'Centre'), 
@@ -730,8 +732,8 @@ class DocumentBlock(wagtail_blocks.StructBlock):
         icon = "fa-file"
         label = _("Document Block")
 
-class DocumentListBlock(wagtail_blocks.StructBlock):
-    tag_list = wagtail_blocks.CharBlock(
+class DocumentListBlock(StructBlock):
+    tag_list = CharBlock(
         label = _("Tag List"),
         help_text = _("Comma seperated list of tags to filter by. Leave blank to list all documents."),
         required = False,
@@ -740,7 +742,7 @@ class DocumentListBlock(wagtail_blocks.StructBlock):
         label = _("Text Size"),
         default = 'p'
     )
-    icon = wagtail_blocks.CharBlock(
+    icon = CharBlock(
         label = _("Link Icon"),
         help_text = _("Optional FontAwesome icon to appear left of the link (eg fas fa-file)"),
         required = False,
@@ -750,19 +752,19 @@ class DocumentListBlock(wagtail_blocks.StructBlock):
         default='btn-link',
         label=_("Link Appearance")
     )
-    outline = wagtail_blocks.BooleanBlock(
+    outline = BooleanBlock(
         label = _("Outline button"),
         help_text = _("Blank for solid fill, checked for outline only"),
         default = False,
         required = False
     )
-    full_width = wagtail_blocks.BooleanBlock(
+    full_width = BooleanBlock(
         label = _("Full width button"),
         help_text = _("Link button fills available width"),
         default = False,
         required = False
     )
-    alignment = wagtail_blocks.ChoiceBlock(
+    alignment = ChoiceBlock(
         choices = [
             ('start', _('Left')), 
             ('center', _('Centre')), 
@@ -772,7 +774,7 @@ class DocumentListBlock(wagtail_blocks.StructBlock):
         label = _("Text Alignment"),
         help_text = _("Only used if full width button")
     )
-    sort_by = wagtail_blocks.ChoiceBlock(
+    sort_by = ChoiceBlock(
         choices = [
             ('created_at', _('Date (newest first)')), 
             ('title', _('Document Title')), 
@@ -786,13 +788,13 @@ class DocumentListBlock(wagtail_blocks.StructBlock):
         icon = "fa-list"
         label = "Document List"
 
-class EmptyStaticBlock(wagtail_blocks.StaticBlock):
+class EmptyStaticBlock(StaticBlock):
     class Meta:
         template = 'blocks/empty_block.html'
         icon = 'placeholder'
         label = 'Empty Block'
 
-class SpacerStaticBlock(wagtail_blocks.StaticBlock):
+class SpacerStaticBlock(StaticBlock):
     class Meta:
         template = 'blocks/spacer_block.html'
         icon = 'fa-square'
@@ -869,7 +871,7 @@ class BaseStreamBlock(StreamBlock):
     spacer_block = SpacerStaticBlock()
     empty_block = EmptyStaticBlock()
 
-class TwoColumnLayoutChoiceBlock(wagtail_blocks.ChoiceBlock):
+class TwoColumnLayoutChoiceBlock(ChoiceBlock):
     choices = [
         ('auto-', _("Left column width determined by content (care needed, test on all screen sizes)")),
         ('-auto', _("Right column width determined by content (care needed, test on all screen sizes)")),
@@ -886,7 +888,7 @@ class TwoColumnLayoutChoiceBlock(wagtail_blocks.ChoiceBlock):
         ('11-1', _("Left 11, Right 1")),
     ]
 
-class ThreeColumnLayoutChoiceBlock(wagtail_blocks.ChoiceBlock):
+class ThreeColumnLayoutChoiceBlock(ChoiceBlock):
     choices = [
         ('-auto-', _("Centre column width determined by content (care needed, test on all screen sizes)")),
         ('4-4-4', _("Equal Width Columns")),
@@ -895,7 +897,7 @@ class ThreeColumnLayoutChoiceBlock(wagtail_blocks.ChoiceBlock):
         ('1-10-1', _("Left 1, Centre 10, Right 1")),
     ]
 
-class BreakPointChoiceBlock(wagtail_blocks.ChoiceBlock):
+class BreakPointChoiceBlock(ChoiceBlock):
     choices = [
         ('-', _("Columns side by side on all screen sizes (best for uneven column sizes)")),
         ('-lg', _("Columns side by side on large screen only")),
@@ -903,7 +905,7 @@ class BreakPointChoiceBlock(wagtail_blocks.ChoiceBlock):
         ('-sm', _("Single column on mobile, side by side on all other screens"))
     ]
 
-class FullWidthBaseBlock(wagtail_blocks.StructBlock):
+class FullWidthBaseBlock(StructBlock):
     column = BaseStreamBlock(
         label=_("Single Column Contents"),
         blank=True,
@@ -915,7 +917,7 @@ class FullWidthBaseBlock(wagtail_blocks.StructBlock):
         icon = 'arrows-alt-h'
         label = "Page Wide Block"
 
-class TwoColumnBaseBlock(wagtail_blocks.StructBlock):
+class TwoColumnBaseBlock(StructBlock):
     column_layout = TwoColumnLayoutChoiceBlock(
         default = '6-6',
         label = _("Select column size ratio")
@@ -928,13 +930,13 @@ class TwoColumnBaseBlock(wagtail_blocks.StructBlock):
         default = 4,
         max_value=5
     )
-    vertical_border = wagtail_blocks.BooleanBlock(
+    vertical_border = BooleanBlock(
         default=False,
         required=False,
         label=_("Vertical Border"),
         help_text=_("Add a vertical line between columns")
     )
-    order = wagtail_blocks.ChoiceBlock(
+    order = ChoiceBlock(
         max_length=15,
         default='left-first',
         choices=[
@@ -944,7 +946,7 @@ class TwoColumnBaseBlock(wagtail_blocks.StructBlock):
         label=_("Column order on mobile"),
         help_text=_("Select which column will appear above the other on mobile screen")
     )    
-    hide = wagtail_blocks.ChoiceBlock(
+    hide = ChoiceBlock(
         max_length=15,
         default='hide-none',
         choices=[
@@ -971,7 +973,7 @@ class TwoColumnBaseBlock(wagtail_blocks.StructBlock):
         icon = 'fa-columns'
         label = "Two Column Block"
 
-class ThreeColumnBaseBlock(wagtail_blocks.StructBlock):
+class ThreeColumnBaseBlock(StructBlock):
     column_layout = ThreeColumnLayoutChoiceBlock(
         default = '4-4-4',
         label = _("Select column size ratio")
@@ -984,13 +986,13 @@ class ThreeColumnBaseBlock(wagtail_blocks.StructBlock):
         default = 4,
         max_value=5
     )
-    vertical_border = wagtail_blocks.BooleanBlock(
+    vertical_border = BooleanBlock(
         default=False,
         required=False,
         label=_("Vertical Border"),
         help_text=_("Add a vertical line between columns")
     )
-    hide = wagtail_blocks.ChoiceBlock(
+    hide = ChoiceBlock(
         max_length=15,
         default='hide-none',
         choices=[
