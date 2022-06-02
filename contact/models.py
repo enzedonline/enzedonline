@@ -243,7 +243,7 @@ class ContactPage(SEOWagtailCaptchaEmailForm):
     def get_receipt_email_html(self):
         locale_footer = self.receipt_email_footer.localized
         template = get_template(os.path.join(settings.PROJECT_DIR, 'templates', 'contact','receipt_email', 'base.html'))
-        html = template.render({'body': self, 'footer': locale_footer, 'base_url': settings.BASE_URL})
+        html = template.render({'body': self, 'footer': locale_footer, 'base_url': settings.WAGTAILADMIN_BASE_URL})
     #   Enable next 3 lines to test html output
     #     output = os.path.join(settings.PROJECT_DIR, 'templates', 'contact','receipt_email', 'test.html')
     #     with open(output, 'w') as f:
