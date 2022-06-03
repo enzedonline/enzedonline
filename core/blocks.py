@@ -862,7 +862,7 @@ class BaseStreamBlock(StreamBlock):
     external_link_embed = ExternalLinkEmbedBlock()
     inline_video_block = InlineVideoBlock()
     image_carousel = ImageCarouselBlock()
-    map_block = MapBlock()
+    map_block = MapBlock(max_num=1)
     code_block = BlogCodeBlock()
     document_block = DocumentBlock()
     document_list_block = DocumentListBlock()
