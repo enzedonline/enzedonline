@@ -1,17 +1,39 @@
 $(document).ready(function () {
-  // pull in django template values
-  const coords = JSON.parse(document.getElementById("waypoint_list").textContent);
-  const method = JSON.parse(document.getElementById("method").textContent);
-  const show_route_info = JSON.parse(document.getElementById("show_route_info").textContent);
-  const uid = JSON.parse(document.getElementById("uid").textContent);
-  const padding = JSON.parse(document.getElementById("padding").textContent);
-  const token = JSON.parse(document.getElementById("token").textContent);
-  let end_index = coords.length - 1;
+  const map_settings = JSON.parse(
+    document.getElementById("map_settings").textContent
+  );
+
+//   {
+//     "uid": "block.id",
+//     "token": "your.mapbox.token",
+//     "route_type": "walking",
+//     "show_route_info": true,
+//     "padding": [
+//         50,
+//         50,
+//         50,
+//         50
+//     ],
+//     "waypoints": [
+//         {
+//             "longitude": 11.77624,
+//             "latitude": 42.1541,
+//             "pin_label": "a",
+//             "show_pin": true
+//         },
+//         {
+//             "longitude": 12.128261,
+//             "latitude": 42.168219,
+//             "pin_label": "b",
+//             "show_pin": true
+//         }
+//     ]
+// }
 
   // create base map object
-  mapboxgl.accessToken = token;
+  mapboxgl.accessToken = map_settings.token;
   const map = new mapboxgl.Map({
-    container: "map-" + uid,
+    container: `map-${map_settings.uid}`,
     style: "mapbox://styles/mapbox/outdoors-v11",
   });
   map.addControl(new mapboxgl.NavigationControl());
@@ -19,10 +41,10 @@ $(document).ready(function () {
 
   // set the initial bounds of the map, bound set again after route loads
   const arrayColumn = (arr, n) => arr.map((x) => x[n]);
-  const min_lat = Math.min(...arrayColumn(coords, 0));
-  const max_lat = Math.max(...arrayColumn(coords, 0));
-  const min_lng = Math.min(...arrayColumn(coords, 1));
-  const max_lng = Math.max(...arrayColumn(coords, 1));
+  const min_lat = Math.min(...arrayColumn(map_settings.waypoints, "latitude"));
+  const max_lat = Math.max(...arrayColumn(map_settings.waypoints, "latitude"));
+  const min_lng = Math.min(...arrayColumn(map_settings.waypoints, "longitude"));
+  const max_lng = Math.max(...arrayColumn(map_settings.waypoints, "longitude"));
   map.fitBounds(
     [
       [min_lng, min_lat],
@@ -30,10 +52,10 @@ $(document).ready(function () {
     ],
     {
       padding: {
-        top: padding[0],
-        right: padding[1],
-        bottom: padding[2],
-        left: padding[3],
+        top: map_settings.padding[0],
+        right: map_settings.padding[1],
+        bottom: map_settings.padding[2],
+        left: map_settings.padding[3],
       },
     }
   );
@@ -43,11 +65,11 @@ $(document).ready(function () {
     // build the gps points query string
     let points = [];
     for (let i = 0; i < coord_list.length; i++) {
-      points.push([coord_list[i][1], coord_list[i][0]].join());
+      points.push([coord_list[i].longitude, coord_list[i].latitude].join());
     }
     let gps_list = points.join(";");
     const query = await fetch(
-      `https://api.mapbox.com/directions/v5/mapbox/${method}/${gps_list}?steps=false&geometries=geojson&access_token=${mapboxgl.accessToken}`,
+      `https://api.mapbox.com/directions/v5/mapbox/${map_settings.route_type}/${gps_list}?steps=false&geometries=geojson&access_token=${mapboxgl.accessToken}`,
       { method: "GET" }
     );
     // request json data
@@ -63,30 +85,23 @@ $(document).ready(function () {
         coordinates: route,
       },
     };
-    // if the route already exists on the map, we'll reset it using setData
-    if (map.getSource("route")) {
-      map.getSource("route").setData(geojson);
-    }
-    // otherwise, we'll make a new request
-    else {
-      map.addLayer({
-        id: "route",
-        type: "line",
-        source: {
-          type: "geojson",
-          data: geojson,
-        },
-        layout: {
-          "line-join": "round",
-          "line-cap": "round",
-        },
-        paint: {
-          "line-color": "#3887be",
-          "line-width": 5,
-          "line-opacity": 0.75,
-        },
-      });
-    }
+    map.addLayer({
+      id: "route",
+      type: "line",
+      source: {
+        type: "geojson",
+        data: geojson,
+      },
+      layout: {
+        "line-join": "round",
+        "line-cap": "round",
+      },
+      paint: {
+        "line-color": "#3887be",
+        "line-width": 5,
+        "line-opacity": 0.75,
+      },
+    });
     // set map bounds to fit route
     const bounds = new mapboxgl.LngLatBounds(route[0], route[0]);
     for (const coord of route) {
@@ -94,99 +109,102 @@ $(document).ready(function () {
     }
     map.fitBounds(bounds, {
       padding: {
-        top: padding[0],
-        right: padding[1],
-        bottom: padding[2],
-        left: padding[3],
+        top: map_settings.padding[0],
+        right: map_settings.padding[1],
+        bottom: map_settings.padding[2],
+        left: map_settings.padding[3],
       },
     });
     // send route length info back to page
-    if (show_route_info){
-      document.getElementById("distance-" + uid).innerText = (
+    if (map_settings.show_route_info) {
+      document.getElementById(`distance-${map_settings.uid}`).innerText = (
         Math.round(data.distance / 100) / 10
       ).toFixed(1);
-      document.getElementById("hours-" + uid).innerText = (
+      document.getElementById(`hours-${map_settings.uid}`).innerText = (
         Math.round(data.duration / 360) / 10
       ).toFixed(1);
-      document.getElementById("route-" + uid).style.display = "block";
+      document.getElementById(`route-${map_settings.uid}`).style.display = "block";
     }
   }
 
   map.on("load", () => {
-    if (method != "no-route") {
-      getRoute(coords);
+    if (map_settings.method != "no-route") {
+      getRoute(map_settings.waypoints);
+      // Add starting and end points to the map
+      map.addLayer({
+        id: "start",
+        type: "circle",
+        source: {
+          type: "geojson",
+          data: {
+            type: "FeatureCollection",
+            features: [
+              {
+                type: "Feature",
+                properties: {},
+                geometry: {
+                  type: "Point",
+                  coordinates: [
+                    map_settings.waypoints[0].longitude,
+                    map_settings.waypoints[0].latitude,
+                  ],
+                },
+              },
+            ],
+          },
+        },
+        paint: {
+          "circle-radius": 10,
+          "circle-color": "#3887be",
+        },
+      });
+      let end_index = map_settings.waypoints.length - 1;
+      map.addLayer({
+        id: "end",
+        type: "circle",
+        source: {
+          type: "geojson",
+          data: {
+            type: "FeatureCollection",
+            features: [
+              {
+                type: "Feature",
+                properties: {},
+                geometry: {
+                  type: "Point",
+                  coordinates: [
+                    map_settings.waypoints[end_index].longitude,
+                    map_settings.waypoints[end_index].latitude,
+                  ],
+                },
+              },
+            ],
+          },
+        },
+        paint: {
+          "circle-radius": 10,
+          "circle-color": "#f30",
+        },
+      });
     }
-    // Add starting and end points to the map
-    map.addLayer({
-      id: "start",
-      type: "circle",
-      source: {
-        type: "geojson",
-        data: {
-          type: "FeatureCollection",
-          features: [
-            {
-              type: "Feature",
-              properties: {},
-              geometry: {
-                type: "Point",
-                coordinates: [coords[0][1], coords[0][0]],
-              },
-            },
-          ],
-        },
-      },
-      paint: {
-        "circle-radius": 10,
-        "circle-color": "#3887be",
-      },
-    });
-    map.addLayer({
-      id: "end",
-      type: "circle",
-      source: {
-        type: "geojson",
-        data: {
-          type: "FeatureCollection",
-          features: [
-            {
-              type: "Feature",
-              properties: {},
-              geometry: {
-                type: "Point",
-                coordinates: [coords[end_index][1], coords[end_index][0]],
-              },
-            },
-          ],
-        },
-      },
-      paint: {
-        "circle-radius": 10,
-        "circle-color": "#f30",
-      },
-    });
 
     // add markers with Google Maps links
-    for (let i = 0; i <= end_index; i++) {
-      if (coords[i][3]) {
+    map_settings.waypoints.forEach(function (waypoint) {
+      if (waypoint.show_pin) {
         const marker = new mapboxgl.Marker()
-          .setLngLat([coords[i][1], coords[i][0]])
+          .setLngLat([waypoint.longitude, waypoint.latitude])
           .setPopup(
             new mapboxgl.Popup().setHTML(
               "<b>" +
-                coords[i][2] +
+                waypoint.pin_label +
                 "</b><br/>" +
-                `<a href="https://www.google.com/maps?q=${coords[i]
-                  .slice(0, 2)
-                  .join()}" target="_blank">${coords[i]
-                  .slice(0, 2)
-                  .join(", ")}</a>`
+                `<a href="https://www.google.com/maps?q=${waypoint.latitude},${waypoint.longitude}" 
+                 target="_blank">${waypoint.latitude}, ${waypoint.longitude}</a>`
             )
           ) // add popup
           .addTo(map);
       }
-    }
+    });
 
-    // call route last
   });
-});
+})

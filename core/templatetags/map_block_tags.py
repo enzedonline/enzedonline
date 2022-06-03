@@ -4,23 +4,36 @@ from site_settings.models import MapBoxToken
 register = template.Library()
 
 @register.simple_tag()
-def get_waypoints(waypoints):
-    waypoint_list = []
-    try:    
-        for waypoint in waypoints:
-            row = [round(float(x.strip()),6) for x in waypoint.value['gps_coord'].split(',')]
-            row.append(waypoint.value['pin_label'])
-            row.append(waypoint.value['show_pin'])
-            waypoint_list.append(row)
-        return(waypoint_list)
+def get_map_settings(block):
+    try:
+        token = getattr(MapBoxToken.objects.first(), 'key')
     except:
-        return()
+        token = ''
+        print('MapBox key not found in site settings')
+    
+    map_settings = {
+        'uid': block.id,
+        'token': token,
+        'route_type' : block.value['route_type'], 
+        'show_route_info' : block.value['show_route_info'], 
+        'padding' : [
+            block.value['padding_top'], 
+            block.value['padding_right'], 
+            block.value['padding_bottom'], 
+            block.value['padding_left']
+            ],
+        'waypoints' : []
+        }
+    
+    waypoints = block.value['waypoints']
+    for waypoint in waypoints:
+        latitude, longitude = [round(float(x.strip()),6) for x in waypoint.value['gps_coord'].split(',')]
+        map_settings['waypoints'].append({
+            'longitude' : longitude,
+            'latitude' : latitude,
+            'pin_label' : waypoint.value['pin_label'],
+            'show_pin' : waypoint.value['show_pin']
+        })
 
-@register.simple_tag()
-def get_padding(padding_top, padding_right, padding_bottom, padding_left):
-    return([padding_top, padding_right, padding_bottom, padding_left])
-
-@register.simple_tag()
-def get_mapbox_token():
-    token=MapBoxToken.objects.first()
-    return(getattr(token, 'key'))
+    return(map_settings)
+    
