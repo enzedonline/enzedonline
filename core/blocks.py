@@ -610,9 +610,8 @@ class MapWaypointBlock(StructBlock):
             errors['gps_coord'] = ErrorList([_("Please enter latitude followed by longitude, separated by a comma.")])
             raise StructBlockValidationError(block_errors=errors)
 
-        lat = gps.split(',')[0].strip()
-        lng = gps.split(',')[1].strip()
-
+        lat, lng = gps.split(',')
+        
         if not(isfloat(lat) and isfloat(lng)):
             errors['gps_coord'] = ErrorList([_("Please enter latitude and longitude in numeric format (e.g. 42.603552, 1.442655 not 42°36'12.8\"N 1°26'33.6\"E).")])
             raise StructBlockValidationError(block_errors=errors)
