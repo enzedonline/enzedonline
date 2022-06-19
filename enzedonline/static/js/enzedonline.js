@@ -70,7 +70,7 @@ let add_mapbox = (map_settings) => {
   });
   map.addControl(new mapboxgl.NavigationControl());
   map.addControl(new mapboxgl.ScaleControl({ position: "bottom-right" }));
-  map.scrollZoom.disable();
+  //   map.scrollZoom.disable();
 
   // set the initial bounds of the map, bound set again after route loads
   const arrayColumn = (arr, n) => arr.map((x) => x[n]);
