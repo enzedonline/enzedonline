@@ -1,4 +1,4 @@
-{% load static map_block_tags core_tags %}
+{% load map_block_tags core_tags %}
 {% get_template_set 'maps' as trans %}
 
 <link
@@ -8,18 +8,17 @@
 <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v2.8.1/mapbox-gl.js"></script>
 
 {% get_map_settings block as map_settings %} 
-{{ map_settings|json_script:"map_settings" }} 
+{% add_json_script map_settings map_settings.uid %} 
 
-<div class="block-container vh-70">
-  <div id="map-{{ map_settings.uid }}" class="map-block"></div>
-  {% if block.value.show_route_info and self.route_type != 'no-route' %}
-    <div id="route-{{ map_settings.uid }}" style="display:none;">
+<div class="block-container">
+  <div id="map-{{ map_settings.uid }}" class="map-block" style="height:{{ self.height }}vh;"></div>
+  {% if self.show_route_info and self.route_type != 'no-route' %}
+    <div id="routesummary-{{ map_settings.uid }}" style="display:none;text-align:left;">
       {{ trans.route_length }}: <span id="distance-{{ map_settings.uid }}"></span>{{ trans.km }}, 
       {{ trans.approximate_time }} <span id="hours-{{ map_settings.uid }}"></span> {{ trans.hours }}.
     </div>
   {% endif %}
 </div>
 
-
-<script src="{% static 'js/map_block.js' %}"></script>
+<script>draw_mapblock("{{ map_settings.uid }}")</script>
 

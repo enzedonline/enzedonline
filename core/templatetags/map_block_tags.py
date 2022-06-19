@@ -1,5 +1,6 @@
 from django import template
 from site_settings.models import MapBoxToken
+from django.utils.html import json_script
 
 register = template.Library()
 
@@ -37,3 +38,6 @@ def get_map_settings(block):
 
     return(map_settings)
     
+@register.simple_tag()
+def add_json_script(value, element_id):
+    return json_script(value, element_id)

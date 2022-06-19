@@ -635,18 +635,21 @@ ROUTE_OPTIONS = (
 )
         
 class MapBlock(StructBlock):
-    waypoints = MapWayPointStreamBlock(min_num=2, max_num=25, label=_("Add Waypoints (minimum 2, maximum 25)"))
+    waypoints = MapWayPointStreamBlock(min_num=2, max_num=25, 
+                                       label=_("Add Waypoints (minimum 2, maximum 25)"))
     route_type = ChoiceBlock(choices=ROUTE_OPTIONS, default='walking')
     show_route_info = BooleanBlock(
-        label=_('Show Route Distance and Duration on Map'),
+        label=_("Show Route Distance and Duration on Map"),
         default=True,
         required=False
     )
+    height = IntegerBlock(default=70, min_value=20,
+                    help_text=_("Height of map (% of viewport)."))
     padding_top = IntegerBlock(default=50, min_value=0)
     padding_right = IntegerBlock(default=50, min_value=0)
     padding_bottom = IntegerBlock(default=50, min_value=0)
     padding_left = IntegerBlock(default=50, min_value=0,
-                    help_text=_('Pixels from edge of map to closest waypoint.'))
+                    help_text=_("Pixels from edge of map to closest waypoint."))
 
     class Meta:
         template='blocks/map_block.html'
@@ -862,7 +865,7 @@ class BaseStreamBlock(StreamBlock):
     external_link_embed = ExternalLinkEmbedBlock()
     inline_video_block = InlineVideoBlock()
     image_carousel = ImageCarouselBlock()
-    map_block = MapBlock(max_num=1)
+    map_block = MapBlock()
     code_block = BlogCodeBlock()
     document_block = DocumentBlock()
     document_list_block = DocumentListBlock()
