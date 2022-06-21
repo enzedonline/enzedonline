@@ -26,7 +26,7 @@
     {% cache None page.slug "body" self.last_published_at %}
 
       <div class="col-md-5 px-sm-5 pt-2">
-        <h1 class="pt-2">{{ self.title }}</h1>
+        <h1>{{ self.title }}</h1>
         {# Intro text stream block #}
         {% for block in page.intro_text %}
             {% include_block block %}
