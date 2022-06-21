@@ -222,6 +222,25 @@ class SimpleRichTextBlock(StructBlock):
         label = _("Formatted Text Block")
         icon = 'fa-text-height'
 
+class H1TitleBlock(StructBlock):
+    alignment = ChoiceBlock(
+        choices = [
+            ('justify', _('Justified')), 
+            ('start', _('Left')), 
+            ('center', _('Centre')), 
+            ('end', _('Right'))
+        ],
+        default='center'
+    )
+    title = CharBlock(
+        required=True,
+    )
+    
+    class Meta:
+        template = 'blocks/h1_title_block.html'
+        label = _("H1 Title Block")
+        icon = 'title'
+
 class FlexCard(StructBlock):
     
     format = ChoiceBlock(
@@ -851,6 +870,7 @@ class TableOfContentsBlock(StructBlock):
 class BaseStreamBlock(StreamBlock):
     richtext_block = SimpleRichTextBlock()
     image_block = ImageBlock()
+    h1_title_block = H1TitleBlock()
     block_quote = BlockQuote()
     link_button = Link()
     flex_card = FlexCard()
