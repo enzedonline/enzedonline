@@ -2,9 +2,11 @@
 {% get_cache_key_settings as cache_settings %}
 
 {% cache None cache_settings.slug "head" cache_settings.latest_revision_created_at %}
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-708W2MWJN7"></script>
-  <script src="{% static 'js/analytics.js'%}"></script>
+  {% if not debug%}
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-708W2MWJN7"></script>
+    <script src="{% static 'js/analytics.js'%}"></script>
+  {% endif %}
 
   {# Meta Tags #}
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
