@@ -213,7 +213,8 @@ class SimpleRichTextBlock(StructBlock):
             'hr',
 			'small',
             'code', 
-            'document-link'
+            'document-link',
+            'FontAwesomeAward'
         ]
     )
 
