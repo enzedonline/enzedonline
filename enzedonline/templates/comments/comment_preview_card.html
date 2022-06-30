@@ -1,9 +1,12 @@
+{% load core_tags %}
+{% avatar_exists request.user.photo as avatar_found %}    
+
 <div class="row">
     <div class="col-md-12">
     <div class="card bg-light mb-3">
         <div class="row vw-80" style="min-height: 80px;">
         <div class="col-auto ms-3 mt-2">
-            {% if request.user.photo %}
+            {% if avatar_found %}
                 <img alt="" src="{{ comment.user.photo.url }}" class="comments-image-thumbnail avatar">
             {% else %}
                 {% if request.user.display_name %}

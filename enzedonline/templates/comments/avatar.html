@@ -1,5 +1,8 @@
+{% load core_tags %}
+{% avatar_exists item.comment.user.photo as avatar_found %}    
+
 {% if item %}
-    {% if item.comment.user.photo %}
+    {% if avatar_found %}
         <img alt="" src="{{ item.comment.user.photo.url }}" class="comments-image-thumbnail avatar">
     {% else %}
         {% if item.comment.user.display_name %}
@@ -9,7 +12,7 @@
         {% endif %}
     {% endif %}
 {% else %}
-    {% if comment.user.photo %}
+    {% if avatar_found %}
         <img alt="" src="{{ comment.user.photo.url }}" class="comments-image-thumbnail avatar">
     {% else %}
         {% if comment.user.display_name %}
