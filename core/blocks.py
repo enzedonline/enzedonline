@@ -214,7 +214,8 @@ class SimpleRichTextBlock(StructBlock):
 			'small',
             'code', 
             'document-link',
-            'FontAwesomeAward'
+            'FontAwesomeAward',
+            'fa'
         ]
     )
 

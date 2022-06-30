@@ -10,6 +10,41 @@ from wagtail.admin.rich_text.editors.draftail.features import \
 
 from .utils import purge_page_cache_fragments
 
+@hooks.register("register_rich_text_features")
+def register_fa_styling(features):
+    """Add <fa> to the richtext editor and page."""
+
+    feature_name = "fa"
+    type_ = "FA"
+    tag = "fa"
+
+    control = {
+        "type": type_,
+        "label": "⚐",
+        "description": "Font Awesome",
+        'style': {            
+            'background-color': 'orange',            
+            'color': '#666',
+            'font-family': 'monospace',
+            'font-size': '0.9rem',
+            'font-weight': 'bolder',
+            'padding-left': '2px',
+            'padding-right': '4px'
+        }    
+    }
+
+    features.register_editor_plugin(
+        "draftail", feature_name, InlineStyleFeature(control)
+    )
+
+    db_conversion = {
+        "from_database_format": {tag: InlineStyleElementHandler(type_)},
+        "to_database_format": {"style_map": {type_: {"element": tag}}}
+    }
+
+    features.register_converter_rule("contentstate", feature_name, db_conversion)
+    features.default_features.append(feature_name)
+
 
 @hooks.register("register_rich_text_features")
 def register_small_styling(features):
