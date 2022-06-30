@@ -6,7 +6,8 @@
         <div class="row">
             <div class="ms-3 mt-2 text-center" style="width: 80px;">
                 <a name="c{{ item.comment.id }}"></a>
-                {% if item.comment.user.photo %}
+                {% avatar_exists item.comment.user.photo as avatar_found %}    
+                {% if avatar_found %}
                     <img alt="" src="{{ item.comment.user.photo.url }}" class="comments-image-thumbnail avatar">
                 {% else %}
                     {% if item.comment.user.display_name %}
