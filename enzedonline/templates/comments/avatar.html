@@ -1,25 +1,14 @@
-{% load core_tags %}
-{% avatar_exists item.comment.user.photo as avatar_found %}    
-
 {% if item %}
-    {% if avatar_found %}
-        <img alt="" src="{{ item.comment.user.photo.url }}" class="comments-image-thumbnail avatar">
+    {% if item.comment.user.display_name %}
+        <span class="text-primary text-center"><i class="fas fa-user fa-4x"></i></span>
     {% else %}
-        {% if item.comment.user.display_name %}
-            <span class="text-primary text-center"><i class="fas fa-user fa-4x"></i></span>
-        {% else %}
-            <span class="text-secondary text-center"><i class="far fa-user fa-4x"></i></span>
-        {% endif %}
+        <span class="text-secondary text-center"><i class="far fa-user fa-4x"></i></span>
     {% endif %}
 {% else %}
-    {% if avatar_found %}
-        <img alt="" src="{{ comment.user.photo.url }}" class="comments-image-thumbnail avatar">
+    {% if comment.user.display_name %}
+        <span class="text-primary text-center"><i class="fas fa-user fa-4x"></i></span>
     {% else %}
-        {% if comment.user.display_name %}
-            <span class="text-primary text-center"><i class="fas fa-user fa-4x"></i></span>
-        {% else %}
-            <span class="text-secondary text-center"><i class="far fa-user fa-4x"></i></span>
-        {% endif %}
+        <span class="text-secondary text-center"><i class="far fa-user fa-4x"></i></span>
     {% endif %}
 {% endif %}
 

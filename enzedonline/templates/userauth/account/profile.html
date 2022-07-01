@@ -42,16 +42,6 @@
                 <span class="ps-2">{{ request.user.country|default:'-' }}</span>
             </div>
         </div>
-        <div class="row pb-2">
-            <div class="col pb-2">
-                <p class="alert alert-light p-2 mb-2">{{ trans.icon }}</p>
-                {% if request.user.photo %}
-                    <img src="{{ request.user.photo.url }}" class="profile-image mt-2 ms-2 avatar" height="60px" width="60px">
-                {% else %}
-                    <span><i class="fas fa-user fa-5x"></i></span>
-                {% endif %}
-            </div>
-        </div>
     </div>
 
 {% endblock %}

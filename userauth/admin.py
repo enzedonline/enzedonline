@@ -22,7 +22,7 @@ class CustomUserAdmin(UserAdmin):
             'country', 
             # 'mobile_phone', 
             # 'additional_information', 
-            'photo',)}
+            )}
         ),
     )
     fieldsets = UserAdmin.fieldsets + (
@@ -36,7 +36,7 @@ class CustomUserAdmin(UserAdmin):
             'country', 
             # 'mobile_phone', 
             # 'additional_information', 
-            'photo',)}
+            )}
         ),
     )
 

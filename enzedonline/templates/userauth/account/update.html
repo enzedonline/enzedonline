@@ -35,15 +35,6 @@
                         {% with field=form.country %}{% include "account/form_field.html" %}{% endwith %}
                     </div>
                 </div>
-                <div class="form-group border-top border-bottom py-2">
-                    <h5>{{form.photo.label}}:</h5>
-                    {% if request.user.photo %}
-                        <img src="{{ request.user.photo.url }}" class="profile-image my-2 ms-2 avatar" height="60px" width="60px">
-                    {% else %}
-                        <span><i class="fas fa-user fa-5x pb-3"></i></span>
-                    {% endif %}
-                    <input type="file" name="photo" accept="image/*" class="form-control input-field-photo" id="id_photo">
-                </div>
                 <button type="submit" class="btn btn-primary">{{ trans.update }}</button>
             </form>
         </div>

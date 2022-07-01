@@ -6,15 +6,10 @@
         <div class="row">
             <div class="ms-3 mt-2 text-center" style="width: 80px;">
                 <a name="c{{ item.comment.id }}"></a>
-                {% avatar_exists item.comment.user.photo as avatar_found %}    
-                {% if avatar_found %}
-                    <img alt="" src="{{ item.comment.user.photo.url }}" class="comments-image-thumbnail avatar">
+                {% if item.comment.user.display_name %}
+                    <span class="text-primary text-center"><i class="fas fa-user fa-4x"></i></span>
                 {% else %}
-                    {% if item.comment.user.display_name %}
-                        <span class="text-primary text-center"><i class="fas fa-user fa-4x"></i></span>
-                    {% else %}
-                        <span class="text-secondary text-center"><i class="far fa-user fa-4x"></i></span>
-                    {% endif %}
+                    <span class="text-secondary text-center"><i class="far fa-user fa-4x"></i></span>
                 {% endif %}
             </div>
             <div class="col me-1 ps-2 pt-1" style="text-align: left !important;">
