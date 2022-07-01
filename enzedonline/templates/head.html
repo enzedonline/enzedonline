@@ -4,7 +4,7 @@
 {% cache None cache_settings.slug "head" cache_settings.latest_revision_created_at %}
   {% if not debug and not request.is_preview %}
     <!-- Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-708W2MWJN7"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{ settings.site_settings.Tokens.google_analytics }}"></script>
     <script src="{% static 'js/analytics.js'%}"></script>
   {% endif %}
 
@@ -22,7 +22,7 @@
   <meta name="coverage" content="Worldwide"/>
   <meta name="distribution" content="Global">
   <meta name="rating" content="safe for kids"/>
-  <meta property="fb:app_id" content="492927945342914" />
+  <meta property="fb:app_id" content="{{ settings.site_settings.Tokens.facebook_app_id }}" />
 
   {# Global javascript #}
   <script src="{% static 'js/jquery-3.6.0.min.js'%}"></script>  

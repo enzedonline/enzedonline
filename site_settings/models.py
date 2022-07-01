@@ -13,7 +13,7 @@ from wagtail.models.i18n import Locale
 from wagtail.snippets.models import register_snippet
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
-
+# Password masked field for email settings
 class PasswordField(forms.CharField):
     widget = forms.PasswordInput
 
@@ -23,6 +23,10 @@ class PasswordModelField(models.CharField):
         defaults = {'form_class': PasswordField}
         defaults.update(kwargs)
         return super(PasswordModelField, self).formfield(**defaults)
+
+###------------------------------------------------------------
+### Site settings
+###------------------------------------------------------------
 
 @register_setting(icon='mail')
 class EmailSettings(BaseSetting):
@@ -79,13 +83,29 @@ class Facebook_Script_Src(BaseSetting):
         verbose_name = 'Facebook Javascript SDK'
 
 @register_setting(icon='password')
-class MapBoxToken(BaseSetting):
-    key = models.CharField(
+class Tokens(BaseSetting):
+    mapbox = models.CharField(
         max_length=100,
         null=True,
         blank=False,
         verbose_name=_("Mapbox Access Token")
     )
+    google_analytics = models.CharField(
+        max_length=100,
+        null=True,
+        blank=False,
+        verbose_name=_("Google Analytics Site ID")
+    )
+    facebook_app_id = models.CharField(
+        max_length=100,
+        null=True,
+        blank=False,
+        verbose_name=_("Facebook App ID")
+    )
+
+###------------------------------------------------------------
+### Snippets used as site settings 
+###------------------------------------------------------------
 
 @register_snippet
 class SocialMedia(TranslatableMixin, models.Model):

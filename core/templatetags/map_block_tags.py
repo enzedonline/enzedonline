@@ -1,5 +1,5 @@
 from django import template
-from site_settings.models import MapBoxToken
+from site_settings.models import Tokens
 from django.utils.html import json_script
 
 register = template.Library()
@@ -7,7 +7,7 @@ register = template.Library()
 @register.simple_tag()
 def get_map_settings(block):
     try:
-        token = getattr(MapBoxToken.objects.first(), 'key')
+        token = getattr(Tokens.objects.first(), 'mapbox')
     except:
         token = ''
         print('MapBox key not found in site settings')
