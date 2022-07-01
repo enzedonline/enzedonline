@@ -45,7 +45,6 @@ def register_fa_styling(features):
     features.register_converter_rule("contentstate", feature_name, db_conversion)
     features.default_features.append(feature_name)
 
-
 @hooks.register("register_rich_text_features")
 def register_small_styling(features):
     """Add the <small> to the richtext editor and page."""
@@ -105,44 +104,6 @@ def register_underline_styling(features):
     db_conversion = {
         "from_database_format": {tag: InlineStyleElementHandler(type_)},
         "to_database_format": {"style_map": {type_: {"element": tag}}}
-    }
-
-    # Step 5
-    features.register_converter_rule("contentstate", feature_name, db_conversion)
-
-    # Step 6. This is optional
-    # This will register this feature with all richtext editors by default
-    features.default_features.append(feature_name)
-
-@hooks.register("register_rich_text_features")
-def register_fontawesomeaward_styling(features):
-    """Add the <code> to the richtext editor and page."""
-
-    # Step 1
-    feature_name = "FontAwesomeAward"
-    type_ = "type_"
-    tag = "i"
-
-    # Step 2
-    control = {
-        "type": type_,
-        "label": "🎖",
-        "description": "Certificate",
-    }
-
-    # Step 3
-    features.register_editor_plugin(
-        "draftail", feature_name, InlineStyleFeature(control)
-    )
-
-    # Step 4
-    db_conversion = {
-        'from_database_format': {
-            'i[class="fa-solid fa-award"]':
-                InlineStyleElementHandler(type_)},
-        'to_database_format': {
-            'style_map': {
-                type_: 'i class="fa-solid fa-award"'}},
     }
 
     # Step 5
