@@ -1,3 +1,5 @@
+from captcha.fields import ReCaptchaField
+from captcha.widgets import ReCaptchaV3
 from django.conf import settings
 from django.db import models
 from django.utils.translation import gettext_lazy as _
@@ -6,6 +8,9 @@ from wagtail.models import Page
 from wagtail.search import index
 from wagtailcaptcha.models import WagtailCaptchaEmailForm
 from wagtailmetadata.models import WagtailImageMetadataMixin
+from captcha.fields import ReCaptchaField
+from captcha.widgets import ReCaptchaV3
+from wagtailcaptcha.forms import WagtailCaptchaFormBuilder
 
 def get_image_model_string():
     try:
@@ -70,7 +75,15 @@ class SEOPage(SEOPageMixin, Page):
     class Meta:
         abstract = True
 
+class CaptchaV3FormBuilder(WagtailCaptchaFormBuilder):
+    @property
+    def formfields(self):
+        fields = super(WagtailCaptchaFormBuilder, self).formfields
+        fields[self.CAPTCHA_FIELD_NAME] = ReCaptchaField(label="", widget=ReCaptchaV3())
+        return fields
+
 class SEOWagtailCaptchaEmailForm(SEOPageMixin, WagtailCaptchaEmailForm):
+    # form_builder = CaptchaV3FormBuilder
     pass
 
     class Meta:
