@@ -102,6 +102,12 @@ class Tokens(BaseSetting):
         blank=False,
         verbose_name=_("Facebook App ID")
     )
+    fontawesome = models.CharField(
+        max_length=100,
+        null=True,
+        blank=False,
+        verbose_name=_("FontAwesome Kit ID")
+    )
 
 ###------------------------------------------------------------
 ### Snippets used as site settings 
