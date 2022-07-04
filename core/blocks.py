@@ -238,12 +238,12 @@ class SimpleRichTextBlock(StructBlock):
         icon = 'pilcrow'
 
 class HeadingBlock(StructBlock):
+    title = CharBlock(
+        required=True,
+    )
     heading_size = HeadingSizeChoiceBlock(default='h2')
     alignment = TextAlignmentChoiceBlock(
         default = 'start'
-    )
-    title = CharBlock(
-        required=True,
     )
     anchor = CharBlock(
         required=False,
