@@ -61,7 +61,7 @@ h5,
 h6 {
   font-family: var(--font-family-headings);
   margin-bottom: 0.8rem;
-  font-weight: 400;
+  font-weight: 500;
   line-height: 1.2;
 }
 .h1,
