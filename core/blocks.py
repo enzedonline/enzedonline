@@ -1,4 +1,6 @@
+import unidecode
 from django.forms.utils import ErrorList
+from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 from wagtail.blocks import (BooleanBlock, CharBlock, ChoiceBlock,
                             PageChooserBlock, RawHTMLBlock, RichTextBlock,
@@ -191,15 +193,27 @@ class Link(StructBlock):
 
         return super().clean(value)
 
+class TextAlignmentChoiceBlock(ChoiceBlock):
+    choices=[
+        ('justify', _('Justified')), 
+        ('start', _('Left')), 
+        ('center', _('Centre')), 
+        ('end', _('Right'))
+    ]
+
+class HeadingSizeChoiceBlock(ChoiceBlock):
+    choices=[
+        ('h1', _('H1')), 
+        ('h2', _('H2')), 
+        ('h3', _('H3')), 
+        ('h4', _('H4')), 
+        ('h5', _('H5')), 
+        ('h6', _('H6')), 
+    ]
+
 class SimpleRichTextBlock(StructBlock):
-    alignment = ChoiceBlock(
-        choices = [
-            ('justify', _('Justified')), 
-            ('start', _('Left')), 
-            ('center', _('Centre')), 
-            ('end', _('Right'))
-        ],
-        default='justify'
+    alignment = TextAlignmentChoiceBlock(
+        default = 'justify'
     )
     content = RichTextBlock(
         features= [
@@ -221,17 +235,41 @@ class SimpleRichTextBlock(StructBlock):
     class Meta:
         template = 'blocks/simple_richtext_block.html'
         label = _("Formatted Text Block")
-        icon = 'fa-text-height'
+        icon = 'pilcrow'
+
+class HeadingBlock(StructBlock):
+    heading_size = HeadingSizeChoiceBlock(default='h2')
+    alignment = TextAlignmentChoiceBlock(
+        default = 'start'
+    )
+    title = CharBlock(
+        required=True,
+    )
+    anchor = CharBlock(
+        required=False,
+        label=_("Optional Anchor Tag"),
+        help_text=_("Anchor tag must be a compatible slug format without spaces or special characters")
+    )
+    
+    class Meta:
+        template = 'blocks/heading_block.html'
+        label = _("Heading Block")
+        icon = 'title'
+
+    def clean(self, value):
+        errors = {}
+        anchor = value.get('anchor')
+        slug = slugify(unidecode.unidecode(anchor))
+        
+        if anchor != slug:
+            errors['anchor'] = ErrorList([_(f"'{anchor}' is not a valid slug for the anchor tag. '{slug}' is the suggested value for this.")])
+            raise StructBlockValidationError(block_errors=errors)
+
+        return super().clean(value)
 
 class H1TitleBlock(StructBlock):
-    alignment = ChoiceBlock(
-        choices = [
-            ('justify', _('Justified')), 
-            ('start', _('Left')), 
-            ('center', _('Centre')), 
-            ('end', _('Right'))
-        ],
-        default='center'
+    alignment = TextAlignmentChoiceBlock(
+        default = 'center'
     )
     title = CharBlock(
         required=True,
@@ -330,7 +368,7 @@ class SimpleCardStreamBlock(StreamBlock):
 class SimpleCardGridBlock(StructBlock):
     columns = ChoiceBlock(
         max_length=40,
-        default='row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4',
+        default='row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4',
         choices=[
             ('row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4', _("Mobile:1 Max:4")),
             ('row-cols-1 row-cols-md-2', _("Mobile:1 Max:2")),
@@ -871,6 +909,7 @@ class TableOfContentsBlock(StructBlock):
 class BaseStreamBlock(StreamBlock):
     richtext_block = SimpleRichTextBlock()
     image_block = ImageBlock()
+    heading_block = HeadingBlock()
     h1_title_block = H1TitleBlock()
     block_quote = BlockQuote()
     link_button = Link()

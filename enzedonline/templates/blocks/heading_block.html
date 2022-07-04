@@ -1,0 +1,8 @@
+{% load wagtailcore_tags  %}
+<div class="block-container">
+    <div class="text-{{ self.alignment }}">
+        <{{ self.heading_size }}{% if self.anchor %} id="{{ self.anchor }}"{% endif %}>
+            {{ self.title }}
+        </{{ self.heading_size }}>
+    </div>
+</div>
