@@ -263,19 +263,6 @@ class HeadingBlock(StructBlock):
 
         return super().clean(value)
 
-class H1TitleBlock(StructBlock):
-    alignment = TextAlignmentChoiceBlock(
-        default = 'center'
-    )
-    title = CharBlock(
-        required=True,
-    )
-    
-    class Meta:
-        template = 'blocks/h1_title_block.html'
-        label = _("H1 Title Block")
-        icon = 'title'
-
 class FlexCard(StructBlock):
     
     format = ChoiceBlock(
@@ -906,7 +893,6 @@ class BaseStreamBlock(StreamBlock):
     richtext_block = SimpleRichTextBlock()
     image_block = ImageBlock()
     heading_block = HeadingBlock()
-    h1_title_block = H1TitleBlock()
     block_quote = BlockQuote()
     link_button = Link()
     flex_card = FlexCard()
