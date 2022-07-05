@@ -20,6 +20,14 @@ from core.utils import isfloat
 class HiddenCharBlock(CharBlock):
     pass
 
+class TextAlignmentChoiceBlock(ChoiceBlock):
+    choices=[
+        ('justify', _('Justified')), 
+        ('start', _('Left')), 
+        ('center', _('Centre')), 
+        ('end', _('Right'))
+    ]
+
 class ColourThemeChoiceBlock(ChoiceBlock):
     choices=[
         ('bg-transparent', _("Transparent")),
@@ -49,11 +57,11 @@ class ButtonChoiceBlock(ChoiceBlock):
 
 class HeadingSizeChoiceBlock(ChoiceBlock):
     choices=[
-        ('h2', _('H2')), 
-        ('h3', _('H3')), 
-        ('h4', _('H4')), 
-        ('h5', _('H5')), 
-        ('h6', _('H6')), 
+        ('h2', 'H2'), 
+        ('h3', 'H3'), 
+        ('h4', 'H4'), 
+        ('h5', 'H5'), 
+        ('h6', 'H6'), 
     ]
 
 class ImageFormatChoiceBlock(ChoiceBlock):
@@ -192,14 +200,6 @@ class Link(StructBlock):
 
         return super().clean(value)
 
-class TextAlignmentChoiceBlock(ChoiceBlock):
-    choices=[
-        ('justify', _('Justified')), 
-        ('start', _('Left')), 
-        ('center', _('Centre')), 
-        ('end', _('Right'))
-    ]
-
 class SimpleRichTextBlock(StructBlock):
     alignment = TextAlignmentChoiceBlock(
         default = 'justify'
@@ -248,7 +248,7 @@ class HeadingBlock(StructBlock):
         
         if bookmark != slug:
             errors['bookmark'] = ErrorList([_(f"\
-                '{bookmark}' is not a valid slug for the anchor tag. \
+                '{bookmark}' is not a valid slug for the bookmark. \
                 '{slug}' is the suggested value for this.")])
             raise StructBlockValidationError(block_errors=errors)
 
