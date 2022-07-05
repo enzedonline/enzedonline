@@ -6,11 +6,10 @@ from django.utils.translation import gettext_lazy as _
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.models import Page
 from wagtail.search import index
+from wagtailcaptcha.forms import WagtailCaptchaFormBuilder
 from wagtailcaptcha.models import WagtailCaptchaEmailForm
 from wagtailmetadata.models import WagtailImageMetadataMixin
-from captcha.fields import ReCaptchaField
-from captcha.widgets import ReCaptchaV3
-from wagtailcaptcha.forms import WagtailCaptchaFormBuilder
+
 
 def get_image_model_string():
     try:
