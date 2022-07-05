@@ -8,11 +8,17 @@
 
 {% block content %}
 {% get_template_set 'common' as trans %}
-<div class="container-fluid pt-0 pt-md-2 px-2 px-sm-5 pb-4">
+
+{% cache None page.slug "body" self.latest_revision_created_at %}
 
     {# Top Content Section #}
-    {% cache None page.slug "body" self.latest_revision_created_at %}
+    <div class="container-fluid pt-0 pt-md-2 px-2 px-sm-5 pb-4">
 
+        {# Title #}
+        <div class="row mt-2 text-center">
+            <h1>{{ self.title }}</h1>
+        </div>
+    
         {% for block in page.top_section %}
             {% include_block block %}
         {% endfor %}
@@ -60,9 +66,9 @@
             {% include_block block %}
         {% endfor %}
 
-    {% endcache %}
+    </div>
 
-</div>
+{% endcache %}
 
 {# Paginator #}
 <div>

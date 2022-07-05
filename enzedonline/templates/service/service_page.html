@@ -11,10 +11,15 @@
     {% cache None page.slug "body" self.latest_revision_created_at %}
 
         <div class="container-fluid pt-0 pt-md-2 px-2 px-sm-5 pb-4">
+            <div class="row mt-2 text-center">
+                <h1>{{ self.title }}</h1>
+            </div>
             {% for block in page.body %}
                 {% include_block block %}
             {% endfor %}
         </div>
+    
+    </div>
 
     {% endcache %}
 
