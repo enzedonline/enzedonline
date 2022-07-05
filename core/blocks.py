@@ -230,10 +230,10 @@ class HeadingBlock(StructBlock):
     title = CharBlock(required=True)
     heading_size = HeadingSizeChoiceBlock(default='h2')
     alignment = TextAlignmentChoiceBlock(default='start')
-    anchor = CharBlock(
+    bookmark = CharBlock(
         required=False,
-        label=_("Optional Anchor Tag"),
-        help_text=_("Anchor tag must be a compatible slug format without spaces or special characters")
+        label=_("Optional Bookmark"),
+        help_text=_("Bookmark must be a compatible slug format without spaces or special characters")
     )
     
     class Meta:
@@ -243,11 +243,13 @@ class HeadingBlock(StructBlock):
 
     def clean(self, value):
         errors = {}
-        anchor = value.get('anchor')
-        slug = slugify(unidecode.unidecode(anchor))
+        bookmark = value.get('bookmark')
+        slug = slugify(unidecode.unidecode(bookmark))
         
-        if anchor != slug:
-            errors['anchor'] = ErrorList([_(f"'{anchor}' is not a valid slug for the anchor tag. '{slug}' is the suggested value for this.")])
+        if bookmark != slug:
+            errors['bookmark'] = ErrorList([_(f"\
+                '{bookmark}' is not a valid slug for the anchor tag. \
+                '{slug}' is the suggested value for this.")])
             raise StructBlockValidationError(block_errors=errors)
 
         return super().clean(value)
