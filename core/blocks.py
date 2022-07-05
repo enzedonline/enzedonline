@@ -49,12 +49,11 @@ class ButtonChoiceBlock(ChoiceBlock):
 
 class HeadingSizeChoiceBlock(ChoiceBlock):
     choices=[
-        ('p', _("Standard body text")),
-        ('h2', 'H2'),
-        ('h3', 'H3'),
-        ('h4', 'H4'),
-        ('h5', 'H5'),
-        ('h6', 'H6'),
+        ('h2', _('H2')), 
+        ('h3', _('H3')), 
+        ('h4', _('H4')), 
+        ('h5', _('H5')), 
+        ('h6', _('H6')), 
     ]
 
 class ImageFormatChoiceBlock(ChoiceBlock):
@@ -199,16 +198,6 @@ class TextAlignmentChoiceBlock(ChoiceBlock):
         ('start', _('Left')), 
         ('center', _('Centre')), 
         ('end', _('Right'))
-    ]
-
-class HeadingSizeChoiceBlock(ChoiceBlock):
-    choices=[
-        ('h1', _('H1')), 
-        ('h2', _('H2')), 
-        ('h3', _('H3')), 
-        ('h4', _('H4')), 
-        ('h5', _('H5')), 
-        ('h6', _('H6')), 
     ]
 
 class SimpleRichTextBlock(StructBlock):
