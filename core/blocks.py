@@ -71,6 +71,15 @@ class ImageFormatChoiceBlock(ChoiceBlock):
         ('1-3', _("1:3 Vertical Panorama Banner")),
     ]
 
+class RouteOptionChoiceBlock(ChoiceBlock):
+     choices=[
+        ('no-route', "None"),
+        ('walking', "Walking"),
+        ('cycling', "Cycling"),
+        ('driving', "Driving"),
+        ('driving-traffic', "Driving (with traffic conditions)")
+     ]
+
 class SEOImageChooseBlock(StructBlock):
     file = ImageChooserBlock(
         required=True, 
@@ -653,19 +662,11 @@ class MapWaypointBlock(StructBlock):
         
 class MapWayPointStreamBlock(StreamBlock):
     waypoint = MapWaypointBlock()
-    
-ROUTE_OPTIONS = (
-    ('no-route', "None"),
-    ('walking', "Walking"),
-    ('cycling', "Cycling"),
-    ('driving', "Driving"),
-    ('driving-traffic', "Driving (with traffic conditions)")
-)
-        
+            
 class MapBlock(StructBlock):
     waypoints = MapWayPointStreamBlock(min_num=2, max_num=25, 
                                        label=_("Add Waypoints (minimum 2, maximum 25)"))
-    route_type = ChoiceBlock(choices=ROUTE_OPTIONS, default='walking')
+    route_type = RouteOptionChoiceBlock(default='walking')
     show_route_info = BooleanBlock(
         label=_("Show Route Distance and Duration on Map"),
         default=True,
