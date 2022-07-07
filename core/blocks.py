@@ -17,9 +17,6 @@ import core.metadata
 from core.utils import isfloat
 
 
-class HiddenCharBlock(CharBlock):
-    pass
-
 class TextAlignmentChoiceBlock(ChoiceBlock):
     choices=[
         ('justify', _('Justified')), 
