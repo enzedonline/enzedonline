@@ -1,6 +1,7 @@
 from captcha.fields import ReCaptchaField
 from captcha.widgets import ReCaptchaV3
 from django.conf import settings
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
@@ -33,8 +34,7 @@ class SEOPageMixin(index.Indexed, WagtailImageMetadataMixin, models.Model):
     summary = models.TextField(
         null=False,
         blank=False,
-        help_text=_("A summary of the page to be used on index pages. \
-                     If Meta Description is left blank, this text will be used on search results and link previews.")
+        help_text=_("A summary of the page to be used on index pages and on-site searching.")
     )
 
     content_panels = Page.content_panels + [
@@ -47,7 +47,7 @@ class SEOPageMixin(index.Indexed, WagtailImageMetadataMixin, models.Model):
             FieldPanel('search_image'),
             FieldPanel('seo_title'),
             FieldPanel('search_description'),
-        ], _('Common page configuration')),
+        ], _('SEO Page Configuration')),
     ]
 
     def get_meta_url(self):
@@ -73,6 +73,19 @@ class SEOPage(SEOPageMixin, Page):
 
     class Meta:
         abstract = True
+        
+    def clean(self):
+        super().clean()
+        len_search_description = len(self.search_description)
+        if len_search_description < 50 or len_search_description > 160:
+            if len_search_description==0:
+                msg = _("empty")
+            else:
+                msg = _(f"{len_search_description} character{'s' * bool(len_search_description>1)}")
+            raise ValidationError({
+                'search_description': 
+                    f'Meta Description is {msg}. It should be between 50 and 160 characters for optimum SEO.'
+                })
 
 class CaptchaV3FormBuilder(WagtailCaptchaFormBuilder):
     @property
