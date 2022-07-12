@@ -7,6 +7,7 @@ from wagtail.search.models import Query
 
 def enzed_search(request):
     search_query = request.GET.get('query', None)
+    search_order = request.GET.get('order', None)
     page = request.GET.get('page', 1)
     
     # Search
@@ -31,4 +32,5 @@ def enzed_search(request):
     return TemplateResponse(request, 'search/search_results.html', {
         'search_query': search_query,
         'search_results': search_results,
+        'search_order': search_order
     })

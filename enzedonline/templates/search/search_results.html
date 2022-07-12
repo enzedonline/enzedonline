@@ -24,10 +24,10 @@
 
     {% if search_results %}
         <div class="text-end h5">
-            {% if order %}
-                <a href="./{{ query_string }}">{{ trans.sort_by_relevance }}</a>         
+            {% if search_order %}
+                <a href="./?query={{ search_query }}">{{ trans.sort_by_relevance }}</a>         
             {% else %}
-                <a href="./{{ query_string }}&order=date">{{ trans.sort_by_date }}</a> 
+                <a href="./?query={{ search_query }}&order=date">{{ trans.sort_by_date }}</a> 
             {% endif %}
         </div>
         <span id='list'></span>
