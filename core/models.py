@@ -66,15 +66,6 @@ class SEOPageMixin(index.Indexed, WagtailImageMetadataMixin, models.Model):
     class Meta:
         abstract = True
 
-class SEOPage(SEOPageMixin, Page):
-
-    search_fields = Page.search_fields + [
-        index.SearchField('summary'),
-    ]
-
-    class Meta:
-        abstract = True
-        
     def clean(self):
         super().clean()
         errors = {}
@@ -103,6 +94,16 @@ class SEOPage(SEOPageMixin, Page):
         if errors:
             raise ValidationError(errors)
 
+
+class SEOPage(SEOPageMixin, Page):
+
+    search_fields = Page.search_fields + [
+        index.SearchField('summary'),
+    ]
+
+    class Meta:
+        abstract = True
+        
 class CaptchaV3FormBuilder(WagtailCaptchaFormBuilder):
     @property
     def formfields(self):
