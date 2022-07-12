@@ -13,7 +13,7 @@ def enzed_search(request):
     # Search
     if search_query:
         if search_order=='date':
-            search_results = Page.objects.live().filter(locale=Locale.get_active()).reverse().search(search_query, order_by_relevance=False)
+            search_results = Page.objects.live().filter(locale=Locale.get_active()).order_by('-first_published_at').search(search_query, order_by_relevance=False)
         else:
             search_results = Page.objects.live().filter(locale=Locale.get_active()).search(search_query)
             
