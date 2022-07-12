@@ -12,11 +12,15 @@ def enzed_search(request):
     
     # Search
     if search_query:
-        search_results = Page.objects.live().filter(locale=Locale.get_active()).search(search_query)
-        query = Query.get(search_query)
-
+        if search_order=='date':
+            search_results = Page.objects.live().filter(locale=Locale.get_active()).reverse().search(search_query, order_by_relevance=False)
+        else:
+            search_results = Page.objects.live().filter(locale=Locale.get_active()).search(search_query)
+            
         # Record hit
+        query = Query.get(search_query)
         query.add_hit()
+
     else:
         search_results = Page.objects.none()
 
