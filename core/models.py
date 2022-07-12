@@ -3,6 +3,7 @@ from captcha.widgets import ReCaptchaV3
 from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import models
+from django.forms.utils import ErrorList
 from django.utils.translation import gettext_lazy as _
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.models import Page
@@ -76,16 +77,31 @@ class SEOPage(SEOPageMixin, Page):
         
     def clean(self):
         super().clean()
-        len_search_description = len(self.search_description)
+        errors = {}
+        len_search_description = len(self.search_description or self.summary)
         if len_search_description < 50 or len_search_description > 160:
             if len_search_description==0:
                 msg = _("empty")
             else:
                 msg = _(f"{len_search_description} character{'s' * bool(len_search_description>1)}")
-            raise ValidationError({
-                'search_description': 
-                    f'Meta Description is {msg}. It should be between 50 and 160 characters for optimum SEO.'
-                })
+            if self.search_description:
+                errors['search_description'] = ErrorList([_(f'Meta Description is {msg}. It should be between 50 and 160 characters for optimum SEO.')])
+            else:
+                errors['search_description'] = ErrorList([_(f'Summary is {msg}. Create a meta description between 50 and 160 characters for optimum SEO.')])
+
+        len_search_title = len(self.seo_title or self.title)
+        if len_search_title < 15 or len_search_title > 70:
+            if len_search_title==0:
+                msg = _("empty")
+            else:
+                msg = _(f"{len_search_title} character{'s' * bool(len_search_title>1)}")
+            if self.seo_title:
+                errors['seo_title'] = ErrorList([_(f'Title tag is {msg}. It should be between 15 and 70 characters for optimum SEO.')])
+            else:
+                errors['seo_title'] = ErrorList([_(f'Page title is {msg}. Create a title tag between 15 and 70 characters for optimum SEO.')])
+
+        if errors:
+            raise ValidationError(errors)
 
 class CaptchaV3FormBuilder(WagtailCaptchaFormBuilder):
     @property
