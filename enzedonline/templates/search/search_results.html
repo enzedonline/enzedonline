@@ -11,92 +11,92 @@
     <h1 class="text-center">{{ trans.title }}</h1>
 
     <div class="p-1 p-sm-2 p-md-3 mt-2 mt-sm-3 mt-md-4 bg-light rounded">
-    <form action="{% url 'search' %}" method="get">
-        <div class="form-group row g-1 my-1">
-            <div class="col">
-                <input type="text" onfocus="this.select();" onmouseup="return false;" name="query" class="form-control px-3" value="{% get_search_or_none %}">
-            </div>
-            <div class="col-auto">
-                <input type="submit" value="Search" class="btn-primary form-control">
-            </div>
-        </div>
-    </form>
-
-    {% if search_results %}
-        <div class="text-end h5">
-            {% if search_order %}
-                <a href="./?query={{ search_query }}">{{ trans.sort_by_relevance }}</a>         
-            {% else %}
-                <a href="./?query={{ search_query }}&order=date">{{ trans.sort_by_date }}</a> 
-            {% endif %}
-        </div>
-        <span id='list'></span>
-        <div class="grid" data-masonry='{ "itemSelector": ".grid-item", "columnWidth": ".grid-sizer",  "gutter": ".gutter-sizer",  "percentPosition": "true" }'>
-            <div class="gutter-sizer"></div>
-            <div class="grid-sizer"></div>
-            {% for result in search_results %}
-                <div class="grid-item">
-                    <div class="col mx-0 mb-3">
-                        {% with post=result.specific %}
-                            {% include 'core/blog_card.html' %}
-                        {% endwith %}
-                    </div>
+        <form action="{% url 'search' %}" method="get">
+            <div class="form-group row g-1 my-1">
+                <div class="col">
+                    <input type="text" onfocus="this.select();" onmouseup="return false;" name="query" class="form-control px-3" value="{% get_search_or_none %}">
                 </div>
-            {% endfor %}
-        </div>
-
-        {# Paginator #}
-        <div>
-            {% if search_results.paginator.num_pages > 1 %}
-                {% search_paginator_filter as pgn_filter %}
-                <nav aria-label="...">
-                    <ul class="pagination justify-content-center">
-                        <li class="page-item {% if not search_results.has_previous %}disabled{% endif %}">
-                            <a class="page-link" href="{% if search_results.has_previous %}{{ pgn_filter }}page=1#list{% endif %}" tabindex="-1" {% if not search_results.has_previous %}aria-disabled="true"{% endif %}><span>&laquo;&laquo;</span></a>
-                        </li>
-                        <li class="page-item {% if not search_results.has_previous %}disabled{% endif %}">
-                            <a class="page-link" href="{% if search_results.has_previous %}{{ pgn_filter }}page={{ search_results.previous_page_number }}#list{% endif %}" tabindex="-1" {% if not search_results.has_previous %}aria-disabled="true"{% endif %}><span>&laquo;</span></a>
-                        </li>
-                        {% if page_range_first > 1 %}
-                            <li class="page-item disabled">
-                                <a class="page-link">...</a>
-                            </li>      
-                        {% endif %}                
-                        {% for page_num in page_range %}
-                            {% if page_num == search_results.number %}
-                                <li class="page-item active" aria-current="page">
-                                    <a class="page-link" href="{{ pgn_filter }}page={{ page_num }}#list">{{ page_num }} <span class="sr-only">(current)</span></a>
-                                </li>      
-                            {% else %}
-                                <li class="page-item" aria-current="page">
-                                    <a class="page-link" href="{{ pgn_filter }}page={{ page_num }}#list">{{ page_num }}</a>
-                                </li>      
-                            {% endif %}          
-                        {% endfor %}
-                        {% if page_range_last < search_results.paginator.num_pages %}
-                            <li class="page-item disabled">
-                                <a class="page-link">...</a>
-                            </li>      
-                        {% endif %}
-                        <li class="page-item {% if not search_results.has_next %}disabled{% endif %}">
-                            <a class="page-link" href="{% if search_results.has_next %}{{ pgn_filter }}page={{ search_results.next_page_number }}#list{% endif %}" {% if not search_results.has_previous %}aria-disabled="true"{% endif %}><span>&raquo;</span></a>
-                        </li>
-                        <li class="page-item {% if not search_results.has_next %}disabled{% endif %}">
-                            <a class="page-link" href="{% if search_results.has_next %}{{ pgn_filter }}page={{ search_results.paginator.num_pages }}#list{% endif %}" {% if not search_results.has_next %}aria-disabled="true"{% endif %}><span>&raquo;&raquo;</span></a>
-                        </li>
-                    </ul>
-                </nav>    
-            {% endif %}
-        </div>
-
-    {% elif search_query %}
-        {{ trans.no_results }}.
-    {% else %}
-        {{ trans.empty_query }}.
-    {% endif %}
+                <div class="col-auto">
+                    <input type="submit" value="Search" class="btn-primary form-control">
+                </div>
+            </div>
+        </form>
     
-</div>
+        {% if search_results %}
+            <div class="text-end h5">
+                {% if search_order %}
+                    <a href="./?query={{ search_query }}">{{ trans.sort_by_relevance }}</a>         
+                {% else %}
+                    <a href="./?query={{ search_query }}&order=date">{{ trans.sort_by_date }}</a> 
+                {% endif %}
+            </div>
+            <span id='list'></span>
+            <div class="grid" data-masonry='{ "itemSelector": ".grid-item", "columnWidth": ".grid-sizer",  "gutter": ".gutter-sizer",  "percentPosition": "true" }'>
+                <div class="gutter-sizer"></div>
+                <div class="grid-sizer"></div>
+                {% for result in search_results %}
+                    <div class="grid-item">
+                        <div class="col mx-0 mb-3">
+                            {% with post=result.specific %}
+                                {% include 'core/blog_card.html' %}
+                            {% endwith %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
 
+            {# Paginator #}
+            <div>
+                {% if search_results.paginator.num_pages > 1 %}
+                    {% search_paginator_filter as pgn_filter %}
+                    <nav aria-label="...">
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item {% if not search_results.has_previous %}disabled{% endif %}">
+                                <a class="page-link" href="{% if search_results.has_previous %}{{ pgn_filter }}page=1#list{% endif %}" tabindex="-1" {% if not search_results.has_previous %}aria-disabled="true"{% endif %}><span>&laquo;&laquo;</span></a>
+                            </li>
+                            <li class="page-item {% if not search_results.has_previous %}disabled{% endif %}">
+                                <a class="page-link" href="{% if search_results.has_previous %}{{ pgn_filter }}page={{ search_results.previous_page_number }}#list{% endif %}" tabindex="-1" {% if not search_results.has_previous %}aria-disabled="true"{% endif %}><span>&laquo;</span></a>
+                            </li>
+                            {% if page_range_first > 1 %}
+                                <li class="page-item disabled">
+                                    <a class="page-link">...</a>
+                                </li>      
+                            {% endif %}                
+                            {% for page_num in page_range %}
+                                {% if page_num == search_results.number %}
+                                    <li class="page-item active" aria-current="page">
+                                        <a class="page-link" href="{{ pgn_filter }}page={{ page_num }}#list">{{ page_num }} <span class="sr-only">(current)</span></a>
+                                    </li>      
+                                {% else %}
+                                    <li class="page-item" aria-current="page">
+                                        <a class="page-link" href="{{ pgn_filter }}page={{ page_num }}#list">{{ page_num }}</a>
+                                    </li>      
+                                {% endif %}          
+                            {% endfor %}
+                            {% if page_range_last < search_results.paginator.num_pages %}
+                                <li class="page-item disabled">
+                                    <a class="page-link">...</a>
+                                </li>      
+                            {% endif %}
+                            <li class="page-item {% if not search_results.has_next %}disabled{% endif %}">
+                                <a class="page-link" href="{% if search_results.has_next %}{{ pgn_filter }}page={{ search_results.next_page_number }}#list{% endif %}" {% if not search_results.has_previous %}aria-disabled="true"{% endif %}><span>&raquo;</span></a>
+                            </li>
+                            <li class="page-item {% if not search_results.has_next %}disabled{% endif %}">
+                                <a class="page-link" href="{% if search_results.has_next %}{{ pgn_filter }}page={{ search_results.paginator.num_pages }}#list{% endif %}" {% if not search_results.has_next %}aria-disabled="true"{% endif %}><span>&raquo;&raquo;</span></a>
+                            </li>
+                        </ul>
+                    </nav>    
+                {% endif %}
+            </div>
+
+        {% elif search_query %}
+            {{ trans.no_results }}.
+        {% else %}
+            {{ trans.empty_query }}.
+        {% endif %}
+    
+    </div>
+</div>
 
 {% endblock %}
 
