@@ -3,12 +3,15 @@ from django.template.response import TemplateResponse
 
 from wagtail.models import Page, Locale
 from wagtail.search.models import Query
-
+from core.utils import paginator_range
 
 def enzed_search(request):
     search_query = request.GET.get('query', None)
     search_order = request.GET.get('order', None)
-    page = request.GET.get('page', 1)
+    try:
+        page = int(request.GET.get('page', 1))
+    except:
+        page = 1
     
     # Search
     if search_query:
@@ -33,8 +36,17 @@ def enzed_search(request):
     except EmptyPage:
         search_results = paginator.page(paginator.num_pages)
 
-    return TemplateResponse(request, 'search/search_results.html', {
-        'search_query': search_query,
-        'search_results': search_results,
-        'search_order': search_order
-    })
+    context={}
+    context["search_query"] = search_query
+    context['search_results'] = search_results
+    context['search_order'] = search_order
+    context['page_range'] = paginator_range(
+        requested_page=page,
+        last_page_num=paginator.num_pages,
+        wing_size=4
+    )
+    # Next two are needed as Django templates don't support accessing range properties
+    context['page_range_first'] = context['page_range'][0]
+    context['page_range_last'] = context['page_range'][-1]
+
+    return TemplateResponse(request, 'search/search_results.html', context)
