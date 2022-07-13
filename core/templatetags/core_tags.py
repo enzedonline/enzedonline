@@ -46,12 +46,11 @@ def get_cache_key_settings(context):
         page['latest_revision_created_at'] = datetime.now()
     return page
 
-@register.simple_tag()
-def paginator_filter(filter):
-    if filter:
-        return filter + '&'
-    else:
-        return '?'
+@register.simple_tag(takes_context=True)
+def search_paginator_filter(context):
+    search_query = context.request.GET.get('query', None)
+    search_order = context.request.GET.get('order', None)
+    return f'?query={search_query}{("&order=" + search_order) if search_order else ""}&'
 
 @register.simple_tag()
 def get_template_set(set):

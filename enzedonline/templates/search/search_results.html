@@ -48,7 +48,7 @@
         {# Paginator #}
         <div>
             {% if search_results.paginator.num_pages > 1 %}
-                {% paginator_filter query_string as pgn_filter %}
+                {% search_paginator_filter as pgn_filter %}
                 <nav aria-label="...">
                     <ul class="pagination justify-content-center">
                         <li class="page-item {% if not search_results.has_previous %}disabled{% endif %}">
