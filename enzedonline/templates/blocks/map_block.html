@@ -1,10 +1,10 @@
 {% load static map_block_tags core_tags %}
 {% get_template_set 'maps' as trans %}
 
-<link
+{% comment %} <link
   href="https://api.tiles.mapbox.com/mapbox-gl-js/v2.8.1/mapbox-gl.css"
   rel="stylesheet"
-/>
+/> {% endcomment %}
 {% comment %} <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v2.8.1/mapbox-gl.js"></script> {% endcomment %}
 
 {% get_map_settings block as map_settings %} 
@@ -21,6 +21,7 @@
 </div>
 
 <script>
+  include_css("https://api.tiles.mapbox.com/mapbox-gl-js/v2.8.1/mapbox-gl.css", "css-mapbox")
   mapbox_loaded = false;
   map_script_loaded = false;
   mapbox = include_js("https://api.tiles.mapbox.com/mapbox-gl-js/v2.8.1/mapbox-gl.js", "js-mapbox");
