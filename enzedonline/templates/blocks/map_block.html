@@ -1,11 +1,11 @@
-{% load map_block_tags core_tags %}
+{% load static map_block_tags core_tags %}
 {% get_template_set 'maps' as trans %}
 
 <link
   href="https://api.tiles.mapbox.com/mapbox-gl-js/v2.8.1/mapbox-gl.css"
   rel="stylesheet"
 />
-<script src="https://api.tiles.mapbox.com/mapbox-gl-js/v2.8.1/mapbox-gl.js"></script>
+{% comment %} <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v2.8.1/mapbox-gl.js"></script> {% endcomment %}
 
 {% get_map_settings block as map_settings %} 
 {% add_json_script map_settings map_settings.uid %} 
@@ -20,5 +20,23 @@
   {% endif %}
 </div>
 
-<script>draw_mapblock("{{ map_settings.uid }}")</script>
+<script>
+  mapbox_loaded = false;
+  map_script_loaded = false;
+  mapbox = include_js("https://api.tiles.mapbox.com/mapbox-gl-js/v2.8.1/mapbox-gl.js", "js-mapbox");
+  map_script = include_js("{% static 'js/map-block.js'%}", "js-map-block");
+  mapbox.addEventListener("load", function(){
+    mapbox_loaded = true;
+    if (mapbox_loaded && map_script_loaded){
+      draw_mapblock("{{ map_settings.uid }}");
+    }
+  })
+  map_script.addEventListener("load", function(){
+    map_script_loaded = true;
+    if (mapbox_loaded && map_script_loaded){
+      draw_mapblock("{{ map_settings.uid }}");
+    }
+  })
+</script>
+
 
