@@ -27,7 +27,7 @@
   {# Global javascript #}
   <script src="{% static 'js/jquery-3.6.0.min.js'%}"></script>  
   <script defer src="{% static 'js/bootstrap.bundle.min.js'%}"></script>
-  <script src="{% static 'js/enzedonline.js'%}"></script>
+  <script src="{% static 'js/enzedonline-min.js'%}"></script>
   <script defer src="https://kit.fontawesome.com/{{ settings.site_settings.Tokens.fontawesome }}.js" crossorigin="anonymous" async></script>
 
   {# Global stylesheets #}
@@ -35,8 +35,8 @@
   <link rel="stylesheet" href="{% static 'css/litera.bootstrap.min.css' %}" type="text/css">
 
   {# Fonts #}
-  <link rel="preload" href="{% static 'css/enzedonlinefonts.css' %}" as="style">
-  <link rel="stylesheet" href="{% static 'css/enzedonlinefonts.css' %}" type="text/css">
+  <link rel="preload" href="{% static 'css/enzedonlinefonts-min.css' %}" as="style">
+  <link rel="stylesheet" href="{% static 'css/enzedonlinefonts-min.css' %}" type="text/css">
 
   {# favicon #}
   <link rel="apple-touch-icon" sizes="180x180" href="{% static 'favicon/apple-touch-icon.png' %}">
@@ -50,7 +50,7 @@
   <meta name="theme-color" content="#4582ec">
 
   {% block extra_css %}
-    <link rel="stylesheet" href="{% static 'css/enzedonline.css' %}" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="{% static 'css/enzedonline-min.css' %}" media="print" onload="this.media='all'">
   {% endblock %}
 
 {% endcache %}
