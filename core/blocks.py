@@ -156,12 +156,6 @@ class Link(StructBlock):
         required=False,
         label=_("Link to external site or internal URL")
     )
-    open_in_new_tab = BooleanBlock(
-        required=False,
-        default=False,
-        label=_("Open in New Tab"),
-        help_text=_("Recommended for external links")
-    )
     appearance = ButtonChoiceBlock(
         max_length=15,
         default='btn-primary',
