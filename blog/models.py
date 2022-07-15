@@ -116,18 +116,6 @@ class BlogDetailPage(SEOPage):
         category_filter = request.GET.get('category', None)
         tag_filter = request.GET.get('tag', None)
         
-        # if category_filter:
-        #     siblings = siblings.filter(categories__slug__in=category_filter.split(','))
-        #     context['filter'] = '?category=' + category_filter
-        #     context['showing'] = 'Showing blogs in ' + category_filter + ' category.'
-        # elif tag_filter:
-        #     siblings = siblings.filter(tags__slug__in=tag_filter.split(','))
-        #     context['filter'] = '?tag=' + tag_filter
-        #     context['showing'] = 'Showing blogs tagged with ' + tag_filter + '.'
-        # else:
-        #     context['filter'] = ''
-        #     context['showing'] = None
-
         filter = {'qstring': ''}
 
         if category_filter:
