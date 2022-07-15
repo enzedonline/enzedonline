@@ -28,7 +28,7 @@ from core.utils import purge_blog_list_cache_fragments
 
 @register_snippet
 class TechBlogCategory(TranslatableMixin, models.Model):
-    name = models.CharField(max_length=200)
+    name = models.CharField(max_length=200, verbose_name=_("Category Name"))
     slug = AutoSlugField(
         populate_from=['name'],
         verbose_name='slug',
@@ -41,8 +41,8 @@ class TechBlogCategory(TranslatableMixin, models.Model):
     ]
 
     class Meta:
-        verbose_name = 'Tech Blog Category'
-        verbose_name_plural = 'Tech Blog Categories'
+        verbose_name = _("Tech Blog Category")
+        verbose_name_plural = _("Tech Blog Categories")
         ordering = ['name']
         unique_together = ('translation_key', 'locale')
     
@@ -51,7 +51,7 @@ class TechBlogCategory(TranslatableMixin, models.Model):
 
 @register_snippet
 class PersonalBlogCategory(TranslatableMixin, models.Model):
-    name = models.CharField(max_length=200)
+    name = models.CharField(max_length=200, verbose_name=_("Category Name"))
     slug = AutoSlugField(
         populate_from=['name'],
         verbose_name='slug',
@@ -64,8 +64,8 @@ class PersonalBlogCategory(TranslatableMixin, models.Model):
     ]
 
     class Meta:
-        verbose_name = 'Personal Blog Category'
-        verbose_name_plural = 'Personal Blog Categories'
+        verbose_name = _("Personal Blog Category")
+        verbose_name_plural = _("Personal Blog Categories")
         ordering = ['name']
         unique_together = ('translation_key', 'locale')
     
@@ -91,11 +91,11 @@ class BlogDetailPage(SEOPage):
     parent_page_types = []
 
     body = StreamField(
-        GridStreamBlock(), verbose_name="Page body", blank=True, use_json_field=True
+        GridStreamBlock(), verbose_name=_("Page body"), blank=True, use_json_field=True
     )
 
     content_panels = SEOPage.content_panels + [
-        FieldPanel("body"),
+        FieldPanel('body'),
         InlinePanel('customcomments', label=_("Comments")),    
     ]
 
@@ -113,21 +113,34 @@ class BlogDetailPage(SEOPage):
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
         siblings = self.__class__.objects.sibling_of(self).live()
-        category_filter = request.GET.get("category", None)
-        tag_filter = request.GET.get("tag", None)
+        category_filter = request.GET.get('category', None)
+        tag_filter = request.GET.get('tag', None)
+        
+        # if category_filter:
+        #     siblings = siblings.filter(categories__slug__in=category_filter.split(','))
+        #     context['filter'] = '?category=' + category_filter
+        #     context['showing'] = 'Showing blogs in ' + category_filter + ' category.'
+        # elif tag_filter:
+        #     siblings = siblings.filter(tags__slug__in=tag_filter.split(','))
+        #     context['filter'] = '?tag=' + tag_filter
+        #     context['showing'] = 'Showing blogs tagged with ' + tag_filter + '.'
+        # else:
+        #     context['filter'] = ''
+        #     context['showing'] = None
+
+        filter = {'qstring': ''}
+
         if category_filter:
-            siblings = siblings.filter(categories__slug__in=category_filter.split(","))
-            context["filter"] = '?category=' + category_filter
-            context["showing"] = 'Showing blogs in ' + category_filter + ' category.'
+            siblings = siblings.filter(categories__slug__in=category_filter.split(','))
+            filter['qstring'] = '?category=' + category_filter
         elif tag_filter:
             siblings = siblings.filter(tags__slug__in=tag_filter.split(','))
-            context["filter"] = '?tag=' + tag_filter
-            context["showing"] = 'Showing blogs tagged with ' + tag_filter + '.'
-        else:
-            context["filter"] = ''
-            context["showing"] = None
-        context["next_post"] = siblings.filter(path__gt=self.path).first()
-        context["previous_post"] = siblings.filter(path__lt=self.path).last()
+            filter['qstring'] = '?tag=' + tag_filter
+
+        context['filter'] = filter
+
+        context['next_post'] = siblings.filter(path__gt=self.path).first()
+        context['previous_post'] = siblings.filter(path__lt=self.path).last()
 
         return context
 
@@ -148,11 +161,12 @@ class BlogDetailPage(SEOPage):
         return self.__class__.__name__
 
 class TechBlogDetailPage(BlogDetailPage):
-    template = "blog/blog_page.html"
+    template = 'blog/blog_page.html'
     parent_page_types = ['blog.TechBlogListingPage']
 
     categories = ParentalManyToManyField(
         'blog.TechBlogCategory',
+        verbose_name=_("Blog Categories")
     )
     tags = ClusterTaggableManager(through=TechBlogPageTag, blank=True)
 
@@ -166,18 +180,19 @@ class TechBlogDetailPage(BlogDetailPage):
             ],
             heading = "Blog Categories",
         ),
-        FieldPanel("tags"),
+        FieldPanel('tags'),
     ]
 
     class Meta:
         verbose_name = _("Tech Blog Page")
 
 class PersonalBlogDetailPage(BlogDetailPage):
-    template = "blog/blog_page.html"
+    template = 'blog/blog_page.html'
     parent_page_types = ['blog.PersonalBlogListingPage']
 
     categories = ParentalManyToManyField(
         'blog.PersonalBlogCategory',
+        verbose_name=_("Blog Categories")
     )
     tags = ClusterTaggableManager(through=PersonalBlogPageTag, blank=True)
 
@@ -189,9 +204,9 @@ class PersonalBlogDetailPage(BlogDetailPage):
                     widget = forms.CheckboxSelectMultiple,
                 ),
             ],
-            heading = "Blog Categories",
+            heading = _("Blog Categories"),
         ),
-        FieldPanel("tags"),
+        FieldPanel('tags'),
     ]
 
     class Meta:
@@ -225,10 +240,10 @@ class CustomComment(XtdComment):
 
             subject = _("New comment on your blog post")
             text_message_template = loader.get_template(
-                "django_comments_xtd/email_followup_comment.txt")
+                'django_comments_xtd/email_followup_comment.txt')
             if settings.COMMENTS_XTD_SEND_HTML_EMAIL:
                 html_message_template = loader.get_template(
-                    "django_comments_xtd/email_followup_comment.html")
+                    'django_comments_xtd/email_followup_comment.html')
 
             for email, (name, key) in six.iteritems(followers):
                 mute_url = reverse('comments-xtd-mute', args=[key.decode('utf-8')])
@@ -256,27 +271,30 @@ class BlogListingPage(SEOPage):
         null=True,
         related_name='+',
         on_delete=models.SET_NULL,
+        verbose_name=_("Banner Image")
     )
     banner_headline = models.CharField(
         max_length=30,
         blank=True,
         null=True,
+        verbose_name=_("Banner Headline")
     )
     banner_small_text = models.CharField(
         max_length=60,
         blank=True,
         null=True,
+        verbose_name=_("Banner Small Text")
     )
 
     top_section = StreamField(
         GridStreamBlock(), 
-        verbose_name="Content to go above the index", 
+        verbose_name=_("Content to go above the index"), 
         blank=True, 
         use_json_field=True
     )
     bottom_section = StreamField(
         GridStreamBlock(), 
-        verbose_name="Content to go below the index", 
+        verbose_name=_("Content to go below the index"), 
         blank=True, 
         use_json_field=True
     )
@@ -290,8 +308,8 @@ class BlogListingPage(SEOPage):
             ], 
             heading=_("Choose banner image and text/button overlay options.")
         ),
-        FieldPanel("top_section"),
-        FieldPanel("bottom_section"),
+        FieldPanel('top_section'),
+        FieldPanel('bottom_section'),
     ]
 
     class Meta:
@@ -316,24 +334,29 @@ class BlogListingPage(SEOPage):
             categories = PersonalBlogCategory.objects.all()
             tags = Tag.objects.all().filter(id__in=PersonalBlogPageTag.objects.all().values_list('tag_id', flat=True))
 
-        category_filter = request.GET.get("category", None)
-        tag_filter = request.GET.get("tag", None)
+        category_filter = request.GET.get('category', None)
+        tag_filter = request.GET.get('tag', None)
+
+        filter = {'type': '', 'name': '', 'qstring': '', 'verbose': ''}
 
         if category_filter:
-            all_posts = all_posts.filter(categories__slug__in=category_filter.split(","))
-            context["filter"] = '?category=' + category_filter
-            context["showing"] = "Showing blogs in '" + categories.filter(slug=category_filter).first().name + "' category."
+            all_posts = all_posts.filter(categories__slug__in=category_filter.split(','))
+            filter['type'] = 'category'
+            filter['name'] = category_filter
+            filter['qstring'] = '?category=' + category_filter
+            filter['verbose'] = categories.filter(slug=category_filter).first().name
         elif tag_filter:
             all_posts = all_posts.filter(tags__slug__in=tag_filter.split(','))
-            context["filter"] = '?tag=' + tag_filter
-            context["showing"] = "Showing blogs tagged with '#" + tags.filter(slug=tag_filter).first().name + "'"
-        else:
-            context["filter"] = ''
-            context["showing"] = None
+            filter['type'] = 'tag'
+            filter['name'] = tag_filter
+            filter['qstring'] = '?tag=' + tag_filter
+            filter['verbose'] = tags.filter(slug=tag_filter).first().name 
 
+        context['filter'] = filter
+        
         paginator = Paginator(all_posts, 12)
 
-        requested_page = request.GET.get("page")
+        requested_page = request.GET.get('page')
 
         try:
             posts = paginator.page(requested_page)
@@ -342,10 +365,10 @@ class BlogListingPage(SEOPage):
         except EmptyPage:
             posts = paginator.page(paginator.num_pages)
         
-        context["posts"] = posts
+        context['posts'] = posts
         context['categories'] = categories
         context['tags'] = tags
-        context["category_filter"] = category_filter
+        context['category_filter'] = category_filter
         context['tag_filter'] = tag_filter
         context['page_range'] = paginator_range(
             requested_page=posts.number,
@@ -359,13 +382,13 @@ class BlogListingPage(SEOPage):
         return context
 
 class TechBlogListingPage(BlogListingPage):
-    template = "blog/blog_index_page.html"
-    subpage_types = ["blog.TechBlogDetailPage",]
+    template = 'blog/blog_index_page.html'
+    subpage_types = ['blog.TechBlogDetailPage',]
     max_count = 1
 
 class PersonalBlogListingPage(BlogListingPage):
-    template = "blog/blog_index_page.html"
-    subpage_types = ["blog.PersonalBlogDetailPage",]
+    template = 'blog/blog_index_page.html'
+    subpage_types = ['blog.PersonalBlogDetailPage',]
     max_count = 1
 
 
