@@ -39,7 +39,7 @@ def register_fa_styling(features):
 
     db_conversion = {
         "from_database_format": {tag: InlineStyleElementHandler(type_)},
-        "to_database_format": {"style_map": {type_: {"element": tag}}}
+        "to_database_format": {"style_map": {type_: {"element": tag + ' style="display:none;"'}}}
     }
 
     features.register_converter_rule("contentstate", feature_name, db_conversion)
