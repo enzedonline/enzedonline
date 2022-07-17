@@ -26,10 +26,12 @@ $(document).ready(function () {
   fa_icons = document.getElementsByTagName('fa');
   for (let i = 0; i < fa_icons.length; i++) {
     const fa_class = fa_icons[i].innerText;
-    fa_icons[i].innerText = "";
-    const fa = fa_icons[i].appendChild(document.createElement("i"));
-    fa.className = fa_class;
-    fa_icons[i].removeAttribute('style');
+    if (fa_class) {
+      fa_icons[i].innerText = "";
+      const fa = fa_icons[i].appendChild(document.createElement("i"));
+      fa.className = fa_class;
+      fa_icons[i].removeAttribute('style');
+    }
   }
 });
 
