@@ -2,27 +2,25 @@
 {% get_template_set 'comments' as trans %}
 
 {% for item in comments %}
-    <div class="card bg-light border-0 pt-1 mb-1">
-        <div class="row">
-            <div class="ms-3 mt-2 text-center" style="width: 80px;">
-                <a name="c{{ item.comment.id }}"></a>
-                {% if item.comment.user.display_name %}
-                    <span class="text-primary text-center"><i class="fas fa-user fa-4x"></i></span>
-                {% else %}
-                    <span class="text-secondary text-center"><i class="far fa-user fa-4x"></i></span>
-                {% endif %}
-            </div>
-            <div class="col me-1 ps-2 pt-1" style="text-align: left !important;">
-                {% if item.comment.is_removed %}
-                    <p class="text-muted{% if not allow_feedback and not item.comment.allow_thread %} pb-3{% endif %}"><em>{{ trans.comment_removed }}</em></p>
-                {% else %}
+    {% if not item.comment.is_removed %}
+        <div class="card bg-light border-0 pt-1 mb-1">
+            <div class="row">
+                <div class="ms-3 mt-2 text-center" style="width: 80px;">
+                    <a name="c{{ item.comment.id }}"></a>
+                    {% if item.comment.user.display_name %}
+                        <span class="text-primary text-center"><i class="fas fa-user fa-4x"></i></span>
+                    {% else %}
+                        <span class="text-secondary text-center"><i class="far fa-user fa-4x"></i></span>
+                    {% endif %}
+                </div>
+                <div class="col me-1 ps-2 pt-1" style="text-align: left !important;">
                     <div class="content{% if not allow_feedback and not item.comment.allow_thread %} pb-3{% endif %}">
                         {% include "includes/django_comments_xtd/comment_content.html" with content=item.comment.comment %}
                     </div>
                     <div class="flex me-auto small text-muted pt-1">
                         <span id='date_{{item.comment.pk}}'></span>
                         &nbsp;-&nbsp;
-                        {% if item.comment.url and not item.comment.is_removed %}
+                        {% if item.comment.url %}
                             <a href="{{ item.comment.url }}" target="_new">
                         {% endif %}
                         {% include 'comments/display_name.html' %}
@@ -52,33 +50,33 @@
                             {% endif %}
                         </div>
                     </div>
-                {% endif %}
-                <h6 class="mt-1 small d-flex">
-                    <span>
-                        {% if not item.comment.is_removed %}
-                            {% if perms.comments.can_moderate %}
-                                {% if item.flagged_count %}
-                                    <span class="badge badge-danger" title="{{ trans.inappropriate1 }}. {{ item.flagged_count }} {{ trans.inappropriate2 }}."</span>
+                    <h6 class="mt-1 small d-flex">
+                        <span>
+                            {% if not item.comment.is_removed %}
+                                {% if perms.comments.can_moderate %}
+                                    {% if item.flagged_count %}
+                                        <span class="badge badge-danger" title="{{ trans.inappropriate1 }}. {{ item.flagged_count }} {{ trans.inappropriate2 }}."</span>
+                                    {% endif %}
+                                {% endif %}
+                                {% if allow_flagging and item.flagged %}
+                                    <i class="fas fa-flag text-danger" title="{{ trans.comment_flagged}}"></i>
+                                {% elif allow_flagging %}
+                                    <a class="mutedlink" href="{% url 'comments-flag' item.comment.pk %}">
+                                        <i class="fas fa-flag" title="{{ trans.flag_comment }}"></i></a>
+                                {% endif %}
+                                {% if perms.comments.can_moderate %}
+                                    <a class="mutedlink" href="{% url 'comments-delete' item.comment.pk %}"><i class="fas fa-trash-alt" title="{{ trans.remove_comment }}"></i></a>
                                 {% endif %}
                             {% endif %}
-                            {% if allow_flagging and item.flagged %}
-                                <i class="fas fa-flag text-danger" title="{{ trans.comment_flagged}}"></i>
-                            {% elif allow_flagging %}
-                                <a class="mutedlink" href="{% url 'comments-flag' item.comment.pk %}">
-                                    <i class="fas fa-flag" title="{{ trans.flag_comment }}"></i></a>
-                            {% endif %}
-                            {% if perms.comments.can_moderate %}
-                                <a class="mutedlink" href="{% url 'comments-delete' item.comment.pk %}"><i class="fas fa-trash-alt" title="{{ trans.remove_comment }}"></i></a>
-                            {% endif %}
-                        {% endif %}
-                    </span>
-                </h6>
-                {% if not item.comment.is_removed and item.children %}
-                    {% render_xtdcomment_tree with comments=item.children %}
-                {% endif %}
+                        </span>
+                    </h6>
+                    {% if not item.comment.is_removed and item.children %}
+                        {% render_xtdcomment_tree with comments=item.children %}
+                    {% endif %}
+                </div>
             </div>
         </div>
-    </div>
+    {% endif %}
     <script>
     document.getElementById("date_{{item.comment.pk}}").innerHTML = convertUTCDateToLocalDate(new Date('{{ item.comment.submit_date|date:"d M Y H:i:s" }}'));
     </script>
