@@ -1,6 +1,6 @@
 // Usage: document.getElementById("id").innerHTML = convertUTCDateToLocalDate(new Date('02 Aug 2021 09:58:22'));
 let convertUTCDateToLocalDate = (date) => {
-  local_date = new Date(date.getTime() + date.getTimezoneOffset() * 60000);
+  local_date = new Date(date.getTime() - date.getTimezoneOffset() * 60000);
   const date_options = {
     weekday: "short",
     year: "numeric",
