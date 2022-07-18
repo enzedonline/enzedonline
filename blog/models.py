@@ -199,7 +199,18 @@ class PersonalBlogDetailPage(BlogDetailPage):
 
     class Meta:
         verbose_name = _("Personal Blog Page")
+        
+class BlogAuthorCommentNotified(models.Model):
+    comment_id = models.IntegerField()
 
+    @classmethod
+    def already_notified(self, id):
+        try:
+            BlogAuthorCommentNotified.objects.get(comment_id=id)
+            return True
+        except BlogAuthorCommentNotified.DoesNotExist:
+            return False            
+        
 class CustomComment(XtdComment):
     page = ParentalKey(BlogDetailPage, on_delete=models.CASCADE, related_name='customcomments')
 
@@ -215,7 +226,7 @@ class CustomComment(XtdComment):
             author = CustomUser.objects.get(id=self.page.owner_id)
         except CustomUser.DoesNotExist:
             return
-        if not self.user_email == author.email:
+        if not self.user_email == author.email and not BlogAuthorCommentNotified.already_notified(self.object_pk):
             followers = {}
             followers[author.email] = (
                 self.user_name,
@@ -249,6 +260,8 @@ class CustomComment(XtdComment):
                     html_message = None
                 send_mail(subject, text_message, settings.COMMENTS_XTD_FROM_EMAIL,
                         [email, ], html=html_message)
+            BlogAuthorCommentNotified(comment_id=self.object_pk).save()
+            
 
 class BlogListingPage(SEOPage):
     parent_page_types = ['home.HomePage']
