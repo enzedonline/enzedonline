@@ -4,17 +4,8 @@ from django.utils.safestring import mark_safe
 from site_settings.models import CompanyLogo, EmailSignature, TemplateText
 from wagtail.admin.templatetags.wagtailadmin_tags import render_with_errors
 from wagtail.models import Page
-import urllib
 
 register = template.Library()
-
-@register.simple_tag()
-def avatar_exists(value):
-    try:
-        urllib.urlopen(urllib.Request("/media/" + value))
-        return True
-    except:
-        return False
 
 @register.simple_tag()
 def trans_url(link):
