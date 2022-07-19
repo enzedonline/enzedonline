@@ -1,0 +1,9 @@
+{% load wagtailcore_tags flex_card_tags %}
+
+<div class="{% card_layout self %}">
+    {% include 'blocks/flex/image.html' %}
+    <div class="py-0 text-break">
+        {% include_block self.text %}
+    </div>
+    {% include 'blocks/flex/button.html' %}
+</div>

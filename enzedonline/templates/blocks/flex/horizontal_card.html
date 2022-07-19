@@ -1,0 +1,23 @@
+{% load wagtailcore_tags flex_card_tags %}
+
+<div class="{% card_layout self %}">
+    {% row_layout self as layout %}
+    <div class="{{ layout.row_class }}">
+      <div class="{{ layout.image_column }} size-{{block.id}}">
+        {% include 'blocks/flex/image.html' %}
+      </div>      
+      <div class="col">
+        <div class="{{ layout.text_column }}">
+          {% include_block self.text %}
+        </div>
+        {% include 'blocks/flex/button.html' %}
+      </div>
+    </div>
+</div>
+
+<style>
+    @media (min-width: {{ layout.breakpoint }}) {
+      .size-{{block.id}} {
+        {{ layout.image_style }}
+      }  
+</style>

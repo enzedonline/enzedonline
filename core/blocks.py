@@ -278,12 +278,6 @@ class FlexCard(StructBlock):
         label=_("Border"),
         help_text=_("Draw a border around the card?")
     )
-    full_height = BooleanBlock(
-        default=True,
-        required=False,
-        label=_("Full Height"),
-        help_text=_("Card uses all available height")
-    )
     text = SimpleRichTextBlock(
         label=_("Card Body Text"),
         help_text=_("Body text for this card."),
@@ -292,11 +286,32 @@ class FlexCard(StructBlock):
         label=_("Select Image & Enter Details"),
         help_text=_("Card Image (approx 1:1.4 ratio - ideally upload 2100x1470px)."),
     )
-
+    image_min = IntegerBlock(
+        label=_("Minimum width the image can shrink to (pixels)"),
+        default=200,
+        min_value=100
+    )
+    image_max = IntegerBlock(
+        label=_("Optional maximum width the image can grow to (pixels)"),
+        required=False
+    )
     class Meta:
         template = 'blocks/flex_card_block.html'
         label = _("Image & Text Card")
         icon = 'fa-address-card'
+
+    def clean(self, value):
+        errors = {}
+        image_min = value.get('image_min')
+        image_max = value.get('image_max')
+
+        if image_min and image_max and image_min > image_max:
+            errors['image_min'] = ErrorList([_("Please make sure minimum is less than maximum.")])
+            errors['image_max'] = ErrorList([_("Please make sure minimum is less than maximum.")])
+        if errors:
+            raise StructBlockValidationError(block_errors=errors)
+
+        return super().clean(value)     
 
 class CallToActionCard(FlexCard):
     link = Link(
