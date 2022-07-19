@@ -65,13 +65,13 @@
       {# Categories #}
       <div class="row rounded bg-info py-2 px-3 mx-1 mt-2 mb-4 border-primary border-1">
           <div class="col-auto flex-nowrap px-1 px-sm-2 px-md-3">
-              <span class="category-link active">{{ common_trans.posted_in }}</span>
+              <span class="category-link">{{ common_trans.posted_in }}</span>
           </div>
           <div class="col">
               <div class="row">
                 {% for item in self.categories.all %}
                   <div class="col-auto">
-                    <a class="category-link active" href="{{ self.get_parent.url }}?category={{item.slug}}#filter">
+                    <a class="category-link fw-bold" href="{{ self.get_parent.url }}?category={{item.slug}}#filter">
                       {{ item.name }}
                     </a>
                   </div>        
@@ -93,7 +93,7 @@
       {# Tags #}
       {% if page.tags.count %} 
         <div class="row rounded bg-info p-2 m-0 border-primary border-1">
-          <div class="col-auto tag-link active d-flex flex-nowrap pe-3">
+          <div class="col-auto tag-link d-flex flex-nowrap pe-3">
               {{ common_trans.tagged_with }}
           </div>
           <div class="col">
