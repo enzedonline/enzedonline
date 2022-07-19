@@ -953,6 +953,30 @@ class TwoColumnBaseBlock(StructBlock):
         default = '-sm',
         label = _("Select responsive layout behaviour")
     )
+    left_min = IntegerBlock(
+        required=False,
+        min_value=0,
+        label=_("Left Column Minimum Width (pixels) - optional"),
+        help_text=_("The minimum width the left column can shrink to above the breakpoint. Leave blank to kep width proportional.")
+    )
+    left_max = IntegerBlock(
+        required=False,
+        min_value=0,
+        label=_("Left Column Maximum Width (pixels)"),
+        help_text=_("The maximum width the left column can grow to above the breakpoint. Leave blank to kep width proportional.")
+    )
+    right_min = IntegerBlock(
+        required=False,
+        min_value=0,
+        label=_("Right Column Minimum Width (pixels)"),
+        help_text=_("The minimum width the right column can shrink to above the breakpoint. Leave blank to kep width proportional.")
+    )
+    right_max = IntegerBlock(
+        required=False,
+        min_value=0,
+        label=_("Right Column Maximum Width (pixels)"),
+        help_text=_("The maximum width the right column can grow to above the breakpoint. Leave blank to kep width proportional.")
+    )
     horizontal_padding = IntegerBlock(
         default = 4,
         max_value=5
@@ -1000,6 +1024,24 @@ class TwoColumnBaseBlock(StructBlock):
         icon = 'fa-columns'
         label = "Two Column Block"
 
+    def clean(self, value):
+        errors = {}
+        left_min = value.get('left_min')
+        left_max = value.get('left_max')
+        right_min = value.get('right_min')
+        right_max = value.get('right_max')
+
+        if left_min and left_max and left_min > left_max:
+            errors['left_min'] = ErrorList([_("Please make sure minimum is less than maximum.")])
+            errors['left_max'] = ErrorList([_("Please make sure minimum is less than maximum.")])
+        if right_min and right_max and right_min > right_max:
+            errors['right_min'] = ErrorList([_("Please make sure minimum is less than maximum.")])
+            errors['right_max'] = ErrorList([_("Please make sure minimum is less than maximum.")])
+        if errors:
+            raise StructBlockValidationError(block_errors=errors)
+
+        return super().clean(value)     
+       
 class ThreeColumnBaseBlock(StructBlock):
     column_layout = ThreeColumnLayoutChoiceBlock(
         default = '4-4-4',
@@ -1008,6 +1050,18 @@ class ThreeColumnBaseBlock(StructBlock):
     breakpoint = BreakPointChoiceBlock(
         default = '-md',
         label = _("Select responsive layout behaviour")
+    )
+    outer_min = IntegerBlock(
+        required=False,
+        min_value=0,
+        label=_("Outer Column Minimum Width (pixels)"),
+        help_text=_("The minimum width the left and right columns can shrink to above the breakpoint. Leave blank to kep width proportional.")
+    )
+    outer_max = IntegerBlock(
+        required=False,
+        min_value=0,
+        label=_("Outer Column Maximum Width (pixels)"),
+        help_text=_("The maximum width the left and right columns can grow to above the breakpoint. Leave blank to kep width proportional.")
     )
     horizontal_padding = IntegerBlock(
         default = 4,
@@ -1049,6 +1103,19 @@ class ThreeColumnBaseBlock(StructBlock):
         template = 'blocks/three_column_block.html'
         icon = 'fa-columns'
         label = "Three Column Block"
+
+    def clean(self, value):
+        errors = {}
+        outer_min = value.get('outer_min')
+        outer_max = value.get('outer_max')
+
+        if outer_min and outer_max and outer_min > outer_max:
+            errors['outer_min'] = ErrorList([_("Please make sure minimum is less than maximum.")])
+            errors['outer_max'] = ErrorList([_("Please make sure minimum is less than maximum.")])
+        if errors:
+            raise StructBlockValidationError(block_errors=errors)
+
+        return super().clean(value)     
 
 class GridStreamBlock(StreamBlock):
     page_wide_block=FullWidthBaseBlock()

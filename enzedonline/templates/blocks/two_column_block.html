@@ -1,13 +1,13 @@
 {% load static wagtailcore_tags grid_block_tags %}
-{% two_column_layout value.breakpoint value.column_layout value.horizontal_padding value.order value.hide as layout %}
+{% two_column_layout value as layout %}
 
   <div class="row">
-    <div class="col{{ layout.left }} {{ layout.horizontal_padding }}{{ layout.left_order }} {{ layout.hide_left }} {% if value.vertical_border %}two-column-divider{% endif %}">
+    <div class="col{{ layout.left }} {{ layout.horizontal_padding }}{{ layout.left_order }} {{ layout.hide_left }} {% if value.vertical_border %}two-column-divider-{{block.id}}{% endif %} sizel-{{block.id}}">
         {% for block in value.left_column %}
             {% include_block block %}
         {% endfor %}
     </div>
-    <div class="col{{ layout.right }} {{ layout.horizontal_padding }}{{ layout.right_order }} {{ layout.hide_right }}">
+    <div class="col{{ layout.right }} {{ layout.horizontal_padding }}{{ layout.right_order }} {{ layout.hide_right }} sizer-{{block.id}}">
         {% for block in value.right_column %}
             {% include_block block %}
         {% endfor %}
@@ -16,12 +16,23 @@
 
 
 <style>
-.two-column-divider {
+.two-column-divider-{{block.id}} {
   border-right: 1px solid #DADADA;
 }
 @media (max-width: {{ layout.breakpoint_pixels }}) {
-  .two-column-divider {
+  .two-column-divider-{{block.id}} {
     border-right: 0px solid #DADADA !important;
   }
+}
+
+@media (min-width: {{ layout.breakpoint_pixels }}) {
+  .sizel-{{block.id}} {
+    min-width: {{ layout.left_min |default:"0px"}};
+    max-width: {{ layout.left_max |default:"100%"}};
+  }  
+  .sizer-{{block.id}} {
+    min-width: {{ layout.right_min |default:"0px"}};
+    max-width: {{ layout.right_max |default:"100%"}};
+  }  
 }
 </style>
