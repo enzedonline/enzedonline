@@ -3,6 +3,11 @@ from django import template
 register = template.Library()
 
 @register.simple_tag()
+def padding(border, background):
+    if background.find('bg-transparent') != -1 and not border:
+        return '0'
+
+@register.simple_tag()
 def card_layout(value):
     if value['background'].find('bg-transparent') != -1 and not value['border']:
         padding = 'p-0'
