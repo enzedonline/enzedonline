@@ -126,3 +126,7 @@ def get_search_or_none(context):
             if 'search_query' in d:
                 return d['search_query']
     return ''
+
+@register.simple_tag()
+def get_rendition(image, image_options):
+    return image.get_rendition(image_options)
