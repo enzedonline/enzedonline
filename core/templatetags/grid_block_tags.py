@@ -28,9 +28,9 @@ def two_column_layout(value):
             layout['hide_left'] = 'd-none d' + breakpoint + '-block'
 
         if breakpoint == '-sm':
-            layout['breakpoint_pixels'] = '575px'
+            layout['breakpoint_pixels'] = '576px'
         elif breakpoint == '-md':
-            layout['breakpoint_pixels'] = '767px'
+            layout['breakpoint_pixels'] = '768px'
         else:
             layout['breakpoint_pixels'] = '991px'
 
@@ -60,9 +60,9 @@ def three_column_layout(value):
     else:
         layout['horizontal_padding'] = 'px' + breakpoint + '-' + str(value['horizontal_padding'])
         if breakpoint == '-sm':
-            layout['breakpoint_pixels'] = '575px'
+            layout['breakpoint_pixels'] = '576px'
         elif breakpoint == '-md':
-            layout['breakpoint_pixels'] = '767px'
+            layout['breakpoint_pixels'] = '768px'
         else:
             layout['breakpoint_pixels'] = '991px'
 
