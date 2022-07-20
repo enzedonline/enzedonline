@@ -1,3 +1,4 @@
+from email.policy import default
 import unidecode
 from django.forms.utils import ErrorList
 from django.utils.text import slugify
@@ -79,6 +80,21 @@ class RouteOptionChoiceBlock(ChoiceBlock):
         ('driving', "Driving"),
         ('driving-traffic', "Driving (with traffic conditions)")
      ]
+
+class FlexCardLayoutChoiceBlock(ChoiceBlock):
+    choices=[
+        ('image-left-responsive', _("Responsive Horizontal (Image left of text on widescreen only)")),
+        ('image-right-responsive', _("Responsive Horizontal (Image right of text on widescreen only)")),
+        ('image-left-fixed', _("Fixed Horizontal (Image left of text on all screen sizes)")),
+        ('image-right-fixed', _("Fixed Horizontal (Image right of text on all screen sizes)")),
+        ('vertical', _("Vertical (Image above text on on all screen sizes)")),
+    ]
+
+class BreakpointChoiceBlock(ChoiceBlock):
+    choices=[
+        ('sm', _("Small screen only")),
+        ('md', _("Small and medium screens")),
+    ]
 
 class SEOImageChooseBlock(StructBlock):
     file = ImageChooserBlock(
@@ -256,18 +272,15 @@ class HeadingBlock(StructBlock):
 
 class FlexCard(StructBlock):
     
-    format = ChoiceBlock(
+    format = FlexCardLayoutChoiceBlock(
         max_length=15,
         default='vertical',
-        choices=[
-            ('image-left-responsive', _("Responsive Horizontal (Image left of text on widescreen only)")),
-            ('image-right-responsive', _("Responsive Horizontal (Image right of text on widescreen only)")),
-            ('image-left-fixed', _("Fixed Horizontal (Image left of text on all screen sizes)")),
-            ('image-right-fixed', _("Fixed Horizontal (Image right of text on all screen sizes)")),
-            ('vertical', _("Vertical (Image above text on on all screen sizes)")),
-        ],
         label=_("Card Format")
     )    
+    breakpoint = BreakpointChoiceBlock(
+        default = 'md',
+        label=_("Breakpoint for responsive layouts")
+    )
     background = ColourThemeChoiceBlock(
         default='bg-transparent',
         label=_("Card Background Colour")
@@ -476,18 +489,23 @@ class ExternalLinkEmbedBlock(StructBlock):
         blank=True,
         help_text=_("Leave blank to autofill from website. Delete text to refresh from website.")
     )
-    format = ChoiceBlock(
-        max_length=15,
+    image_min = IntegerBlock(
+        label=_("Minimum width the image can shrink to (pixels)"),
+        default=200,
+        min_value=100
+    )
+    image_max = IntegerBlock(
+        label=_("Optional maximum width the image can grow to (pixels)"),
+        required=False
+    )
+    format = FlexCardLayoutChoiceBlock(
         default='vertical',
-        choices=[
-            ('image-left-responsive', _("Responsive Horizontal (Image left of text on widescreen only)")),
-            ('image-right-responsive', _("Responsive Horizontal (Image right of text on widescreen only)")),
-            ('image-left-fixed', _("Fixed Horizontal (Image left of text on all screen sizes)")),
-            ('image-right-fixed', _("Fixed Horizontal (Image right of text on all screen sizes)")),
-            ('vertical', _("Vertical (Image above text on on all screen sizes)")),
-        ],
         label=_("Card Format")
     )    
+    breakpoint = BreakpointChoiceBlock(
+        default = 'md',
+        label=_("Breakpoint for responsive layouts")
+    )
     background = ColourThemeChoiceBlock(
         default='bg-transparent',
         label=_("Card Background Colour")
@@ -559,6 +577,13 @@ class ExternalLinkEmbedBlock(StructBlock):
                         value['description'] = metadata['description']
             except KeyError:
                 errors['external_link'] = ErrorList([_("No information for the URL was found, please check the URL and ensure the full URL is included and try again.")])
+
+            image_min = value.get('image_min')
+            image_max = value.get('image_max')
+
+            if image_min and image_max and image_min > image_max:
+                errors['image_min'] = ErrorList([_("Please make sure minimum is less than maximum.")])
+                errors['image_max'] = ErrorList([_("Please make sure minimum is less than maximum.")])
 
             if errors:
                 raise StructBlockValidationError(block_errors=errors)
