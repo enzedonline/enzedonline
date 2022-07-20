@@ -17,6 +17,12 @@ from wagtail_localize.synctree import Locale
 import core.metadata
 from core.utils import isfloat
 
+class AlignmentChoiceBlock(ChoiceBlock):
+    choices=[
+        ('start', _('Left')), 
+        ('center', _('Centre')), 
+        ('end', _('Right'))
+    ]
 
 class TextAlignmentChoiceBlock(ChoiceBlock):
     choices=[
@@ -177,14 +183,8 @@ class Link(StructBlock):
         default='btn-primary',
         label=_("Button Appearance")
     )
-    placement = ChoiceBlock(
-        max_length=15,
+    placement = AlignmentChoiceBlock(
         default='end',
-        choices=[
-            ('start', _("Left")),
-            ('center', _("Centre")),
-            ('end', _("Right")),
-        ],
         label=_("Button Placement")
     )
     size = ChoiceBlock(
@@ -531,14 +531,8 @@ class ExternalLinkEmbedBlock(StructBlock):
         default='btn-primary',
         label=_("Button Appearance")
     )
-    button_placement = ChoiceBlock(
-        max_length=15,
-        default='right',
-        choices=[
-            ('left', _("Left")),
-            ('center', _("Centre")),
-            ('right', _("Right")),
-        ],
+    button_placement = AlignmentChoiceBlock(
+        default='end',
         label=_("Button Placement")
     )
     button_size = ChoiceBlock(
@@ -782,12 +776,7 @@ class DocumentBlock(StructBlock):
         default = False,
         required = False
     )
-    alignment = ChoiceBlock(
-        choices = [
-            ('start', 'Left'), 
-            ('center', 'Centre'), 
-            ('end', 'Right')
-        ],
+    alignment = AlignmentChoiceBlock(
         default = 'center',
         label = _("Text Alignment"),
         help_text = _("Only used if full width button")
@@ -830,12 +819,7 @@ class DocumentListBlock(StructBlock):
         default = False,
         required = False
     )
-    alignment = ChoiceBlock(
-        choices = [
-            ('start', _('Left')), 
-            ('center', _('Centre')), 
-            ('end', _('Right'))
-        ],
+    alignment = AlignmentChoiceBlock(
         default = 'center',
         label = _("Text Alignment"),
         help_text = _("Only used if full width button")
