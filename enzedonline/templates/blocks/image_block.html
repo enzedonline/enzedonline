@@ -7,7 +7,7 @@
 {% image self.image.file original as fallback %}
 
 <div class="block-container">
-  <div class="{{ self.background }} p-0">
+  <div class="{{ self.background }} p-0 mx-auto"{% if self.max_width %} style="max-width: {{self.max_width}}px;"{% endif %}>
     <figure class="p-1">
       <picture class="srcset">
         <source

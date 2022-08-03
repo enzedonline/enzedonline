@@ -124,6 +124,7 @@ class ImageBlock(StructBlock):
         default='bg-transparent',
         label=_("Card Background Colour")
     )
+    max_width = IntegerBlock(required=False, label=_("Optional maximum width the image can grow to (in pixels)"))
     class Meta:
         icon = 'image'
         template = "blocks/image_block.html"
