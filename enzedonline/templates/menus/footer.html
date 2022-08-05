@@ -24,7 +24,7 @@
       {% if privacy_menu %}
         {% get_menu_items privacy_menu request as privacy_menu_items %}
         {% for privacy_page in privacy_menu_items %}
-          <span class="justify-content-center content-align-middle">
+          <span class="mx-auto">
             <a class="footer-nav-link" href="{{ privacy_page.url }}"
               >{{ privacy_page.title }}</a
             >

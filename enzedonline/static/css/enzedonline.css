@@ -281,6 +281,21 @@
     left: 100%;
     margin-top: -1px;
   }
+  .h-submenu {
+    text-decoration: none;
+    font-family: var(--font-family-headings) !important;
+    text-align: left;
+    font-size: .9625rem;
+    font-weight: 400;
+    padding-left: 1.5mm;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    border-radius: 0px;
+  }
+  .h-submenu:hover {
+    color: #1e2125;
+    background-color: #e9ecef;
+  }
   .nav-item {
     padding: 0rem 0rem;
     padding-right: 0rem;

@@ -1,8 +1,9 @@
-from site_settings.models import SocialMedia
-from menu.models import Menu
 from django import template
-from wagtail_localize.synctree import Locale, Page
+from menu.models import Menu
+from site_settings.models import CompanyLogo, SocialMedia
 from wagtail.images.models import Image
+from wagtail_localize.synctree import Locale, Page
+
 
 def sub_menu_items(menu, logged_in):
     # return any submenus for the menu instance
@@ -193,9 +194,10 @@ def get_social_media_icons():
         return None
 
 @register.simple_tag()
-def locale_page(slug):
+def get_logo(logo):
     try:
-        localized_page = Page.objects.all().filter(slug=slug).first().localized
-        return localized_page
-    except (AttributeError, Menu.DoesNotExist):
-        return None        
+        logo = CompanyLogo.objects.filter(name=logo).first().localized
+        return logo if logo else CompanyLogo.objects.none()
+                
+    except (AttributeError, CompanyLogo.DoesNotExist):
+        return CompanyLogo.objects.none()    

@@ -1,7 +1,7 @@
 from datetime import datetime
 from django import template
 from django.utils.safestring import mark_safe
-from site_settings.models import CompanyLogo, EmailSignature, TemplateText
+from site_settings.models import EmailSignature, TemplateText
 from wagtail.admin.templatetags.wagtailadmin_tags import render_with_errors
 from wagtail.models import Page
 
@@ -74,15 +74,6 @@ def get_email_signature(signature):
                 
     except (AttributeError, EmailSignature.DoesNotExist):
         return EmailSignature.objects.none()    
-
-@register.simple_tag()
-def get_logo(logo):
-    try:
-        logo = CompanyLogo.objects.filter(name=logo).first().localized
-        return logo if logo else CompanyLogo.objects.none()
-                
-    except (AttributeError, CompanyLogo.DoesNotExist):
-        return CompanyLogo.objects.none()    
 
 @register.simple_tag()
 def regex_render_with_errors(bound_field):
