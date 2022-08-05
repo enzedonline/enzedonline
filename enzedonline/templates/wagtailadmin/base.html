@@ -3,3 +3,12 @@
 {% block branding_logo %}
     <img src="{% static 'media/logo.png' %}" alt="Enzed Online">
 {% endblock branding_logo %}
+{% block extra_css %}
+<style>
+.Draftail-Toolbar {
+    position: sticky !important;
+    top: calc(1rem + 51px) !important;
+    z-index: 10 !important;
+}
+</style>
+{% endblock %}
