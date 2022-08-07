@@ -102,7 +102,7 @@ class BreakpointChoiceBlock(ChoiceBlock):
         ('md', _("Small and medium screens")),
     ]
 
-class SEOImageChooseBlock(StructBlock):
+class SEOImageChooserBlock(StructBlock):
     file = ImageChooserBlock(
         required=True, 
         label=_("Image")
@@ -117,7 +117,7 @@ class ImageBlock(StructBlock):
     Custom `StructBlock` for utilizing images with associated caption and
     attribution data
     """
-    image = SEOImageChooseBlock(required=True, label=_("Select Image & Enter Details"))
+    image = SEOImageChooserBlock(required=True, label=_("Select Image & Enter Details"))
     caption = CharBlock(required=False, label=_("Image Caption (optional)"))
     attribution = CharBlock(required=False, label=_("Image Attribution (optional)"))
     background = ColourThemeChoiceBlock(
@@ -296,7 +296,7 @@ class FlexCard(StructBlock):
         label=_("Card Body Text"),
         help_text=_("Body text for this card."),
     )
-    image = SEOImageChooseBlock(
+    image = SEOImageChooserBlock(
         label=_("Select Image & Enter Details"),
         help_text=_("Card Image (approx 1:1.4 ratio - ideally upload 2100x1470px)."),
     )
@@ -402,7 +402,7 @@ class SimpleImageCard(StructBlock):
         label=_("Card Body Text"),
         help_text=_("Body text for this card."),
     )
-    image = SEOImageChooseBlock(
+    image = SEOImageChooserBlock(
         label=_("Select Image & Enter Details"),
         help_text=_("Card Image (display size limited to 300-400px range)."),
     )
@@ -586,7 +586,7 @@ class ExternalLinkEmbedBlock(StructBlock):
         return super().clean(value)
 
 class CarouselImageBlock(StructBlock):
-    image = SEOImageChooseBlock(label=_("Select Image & Enter Details"))
+    image = SEOImageChooserBlock(label=_("Select Image & Enter Details"))
     title = CharBlock(label=_("Optional Image Title"), required=False)
     caption = TextBlock(label=_("Optional Image Caption"), required=False)
     link = PageChooserBlock(
