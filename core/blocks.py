@@ -109,7 +109,8 @@ class SEOImageChooserBlock(StructBlock):
     )
     seo_title = CharBlock(
         required=True,
-        label=_("SEO Title")
+        label=_("SEO Title"),
+        help_text=_("A text description of the image for screen readers and search engines")
     )
 
 class ImageBlock(StructBlock):
