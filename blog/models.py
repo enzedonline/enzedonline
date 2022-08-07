@@ -329,11 +329,11 @@ class BlogListingPage(SEOPage):
         if index_type == TechBlogListingPage:
             all_posts = TechBlogDetailPage.objects.child_of(self).live().public().reverse()
             categories = TechBlogCategory.objects.all()
-            tags = Tag.objects.annotate(ntag=models.Count('blog_techblogpagetag_items')).filter(ntag__gt=0)
+            tags = Tag.objects.annotate(ntag=models.Count('blog_techblogpagetag_items')).filter(ntag__gt=0).order_by('name')
         else:
             all_posts = PersonalBlogDetailPage.objects.child_of(self).live().public().reverse()
             categories = PersonalBlogCategory.objects.all()
-            tags = Tag.objects.annotate(ntag=models.Count('blog_personalblogpagetag_items')).filter(ntag__gt=0)
+            tags = Tag.objects.annotate(ntag=models.Count('blog_personalblogpagetag_items')).filter(ntag__gt=0).order_by('name')
 
         category_filter = request.GET.get('category', None)
         tag_filter = request.GET.get('tag', None)
