@@ -46,44 +46,8 @@
             <div>
                 {% if search_results.paginator.num_pages > 1 %}
                     {% search_paginator_filter as pgn_filter %}
-                    <nav aria-label="...">
-                        <ul class="pagination justify-content-center">
-                            <li class="page-item {% if not search_results.has_previous %}disabled{% endif %}">
-                                <a class="page-link" href="{% if search_results.has_previous %}{{ pgn_filter }}page=1#list{% endif %}" tabindex="-1" {% if not search_results.has_previous %}aria-disabled="true"{% endif %}><span>&laquo;&laquo;</span></a>
-                            </li>
-                            <li class="page-item {% if not search_results.has_previous %}disabled{% endif %}">
-                                <a class="page-link" href="{% if search_results.has_previous %}{{ pgn_filter }}page={{ search_results.previous_page_number }}#list{% endif %}" tabindex="-1" {% if not search_results.has_previous %}aria-disabled="true"{% endif %}><span>&laquo;</span></a>
-                            </li>
-                            {% if page_range_first > 1 %}
-                                <li class="page-item disabled">
-                                    <a class="page-link">...</a>
-                                </li>      
-                            {% endif %}                
-                            {% for page_num in page_range %}
-                                {% if page_num == search_results.number %}
-                                    <li class="page-item active" aria-current="page">
-                                        <a class="page-link" href="{{ pgn_filter }}page={{ page_num }}#list">{{ page_num }} <span class="sr-only">(current)</span></a>
-                                    </li>      
-                                {% else %}
-                                    <li class="page-item" aria-current="page">
-                                        <a class="page-link" href="{{ pgn_filter }}page={{ page_num }}#list">{{ page_num }}</a>
-                                    </li>      
-                                {% endif %}          
-                            {% endfor %}
-                            {% if page_range_last < search_results.paginator.num_pages %}
-                                <li class="page-item disabled">
-                                    <a class="page-link">...</a>
-                                </li>      
-                            {% endif %}
-                            <li class="page-item {% if not search_results.has_next %}disabled{% endif %}">
-                                <a class="page-link" href="{% if search_results.has_next %}{{ pgn_filter }}page={{ search_results.next_page_number }}#list{% endif %}" {% if not search_results.has_previous %}aria-disabled="true"{% endif %}><span>&raquo;</span></a>
-                            </li>
-                            <li class="page-item {% if not search_results.has_next %}disabled{% endif %}">
-                                <a class="page-link" href="{% if search_results.has_next %}{{ pgn_filter }}page={{ search_results.paginator.num_pages }}#list{% endif %}" {% if not search_results.has_next %}aria-disabled="true"{% endif %}><span>&raquo;&raquo;</span></a>
-                            </li>
-                        </ul>
-                    </nav>    
-                {% endif %}
+                    {% include 'core/paginator.html' with pages=search_results %}
+                    {% endif %}
             </div>
 
         {% elif search_query %}
