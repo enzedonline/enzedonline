@@ -29,7 +29,7 @@
                     {% endif %}
                     {% for subitem in user_menu_items %}
                         {% if not subitem.is_submenu %}
-                            <a class="dropdown-item{% if request.path == subitem.url %} active{% endif %}" href="{{subitem.url}}">
+                            <a class="dropdown-item{% if request.path == subitem.url %} active{% endif %}" href="{{subitem.url}}" rel="nofollow">
                                 {% if subitem.icon %}
                                     {% image subitem.icon fill-25x25 class="image-menu" %}
                                 {% endif %}
@@ -45,7 +45,7 @@
                             <p class="dropdown-row">
                                 {% for provider in socialaccount_providers %}
                                     <a title="{{ provider.name }}" class="socialaccount_provider {{ provider.id }} social-login-link" 
-                                        href="{% provider_login_url provider.id process="login" next=request.path  scope=scope auth_params=auth_params %}">
+                                        href="{% provider_login_url provider.id process="login" next=request.path  scope=scope auth_params=auth_params %}" rel="nofollow">
                                         <img alt="{{ provider.name }}" class="social-login-icon" src="{% static 'images/' %}{{ provider.name }}logo.png" width="40" height="40">
                                     </a>
                                 {% endfor %}
