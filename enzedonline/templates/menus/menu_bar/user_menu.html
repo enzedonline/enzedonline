@@ -6,6 +6,7 @@
 {% get_menu 'user' as user_menu %}
 {% if user_menu %}
     {% get_menu_items user_menu request as user_menu_items %}
+    {% get_template_set 'user-menu' as trans %}
 
     <div class="collapse navbar-collapse dual-collapse2 order-3 pe-md-0 ms-auto me-1 flex-grow-1 flex-md-grow-0 enzed-menu-collapse" id="user-profile-menu" aria-label="User profile menu">
         <ul class="navbar-nav ps-3 ps-md-0">
@@ -13,16 +14,16 @@
                 <a class="nav-link dropdown-toggle ps-md-1" title="{{ request.user.display_name }}" id="navbardrop" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                     {% if request.user.is_authenticated %}
                         <span class="text-white"><i class="fas fa-user fa-lg"></i></span>
-                        Profile
+                        {{ trans.profile }}
                     {% else %}
                         <span class="text-white"><i class="far fa-user fa-lg"></i></span>
-                        Login
+                        {{ trans.login }}
                     {% endif %}
                 </a>
                 <div class="dropdown-menu dropdown-menu-end">
                     {% if request.user.is_authenticated %}
                             <span class="dropdown-label">
-                                Logged in as<br>
+                                {{ trans.logged_in_as }}<br>
                                 {{ request.user.display_name }}
                             </span>
                         <hr class="dropdown-divider">
@@ -41,7 +42,7 @@
                         <hr class="dropdown-divider">
                         {% get_providers as socialaccount_providers %}
                         {% if socialaccount_providers %}
-                            <span class="dropdown-label">Log in with social account</span>
+                            <span class="dropdown-label">{{ trans.login_in_social }}</span>
                             <p class="dropdown-row">
                                 {% for provider in socialaccount_providers %}
                                     <a title="{{ provider.name }}" class="socialaccount_provider {{ provider.id }} social-login-link" 
