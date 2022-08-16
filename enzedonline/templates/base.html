@@ -23,7 +23,7 @@
         </header>
 
         <main>
-            <div class="mt-1">
+            <div class="mt-1 mx-auto" style="max-width: 1800px;">
                 {% block content %}{% endblock %}                
                 {% block extra_js %}
                     {# Override this in templates to add extra javascript #}
@@ -32,8 +32,10 @@
         </main>
         
         <footer>
-            {% block comments %}{% endblock %}
-            {% block next_prev %}{% endblock %}
+            <div class="mx-auto" style="max-width: 1800px;">
+                {% block comments %}{% endblock %}
+                {% block next_prev %}{% endblock %}
+            </div>
             <div class="container">
                 <p class="py-2">&nbsp;</p>
             </div>
