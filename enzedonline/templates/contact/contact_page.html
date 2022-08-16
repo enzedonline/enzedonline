@@ -17,6 +17,12 @@
   .block-container {
     margin-bottom: 1rem;
   }  
+  @media (min-width: 768px) {
+    .sizel {
+      min-width: 300px;
+      max-width: 400px;
+    }  
+  }
 </style>
 
 <div class="container-fluid px-2 px-sm-5 pb-4">
@@ -25,7 +31,7 @@
     {# Column break at md #}
     {% cache None page.slug "body" self.last_published_at %}
 
-      <div class="col-md-5 px-sm-5 pt-2">
+      <div class="col-md-5 px-md-3 pt-2 sizel">
         <h1>{{ self.title }}</h1>
         {# Intro text stream block #}
         {% for block in page.intro_text %}
@@ -35,17 +41,15 @@
         {# Optional image only visible md & above, <hr> for widths below this only #}
         {% if self.intro_image %}
           <div class="d-none d-md-block">
-            {% image self.intro_image width-900 format-webp as webp_img_w_900 %} 
-            {% image self.intro_image width-600 format-webp as webp_img_w_600 %}
-            {% image self.intro_image width-900 as fallback %}
+            {% image self.intro_image width-300 format-webp as webp_img_w_300 %}
+            {% image self.intro_image width-300 as fallback %}
             <picture>
-              <source media="(min-width: 1200px)" srcset="{{ webp_img_w_900.url }} 900w" type="image/webp" />
-              <source srcset="{{ webp_img_w_600.url }} 600w" type="image/webp" />
-              <source srcset="{{ fallback.url }} 900w" />
+              <source srcset="{{ webp_img_w_300.url }} 300w" type="image/webp" />
+              <source srcset="{{ fallback.url }} 300w" />
               <img
                 src="{{ fallback.url }}"
                 alt="{{ self.intro_image.title }}"
-                style="width: 100%; height: auto"
+                style="width: 100%; height: auto; max-width: 300px;"
                 class="mt-4"
               />
             </picture>
@@ -60,13 +64,13 @@
     {% endcache %}
 
     {# Column break at md, hide border below this width #}
-    <div class="col-md-7 px-sm-5 pt-md-3 divider">
+    <div class="col-md px-md-3 pt-md-3 divider">
       <div class="card bg-warning p-1 lh-sm">
         <div class="card-body pb-0 privacy-notice">
           {{ self.privacy_notice|richtext }}
         </div>
       </div>       
-      <div class="container mt-3"> 
+      <div class="mt-3"> 
         {# Contact Form #}
         <form action="{% pageurl page %}" enctype="multipart/form-data" method="POST">
           {% csrf_token %} 
