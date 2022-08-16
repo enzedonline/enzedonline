@@ -21,6 +21,10 @@ def trans_page_from_slug(slug, specific=False):
     except:
         return Page.objects.none()
 
+@register.filter()
+def homepage_url(request):
+    return request._wagtail_site.root_page.localized.url
+
 @register.simple_tag(takes_context=True)
 def robots(context):
     page = get_context_var_or_none(context, 'self')
