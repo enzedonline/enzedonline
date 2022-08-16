@@ -65,8 +65,10 @@ def password_change_success(request):
     return render(request, 'account/password_change_success.html')
    
 class CustomPasswordChangeView(LoginRequiredMixin, PasswordChangeView):
-    success_url = '/' + Locale.get_active().language_code + '/accounts/password/success/'
+    def get_success_url(self):
+        return '/' + Locale.get_active().language_code + '/accounts/password/success/'
     
 class CustomPasswordSetView(LoginRequiredMixin, PasswordSetView):
-    success_url = '/' + Locale.get_active().language_code + '/accounts/password/success/'
+    def get_success_url(self):
+        return '/' + Locale.get_active().language_code + '/accounts/password/success/'
     

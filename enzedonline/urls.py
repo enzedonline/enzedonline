@@ -7,17 +7,13 @@ from django.contrib import admin
 from django.urls import include, path
 from django.views import defaults as default_views
 from django.views.i18n import JavaScriptCatalog
-# from search import views as search_views
 from core.views import refresh_page_cache
 from userauth.views import *
 from wagtail.admin import urls as wagtailadmin_urls
 from wagtail.contrib.sitemaps.views import sitemap
 from wagtail import urls as wagtail_urls
 from wagtail.documents import urls as wagtaildocs_urls
-from wagtail.models import Locale
 from django.views.generic import RedirectView
-
-lang = Locale.get_active().language_code
 
 def trigger_error(request):
     division_by_zero = 1 / 0
@@ -34,7 +30,6 @@ urlpatterns = [
     re_path(r'^accounts/password/success/', RedirectView.as_view(pattern_name='password_change_success', permanent=False)),
     re_path(r'^accounts/password/reset/done/', RedirectView.as_view(pattern_name='password_change_success', permanent=False)),
     re_path(r'^accounts/profile/', RedirectView.as_view(pattern_name='account_profile', permanent=False)),
-    path('', RedirectView.as_view(url='/' + lang +'/', permanent=False)),
     # Language Switcher
     # path('lang/<str:language_code>/', set_language_from_url, name='set_language_from_url'),
 ]
