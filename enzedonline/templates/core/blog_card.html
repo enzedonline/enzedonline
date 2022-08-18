@@ -1,23 +1,23 @@
 {% load static wagtailimages_tags  %}
 <div class="card h-100 p-2">
-    {% image post.search_image fill-400x200-c100 format-webp as webp_img_w_400 %} 
-    {% image post.search_image fill-400x200-c100 as fallback %}
+    {% image post.localized.search_image fill-400x200-c100 format-webp as webp_img_w_400 %} 
+    {% image post.localized.search_image fill-400x200-c100 as fallback %}
     <picture>
     <source srcset="{{ webp_img_w_400.url }} 400w" type="image/webp" />
     <source srcset="{{ fallback.url }} 400w" />
     <img
         src="{{ fallback.url }}"
-        alt="{{ post.title }}"
+        alt="{{ post.localized.title }}"
         style="width: 100%; height: auto"
     />
     </picture>
     <div class="card-body">
-        <h4 class="card-title fw-bolder text-start">{{ post.title }}</h4>
+        <h4 class="card-title fw-bolder text-start">{{ post.localized.title }}</h4>
         <p class="blog-summary">{{ post.summary|linebreaksbr }}</p>
-        <p class="blog-summary small mb-0" id="post_{{post.pk}}"></p>
+        <p class="blog-summary small mb-0" id="post_{{post.localized.pk}}"></p>
     </div>
-    <a href="{{post.url}}{{filter.qstring}}" class="stretched-link"></a>
+    <a href="{{post.localized.url}}{{filter.qstring}}" class="stretched-link"></a>
 </div>
 <script>
-    document.getElementById("post_{{post.pk}}").innerHTML = convertUTCDateToLocalDate(new Date('{{ post.first_published_at|date:"Y-m-d H:i:s" }}'));
+    document.getElementById("post_{{post.localized.pk}}").innerHTML = convertUTCDateToLocalDate(new Date('{{ post.localized.first_published_at|date:"Y-m-d H:i:s" }}'));
 </script>
