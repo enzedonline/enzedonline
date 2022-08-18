@@ -1,57 +1,20 @@
 {% extends "base.html" %} 
-{% load static core_tags adv_cache wagtailcore_tags wagtailimages_tags widget_tweaks comments comments_xtd socialaccount %} 
+{% load static core_tags adv_cache wagtailcore_tags %} 
 
 {% block header %}
 
   {# Page Banner #}
-  {% cache None page.slug "banner" self.latest_revision_created_at %}
-
-    {% with self.get_parent.specific as blog_index %} 
-      {% image blog_index.banner_image fill-2100x525-c100 format-webp as webp_img_w_2100 %} 
-      {% image blog_index.banner_image fill-1500x375-c100 format-webp as webp_img_w_1500 %} 
-      {% image blog_index.banner_image fill-900x225-c100 format-webp as webp_img_w_900 %} 
-      {% image blog_index.banner_image fill-600x150-c100 format-webp as webp_img_w_600 %} 
-      {% image blog_index.banner_image fill-2100x525-c100 as fallback %}
-
-      <div class="banner-overlay-container">
-        <picture>
-          <source media="(min-width: 1800px)" srcset="{{ webp_img_w_2100.url }} 2100w" type="image/webp"/>
-          <source media="(min-width: 1200px)" srcset="{{ webp_img_w_1500.url }} 1500w" type="image/webp"/>
-          <source media="(min-width: 750px)" srcset="{{ webp_img_w_900.url }} 900w" type="image/webp"/>
-          <source srcset="{{ webp_img_w_600.url }} 600w" type="image/webp"/>
-          <source srcset="{{ fallback.url }} 2100w" />
-          <img src="{{ fallback.url }}" alt="{{ self.title }}" style="width: 100%; height: auto"/>
-        </picture>
-        {% if blog_index.banner_headline or blog_index.banner_small_text %}
-          <div class="banner-overlay-text-block ps-2 ps-md-3 ps-lg-4 pt-1 pt-md-0">
-            {% if blog_index.banner_headline %}
-              <div class="banner-headline">
-                {{ blog_index.banner_headline }}
-              </div>
-            {% endif %} 
-            {% if blog_index.banner_small_text %}
-              <div class="banner-subheading">
-                <a href="{{ blog_index.url }}" class="text-light" style="text-decoration: none;">{{ blog_index.banner_small_text }}</a>
-              </div>
-            {% endif %}
-          </div>
-        {% endif %}
-      </div>
-
-    {% endwith%}
-
-  {% endcache %}
+  {% include 'blog/detail/banner.html' %}
 
 {% endblock header %}
 
 {% block content %}
-  {% get_template_set 'common' as common_trans %}
 
   {# Login Form JS #}
   {% url 'account_login' as login_url %}
   {{ login_url |json_script:"login_url" }} 
   <script src="{% static 'js/comment_login.js'%}"></script>
-
+ 
   {% cache None page.slug "body" self.latest_revision_created_at %}
 
     {# Code Block JS - only load if tech blog #}
@@ -61,24 +24,9 @@
     {% endif %} 
 
     <div class="container-fluid mt-3 px-2 px-sm-5">
-
+      
       {# Categories #}
-      <div class="row rounded bg-info py-2 px-3 mx-1 mt-2 mb-4 border-primary border-1">
-          <div class="col-auto flex-nowrap px-1 px-sm-2 px-md-3">
-              <span class="category-link">{{ common_trans.posted_in }}</span>
-          </div>
-          <div class="col">
-              <div class="row">
-                {% for item in self.categories.all %}
-                  <div class="col-auto">
-                    <a class="category-link fw-bold" href="{{ self.get_parent.url }}?category={{item.slug}}#filter">
-                      {{ item.name }}
-                    </a>
-                  </div>        
-                {% endfor %}
-              </div>        
-          </div>        
-      </div>
+      {% include 'blog/detail/categories.html' %}
 
       {# Title #}
       <div class="row mt-2 text-center">
@@ -91,24 +39,7 @@
       {% endfor %}
 
       {# Tags #}
-      {% if page.tags.count %} 
-        <div class="row rounded bg-info p-2 m-0 border-primary border-1">
-          <div class="col-auto tag-link d-flex flex-nowrap pe-3">
-              {{ common_trans.tagged_with }}
-          </div>
-          <div class="col">
-              <div class="row">
-                {% for tag in page.tags.all %} 
-                  <div class="col-auto">
-                    <a class="tag-link" href="{{ self.get_parent.url }}?tag={{ tag.slug }}#filter">
-                      #{{ tag }}
-                    </a>
-                  </div>        
-                {% endfor %}
-              </div>        
-          </div>        
-        </div>  
-      {% endif %}
+      {% include 'blog/detail/tags.html' %}
 
     </div>
 
@@ -118,112 +49,10 @@
  
  {% block comments %}
   {# Comments #}
-  {% get_template_set 'comments' as trans %}
-  {% get_comment_count for page as comment_count %}
-  <div class="container-fluid pt-3 px-2 px-sm-5 pb-1">
-    <div class="card">
-      <div class="comments-header bg-info ">
-        {{ trans.comments }}
-      </div>
-      <div class="card-body">
-        {# Show Comments #}
-        {% if comment_count %} 
-          {% render_xtdcomment_tree for page allow_feedback show_feedback %} 
-        {% endif %} 
-        {# Show Comment if Signed In, Show Login Invite If Not #}
-        {% if not request.user.is_authenticated %}
-          <div id="id_comment_invite" class="mt-3">
-              <a href="#" id="id_login_first_link">{{ trans.sign_in }}</a> {{ trans.to_comment }}
-          </div>
-        {% else %}
-          <div class="mt-3">
-            {% render_comment_form for page %}
-          </div>
-        {% endif %}
-      </div>
-      {# Login Form - hidden initially, shown by Sign In link via JS #}
-      {% if not request.user.is_authenticated %}
-      <div class="container mt-1 mt-sm-2 mt-md-3 ms-0">
-        <form method="POST" id="id_login_form" action="{% url 'account_login' %}" style="display: none" class="needs-validation" novalidate>
-          {% csrf_token %}
-          <div class="row align-items-end">
-            <div class="col-sm-6 col-md-5 form-group">
-              {% with field=login_form.login %}
-                {% include "account/form_field.html"%}
-              {% endwith %}
-            </div>
-            <div class="col-sm-6 col-md-5 form-group">
-              {% with field=login_form.password %}
-                {% include "account/form_field.html" %}
-              {% endwith %}
-            </div>
-            <div class="col-md-2 form-group">
-              <button id="id_submit_login_form" class="btn btn-outline-primary" style="font-size: var(--font-size-body);">
-                {{ trans.sign_in }}
-              </button>
-            </div>
-          </div>
-          {# Social Connections #}
-          {% get_providers as socialaccount_providers %}
-          {% if socialaccount_providers %}
-              {{ trans.connect_with_social}}
-              <div class="py-2">
-              {% for provider in socialaccount_providers %}
-                  <a title="{{ provider.name }}" class="socialaccount_provider {{ provider.id }} social-login-link" 
-                      href="{% provider_login_url provider.id process="login" next=request.path  scope=scope auth_params=auth_params %}">
-                      <img alt="{{ provider.name }}" class="social-login-icon" src="{% static 'images/' %}{{ provider.name }}logo.png" width="40" height="40">
-                  </a>
-              {% endfor %}
-              </div>
-          {% endif %}
-          {# Invite to Sign Up #}
-          <p><a href="{% url 'account_signup' %}">{{ trans.sign_up }}</a> {{ trans.with_email }}</p>
-        </form>
-      </div>
-    
-    </div>
-    {% endif %}     
-  </div>
+  {% include 'blog/detail/comments.html' %}  
 
 {% endblock comments %}
 
 {% block next_prev %}
-  {% cache None page.slug "next_prev" request.GET.urlencode self.latest_revision_created_at %}
-    <div class="container-fluid pt-3 px-2 px-lg-5 pb-1">
-
-      <div class="pt-3 pt-3">
-        <hr />
-      </div>
-
-      {# Next and Previous blog posts #}
-      <div class="container-fluid mt-1 px-0">
-        <div class="row">
-          <div class="col-sm-6 col-md-5 col-xl-4">
-            {% if next_post %}
-              <div class="card h-100 border-0">
-                <div class="px-0 py-0 py-sm-2 fw-bolder">
-                  <h4 class="fw-bolder">{{ common_trans.next_post }}</h4>
-                </div>
-                {% include 'core/blog_card.html' with post=next_post %}
-                <a href="{{next_post.url}}{{filter.qstring}}" class="stretched-link"></a>
-              </div>
-            {% endif %}
-          </div>
-          <div class="col-md-2 col-xl-4 d-none d-md-block">
-            &nbsp;
-          </div>
-          <div class="col-sm-6 col-md-5 col-xl-4">
-          {% if previous_post %}
-            <div class="card h-100 border-0">
-              <div class="px-0 pt-3 py-sm-2 text-end">
-                <h4 class="fw-bolder">{{ common_trans.previous_post }}</h4>
-              </div>
-                {% include 'core/blog_card.html' with post=previous_post %}
-              <a href="{{previous_post.url}}{{filter.qstring}}" class="stretched-link"></a>
-            </div>
-          {% endif %}
-        </div>
-      </div>
-    </div>
-  {% endcache %}
+  {% include 'blog/detail/next_prev.html' %}
 {% endblock next_prev %}

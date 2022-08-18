@@ -1,0 +1,68 @@
+{% load static core_tags comments comments_xtd socialaccount %} 
+
+  {% get_template_set 'comments' as trans %}
+  {% get_comment_count for page as comment_count %}
+  <div class="container-fluid pt-3 px-2 px-sm-5 pb-1">
+    <div class="card">
+      <div class="comments-header bg-info ">
+        {{ trans.comments }}
+      </div>
+      <div class="card-body">
+        {# Show Comments #}
+        {% if comment_count %} 
+          {% render_xtdcomment_tree for page allow_feedback show_feedback %} 
+        {% endif %} 
+        {# Show Comment if Signed In, Show Login Invite If Not #}
+        {% if not request.user.is_authenticated %}
+          <div id="id_comment_invite" class="mt-3">
+              <a href="#" id="id_login_first_link">{{ trans.sign_in }}</a> {{ trans.to_comment }}
+          </div>
+        {% else %}
+          <div class="mt-3">
+            {% render_comment_form for page %}
+          </div>
+        {% endif %}
+      </div>
+      {# Login Form - hidden initially, shown by Sign In link via JS #}
+      {% if not request.user.is_authenticated %}
+      <div class="container mt-1 mt-sm-2 mt-md-3 ms-0">
+        <form method="POST" id="id_login_form" action="{% url 'account_login' %}" style="display: none" class="needs-validation" novalidate>
+          {% csrf_token %}
+          <div class="row align-items-end">
+            <div class="col-sm-6 col-md-5 form-group">
+              {% with field=login_form.login %}
+                {% include "account/form_field.html"%}
+              {% endwith %}
+            </div>
+            <div class="col-sm-6 col-md-5 form-group">
+              {% with field=login_form.password %}
+                {% include "account/form_field.html" %}
+              {% endwith %}
+            </div>
+            <div class="col-md-2 form-group">
+              <button id="id_submit_login_form" class="btn btn-outline-primary" style="font-size: var(--font-size-body);">
+                {{ trans.sign_in }}
+              </button>
+            </div>
+          </div>
+          {# Social Connections #}
+          {% get_providers as socialaccount_providers %}
+          {% if socialaccount_providers %}
+              {{ trans.connect_with_social}}
+              <div class="py-2">
+              {% for provider in socialaccount_providers %}
+                  <a title="{{ provider.name }}" class="socialaccount_provider {{ provider.id }} social-login-link" 
+                      href="{% provider_login_url provider.id process="login" next=request.path  scope=scope auth_params=auth_params %}">
+                      <img alt="{{ provider.name }}" class="social-login-icon" src="{% static 'images/' %}{{ provider.name }}logo.png" width="40" height="40">
+                  </a>
+              {% endfor %}
+              </div>
+          {% endif %}
+          {# Invite to Sign Up #}
+          <p><a href="{% url 'account_signup' %}">{{ trans.sign_up }}</a> {{ trans.with_email }}</p>
+        </form>
+      </div>
+    
+    </div>
+    {% endif %}     
+  </div>

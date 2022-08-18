@@ -1,0 +1,22 @@
+{% load core_tags blog_tags %} 
+{% get_template_set 'common' as common_trans %}
+{% get_tags page as tags %}
+
+{% if tags.count %}
+  <div class="row rounded bg-info p-2 m-0 border-primary border-1">
+    <div class="col-auto tag-link d-flex flex-nowrap ps-2 pe-3">
+      {{ common_trans.tagged_with }}
+    </div>
+    <div class="col">
+      <div class="row">
+        {% for tag in tags %}
+        <div class="col-auto">
+          <a class="tag-link" href="{{ self.get_parent.url }}?tag={{ tag.slug }}#filter">
+            #{{ tag }}
+          </a>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+{% endif %}
