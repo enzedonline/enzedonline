@@ -18,7 +18,7 @@ def refresh_page_cache(r):
         messages.success(r, _('Page Cache has been refreshed!'))
     except:
         messages.error(r, _('There was a problem refreshing the Page Cache'))
-    return redirect('/admin/')
+    return redirect(r.META['HTTP_REFERER'])
     
 class RobotsView(TemplateView):
 
