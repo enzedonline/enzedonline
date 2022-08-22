@@ -13,7 +13,6 @@ from wagtail.fields import StreamField
 from wagtail_localize.synctree import Locale
 
 from .categories import PersonalBlogCategory, TechBlogCategory
-from .comments import CustomComment
 from .detail_page import BlogDetailPage
 from .edit_handlers import LocalizedSelectPanel
 from .tags import PersonalBlogPageTag, TechBlogPageTag

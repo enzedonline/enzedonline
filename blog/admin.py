@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django_comments_xtd.admin import XtdCommentsAdmin
-from .models import CustomComment
+from .comments import CustomComment
 
 class CustomCommentAdmin(XtdCommentsAdmin):
     list_display = ('cid', 'name', 'page', 'object_pk',
