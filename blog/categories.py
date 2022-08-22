@@ -64,12 +64,4 @@ class PersonalBlogCategory(BlogCategory):
         ordering = ["name"]
         unique_together = ('translation_key', 'locale'), ('locale', 'slug')
 
-class PersonalBlogCategoryQueryList(object):
-    def __call__(self, *args, **kwds):
-        return PersonalBlogCategory.objects.all()
-
-class TechBlogCategoryQueryList(object):
-    def __call__(self, *args, **kwds):
-        return TechBlogCategory.objects.all()
-
 

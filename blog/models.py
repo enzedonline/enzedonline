@@ -3,6 +3,7 @@ from core.models import SEOPage
 from core.utils import paginator_range
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.db import models
+from django.forms.widgets import CheckboxSelectMultiple
 from django.utils.translation import gettext_lazy as _
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalManyToManyField
@@ -11,11 +12,10 @@ from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.fields import StreamField
 from wagtail_localize.synctree import Locale
 
-from .categories import (PersonalBlogCategory, PersonalBlogCategoryQueryList,
-                         TechBlogCategory, TechBlogCategoryQueryList)
+from .categories import PersonalBlogCategory, TechBlogCategory
 from .comments import CustomComment
 from .detail_page import BlogDetailPage
-from .edit_handlers import MultiChoiceLocaleFieldPanel
+from .edit_handlers import LocalizedSelectPanel
 from .tags import PersonalBlogPageTag, TechBlogPageTag
 
 
@@ -32,13 +32,12 @@ class TechBlogDetailPage(BlogDetailPage):
     content_panels = BlogDetailPage.content_panels + [
         MultiFieldPanel(
             [
-                MultiChoiceLocaleFieldPanel(
-                    field_name='categories', 
-                    list_queryset=TechBlogCategoryQueryList()(), 
-                    display_field='name'
+                LocalizedSelectPanel(
+                    'categories', 
+                    widget_class=CheckboxSelectMultiple, 
                     ),
             ],
-            heading = "Blog Categories",
+            heading = _("Blog Categories"),
         ),
         FieldPanel('tags'),
     ]
@@ -59,10 +58,9 @@ class PersonalBlogDetailPage(BlogDetailPage):
     content_panels = BlogDetailPage.content_panels + [
         MultiFieldPanel(
             [
-                MultiChoiceLocaleFieldPanel(
-                    field_name='categories', 
-                    list_queryset=PersonalBlogCategoryQueryList()(), 
-                    display_field='name'
+                LocalizedSelectPanel(
+                    'categories', 
+                    widget_class=CheckboxSelectMultiple, 
                     ),
             ],
             heading = _("Blog Categories"),
