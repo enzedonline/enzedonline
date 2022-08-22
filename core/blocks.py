@@ -1,4 +1,3 @@
-from email.policy import default
 import unidecode
 from django.forms.utils import ErrorList
 from django.utils.text import slugify
@@ -16,6 +15,7 @@ from wagtail_localize.synctree import Locale
 
 import core.metadata
 from core.utils import isfloat
+
 
 class AlignmentChoiceBlock(ChoiceBlock):
     choices=[
@@ -897,8 +897,15 @@ class TableOfContentsBlock(StructBlock):
         template = 'blocks/table_of_contents.html'
         icon = 'fas fa-stream'
         label = 'Table of Contents'
+        
+class LocalizeTable(StructBlock):
+    data = TextBlock()
+
+    class Meta:
+        template = 'blocks/table_block.html'
 
 class BaseStreamBlock(StreamBlock):
+    localize_table = LocalizeTable()
     richtext_block = SimpleRichTextBlock()
     image_block = ImageBlock()
     heading_block = HeadingBlock()
@@ -923,7 +930,7 @@ class BaseStreamBlock(StreamBlock):
     table_of_contents = TableOfContentsBlock()
     spacer_block = SpacerStaticBlock()
     empty_block = EmptyStaticBlock()
-
+    
 class TwoColumnLayoutChoiceBlock(ChoiceBlock):
     choices = [
         ('auto-', _("Left column width determined by content (care needed, test on all screen sizes)")),
