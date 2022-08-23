@@ -528,7 +528,11 @@
   .carousel.carousel-fade .carousel-item.active {
     opacity: 1 !important;
   }
-  
+  .table-caption {
+    padding-top: 5px;
+    font-size: var(--font-size-6);
+    color: var(--bs-secondary);
+  }
   .social-login-icon {
     border-radius: 10px;
     width: 30px;
@@ -608,6 +612,12 @@
   }
   
   /* =========================================== */
+  table {
+    font-size: var(--font-size-body);
+  }
+  .table {
+    font-size: var(--font-size-body);
+  }
   code {
     font-family: var(--font-family-monospace);
     font-size: var(--font-size-body);

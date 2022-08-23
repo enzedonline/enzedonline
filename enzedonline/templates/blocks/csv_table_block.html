@@ -1,0 +1,4 @@
+{% load wagtailcore_tags table_block_tags %}
+{% include_block self.title %}
+{{ self|render_html_table }}
+{% if not self.caption %}&nbsp;{% endif %}

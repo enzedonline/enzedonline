@@ -1,3 +1,4 @@
+from email.policy import default
 import unidecode
 from django.forms.utils import ErrorList
 from django.utils.text import slugify
@@ -898,18 +899,46 @@ class TableOfContentsBlock(StructBlock):
         icon = 'fas fa-stream'
         label = 'Table of Contents'
         
-class LocalizeTable(StructBlock):
-    data = TextBlock()
-
+class CSVTableBlock(StructBlock):
+    title = HeadingBlock(required=False, label=_("Table Title"))
+    data = TextBlock(label=_("Comma Separated Data"))
+    row_headers = BooleanBlock(required=False, help_text=_("First column contains row headers"))
+    compact = BooleanBlock(required=False, help_text=_("Cell padding reduced by half"))
+    caption = RichTextBlock(
+                features= [
+                    'bold',
+                    'italic',
+                    'underline',
+                    'link',
+                    'small'
+                ],
+                required=False, 
+                )        
+    caption_alignment = TextAlignmentChoiceBlock(
+        required=False, 
+        default = 'end'
+        )
+    width = IntegerBlock(
+        default=100, 
+        label=_("Table Width (%)"), 
+        help_text=_("Table width (as percentage of container)")
+        )
+    max_width = IntegerBlock(
+        required=False, 
+        label=_("Maximum Table Width (pixels)"), 
+        help_text=_("Optional: Maximum width (in pixels) the table can grow to")
+        )
     class Meta:
-        template = 'blocks/table_block.html'
+        template = 'blocks/csv_table_block.html'
+        icon = 'list-ul'
+        label = 'CSV Table'
 
 class BaseStreamBlock(StreamBlock):
-    localize_table = LocalizeTable()
     richtext_block = SimpleRichTextBlock()
+    code_block = BlogCodeBlock()
     image_block = ImageBlock()
     heading_block = HeadingBlock()
-    block_quote = BlockQuote()
+    table_of_contents = TableOfContentsBlock()
     link_button = Link()
     flex_card = FlexCard()
     call_to_action_card = CallToActionCard()
@@ -923,11 +952,11 @@ class BaseStreamBlock(StreamBlock):
     inline_video_block = InlineVideoBlock()
     image_carousel = ImageCarouselBlock()
     map_block = MapBlock()
-    code_block = BlogCodeBlock()
+    csv_table = CSVTableBlock()
     document_block = DocumentBlock()
     document_list_block = DocumentListBlock()
     latest_blog_posts = LatestBlogPostGrid()
-    table_of_contents = TableOfContentsBlock()
+    block_quote = BlockQuote()
     spacer_block = SpacerStaticBlock()
     empty_block = EmptyStaticBlock()
     
