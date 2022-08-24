@@ -72,29 +72,10 @@ class ContactPage(SEOWagtailCaptchaEmailForm):
         verbose_name=_("Introduction Image (optional)"),
         help_text=_("Image to display in left column on widescreen only")
     )
-    privacy_notice = RichTextField(
-        features= [
-            'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
-            'bold',
-            'italic',
-            'ol',
-            'ul',
-            'link',
-            'hr',
-            'small'
-        ],
+    privacy_notice = RichTextField(editor='basic',
         verbose_name=_("Privacy Notice in Left Column")
     )
-    thank_you_text = RichTextField(
-        features= [
-            'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
-            'bold',
-            'italic',
-            'ol',
-            'ul',
-            'link',
-            'hr',
-        ],
+    thank_you_text = RichTextField(editor='basic',
         verbose_name=_("Acknowledgement Text to Display On Website After Submit")
     )
     submit_button_text = CharField(
@@ -152,15 +133,7 @@ class ContactPage(SEOWagtailCaptchaEmailForm):
         help_text=_("Large text header on receipt.")
     )
     receipt_email_content = RichTextField(
-        features= [
-            'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
-            'bold',
-            'italic',
-            'ol',
-            'ul',
-            'link',
-            'hr',
-        ],
+        editor='basic',
         verbose_name=_("Receipt Email Content"),
         help_text=_("Content for email sent to client")
     )

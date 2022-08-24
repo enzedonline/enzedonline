@@ -219,31 +219,34 @@ class Link(StructBlock):
 
         return super().clean(value)
 
-class SimpleRichTextBlock(StructBlock):
+class RichTextStructBlock(StructBlock):
     alignment = TextAlignmentChoiceBlock(
         default = 'justify'
     )
-    content = RichTextBlock(
-        features= [
-            'h2', 'h3', 'h4', 'h5', 'h6',
-            'bold',
-            'italic',
-            'underline',
-            'ol',
-            'ul',
-            'link',
-            'hr',
-			'small',
-            'code', 
-            'document-link',
-            'fa'
-        ]
-    )
+    content = RichTextBlock()
 
     class Meta:
         template = 'blocks/simple_richtext_block.html'
-        label = _("Formatted Text Block")
+        abstract = True
         icon = 'pilcrow'
+
+class SimpleRichTextBlock(RichTextStructBlock):
+    pass
+
+    class Meta:
+        label = _("Formatted Rich Text Block")
+
+class MinimalRichTextBlock(RichTextStructBlock):
+    content = RichTextBlock(editor='minimal')
+
+    class Meta:
+        label = _("Minimal Rich Text Block")
+
+class BasicRichTextBlock(RichTextStructBlock):
+    content = RichTextBlock(editor='basic')
+
+    class Meta:
+        label = _("Basic Rich Text Block")
 
 class HeadingBlock(StructBlock):
     title = CharBlock(required=True)
@@ -904,16 +907,7 @@ class CSVTableBlock(StructBlock):
     data = TextBlock(label=_("Comma Separated Data"))
     row_headers = BooleanBlock(required=False, help_text=_("First column contains row headers"))
     compact = BooleanBlock(required=False, help_text=_("Cell padding reduced by half"))
-    caption = RichTextBlock(
-                features= [
-                    'bold',
-                    'italic',
-                    'underline',
-                    'link',
-                    'small'
-                ],
-                required=False, 
-                )        
+    caption = RichTextBlock(editor='minimal', required=False)        
     caption_alignment = TextAlignmentChoiceBlock(
         required=False, 
         default = 'end'
