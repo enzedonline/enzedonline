@@ -756,6 +756,11 @@ class TableOfContentsBlock(StructBlock):
 class CSVTableBlock(StructBlock):
     title = HeadingBlock(required=False, label=_("Table Title"))
     data = TextBlock(label=_("Comma Separated Data"))
+    precision = IntegerBlock(
+        default=2,
+        help_text=_("Number of decimal places to display for float type. \n\
+                    Note: Any integer column with missing values will be interpreted as type 'float'.")
+    )
     row_headers = BooleanBlock(required=False, help_text=_("First column contains row headers"))
     compact = BooleanBlock(required=False, help_text=_("Cell padding reduced by half"))
     caption = RichTextBlock(editor='minimal', required=False)        

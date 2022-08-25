@@ -8,10 +8,19 @@ register = template.Library()
 @register.filter
 def render_html_table(table_block):
     df = pd.read_csv(StringIO(table_block['data']))
+    # Note: NaN is considered float by pandas, any int column with NaN's will be interpreted as float
+    # Set NaN's to unused integer value, re-infer dtypes and set back to NaN again
+    df.fillna(-999999, inplace=True)
+    df = df.convert_dtypes()
+    df.replace(-999999, None, inplace=True)
     # Hide row numbers (index)
     dfs = df.style.hide()
     # Align everything not an object (object=string) to the right
-    dfs = dfs.set_properties(subset=list(df.select_dtypes(exclude='O')), **{'text-align': 'right', 'padding-right': '1rem'})
+    dfs = dfs.set_properties(subset=list(df.select_dtypes(exclude='object')), **{'text-align': 'right', 'padding-right': '1rem'})
+    # Set missing values representation as empty string
+    dfs = dfs.format(na_rep='')
+    # Set decimal places for float. Redeclare na values for floats as format is not cumulative, it is replaced.
+    dfs = dfs.format(subset=list(df.select_dtypes(include='Float64')), precision=table_block['precision'], na_rep='')
     # If row headers, set formatting on 1st column (don't set to index, error thrown if not unique values)
     if table_block['row_headers']:
         dfs = dfs.set_properties(subset=df.columns[0], **{'font-weight': 'bold', 'border-right-width': '0.1rem', 'border-right-color': 'var(--bs-dark)'})
