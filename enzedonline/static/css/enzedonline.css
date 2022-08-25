@@ -612,11 +612,13 @@
   }
   
   /* =========================================== */
-  table {
-    font-size: var(--font-size-body);
-  }
   .table {
     font-size: var(--font-size-body);
+    text-align: left;
+  }
+  table {
+    font-size: var(--font-size-body);
+    text-align: left;
   }
   code {
     font-family: var(--font-family-monospace);
