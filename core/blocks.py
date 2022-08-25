@@ -221,32 +221,25 @@ class Link(StructBlock):
 
 class RichTextStructBlock(StructBlock):
     alignment = TextAlignmentChoiceBlock(
-        default = 'justify'
+        default = 'justify',
+        label=_("Text Alignment")
     )
     content = RichTextBlock()
 
     class Meta:
         template = 'blocks/simple_richtext_block.html'
-        abstract = True
+        label = _("Rich Text Block")
         icon = 'pilcrow'
+        abstract = True
 
 class SimpleRichTextBlock(RichTextStructBlock):
     pass
 
-    class Meta:
-        label = _("Formatted Rich Text Block")
-
 class MinimalRichTextBlock(RichTextStructBlock):
     content = RichTextBlock(editor='minimal')
 
-    class Meta:
-        label = _("Minimal Rich Text Block")
-
 class BasicRichTextBlock(RichTextStructBlock):
     content = RichTextBlock(editor='basic')
-
-    class Meta:
-        label = _("Basic Rich Text Block")
 
 class HeadingBlock(StructBlock):
     title = CharBlock(required=True)
