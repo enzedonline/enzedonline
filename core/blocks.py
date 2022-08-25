@@ -103,6 +103,25 @@ class BreakpointChoiceBlock(ChoiceBlock):
         ('md', _("Small and medium screens")),
     ]
 
+class CodeChoiceBlock(ChoiceBlock):
+    choices=[
+        ('python', 'Python'),
+        ('css', 'CSS'),
+        ('html', 'HTML'),
+        ('sql', 'SQL'),
+        ('javascript', 'Javascript'),
+        ('json', 'JSON'),
+        ('xml', 'XML'),
+        ('git', 'Git'),
+        ('graphql', 'GraphQL'),
+        ('powershell', 'PowerShell'),
+        ('r', 'R'),
+        ('vb', 'VB6'),
+        ('vba', 'VBA'),
+        ('vbnet', 'VB.NET'),
+        ('bash', 'Bash/Shell'),
+    ]
+ 
 class SEOImageChooserBlock(StructBlock):
     file = ImageChooserBlock(
         required=True, 
@@ -113,7 +132,7 @@ class SEOImageChooserBlock(StructBlock):
         label=_("SEO Title"),
         help_text=_("A text description of the image for screen readers and search engines")
     )
-
+   
 class ImageBlock(StructBlock):
     """
     Custom `StructBlock` for utilizing images with associated caption and
@@ -712,26 +731,8 @@ class MapBlock(StructBlock):
         icon="site"
         label = _("Interactive Map")
         
-CODE_CHOICES  = (
-    ('python', 'Python'),
-    ('css', 'CSS'),
-    ('html', 'HTML'),
-    ('sql', 'SQL'),
-    ('javascript', 'Javascript'),
-    ('json', 'JSON'),
-    ('xml', 'XML'),
-    ('git', 'Git'),
-    ('graphql', 'GraphQL'),
-    ('powershell', 'PowerShell'),
-    ('r', 'R'),
-    ('vb', 'VB6'),
-    ('vba', 'VBA'),
-    ('vbnet', 'VB.NET'),
-    ('bash', 'Bash/Shell'),
-)
-
 class BlogCodeBlock(StructBlock):
-    language = ChoiceBlock(choices=CODE_CHOICES, default='python')
+    language = CodeChoiceBlock(default='python')
     code = TextBlock()
 
     translatable_fields = []
