@@ -10,7 +10,7 @@ def render_html_table(table_block):
     df = pd.read_csv(StringIO(table_block['data']))
     # Note: NaN is considered float by pandas, any int column with NaN's will be interpreted as float
     # Set NaN's to unused integer value, re-infer dtypes and set back to NaN again
-    df.fillna(-999999, inplace=True)
+    df.select_dtypes(include='float64').fillna(-999999, inplace=True)
     df = df.convert_dtypes()
     df.replace(-999999, None, inplace=True)
     # Hide row numbers (index)
@@ -31,10 +31,10 @@ def render_html_table(table_block):
             )
     # Align everything not an object (object=string) to the right
     dfs = dfs.set_properties(
-        subset=list(df.select_dtypes(exclude='object')), **{'text-align': 'right', 'padding-right': '0.7rem'}
+        subset=list(df.select_dtypes(exclude=['string', 'object'])), **{'text-align': 'right', 'padding-right': '0.7rem'}
         )
     # Set non-object column headers to right aligned
-    for column in list(df.select_dtypes(exclude='object')):
+    for column in list(df.select_dtypes(exclude=['string', 'object'])):
         dfs = dfs.set_table_styles({
             column: [{'selector': 'th', 
                       'props': [('text-align', 'right'), ('padding-right', '0.7rem')]}]
