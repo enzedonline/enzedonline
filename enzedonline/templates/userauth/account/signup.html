@@ -52,5 +52,5 @@
 
 {% block card-footer %}
     {% get_template_set 'accounts' as trans %}
-    <p>{{ trans.existing_account_question }} <a href="{% url 'account_login' %}">{{ trans.sign_in }}</a></p>
+    <p>{{ trans.existing_account_question }} <a href="{% url 'account_login' %}" rel="nofollow">{{ trans.sign_in }}</a></p>
 {% endblock %}

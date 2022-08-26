@@ -30,10 +30,10 @@
             <button class="btn btn-primary" onclick="goBack()">{{ trans.go_back_button }}</button>
         </div>
         <div class="col-4">
-            <a class="btn btn-primary" role="button" title="{{ trans.login_title }}" href="{% url 'account_login' %}">{{ trans.login_button }}</a>
+            <a class="btn btn-primary" role="button" title="{{ trans.login_title }}" href="{% url 'account_login' %}" rel="nofollow">{{ trans.login_button }}</a>
         </div>
         <div class="col-4">
-            <a class="btn btn-primary" role="button" title="{{ trans.sign_up_title }}" href="{% url 'account_signup' %}">{{ trans.sign_up_button }}</a>
+            <a class="btn btn-primary" role="button" title="{{ trans.sign_up_title }}" href="{% url 'account_signup' %}" rel="nofollow">{{ trans.sign_up_button }}</a>
         </div>
     </div>
 

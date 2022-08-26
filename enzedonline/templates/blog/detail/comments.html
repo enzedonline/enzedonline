@@ -15,7 +15,7 @@
         {# Show Comment if Signed In, Show Login Invite If Not #}
         {% if not request.user.is_authenticated %}
           <div id="id_comment_invite" class="mt-3">
-              <a href="#" id="id_login_first_link">{{ trans.sign_in }}</a> {{ trans.to_comment }}
+              <a href="#" id="id_login_first_link" rel="nofollow">{{ trans.sign_in }}</a> {{ trans.to_comment }}
           </div>
         {% else %}
           <div class="mt-3">
@@ -52,14 +52,14 @@
               <div class="py-2">
               {% for provider in socialaccount_providers %}
                   <a title="{{ provider.name }}" class="socialaccount_provider {{ provider.id }} social-login-link" 
-                      href="{% provider_login_url provider.id process="login" next=request.path  scope=scope auth_params=auth_params %}">
+                      href="{% provider_login_url provider.id process="login" next=request.path  scope=scope auth_params=auth_params %}" rel="nofollow">
                       <img alt="{{ provider.name }}" class="social-login-icon" src="{% static 'images/' %}{{ provider.name }}logo.png" width="40" height="40">
                   </a>
               {% endfor %}
               </div>
           {% endif %}
           {# Invite to Sign Up #}
-          <p><a href="{% url 'account_signup' %}">{{ trans.sign_up }}</a> {{ trans.with_email }}</p>
+          <p><a href="{% url 'account_signup' %}" rel="nofollow">{{ trans.sign_up }}</a> {{ trans.with_email }}</p>
         </form>
       </div>
     
