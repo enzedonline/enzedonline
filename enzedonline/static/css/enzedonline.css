@@ -23,6 +23,7 @@
   /* width */
   ::-webkit-scrollbar {
     width: 12px;
+    height: 14px;
   }
   /* Track */
   ::-webkit-scrollbar-track {
@@ -529,8 +530,8 @@
     opacity: 1 !important;
   }
   .table-caption {
-    padding-top: 5px;
-    font-size: var(--font-size-6);
+    padding-top: 1rem;
+    font-size: var(--font-size-body);
     color: var(--bs-secondary);
   }
   .social-login-icon {
