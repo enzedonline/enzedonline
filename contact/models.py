@@ -2,7 +2,7 @@ import os
 from datetime import datetime
 
 from bs4 import BeautifulSoup
-from core.blocks import HtmlBlock, SimpleRichTextBlock, SpacerStaticBlock
+from core.blocks import BasicRichTextBlock
 from core.models import SEOPage, SEOWagtailCaptchaEmailForm
 from django.conf import settings
 from django.core import mail
@@ -52,9 +52,7 @@ class FormField(TranslatableMixin, CustomAbstractFormField):
         unique_together = ('translation_key', 'locale')
 
 class IntroStreamBlock(StreamBlock):
-    text = SimpleRichTextBlock()
-    html = HtmlBlock()
-    spacer = SpacerStaticBlock()
+    text = BasicRichTextBlock()
 
 class ContactPage(SEOWagtailCaptchaEmailForm):
     template = "contact/contact_page.html"
