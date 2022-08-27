@@ -1,4 +1,14 @@
 {% load wagtailcore_tags table_block_tags %}
-{% include_block self.title %}
-{{ self|render_html_table }}
-{% if not self.caption %}&nbsp;{% endif %}
+<div class="mx-auto" style="width:{{self.width}}%;{% if self.max_width %}max-width: {{ self.max_width }}px;{% endif %}">
+    {% include_block self.title %}
+    <div style="overflow-x: auto;">
+        {{ self|render_html_table }}
+    </div>
+    {% if self.caption %}
+        <div class="table-caption text-{{self.caption_alignment}}">
+            {{ self.caption }}
+        </div>
+    {% else %}
+        &nbsp;
+    {% endif %}
+</div>

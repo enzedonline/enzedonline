@@ -39,14 +39,9 @@ def render_html_table(table_block):
             column: [{'selector': 'th', 
                       'props': [('text-align', 'right'), ('padding-right', '0.7rem')]}]
         }, overwrite=False)
-    # dfs = dfs.set_table_styles([ dict(selector='th', props=[('text-align', 'left')] ) ])
     # Add table classes and styles
-    classes = f'class="table table-striped table-hover mx-auto w-{table_block["width"]}' + \
+    classes = f'class="table table-striped table-hover mb-0' + \
                 (" table-sm" if table_block['compact'] else '') + '"'
-    max_width = table_block['max_width']
-    styles = f' style="max-width:{max_width}px;"' if max_width else ''
-    dfs = dfs.set_table_attributes(f'{classes}{styles}')
-    # Add table caption if any
-    dfs = dfs.set_caption(table_block['caption'].source) if table_block['caption'] else dfs
+    dfs = dfs.set_table_attributes(f'{classes}')
 
     return mark_safe(dfs.to_html())
