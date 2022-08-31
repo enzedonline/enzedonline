@@ -613,11 +613,7 @@
   }
   
   /* =========================================== */
-  .table {
-    font-size: var(--font-size-body);
-    text-align: left;
-  }
-  table {
+  table, .table {
     font-size: var(--font-size-body);
     text-align: left;
   }
@@ -633,11 +629,32 @@
     font-family: var(--font-family-headings);
     font-weight: 500;
   }
-  blockquote {
+  /* --------------------------------------------------------------------- */
+  /* Draftail Styles */
+  /* --------------------------------------------------------------------- */
+
+  .Draftail-block--blockquote, blockquote {
       border-left-width: 0.3rem;
       border-left-style: solid;
       border-color: var(--bs-info);
-      padding: 1rem;
       background-color: var(--bs-light);
       font-style: normal;
+      font-family: var(--font-family-headings);
+      font-weight: 500;
+      padding: 1rem;
   }
+  .Draftail-Toolbar {
+    position: sticky !important;
+    top: calc(1rem + 51px) !important;
+    z-index: 2 !important;
+  }
+  .Draftail-block--left-align .public-DraftStyleDefault-ltr {
+    text-align: start;
+  }
+  .Draftail-block--centre-align .public-DraftStyleDefault-ltr {
+    text-align: center;
+  }
+  .Draftail-block--right-align .public-DraftStyleDefault-ltr {
+    text-align: end;
+  }
+      
