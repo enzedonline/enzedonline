@@ -669,3 +669,14 @@
   .Draftail-block--right-align .public-DraftStyleDefault-ltr {
     text-align: end;
   }
+ 
+  /* --------------------------------------------------------------------- */
+  /* Admin Styles */
+  /* --------------------------------------------------------------------- */
+
+  .sidebar--slim .sidebar-custom-branding {
+    padding: 20px 0;
+  }
+  .sidebar-custom-branding {
+    margin: 0em auto;
+  }   
