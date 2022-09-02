@@ -397,7 +397,16 @@
     font-family: var(--font-family-headings);
     font-size: var(--font-size-3);
     font-weight: 500;
-    line-height: 1;
+    line-height: 1.2;
+    text-align: start;
+    padding: 1.2rem;
+    border-radius: 0.5rem;
+  }
+  .enzed-blockquote .attribution {
+    padding-top: 0.3rem;
+    text-align: end;
+    font-weight: lighter;
+    font-size: var(--font-size-6);
   }
   .enzed-blockquote-marks {
     font-family: var(--font-family-body);
@@ -660,4 +669,3 @@
   .Draftail-block--right-align .public-DraftStyleDefault-ltr {
     text-align: end;
   }
-      
