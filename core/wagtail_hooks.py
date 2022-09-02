@@ -9,7 +9,8 @@ from wagtail.admin.rich_text.editors.draftail.features import \
     InlineStyleFeature
 
 from .draftail_extensions import (CENTRE_ALIGN_ICON, LEFT_ALIGN_ICON,
-                                  MINIMISE_ICON, RIGHT_ALIGN_ICON,
+                                  MINIMISE_ICON, RIGHT_ALIGN_ICON, 
+                                  UNDERLINE_ICON, FONT_AWESOME_ICON,
                                   register_block_feature,
                                   register_inline_styling)
 from .utils import purge_page_cache_fragments
@@ -61,7 +62,7 @@ def register_fa_styling(features):
 
     control = {
         "type": type_,
-        "label": "⚐",
+        "icon": FONT_AWESOME_ICON,
         "description": "Font Awesome",
         'style': {            
             'background-color': 'orange',            
@@ -105,7 +106,7 @@ def register_underline_styling(features):
         type_='UNDERLINE',
         tag='u',
         description='Underline',
-        label='U̲'
+        icon=UNDERLINE_ICON
     )
 
 @hooks.register('before_serve_document')
