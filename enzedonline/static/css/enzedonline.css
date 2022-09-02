@@ -675,8 +675,8 @@
   /* --------------------------------------------------------------------- */
 
   .sidebar--slim .sidebar-custom-branding {
-    padding: 20px 0;
+    padding: 10px 0;
   }
   .sidebar-custom-branding {
-    margin: 0em auto;
+    margin: auto;
   }   
