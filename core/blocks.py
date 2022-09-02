@@ -758,8 +758,7 @@ class CSVTableBlock(StructBlock):
     data = TextBlock(label=_("Comma Separated Data"))
     precision = IntegerBlock(
         default=2,
-        help_text=_("Number of decimal places to display for float type. \n\
-                    Note: Any integer column with missing values will be interpreted as type 'float'.")
+        help_text=_("Number of decimal places to display for float type.")
     )
     row_headers = BooleanBlock(required=False, help_text=_("First column contains row headers"))
     compact = BooleanBlock(required=False, help_text=_("Cell padding reduced by half"))
