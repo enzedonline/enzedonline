@@ -166,13 +166,15 @@ class HeadingBlock(StructBlock):
     def clean(self, value):
         errors = {}
         bookmark = value.get('bookmark')
-        slug = slugify(unidecode.unidecode(bookmark))
         
-        if bookmark != slug:
-            errors['bookmark'] = ErrorList([_(f"\
-                '{bookmark}' is not a valid slug for the bookmark. \
-                '{slug}' is the suggested value for this.")])
-            raise StructBlockValidationError(block_errors=errors)
+        if bookmark:
+            slug = slugify(unidecode.unidecode(bookmark))
+            
+            if bookmark != slug:
+                errors['bookmark'] = ErrorList([_(f"\
+                    '{bookmark}' is not a valid slug for the bookmark. \
+                    '{slug}' is the suggested value for this.")])
+                raise StructBlockValidationError(block_errors=errors)
 
         return super().clean(value)
 
