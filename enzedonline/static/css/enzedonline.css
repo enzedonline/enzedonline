@@ -645,8 +645,11 @@
   }
   .Draftail-Toolbar {
     position: sticky !important;
-    top: calc(1rem + 51px) !important;
+    top: calc(.2rem + 51px) !important;
     z-index: 2 !important;
+  }
+  .Draftail-ToolbarButton {
+    padding: .1rem .2rem .2rem .3rem;
   }
   .Draftail-block--left-align .public-DraftStyleDefault-ltr {
     text-align: start;
