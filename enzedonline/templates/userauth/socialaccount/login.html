@@ -1,0 +1,36 @@
+{% extends 'account/base_card.html' %}
+
+{% load static core_tags %}
+
+{% block card-header %}
+  {% get_template_set 'allauth social' as trans %}
+  <title>EnzedOnline - {{ trans.signup_title }}</title>    
+  <h3>{{ trans.signup_title }}</h3>
+{% endblock %}
+
+{% block card-body %}
+  {% get_template_set 'allauth social' as trans %}
+  <div class="row">
+    <div class="col-10 text-start">
+      {% if process == "connect" %}
+        <h1>{{ trans.connect_with }} {{ provider.name }}</h1>
+        <p>{{ trans.about_to_connect }} {{ provider.name }}.</p>
+      {% else %}
+        <h1>{{ trans.sign_in_with }} {{ provider.name }}</h1>
+        <p>{{ trans.about_to_sign_in_with }} {{ provider.name }}.</p>
+      {% endif %}
+    </div>
+    <div class="col-2 text-end">
+      <img alt="{{ provider.name }}" class="avatar mb-3" style="min-width: 40px;max-width: 80px;" src="{% static 'images/' %}{{ provider.name }}logo.png" width="80%">
+    </div>
+  </div>
+
+  <form method="post">
+    {% csrf_token %}
+    <div class="text-end">
+    <button type="submit" class="btn btn-primary">{{ trans.continue }}</button>
+    </div>
+  </form>
+
+
+{% endblock card-body %}
