@@ -1,6 +1,9 @@
 {% load static %}
 
-<div class="grid" data-masonry='{ "itemSelector": ".grid-item", "columnWidth": ".grid-sizer",  "gutter": ".gutter-sizer",  "percentPosition": "true" }'>
+<div 
+    class="grid mx-auto" 
+    data-masonry='{ "itemSelector": ".grid-item", "columnWidth": ".grid-sizer",  "gutter": ".gutter-sizer",  "percentPosition": "true" , "fitWidth": "true"}'
+    >
     <div class="gutter-sizer"></div>
     <div class="grid-sizer"></div>
     {% for post in posts %}
