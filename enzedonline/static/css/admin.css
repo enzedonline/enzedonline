@@ -161,7 +161,21 @@ label {
 .title .help {
     padding-top: 0.1rem;
 }
+.object-help.help {
+  padding-left: 0 !important;
+}
 .object .object-help .icon-help {
     margin-inline-start: -1.9em;
     height: 1rem;
+}
+@media screen and (min-width: 800px) {
+  .object .fields .multiple {
+    width: auto;
+  }
+}
+@media screen and (max-width: 800px) {
+  .multiple>li {
+    border: 0;
+    border-bottom: 1px solid #ededed;
+  }
 }
