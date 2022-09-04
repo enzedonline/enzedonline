@@ -132,11 +132,22 @@ body {
 }
 .tagit,
 input:not([type="submit"]),
-select,
+select {
+  font-size: var(--font-size-5);
+  font-family: var(--font-family-body);
+  text-align: start;
+  padding-bottom: 1rem;
+  padding-top: 1rem;
+  line-height: 1.4;
+}
 textarea {
   font-size: var(--font-size-5);
   font-family: var(--font-family-body);
   text-align: start;
+  padding-bottom: 1rem;
+  padding-top: 1rem;
+  line-height: 1.4;
+  resize:vertical !important;
 }
 .c-sf-container .help {
   margin: 0;
