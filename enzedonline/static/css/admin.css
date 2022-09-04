@@ -1,0 +1,167 @@
+:root {
+  --font-family-headings: "Quicksand", sans-serif;
+  --font-family-body: "Work Sans", sans-serif;
+  --font-family-monospace: "Ubuntu Mono", "Courier New", monospace;
+  --font-size-1: clamp(1.7578125rem, 1.3097rem + 1.3787vw, 2.34375rem);
+  --font-size-2: clamp(1.40625rem, 1.0478rem + 1.1029vw, 1.875rem);
+  --font-size-3: clamp(1.23046875rem, 0.9168rem + 0.9651vw, 1.640625rem);
+  --font-size-4: clamp(1.125rem, 0.9099rem + 0.6618vw, 1.40625rem);
+  --font-size-5: clamp(0.9375rem, 0.7583rem + 0.5515vw, 1.1718756rem);
+  --font-size-6: clamp(0.84375rem, 0.7721rem + 0.2206vw, 0.9375rem);
+  --font-size-body: clamp(0.9rem, 0.8235rem + 0.2353vw, 1rem);
+}
+body {
+  margin: 0;
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-body);
+  font-weight: 400;
+  line-height: 1.5;
+  text-align: start;
+}
+.h1,.h2,.h3,.h4,.h5,.h6,h1,h2,h3,h4,h5,h6 {
+  font-family: var(--font-family-headings);
+  margin-bottom: 0.8rem;
+  font-weight: 500;
+  line-height: 1.2;
+}
+.h1,h1 {
+  font-size: var(--font-size-1);
+}
+.h2,h2 {
+  font-size: var(--font-size-2);
+}
+.h3,h3 {
+  font-size: var(--font-size-3);
+}
+.h4,h4 {
+  font-size: var(--font-size-4);
+}
+.h5,h5 {
+  font-size: var(--font-size-5);
+}
+.h6,h6 {
+  font-size: var(--font-size-6);
+}
+.p,p {
+  font-size: var(--font-size-body);
+  font-family: var(--font-family-body);
+}
+
+/* --------------------------------------------------------------------- */
+/* Draftail Styles */
+/* --------------------------------------------------------------------- */
+
+.Draftail-block--blockquote, blockquote {
+  border-left-width: 0.3rem;
+  border-left-style: solid;
+  border-color: var(--bs-info);
+  background-color: var(--bs-light);
+  font-style: normal;
+  font-family: var(--font-family-headings);
+  font-weight: 500;
+  padding: 1rem;
+}
+.Draftail-Toolbar {
+  position: sticky !important;
+  top: calc(0.2rem + 50px) !important;
+  z-index: 2 !important;
+}
+@media screen and (max-width: 800px) {
+  .Draftail-Toolbar {
+    top: calc(0.2rem + 100px) !important;
+  }
+}
+.Draftail-Editor .DraftEditor-root{
+    font-family: var(--font-family-body);
+}
+.Draftail-ToolbarButton {
+  padding: 0.1rem 0.2rem 0.2rem 0.3rem !important;
+}
+.Draftail-block--left-align .public-DraftStyleDefault-ltr {
+  text-align: start;
+}
+.Draftail-block--centre-align .public-DraftStyleDefault-ltr {
+  text-align: center;
+}
+.Draftail-block--right-align .public-DraftStyleDefault-ltr {
+  text-align: end;
+}
+
+/* --------------------------------------------------------------------- */
+/* Admin Styles */
+/* --------------------------------------------------------------------- */
+
+.sidebar--slim .sidebar-custom-branding,
+.sidebar__inner .sidebar-custom-branding {
+  padding: 10px 0;
+  margin: 0 auto;
+}
+.panel.nice-padding.panel-upgrade-notification {
+  display: none;
+}
+.panel.summary {
+  margin-bottom: 0;
+  padding-top: 0;
+}
+.listing .title {
+  padding-bottom: 0.1rem;
+  padding-top: 0.5rem;
+}
+.listing td, .listing th {
+  padding: 0.5rem 1rem 0.1rem 1rem;
+}
+.listing .title .title-wrapper {
+  font-weight: 500;
+}
+.c-page-explorer__item__link h3 {
+  font-size: var(--font-size-5);
+  text-align: start;
+}
+.c-page-explorer__item__link {
+  padding: 1rem 1.75rem;
+}
+.sidebar-sub-menu-panel > h2 {
+  min-height: 0;
+  padding-bottom: 1rem;
+}
+.sidebar-menu-item--in-sub-menu .sidebar-menu-item__link {
+  padding: 0.4rem 0.7rem;
+}
+.field__label {
+  text-align: start;
+}
+.tagit,
+input:not([type="submit"]),
+select,
+textarea {
+  font-size: var(--font-size-5);
+  font-family: var(--font-family-body);
+  text-align: start;
+}
+.c-sf-container .help {
+  margin: 0;
+}
+label {
+    padding-top: 0;
+}
+.title input:not([type=submit]) {
+    font-size: var(--font-size-1);
+    font-family: var(--font-family-headings);
+    font-weight: 500;
+}
+.full input:not([type=submit]), .full textarea {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+.object-help {
+    line-height: 1.2;
+    padding-left: 0.8rem;
+    padding-bottom: 3rem;
+}
+.title .help {
+    padding-top: 0.1rem;
+}
+.object .object-help .icon-help {
+    margin-inline-start: -1.9em;
+    height: 1rem;
+}

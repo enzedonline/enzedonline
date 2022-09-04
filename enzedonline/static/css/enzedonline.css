@@ -567,7 +567,16 @@
     margin-top: 1rem;
     margin-bottom: 1rem;
   }
-  
+  .blockquote {
+    border-left-width: 0.3rem;
+    border-left-style: solid;
+    border-color: var(--bs-info);
+    background-color: var(--bs-light);
+    font-style: normal;
+    font-family: var(--font-family-headings);
+    font-weight: 500;
+    padding: 1rem;
+  }  
   .map-block {
     position: relative;
     top: 0px;
@@ -638,45 +647,4 @@
     font-family: var(--font-family-headings);
     font-weight: 500;
   }
-  /* --------------------------------------------------------------------- */
-  /* Draftail Styles */
-  /* --------------------------------------------------------------------- */
 
-  .Draftail-block--blockquote, blockquote {
-      border-left-width: 0.3rem;
-      border-left-style: solid;
-      border-color: var(--bs-info);
-      background-color: var(--bs-light);
-      font-style: normal;
-      font-family: var(--font-family-headings);
-      font-weight: 500;
-      padding: 1rem;
-  }
-  .Draftail-Toolbar {
-    position: sticky !important;
-    top: calc(.2rem + 51px) !important;
-    z-index: 2 !important;
-  }
-  .Draftail-ToolbarButton {
-    padding: .1rem .2rem .2rem .3rem;
-  }
-  .Draftail-block--left-align .public-DraftStyleDefault-ltr {
-    text-align: start;
-  }
-  .Draftail-block--centre-align .public-DraftStyleDefault-ltr {
-    text-align: center;
-  }
-  .Draftail-block--right-align .public-DraftStyleDefault-ltr {
-    text-align: end;
-  }
- 
-  /* --------------------------------------------------------------------- */
-  /* Admin Styles */
-  /* --------------------------------------------------------------------- */
-
-  .sidebar--slim .sidebar-custom-branding {
-    padding: 10px 0;
-  }
-  .sidebar-custom-branding {
-    margin: 0 auto;
-  }   

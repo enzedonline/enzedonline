@@ -46,7 +46,7 @@ def register_block_feature(features, feature_name, type_, description, css_class
         control['style'] = style
 
     features.register_editor_plugin(
-        'draftail', feature_name, draftail_features.BlockFeature(control, css={'all': ['enzedonline-min.css']})
+        'draftail', feature_name, draftail_features.BlockFeature(control, css={'all': ['admin.css']})
     )
 
     features.register_converter_rule('contentstate', feature_name, {
