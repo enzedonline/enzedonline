@@ -61,7 +61,7 @@ class BlockQuote(StructBlock):
     )
 
     class Meta:
-        icon = "fa-quote-left"
+        icon = "openquote"
         template = "blocks/blockquote.html"
         label = _("Quote Block")
 
@@ -109,7 +109,7 @@ class Link(StructBlock):
     
     class Meta:
         value_class = Link_Value
-        icon = "fa-link"
+        icon = "link"
         template = "blocks/link_button.html"
 
     def clean(self, value):
@@ -219,7 +219,7 @@ class FlexCard(StructBlock):
     class Meta:
         template = 'blocks/flex_card_block.html'
         label = _("Image & Text Card")
-        icon = 'fa-address-card'
+        icon = 'image'
 
     def clean(self, value):
         errors = {}
@@ -243,7 +243,7 @@ class CallToActionCard(FlexCard):
     class Meta:
         template = 'blocks/flex_card_block.html'
         label = _("Call-To-Action Card (Image/Text/Button)")
-        icon = 'fa-address-card'
+        icon = 'form'
 
 class SimpleCard(StructBlock):
     background = ColourThemeChoiceBlock(
@@ -270,7 +270,7 @@ class SimpleCard(StructBlock):
     class Meta:
         template = 'blocks/simple_card_block.html'
         label = _("Simple Card (Text Only)")
-        icon = 'fa-align-justify'
+        icon = 'form'
 
 class SimpleCardStreamBlock(StreamBlock):
     simple_card = SimpleCard()
@@ -281,8 +281,8 @@ class SimpleCardGridBlock(StructBlock):
 
     class Meta:
         template = "blocks/simple_card_grid_block.html"
-        icon = 'fa-th'
-        label = _("Flexible Grid of Simple Cards")
+        icon = 'duplicate'
+        label = _("Grid of Simple Cards")
 
 class SimpleImageCard(StructBlock):
     
@@ -308,7 +308,7 @@ class SimpleImageCard(StructBlock):
     class Meta:
         template = 'blocks/simple_image_card_block.html'
         label = _("Simple Image & Text Card")
-        icon = 'far fa-image'
+        icon = 'image'
 
 class SimpleImageCardStreamBlock(StreamBlock):
     simple_image_card = SimpleImageCard()
@@ -322,8 +322,8 @@ class SimpleImageCardGridBlock(StructBlock):
 
     class Meta:
         template = "blocks/simple_image_card_grid_block.html"
-        icon = 'fab fa-stack-overflow'
-        label = _("Flexible Grid of Simple Image Cards")
+        icon = 'duplicate'
+        label = _("Grid of Simple Image & Text Cards")
 
 class InlineVideoBlock(StructBlock):
     video = EmbedBlock(
@@ -348,7 +348,7 @@ class SocialMediaEmbedBlock(StructBlock):
     )
     class Meta:
         template='blocks/social_media_embed.html'
-        icon = 'fa-share-alt-square'
+        icon = 'media'
         label = _("Embed Social Media Post")
 
 class HtmlBlock(StructBlock):
@@ -357,7 +357,7 @@ class HtmlBlock(StructBlock):
     )
     class Meta:
         template='blocks/html_code_block.html'
-        icon = 'fa-file-code'
+        icon = 'media'
         label = _("Embed HTML Code")
 
 class ExternalLinkEmbedBlock(StructBlock):
@@ -432,7 +432,7 @@ class ExternalLinkEmbedBlock(StructBlock):
 
     class Meta:
         template='blocks/external_link_embed.html',
-        icon = 'fa-share-alt'
+        icon = 'link-external'
         label = _("Embed External Article")
     
     def clean(self, value):
@@ -502,7 +502,7 @@ class ImageCarouselBlock(StructBlock):
 
     class Meta:
         template='blocks/image_carousel.html'
-        icon="fa-clone"
+        icon="image"
         label = _("Image Carousel")
 
 class CollapsableCard(StructBlock):
@@ -530,7 +530,7 @@ class CollapsableCardBlock(StructBlock):
 
     class Meta:
         template='blocks/collapsable_card_block.html'
-        icon="fa-stack-overflow"
+        icon="collapse-down"
         label = _("Collapsable Text Block")
 
 class MapWaypointBlock(StructBlock):
@@ -605,7 +605,7 @@ class BlogCodeBlock(StructBlock):
 
     class Meta:
         template = "blocks/code_block.html"
-        icon = "fa-code"
+        icon = "code"
         label = _("Code Block")
 
 class DocumentBlock(StructBlock):
@@ -650,7 +650,7 @@ class DocumentBlock(StructBlock):
 
     class Meta:
         template = "blocks/document_block.html"
-        icon = "fa-file"
+        icon = "doc-full"
         label = _("Document Block")
 
 class DocumentListBlock(StructBlock):
@@ -694,7 +694,7 @@ class DocumentListBlock(StructBlock):
 
     class Meta:
         template = "blocks/document_list_block.html"
-        icon = "fa-list"
+        icon = "doc-full-inverse"
         label = "Document List"
 
 class EmptyStaticBlock(StaticBlock):
@@ -706,7 +706,7 @@ class EmptyStaticBlock(StaticBlock):
 class SpacerStaticBlock(StaticBlock):
     class Meta:
         template = 'blocks/spacer_block.html'
-        icon = 'fa-square'
+        icon = 'placeholder'
         label = 'Add Blank Space'
 
 class LatestBlogPostGrid(StructBlock):
@@ -730,7 +730,7 @@ class LatestBlogPostGrid(StructBlock):
     class Meta:
         template = 'blocks/latest_blog_posts_block.html'
         label = _("Latest Blog Post(s)")
-        icon = 'fa-edit'
+        icon = 'list-ul'
 
 class TableOfContentsBlock(StructBlock):
     toc_title = CharBlock(
@@ -752,7 +752,7 @@ class TableOfContentsBlock(StructBlock):
 
     class Meta:
         template = 'blocks/table_of_contents.html'
-        icon = 'fas fa-stream'
+        icon = 'list-ol'
         label = 'Table of Contents'
         
 class CSVTableBlock(StructBlock):
@@ -781,7 +781,7 @@ class CSVTableBlock(StructBlock):
         )
     class Meta:
         template = 'blocks/csv_table_block.html'
-        icon = 'list-ul'
+        icon = 'table'
         label = 'CSV Table'
 
 class BaseStreamBlock(StreamBlock):
@@ -820,7 +820,7 @@ class FullWidthBaseBlock(StructBlock):
 
     class Meta:
         template = 'blocks/full_width_block.html'
-        icon = 'arrows-alt-h'
+        # icon = 'arrows-alt-h'
         label = "Page Wide Block"
 
 class TwoColumnBaseBlock(StructBlock):
@@ -878,7 +878,7 @@ class TwoColumnBaseBlock(StructBlock):
 
     class Meta:
         template = 'blocks/two_column_block.html'
-        icon = 'fa-columns'
+        # icon = 'fa-columns'
         label = "Two Column Block"
 
     def clean(self, value):
@@ -950,7 +950,7 @@ class ThreeColumnBaseBlock(StructBlock):
 
     class Meta:
         template = 'blocks/three_column_block.html'
-        icon = 'fa-columns'
+        # icon = 'fa-columns'
         label = "Three Column Block"
 
     def clean(self, value):
