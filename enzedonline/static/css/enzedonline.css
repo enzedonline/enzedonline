@@ -567,7 +567,7 @@
     margin-top: 1rem;
     margin-bottom: 1rem;
   }
-  .blockquote {
+  blockquote, .blockquote {
     border-left-width: 0.3rem;
     border-left-style: solid;
     border-color: var(--bs-info);
