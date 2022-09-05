@@ -149,6 +149,9 @@ textarea {
   line-height: 1.4;
   resize:vertical !important;
 }
+.c-sf-container {
+  padding: 0.3rem 0;
+}
 .c-sf-container .help {
   margin: 0;
 }
@@ -163,6 +166,12 @@ label {
 .full input:not([type=submit]), .full textarea {
     padding-top: 0;
     padding-bottom: 0;
+    margin: 0.8rem 0;
+}
+@media screen and (min-width: 50em) {
+  .object.full input:not([type=submit]), .object.full textarea {
+    border-width: 1px;
+  }
 }
 .object-help {
     line-height: 1.2;
