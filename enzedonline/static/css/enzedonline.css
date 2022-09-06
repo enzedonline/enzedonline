@@ -406,7 +406,7 @@
     padding-top: 0.3rem;
     text-align: end;
     font-weight: lighter;
-    font-size: var(--font-size-6);
+    font-size: var(--font-size-5);
   }
   .enzed-blockquote-marks {
     font-family: var(--font-family-body);
