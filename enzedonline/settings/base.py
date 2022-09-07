@@ -204,8 +204,16 @@ WAGTAILEMBEDS_FINDERS = [
 WAGTAILSEARCH_BACKENDS = {
     'default': {
         'BACKEND': 'wagtail.search.backends.database',
-        'SEARCH_CONFIG': 'english',
-    }
+        'SEARCH_CONFIG': 'english_extended',
+    },
+    'en': {
+        'BACKEND': 'wagtail.search.backends.database',
+        'SEARCH_CONFIG': 'english_extended',
+    },
+    'es': {
+        'BACKEND': 'wagtail.search.backends.database',
+        'SEARCH_CONFIG': 'spanish',
+    },
 }
 
 # # ALLAUTH settings

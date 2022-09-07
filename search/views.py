@@ -1,9 +1,10 @@
+from core.utils import paginator_range
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.template.response import TemplateResponse
-
-from wagtail.models import Page, Locale
+from wagtail.models import Locale, Page
+from wagtail.search.backends import get_search_backend
 from wagtail.search.models import Query
-from core.utils import paginator_range
+
 
 def enzed_search(request):
     search_query = request.GET.get('query', None)
@@ -14,11 +15,15 @@ def enzed_search(request):
         page = 1
     
     # Search
+    s = get_search_backend(backend=Locale.get_active().language_code)
+    
     if search_query:
         if search_order=='date':
-            search_results = Page.objects.live().filter(locale=Locale.get_active()).order_by('-first_published_at').search(search_query, order_by_relevance=False)
+            scope = Page.objects.live().filter(locale=Locale.get_active()).order_by('-first_published_at')
+            search_results = s.search(search_query, scope, order_by_relevance=False)
         else:
-            search_results = Page.objects.live().filter(locale=Locale.get_active()).search(search_query)
+            scope = Page.objects.live().filter(locale=Locale.get_active())
+            search_results = s.search(search_query, scope)
             
         # Record hit
         query = Query.get(search_query)
