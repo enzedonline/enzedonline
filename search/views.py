@@ -15,7 +15,8 @@ def enzed_search(request):
         page = 1
     
     # Search
-    s = get_search_backend(backend=Locale.get_active().language_code)
+    backend = 'default' if Locale.get_active()==Locale.get_default() else Locale.get_active().language_code
+    s = get_search_backend(backend)
     
     if search_query:
         if search_order=='date':
