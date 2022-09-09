@@ -51,25 +51,29 @@ body {
 /* Draftail Styles */
 /* --------------------------------------------------------------------- */
 
-.Draftail-block--blockquote, blockquote {
-  border-left-width: 0.3rem;
-  border-left-style: solid;
-  border-color: var(--bs-info);
-  background-color: var(--bs-light);
-  font-style: normal;
-  font-family: var(--font-family-headings);
-  font-weight: 500;
-  padding: 1rem;
+.Draftail-Editor .DraftEditor-root {
+  font-size: unset;
+  line-height: 1.4;
 }
 .Draftail-Toolbar {
+  /* float toolbar so always visible */
   position: sticky !important;
   top: calc(0.2rem + 50px) !important;
   z-index: 2 !important;
 }
 @media screen and (max-width: 800px) {
   .Draftail-Toolbar {
+    /* double top height when top menu wraps at 800px */
     top: calc(0.2rem + 100px) !important;
   }
+}
+.Draftail-ToolbarGroup {
+  /* allow toolbar button groups to wrap */
+  display: contents;
+}
+.Draftail-Editor .public-DraftEditor-content {
+  /* prevent v-scroll loading unnecessarily */
+  padding: 1rem 0.5rem;
 }
 .public-DraftStyleDefault-ltr {
   text-align: justify;
@@ -79,6 +83,17 @@ body {
 }
 .Draftail-ToolbarButton {
   padding: 0.1rem 0.2rem 0.2rem 0.3rem !important;
+}
+/* Custom draftail styles */
+.Draftail-block--blockquote {
+  border-left-width: 0.3rem;
+  border-left-style: solid;
+  border-color: var(--bs-info);
+  background-color: var(--bs-light);
+  font-style: normal;
+  font-family: var(--font-family-headings);
+  font-weight: 500;
+  padding: 1rem;
 }
 .Draftail-block--left-align .public-DraftStyleDefault-ltr {
   text-align: start;
@@ -143,7 +158,7 @@ select {
   line-height: 1.4;
 }
 textarea {
-  font-size: var(--font-size-5);
+  font-size: var(--font-size-body);
   font-family: var(--font-family-body);
   text-align: start;
   padding-bottom: 1rem;
