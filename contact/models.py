@@ -172,14 +172,14 @@ class ContactPage(SEOWagtailCaptchaEmailForm):
     @property
     def mail_settings(self):
         email_settings=EmailSettings.objects.first()
-        use_tls = getattr(email_settings, 'use_tls')
+        use_ssl = getattr(email_settings, 'use_ssl')
         return {
             'host' : getattr(email_settings, 'host'),
             'port' : getattr(email_settings, 'port'),
             'username' : getattr(email_settings, 'username'),
             'password' : getattr(email_settings, 'password'),
-            'tls_setting' : use_tls,
-            'ssl_setting' : not use_tls            
+            'ssl_setting' : use_ssl,          
+            'tls_setting' : not use_ssl
         }
 
     def get_notification_email(self, form):

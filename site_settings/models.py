@@ -59,15 +59,9 @@ class EmailSettings(BaseSetting):
         blank=False,
         verbose_name=_("Password"),
     )
-    use_tls = models.BooleanField(
-        default=False,
-        verbose_name=_("Use TLS"),
-        help_text=_("Use only TLS or SSL")
-    )
     use_ssl = models.BooleanField(
         default=True,
-        verbose_name=_("Use SSL"),
-        help_text=_("Use only TLS or SSL")
+        verbose_name=_("Use SSL")
     )
 
 @register_setting(icon='fa-facebook')
