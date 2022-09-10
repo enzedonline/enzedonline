@@ -30,9 +30,7 @@
                 {% endblock %}
             </div>
         </main>
-        user: {{ request.user|is_in_group:"Editors"}}
-        preview: {{request.is_preview}}
-        debug: {% if debug is None %}No {% else %}Yes{% endif %}
+
         <footer>
             <div class="mx-auto" style="max-width: 1800px;">
                 {% block comments %}{% endblock %}
