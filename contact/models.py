@@ -169,30 +169,18 @@ class ContactPage(SEOWagtailCaptchaEmailForm):
         ], heading=_("Client Receipt Email Settings")),
     ]
 
-    def get_mail_backend(self):
+    @property
+    def mail_settings(self):
         email_settings=EmailSettings.objects.first()
-        host = getattr(email_settings, 'host')
-        port = getattr(email_settings, 'port')
-        username = getattr(email_settings, 'username')
-        password = getattr(email_settings, 'password')
         use_tls = getattr(email_settings, 'use_tls')
-
-        if use_tls:
-            tls_setting = True
-            ssl_setting = False
-        else:
-            ssl_setting = True
-            tls_setting = False
-
-        connection = mail.get_connection(
-            host=host,
-            port=port,
-            username=username,
-            password=password,
-            use_tls=tls_setting,
-            use_ssl=ssl_setting
-        )
-        return connection
+        return {
+            'host' : getattr(email_settings, 'host'),
+            'port' : getattr(email_settings, 'port'),
+            'username' : getattr(email_settings, 'username'),
+            'password' : getattr(email_settings, 'password'),
+            'tls_setting' : use_tls,
+            'ssl_setting' : not use_tls            
+        }
 
     def get_notification_email(self, form):
         email={}
@@ -245,7 +233,7 @@ class ContactPage(SEOWagtailCaptchaEmailForm):
         receipt_email = self.html_email(self.get_receipt_email(notification_email['contact_email_address']))
         receipt_email.reply_to = [x.strip() for x in self.reply_to.split(',')]
         notification_email = self.html_email(notification_email)
-        connection = self.get_mail_backend()      
+        connection = mail.get_connection(**self.mail_settings)    
         connection.send_messages([notification_email, receipt_email])
         connection.close()        
 
