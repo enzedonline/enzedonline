@@ -30,19 +30,7 @@
                 {% endblock %}
             </div>
         </main>
-        {% comment %} {% if debug is None %}Not debug {% else %}debug {% endif %} <br>
-        {% if not request.is_preview %}
-        not preview
-        {% else %}
-        preview
-        {% endif %}   <br>
-        {% if not request.user|is_in_group:"Editors" %}not editor {% else %}editor{% endif %}
-        
-        {% if debug is None and not request.is_preview and not request.user|is_in_group:"Editors" %}
-        yes
-        {% else %}
-        no
-        {% endif %} {% endcomment %}
+
         <footer>
             <div class="mx-auto" style="max-width: 1800px;">
                 {% block comments %}{% endblock %}
