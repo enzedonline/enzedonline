@@ -31,7 +31,8 @@
             </div>
         </main>
         user: {{ request.user|is_in_group:"Editors"}}
-
+        preview: {{request.is_preview}}
+        debug: {{debug}}
         <footer>
             <div class="mx-auto" style="max-width: 1800px;">
                 {% block comments %}{% endblock %}
