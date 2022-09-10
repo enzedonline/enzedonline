@@ -30,7 +30,8 @@
                 {% endblock %}
             </div>
         </main>
-        
+        user: {{ request.user|is_in_group:"Editors"}}
+
         <footer>
             <div class="mx-auto" style="max-width: 1800px;">
                 {% block comments %}{% endblock %}
