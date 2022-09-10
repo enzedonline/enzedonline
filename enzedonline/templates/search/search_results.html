@@ -79,7 +79,7 @@
                 {% endif %}
             </h5>
         {% endif %}
-    
+            user: {{ request.user|is_in_group:"Editors"}}
     </div>
 </div>
 
