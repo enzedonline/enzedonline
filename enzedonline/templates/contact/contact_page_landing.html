@@ -2,10 +2,8 @@
 {% load wagtailimages_tags wagtailcore_tags latest_blog_posts_block_tags %}
 
 {% block content %}
-<div class="d-flex" style="margin:30px;">
-   <div class="p2">
-    {{ self.thank_you_text|richtext }}
-   </div>
+<div class="p-3 p-md-4">
+    {{ self.thank_you_text }}
 </div>
 
 <div class="container-fluid w-100" style="gap: 1.5rem;">
