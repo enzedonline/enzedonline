@@ -175,6 +175,10 @@ textarea {
 label {
     padding-top: 0;
 }
+.object>.title-wrapper label {
+  font-family: var(--font-family-headings);
+  font-weight: 500;
+}
 .title input:not([type=submit]) {
     font-size: var(--font-size-1);
     font-family: var(--font-family-headings);
