@@ -587,52 +587,7 @@
     width: 100%;
   }
   
-  /* ============ Masonry CSS ============ */
-  /* clearfix */
-  .grid:after {
-    content: '';
-    display: block;
-    clear: both;
-  }
-  
-  /* ---- grid-item ---- */
-  
-  .grid-item {
-    float: left;
-    border-radius: 5px;
-  }
-  .gutter-sizer {
-    width: 2%;
-  }
-  .grid-sizer,
-  .grid-item {
-    width: 19%;
-  }
-  @media screen and (max-width: 2000px) {
-      .grid-sizer,
-      .grid-item {
-      width: 24%;
-      }
-  }
-  @media screen and (max-width: 1500px) {
-      .grid-sizer,
-      .grid-item {
-      width: 32%;
-      }
-  }
-  @media screen and (max-width: 992px) {
-      .grid-sizer,
-      .grid-item {
-      width: 49%;
-      }
-  }
-  @media screen and (max-width: 576px) {
-      .grid-sizer,
-      .grid-item {
-      width: 100%;
-      }
-  }
-  
+ 
   /* =========================================== */
   table, .table {
     font-size: var(--font-size-body);

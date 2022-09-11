@@ -1,10 +1,10 @@
 {% load static wagtailimages_tags  %}
-<div class="card h-100 p-2">
-    {% image post.localized.search_image fill-400x200-c100 format-webp as webp_img_w_400 %} 
-    {% image post.localized.search_image fill-400x200-c100 as fallback %}
+<div class="card p-2" style="max-width: 500px;">
+    {% image post.localized.search_image fill-500x200-c100 format-webp as webp_img_w_500 %} 
+    {% image post.localized.search_image fill-500x200-c100 as fallback %}
     <picture>
-    <source srcset="{{ webp_img_w_400.url }} 400w" type="image/webp" />
-    <source srcset="{{ fallback.url }} 400w" />
+    <source srcset="{{ webp_img_w_500.url }} 500w" type="image/webp" />
+    <source srcset="{{ fallback.url }} 500w" />
     <img
         src="{{ fallback.url }}"
         alt="{{ post.localized.title }}"

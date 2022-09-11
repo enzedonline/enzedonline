@@ -1,19 +1,13 @@
 {% load static %}
+<script src="{% static 'js/flexmasonry.js' %}"></script>
+<script src="{% static 'js/flexmasonry.extra.js'%}"></script>
+<link rel="stylesheet" href="{% static 'css/flexmasonry.css' %}">
 
-<div 
-    class="grid mx-auto full-width" 
-    data-masonry='{ "itemSelector": ".grid-item", "columnWidth": ".grid-sizer",  "gutter": ".gutter-sizer",  "percentPosition": "true" , "fitWidth": "true"}'
-    >
-    <div class="gutter-sizer"></div>
-    <div class="grid-sizer"></div>
+<div class="grid">
     {% for post in posts %}
-        <div class="grid-item">
-            <div class="col mx-0 mb-4">
-                {% include 'core/blog_card.html' %}
-            </div>
+        <div class="p-2">
+            {% include 'core/blog_card.html' %}
         </div>
     {% endfor %}
 </div>
-
-<script src="{% static 'js/masonry.pkgd.js'%}"></script>
-<script src="{% static 'js/masonry.extra.js'%}"></script>
+<script>flexMasonryInit()</script>
