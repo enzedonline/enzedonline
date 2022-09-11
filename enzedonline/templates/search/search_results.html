@@ -1,6 +1,12 @@
 {% extends "base.html" %}
 {% load static core_tags %}
 
+{% block extra_head %}
+    <script src="{% static 'js/flexmasonry.js' %}"></script>
+    <script src="{% static 'js/flexmasonry.extra.js'%}"></script>
+    <link rel="stylesheet" href="{% static 'css/flexmasonry.css' %}">
+{% endblock extra_head %}
+
 {% block content %}
 {% get_template_set 'search' as trans %}
 <title>Enzed Online - {{ trans.title }}</title>
@@ -28,19 +34,16 @@
                 {% endif %}
             </div>
             <span id='list'></span>
-            <div class="grid" data-masonry='{ "itemSelector": ".grid-item", "columnWidth": ".grid-sizer",  "gutter": ".gutter-sizer",  "percentPosition": "true" }'>
-                <div class="gutter-sizer"></div>
-                <div class="grid-sizer"></div>
+            <div class="grid">
                 {% for result in search_results %}
-                    <div class="grid-item">
-                        <div class="col mx-0 mb-3">
-                            {% with post=result.specific %}
-                                {% include 'core/blog_card.html' %}
-                            {% endwith %}
-                        </div>
+                    <div class="p-2">
+                        {% with post=result.specific %}
+                            {% include 'core/blog_card.html' %}
+                        {% endwith %}
                     </div>
                 {% endfor %}
             </div>
+            <script>flexMasonryInit()</script>
 
             {# Paginator #}
             <div>
@@ -86,8 +89,4 @@
 
 {% endblock %}
 
-{% block extra_js %}
-    <script src="{% static 'js/masonry.pkgd.js'%}"></script>
-    <script src="{% static 'js/masonry.extra.js'%}"></script>
-{% endblock %}
 
