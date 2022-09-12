@@ -208,8 +208,16 @@ WAGTAILSEARCH_BACKENDS = {
     },
     'es': {
         'BACKEND': 'wagtail.search.backends.database',
-        'SEARCH_CONFIG': 'spanish',
+        'SEARCH_CONFIG': 'spanish_extended',
     },
+    'english': {
+        'BACKEND': 'wagtail.search.backends.database',
+        'SEARCH_CONFIG': 'english',
+    },
+    'spanish': {
+        'BACKEND': 'wagtail.search.backends.database',
+        'SEARCH_CONFIG': 'spanish',
+    },    
 }
 
 # # ALLAUTH settings
