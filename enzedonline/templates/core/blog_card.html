@@ -19,5 +19,8 @@
     <a href="{{post.localized.url}}{{filter.qstring}}" class="stretched-link"></a>
 </div>
 <script>
-    document.getElementById("post_{{post.localized.pk}}").innerHTML = convertUTCDateToLocalDate(new Date('{{ post.localized.first_published_at|date:"Y-m-d H:i:s" }}'));
+    localDateTime(
+        document.getElementById("post_{{post.localized.pk}}"),
+        new Date('{{ post.localized.first_published_at|date:"Y-m-d H:i:s" }}')
+        );
 </script>

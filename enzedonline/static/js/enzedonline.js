@@ -1,13 +1,25 @@
-// Usage: document.getElementById("id").innerHTML = convertUTCDateToLocalDate(new Date('02 Aug 2021 09:58:22'));
-let convertUTCDateToLocalDate = (date) => {
+let localDateTime = (element, date) => {
+  // Only run if element exists and date is valid
+  if (element != null && date instanceof Date && !isNaN(date)) {
+    const date_options = {
+      weekday: "short",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    };
+    const time_options = { 
+      hour: "2-digit", 
+      minute: "2-digit", 
+      hour12: false 
+    };
+    element.innerText = convertUTCDateToLocalDate(date, date_options, time_options);
+  }
+}
+
+// Usage: document.getElementById("id").innerText = convertUTCDateToLocalDate(new Date('2021-08-12 09:58:22'));
+// Non-numeric month format will cause errors in multi-lingual setting
+let convertUTCDateToLocalDate = (date, date_options, time_options) => {
   local_date = new Date(date.getTime() - date.getTimezoneOffset() * 60000);
-  const date_options = {
-    weekday: "short",
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  };
-  const time_options = { hour: "2-digit", minute: "2-digit", hour12: false };
   return (
     local_date.toLocaleDateString(undefined, date_options) +
     " " +
