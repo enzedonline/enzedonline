@@ -14,6 +14,14 @@ let localDateTime = (element, date) => {
     };
     element.innerText = convertUTCDateToLocalDate(date, date_options, time_options);
   }
+  else {
+    if (element == null) {
+      console.warn('An null element was passed to localDate, check the element exists on the current page.')
+    }
+    if (!(date instanceof Date) || isNaN(date)) {
+      console.warn('A non-date value was passed to localDate, check a valid datetime object is being passed.')
+    }
+  }
 }
 
 // Usage: document.getElementById("id").innerText = convertUTCDateToLocalDate(new Date('2021-08-12 09:58:22'));
