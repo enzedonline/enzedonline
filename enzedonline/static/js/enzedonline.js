@@ -27,6 +27,7 @@ let convertUTCDateToLocalDate = (date, date_options, time_options) => {
   );
 };
 
+// set all external links to open in new tab
 $(document).ready(function () {
   $('a[href^="http://"]').attr("target", "_blank");
   $('a[href^="http://"]').attr("rel", "nofollow noopener");
@@ -34,6 +35,7 @@ $(document).ready(function () {
   $('a[href^="https://"]').attr("rel", "nofollow noopener");
 });
 
+// change rich text <fa> font awesome tags to <i class="...">
 $(document).ready(function () {
   fa_icons = document.getElementsByTagName('fa');
   for (let i = 0; i < fa_icons.length; i++) {
@@ -47,6 +49,7 @@ $(document).ready(function () {
   }
 });
 
+// include js script only if not already included
 let include_js = (js, id) => {
   let script_tag = document.getElementById(`${id}`)
   if (!script_tag) {
@@ -68,6 +71,7 @@ let include_js = (js, id) => {
   }
 }
 
+// include css only if not already included
 let include_css = (css, id) => {
   let link_tag = document.getElementById(`${id}`)
   if (!link_tag) {
