@@ -29,11 +29,14 @@
   <script src="{% static 'js/jquery-3.6.0.min.js'%}"></script>  
   <script defer src="{% static 'js/bootstrap.bundle.min.js'%}"></script>
   <script src="{% static 'js/enzedonline.js'%}"></script>
+  <script src="{% static 'js/flexmasonry.js' %}"></script>
+  <script src="{% static 'js/flexmasonry.extra.js'%}"></script>
   <script defer src="https://kit.fontawesome.com/{{ settings.site_settings.Tokens.fontawesome }}.js" crossorigin="anonymous" async></script>
 
   {# Global stylesheets #}
   <link rel="preload" href="{% static 'css/litera.bootstrap.min.css' %}" as="style">
   <link rel="stylesheet" href="{% static 'css/litera.bootstrap.min.css' %}" type="text/css">
+  <link rel="stylesheet" href="{% static 'css/flexmasonry.css' %}">
 
   {# Fonts #}
   <link rel="preload" href="{% static 'css/enzedonlinefonts-min.css' %}" as="style">
@@ -55,3 +58,4 @@
   {% endblock %}
 
 {% endcache %}
+
