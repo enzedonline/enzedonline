@@ -256,12 +256,6 @@ class SimpleCard(StructBlock):
         label=_("Border"),
         help_text=_("Draw a border around the card?")
     )
-    full_height = BooleanBlock(
-        default=True,
-        required=False,
-        label=_("Full Height"),
-        help_text=_("Card uses all available height")
-    )
     text = SimpleRichTextBlock(
         label=_("Card Body Text"),
         help_text=_("Body text for this card."),
