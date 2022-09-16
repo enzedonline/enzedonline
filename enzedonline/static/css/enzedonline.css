@@ -598,7 +598,7 @@
     font-size: var(--font-size-body);
     color: darkslateblue;
     background-color: lightgrey;
-    padding: 2px 5px;
+    padding: 0.1rem 0.25rem;
     border-radius: 3px;
   }
   label {
