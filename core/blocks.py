@@ -270,13 +270,44 @@ class SimpleCardStreamBlock(StreamBlock):
     simple_card = SimpleCard()
 
 class SimpleCardGridBlock(StructBlock):
-    columns = CardGridColumnChoiceBlock()
+    format = ChoiceBlock(
+        choices=[
+            ('grid', _('Standard Grid')),
+            ('masonry', _('Masonry Grid')),
+        ],
+        default='grid'
+    )
+    min_col = IntegerBlock(
+        label=_("Number of Columns on mobile device"), 
+        min_value=1,
+        max_value=3,
+        default=1
+        )
+    max_col = IntegerBlock(
+        label=_("Number of Columns on widescreen (>1400px)"), 
+        min_value=1,
+        max_value=8,
+        default=5
+        )
     cards = SimpleCardStreamBlock()
 
     class Meta:
         template = "blocks/simple_card_grid_block.html"
         icon = 'duplicate'
         label = _("Grid of Simple Cards")
+
+    def clean(self, value):
+        errors = {}
+        min_col = value.get('min_col')
+        max_col = value.get('max_col')
+
+        if min_col > max_col:
+            errors['min_col'] = ErrorList([_("Please make sure minimum is less than maximum.")])
+            errors['max_col'] = ErrorList([_("Please make sure minimum is less than maximum.")])
+        if errors:
+            raise StructBlockValidationError(block_errors=errors)
+
+        return super().clean(value)     
 
 class SimpleImageCard(StructBlock):
     

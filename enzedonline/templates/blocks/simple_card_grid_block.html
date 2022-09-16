@@ -1,14 +1,37 @@
-{% load static wagtailcore_tags  %}
+{% load static wagtailcore_tags simple_grid_tags %}
 <div class="block-container">
-    <div class="row {{ value.columns }} justify-content-center">
-    {% comment %} <div class="grid" data-masonry='{ "itemSelector": ".grid-item", "columnWidth": ".grid-sizer",  "gutter": ".gutter-sizer",  "percentPosition": "true" }'>
-        <div class="gutter-sizer"></div>
-        <div class="grid-sizer"></div> {% endcomment %}
-        {% for block in value.cards %}
-            <div class="col mx-0 mb-2">
-            {% comment %} <div class="grid-item"> {% endcomment %}
-                {% include_block block %}
-            </div>
-        {% endfor %}
-    </div>
+    {% if self.format == 'masonry' %}
+        <div class="grid-{{block.id}}">
+            {% for block in self.cards %}
+                <div class="px-2">
+                        {% include_block block %}
+                </div>
+            {% endfor %}
+        </div>
+        {% get_masonry_layout self.min_col self.max_col as cols %}
+        <script>
+            FlexMasonry.init(
+                '.grid-{{block.id}}',    
+                    { 
+                        breakpointCols: {
+                            'min-width: 1400px': {{cols.5}},
+                            'min-width: 1200px': {{cols.4}},
+                            'min-width: 992px': {{cols.3}},
+                            'min-width: 768px': {{cols.2}},
+                            'min-width: 576px': {{cols.1}},
+                        },
+                        numCols: {{cols.0}}
+                    }
+                );
+        </script>
+    {% else %}
+        <div class="row {% get_column_layout self.min_col self.max_col %} justify-content-center">
+            {% for block in self.cards %}
+                {% with full_height=True %}
+                    {% include_block block %}
+                {% endwith %}
+            {% endfor %}
+        </div>
+    {% endif %}
 </div>
+

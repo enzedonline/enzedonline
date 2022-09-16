@@ -133,15 +133,6 @@ class CodeChoiceBlock(DefaultChoiceBlock):
         ('bash', 'Bash/Shell'),
     ]
 
-class CardGridColumnChoiceBlock(DefaultChoiceBlock):
-    default='row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4'
-    choices=[
-        ('row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xl-4', _("Mobile:1 Max:4")),
-        ('row-cols-1 row-cols-md-2', _("Mobile:1 Max:2")),
-        ('row-cols-2 row-cols-lg-3 row-cols-xl-4', _("Mobile:2 Max:4")),
-    ]
-    label=_("Maximum Cards per Row")
-
 class VerticalAlignmentChoiceBlock(DefaultChoiceBlock):
     choices = [
         ('align-items-top', _('Top')), 
