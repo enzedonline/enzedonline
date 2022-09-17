@@ -4,7 +4,7 @@
 :root {
     --font-family-headings: "Quicksand", sans-serif;
     --font-family-body: "Work Sans", sans-serif;
-    --font-family-monospace: "Ubuntu Mono", "Courier New", monospace;
+    --font-family-monospace: "Roboto Mono", "Courier New", monospace;
     --font-size-1: clamp(1.7578125rem, 1.3097rem + 1.3787vw, 2.34375rem);
     --font-size-2: clamp(1.40625rem, 1.0478rem + 1.1029vw, 1.875rem);
     --font-size-3: clamp(1.23046875rem, 0.9168rem + 0.9651vw, 1.640625rem);
@@ -595,10 +595,9 @@
   }
   code {
     font-family: var(--font-family-monospace);
-    font-size: var(--font-size-body);
     color: darkslateblue;
     background-color: lightgrey;
-    padding: 0.1rem 0.25rem;
+    padding: 0.06rem 0.2rem;
     border-radius: 3px;
   }
   label {
