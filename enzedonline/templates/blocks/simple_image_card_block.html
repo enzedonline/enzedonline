@@ -1,23 +1,31 @@
 {% load wagtailimages_tags wagtailcore_tags flex_card_tags %}
 
-{% image self.image.file width-400 format-webp as webp_img %}
-{% image self.image.file width-400 as fallback %}
+{% image self.image.file original format-webp as webp_img_scale_100 %}
+{% image self.image.file width-750 format-webp as webp_img_w_750 %}
+{% image self.image.file width-500 format-webp as webp_img_w_500 %}
+{% image self.image.file original as fallback %}
 
 {% padding self.border self.background as pad %}
 
-    <div class="card {{ self.background }} {% if not self.border %}border-0 {% endif %}p-{{pad}}" style="min-width:300px;">
+<div class="block-container">
+  <div class="card {{ self.background }}{% if not self.border %} border-0{% endif %} p-{{pad}} {% if full_height %} h-100{% endif %}">
+    <div class="card-body p-0 lh-sm">
       <div style="text-align: center;">  
         <picture>
-          <source srcset="{{ webp_img.url }}" type="image/webp" />
-          <source srcset="{{ fallback.url }}" />
+          <source media="(min-width: 1500px)" srcset="{{ webp_img_scale_100.url }}" type="image/webp"/>
+          <source media="(min-width: 1000px)" srcset="{{ webp_img_w_750.url }} 750w" type="image/webp"/>
+          <source srcset="{{ webp_img_w_500.url }} 500w" type="image/webp"/>
           <img
             src="{{ fallback.url }}"
             alt="{{ self.image.seo_title }}"
-            class="img-fluid"
+            width = "100%"
+            height = "auto"
           />
         </picture>
       </div>
-      <div class="py-0 text-break" style="max-width:400px">
+      <div class="py-0 text-break">
         {% include_block self.text %}
       </div>
     </div>
+  </div>
+</div>
