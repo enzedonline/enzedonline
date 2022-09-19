@@ -326,8 +326,7 @@ class SimpleImageCard(StructBlock):
         help_text=_("Body text for this card."),
     )
     image = SEOImageChooserBlock(
-        label=_("Select Image & Enter Details"),
-        help_text=_("Card Image (display size limited to 300-400px range)."),
+        label=_("Select Image & Enter Details")
     )
 
     class Meta:
@@ -339,14 +338,29 @@ class SimpleImageCardStreamBlock(StreamBlock):
     simple_image_card = SimpleImageCard()
 
 class SimpleImageCardGridBlock(StructBlock):
-    alignment = VerticalAlignmentChoiceBlock(
-        help_text=_("Choose if row items should be vertically aligned to their tops or middles."),
+    format = ChoiceBlock(
+        choices=[
+            ('grid', _('Standard Grid')),
+            ('masonry', _('Masonry Grid')),
+        ],
+        default='grid'
     )
-
+    min_col = IntegerBlock(
+        label=_("Number of Columns on mobile device"), 
+        min_value=1,
+        max_value=3,
+        default=1
+        )
+    max_col = IntegerBlock(
+        label=_("Number of Columns on widescreen (>1400px)"), 
+        min_value=1,
+        max_value=8,
+        default=5
+        )
     cards = SimpleImageCardStreamBlock()
 
     class Meta:
-        template = "blocks/simple_image_card_grid_block.html"
+        template = "blocks/simple_card_grid_block.html"
         icon = 'duplicate'
         label = _("Grid of Simple Image & Text Cards")
 
