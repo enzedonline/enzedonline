@@ -1,6 +1,7 @@
 {% load wagtailimages_tags %}
 
 {% image self.image.file original format-webp as webp_img_scale_100 %}
+{% image self.image.file width-1600 format-webp as webp_img_w_1600 %}
 {% image self.image.file width-1200 format-webp as webp_img_w_1200 %}
 {% image self.image.file width-750 format-webp as webp_img_w_750 %}
 {% image self.image.file width-500 format-webp as webp_img_w_500 %}
@@ -10,28 +11,12 @@
   <div class="{{ self.background }} p-0 mx-auto"{% if self.max_width %} style="max-width: {{self.max_width}}px;"{% endif %}>
     <figure class="p-1">
       <picture class="srcset">
-        <source
-          media="(min-width: 1500px)" 
-          srcset="{{ webp_img_scale_100.url }} 1500w"  
-          type="image/webp"
-        />
-        <source
-          media="(min-width: 1000px)" 
-          srcset="{{ webp_img_w_1200.url }} 1200w"  
-          type="image/webp"
-        />
-        <source
-          media="(min-width: 600px)" 
-          srcset="{{ webp_img_w_750.url }} 750w"  
-          type="image/webp"
-        />
-        <source
-          srcset="{{ webp_img_w_500.url }} 500w"  
-          type="image/webp"
-        />
-        <source
-          srcset="{{ fallback.url }} 1500w"  
-        />
+        <source media="(min-width: 1600px)" srcset="{{ webp_img_scale_100.url }}" type="image/webp"/>
+        <source media="(min-width: 1200px)" srcset="{{ webp_img_w_1600.url }} 1600w" type="image/webp"/>
+        <source media="(min-width: 750px)" srcset="{{ webp_img_w_1200.url }} 1200w" type="image/webp"/>
+        <source media="(min-width: 500px)" srcset="{{ webp_img_w_750.url }} 750w" type="image/webp"/>
+        <source srcset="{{ webp_img_w_500.url }} 500w" type="image/webp"/>
+        <source srcset="{{ fallback.url }}" />
 
         <img class="srcset__image" src="{{ fallback.url }}" alt="{{ self.image.seo_title }}" style='width: 100%; height: auto;'/>
       </picture>
