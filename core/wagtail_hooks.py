@@ -9,7 +9,7 @@ from wagtail.admin.rich_text.editors.draftail.features import \
     InlineStyleFeature
 
 from .draftail_extensions import (CENTRE_ALIGN_ICON, LEFT_ALIGN_ICON,
-                                  MINIMISE_ICON, RIGHT_ALIGN_ICON, 
+                                  MINIMISE_ICON, RIGHT_ALIGN_ICON, SMALL_FONT_ICON,
                                   UNDERLINE_ICON, FONT_AWESOME_ICON,
                                   register_block_feature,
                                   register_inline_styling)
@@ -95,7 +95,7 @@ def register_small_styling(features):
         type_='SMALL',
         tag='small',
         description='Small',
-        icon=MINIMISE_ICON
+        icon=SMALL_FONT_ICON
     )
 
 @hooks.register("register_rich_text_features")
