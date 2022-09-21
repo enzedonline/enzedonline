@@ -496,7 +496,7 @@
   .image-block-caption {
     font-family: var(--font-family-headings);
     font-size: var(--font-size-6);
-    font-weight: 300;
+    font-weight: 400;
   }
   .carousel-caption {
     padding: 0.6rem 1rem;
