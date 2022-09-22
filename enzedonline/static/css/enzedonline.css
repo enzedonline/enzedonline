@@ -10,7 +10,7 @@
     --font-size-3: clamp(1.23046875rem, 0.9168rem + 0.9651vw, 1.640625rem);
     --font-size-4: clamp(1.125rem, 0.9099rem + 0.6618vw, 1.40625rem);
     --font-size-5: clamp(0.9375rem, 0.7583rem + 0.5515vw, 1.1718756rem);
-    --font-size-6: clamp(0.84375rem, 0.7721rem + 0.2206vw, 0.9375rem);
+    --font-size-6: clamp(0.84375rem, 0.8203rem + 0.1042vw, 0.9375rem);
     --font-size-body: clamp(0.9rem, 0.8235rem + 0.2353vw, 1rem);
   }
   :target::before {
