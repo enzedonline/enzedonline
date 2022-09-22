@@ -1,8 +1,8 @@
-{% load wagtailimages_tags wagtailcore_tags flex_card_tags %}
+{% load wagtailimages_tags wagtailcore_tags flex_card_tags core_tags %}
 
-{% image self.image.file original format-webp as webp_img_scale_100 %}
-{% image self.image.file width-750 format-webp as webp_img_w_750 %}
-{% image self.image.file width-500 format-webp as webp_img_w_500 %}
+{% get_picture_rendition self.image 1000 as webp_img_w_1000 %}
+{% get_picture_rendition self.image 750 as webp_img_w_750 %}
+{% get_picture_rendition self.image 500 as webp_img_w_500 %}
 {% image self.image.file original as fallback %}
 
 {% padding self.border self.background as pad %}

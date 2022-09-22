@@ -131,3 +131,10 @@ def get_search_or_none(context):
 @register.simple_tag()
 def get_rendition(image, image_options):
     return image.get_rendition(image_options)
+
+@register.simple_tag()
+def get_picture_rendition(image, width):
+    if width < image['file'].width:
+        return image['file'].get_rendition(f"width-{width}|format-webp")
+    else:
+        return image['file'].get_rendition("original|format-webp")
