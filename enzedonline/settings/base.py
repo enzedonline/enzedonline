@@ -201,23 +201,24 @@ WAGTAILEMBEDS_FINDERS = [
     }
 ]
 
+# multiple configs not supported for one backend type
+# revisit at some later date if this gets addressed
+# change search config to 'simple' if needing multi-lingual
 WAGTAILSEARCH_BACKENDS = {
     'default': {
         'BACKEND': 'wagtail.search.backends.database',
         'SEARCH_CONFIG': 'english_extended',
     },
-    'es': {
-        'BACKEND': 'wagtail.search.backends.database',
-        'SEARCH_CONFIG': 'spanish_extended',
-    },
-    'english': {
-        'BACKEND': 'wagtail.search.backends.database',
-        'SEARCH_CONFIG': 'english',
-    },
-    'spanish': {
-        'BACKEND': 'wagtail.search.backends.database',
-        'SEARCH_CONFIG': 'spanish',
-    },    
+    # 'es': {
+    #     'BACKEND': 'wagtail.search.backends.database',
+    #     'SEARCH_CONFIG': 'spanish_extended',
+    #     'INDEX' : 'es'
+    # },
+    # 'en': {
+    #     'BACKEND': 'wagtail.search.backends.database',
+    #     'SEARCH_CONFIG': 'english_extended',
+    #     'INDEX' : 'en'
+    # },
 }
 
 # # ALLAUTH settings

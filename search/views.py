@@ -15,8 +15,10 @@ def enzed_search(request):
         page = 1
     
     # Search
-    backend = 'default' if Locale.get_active()==Locale.get_default() else Locale.get_active().language_code
-    s = get_search_backend(backend)
+    # These 2 lines commented until multi-index backend supported - one backend per locale
+    # backend = 'default' if Locale.get_active()==Locale.get_default() else Locale.get_active().language_code
+    # s = get_search_backend(backend)
+    s = get_search_backend()
     
     if search_query:
         if search_order=='date':
