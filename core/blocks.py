@@ -399,6 +399,15 @@ class HtmlBlock(StructBlock):
         icon = 'media'
         label = _("Embed HTML Code")
 
+class DjangoTemplateFragmentBlock(StructBlock):
+    code = RawHTMLBlock(
+        label=_("Enter Django Template Fragment Code")
+    )
+    class Meta:
+        template='blocks/django_code_block.html'
+        icon = 'code'
+        label = _("Embed Django Template Code")
+
 class ExternalLinkEmbedBlock(StructBlock):
     external_link = URLBlock(
         label=_("URL to External Article"),
@@ -847,6 +856,7 @@ class BaseStreamBlock(StreamBlock):
     document_list_block = DocumentListBlock()
     latest_blog_posts = LatestBlogPostGrid()
     block_quote = BlockQuote()
+    django_template_fragment = DjangoTemplateFragmentBlock()
     spacer_block = SpacerStaticBlock()
     empty_block = EmptyStaticBlock()
     
