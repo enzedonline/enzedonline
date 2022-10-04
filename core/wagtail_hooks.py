@@ -8,11 +8,7 @@ from wagtail.admin.rich_text.converters.html_to_contentstate import \
 from wagtail.admin.rich_text.editors.draftail.features import \
     InlineStyleFeature
 
-from .draftail_extensions import (CENTRE_ALIGN_ICON, LEFT_ALIGN_ICON,
-                                  MINIMISE_ICON, RIGHT_ALIGN_ICON, SMALL_FONT_ICON,
-                                  UNDERLINE_ICON, FONT_AWESOME_ICON,
-                                  register_block_feature,
-                                  register_inline_styling)
+from .draftail_extensions import *
 from .utils import purge_page_cache_fragments
 
 
@@ -109,6 +105,18 @@ def register_underline_styling(features):
         icon=UNDERLINE_ICON
     )
 
+@hooks.register('register_rich_text_features')
+def register_highlighted_text_feature(features):
+    register_inline_styling(
+        features=features,
+        feature_name='highlight',
+        type_='HIGHLIGHT',
+        format='style="background-color: yellow;padding-left: 0.15rem;padding-right: 0.15rem;"',
+        editor_style={'background-color': 'yellow', 'padding-left': '0.15rem', 'padding-right': '0.15rem'},
+        description='Highlighted Text',
+        icon=HIGHLIGHTER_ICON,
+    )
+
 @hooks.register('before_serve_document')
 def serve_pdf(document, request):
     if document.file_extension != 'pdf':
@@ -127,3 +135,5 @@ def register_refresh_cache_menu_item():
 def do_after_delete_page(request, page):
     purge_page_cache_fragments(page.slug)
 
+
+    

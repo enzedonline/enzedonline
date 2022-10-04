@@ -9,13 +9,13 @@ from wagtail.admin.rich_text.editors.draftail.features import InlineStyleFeature
 def register_inline_styling(
     features,
     feature_name,
-    type_,
-    tag,
     description,
+    type_,
+    tag='span',
+    format=None,
+    editor_style=None,
     label=None,
-    icon=None,
-    style=None,
-    style_map=None,
+    icon=None
 ):
     control = {"type": type_, "description": description}
     if label:
@@ -24,17 +24,21 @@ def register_inline_styling(
         control["icon"] = icon
     else:
         control["label"] = description
-    if style:
-        control["style"] = style
+    if editor_style:
+        control["style"] = editor_style
 
-    if not style_map:
+    if not format:
         style_map = {"element": tag}
+        markup_map = tag
+    else:
+        style_map = f'{tag} {format}'
+        markup_map = f'{tag}[{format}]'
 
     features.register_editor_plugin(
         "draftail", feature_name, InlineStyleFeature(control)
     )
     db_conversion = {
-        "from_database_format": {tag: InlineStyleElementHandler(type_)},
+        "from_database_format": {markup_map: InlineStyleElementHandler(type_)},
         "to_database_format": {"style_map": {type_: style_map}},
     }
     features.register_converter_rule("contentstate", feature_name, db_conversion)
@@ -49,7 +53,7 @@ def register_block_feature(
     element="div",
     label=None,
     icon=None,
-    style=None,
+    editor_style=None,
 ):
     control = {
         "type": type_,
@@ -62,8 +66,8 @@ def register_block_feature(
         control["icon"] = icon
     else:
         control["label"] = description
-    if style:
-        control["style"] = style
+    if editor_style:
+        control["style"] = editor_style
 
     features.register_editor_plugin(
         "draftail",
@@ -208,3 +212,14 @@ SMALL_FONT_ICON = [
     104.002823 -174.49718,106.460743 -5.44713,2.88062 -12.53875,5.14997 -18.92593,6.05637 -2.95697,\
     0.41961 -10.56408,0.71692 -12.96563,0.50674 z"
     ]
+HIGHLIGHTER_ICON = ["m 592.83219,630.12307 298.10994,-430.084 -55.14282,-58.81149 -404.8197,316.8619 z \
+    m -351.9353,10.00197 v 0 V 496.697 c 0,-30.60597 13.55045,-59.21155 36.69913,\
+    -77.21507 L 791.57214,16.803282 C 805.49899,5.801133 822.43706,0 839.75152,0 861.2064,\
+    0 881.90848,9.0017582 897.15274,25.204923 L 1000.2867,134.82633 C 1015.531,151.0295 1024,\
+    172.83376 1024,195.83825 c 0,18.40359 -5.4578,36.40711 -15.8089,51.21 L 629.34313,\
+    793.1549 c -16.93807,24.60482 -44.03897,39.00763 -72.64545,39.00763 H 421.56957 l -47.80299,\
+    50.80992 c -23.52508,25.0049 -61.72983,25.0049 -85.25491,0 L 193.09392,781.55266 c -23.52509,\
+    -25.0049 -23.52509,-65.61283 0,-90.6177 z M 13.174049,932.7822 131.74049,806.75758 264.61019,\
+    947.98516 206.26797,1009.9973 C 197.79893,1018.999 186.31869,1024 174.27385,\
+    1024 H 45.168169 C 20.137475,1024 0,1002.5958 0,975.99061 v -9.40181 c 0,-12.8025 4.7050174,\
+    -25.00489 13.174049,-34.00665 z"]
