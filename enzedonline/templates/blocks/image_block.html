@@ -10,7 +10,7 @@
 <div class="block-container">
   <div class="{{ self.background }} p-1 mx-auto"
     {% if self.max_width %} style="max-width: calc({{self.max_width}}px + 0.5rem);"{% endif %}>
-    <figure class="m-0 {% if self.max_width %} style="max-width: {{self.max_width}}px;"{% endif %}">
+    <figure class="m-0{% if self.max_width %}" style="max-width: {{self.max_width}}px;"{% endif %}>
       <picture class="srcset">
         <source media="(min-width: 1600px)" srcset="{{ webp_img_w_1800.url }}" type="image/webp"/>
         <source media="(min-width: 1200px)" srcset="{{ webp_img_w_1600.url }} 1600w" type="image/webp"/>
