@@ -2,13 +2,13 @@
   --font-family-headings: "Quicksand", sans-serif;
   --font-family-body: "Work Sans", sans-serif;
   --font-family-monospace: "Ubuntu Mono", "Courier New", monospace;
-  --font-size-1: clamp(1.7578125rem, 1.3097rem + 1.3787vw, 2.34375rem);
-  --font-size-2: clamp(1.40625rem, 1.0478rem + 1.1029vw, 1.875rem);
-  --font-size-3: clamp(1.23046875rem, 0.9168rem + 0.9651vw, 1.640625rem);
-  --font-size-4: clamp(1.125rem, 0.9099rem + 0.6618vw, 1.40625rem);
-  --font-size-5: clamp(0.9375rem, 0.7583rem + 0.5515vw, 1.1718756rem);
-  --font-size-6: clamp(0.84375rem, 0.7721rem + 0.2206vw, 0.9375rem);
-  --font-size-body: clamp(0.9rem, 0.8235rem + 0.2353vw, 1rem);
+  --font-size-1: clamp( 2rem, 1.7993rem + 0.8451vw, 2.75rem );
+  --font-size-2: clamp( 1.8rem, 1.6394rem + 0.6761vw, 2.4rem );
+  --font-size-3: clamp( 1.55rem, 1.4162rem + 0.5634vw, 2.05rem );
+  --font-size-4: clamp( 1.35rem, 1.2563rem + 0.3944vw, 1.7rem );
+  --font-size-5: clamp( 1.1rem, 1.0331rem + 0.2817vw, 1.35rem );
+  --font-size-6: clamp( 0.9rem, 0.8732rem + 0.1127vw, 1rem );
+  --font-size-body: clamp( 1rem, 0.9599rem + 0.169vw, 1.15rem );
 }
 body {
   margin: 0;
