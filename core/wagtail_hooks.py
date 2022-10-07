@@ -66,8 +66,9 @@ def register_fa_styling(features):
             'font-family': 'monospace',
             'font-size': '0.9rem',
             'font-weight': 'bolder',
-            'padding-left': '2px',
-            'padding-right': '4px'
+            'padding-left': '3px',
+            'padding-right': '4px',
+            'border-radius': '6px'
         }    
     }
 
@@ -81,7 +82,6 @@ def register_fa_styling(features):
     }
 
     features.register_converter_rule("contentstate", feature_name, db_conversion)
-    features.default_features.append(feature_name)
 
 @hooks.register("register_rich_text_features")
 def register_small_styling(features):
