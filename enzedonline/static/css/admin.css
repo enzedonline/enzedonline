@@ -9,6 +9,27 @@
   --font-size-5: clamp( 1.1rem, 1.0331rem + 0.2817vw, 1.35rem );
   --font-size-6: clamp( 0.9rem, 0.8732rem + 0.1127vw, 1rem );
   --font-size-body: clamp( 1rem, 0.9599rem + 0.169vw, 1.15rem );
+  --bs-blue: #4582ec;
+  --bs-indigo: #6610f2;
+  --bs-purple: #6f42c1;
+  --bs-pink: #e83e8c;
+  --bs-red: #d9534f;
+  --bs-orange: #fd7e14;
+  --bs-yellow: #f0ad4e;
+  --bs-green: #02b875;
+  --bs-teal: #20c997;
+  --bs-cyan: #17a2b8;
+  --bs-white: #fff;
+  --bs-gray: #868e96;
+  --bs-gray-dark: #343a40;
+  --bs-primary: #4582ec;
+  --bs-secondary: #adb5bd;
+  --bs-success: #02b875;
+  --bs-info: #17a2b8;
+  --bs-warning: #f0ad4e;
+  --bs-danger: #d9534f;
+  --bs-light: #f8f9fa;
+  --bs-dark: #343a40;
 }
 body {
   margin: 0;
@@ -86,9 +107,10 @@ body {
 }
 /* Custom draftail styles */
 .Draftail-block--blockquote {
-  border-left-width: 0.3rem;
+  border-left-width: 0.5rem;
   border-left-style: solid;
   border-color: var(--bs-info);
+  border-radius: 0.25rem;
   background-color: var(--bs-light);
   font-style: normal;
   font-family: var(--font-family-headings);
