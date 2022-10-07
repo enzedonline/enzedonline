@@ -72,7 +72,7 @@ def register_block_feature(
     features.register_editor_plugin(
         "draftail",
         feature_name,
-        draftail_features.BlockFeature(control, css={"all": ["admin.css"]}),
+        draftail_features.BlockFeature(control, css={"all": ["draftail-editor.css"]}),
     )
 
     features.register_converter_rule(

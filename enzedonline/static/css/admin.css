@@ -105,27 +105,6 @@ body {
 .Draftail-ToolbarButton {
   padding: 0.1rem 0.2rem 0.2rem 0.3rem !important;
 }
-/* Custom draftail styles */
-.Draftail-block--blockquote {
-  border-left-width: 0.5rem;
-  border-left-style: solid;
-  border-color: var(--bs-info);
-  border-radius: 0.25rem;
-  background-color: var(--bs-light);
-  font-style: normal;
-  font-family: var(--font-family-headings);
-  font-weight: 500;
-  padding: 1rem;
-}
-.Draftail-block--left-align .public-DraftStyleDefault-ltr {
-  text-align: start;
-}
-.Draftail-block--centre-align .public-DraftStyleDefault-ltr {
-  text-align: center;
-}
-.Draftail-block--right-align .public-DraftStyleDefault-ltr {
-  text-align: end;
-}
 
 /* --------------------------------------------------------------------- */
 /* Admin Styles */
