@@ -571,15 +571,13 @@
     margin-bottom: 1rem;
   }
   blockquote, .blockquote {
-    border-left-width: 0.5rem;
-    border-left-style: solid;
-    border-color: var(--bs-info);
+    border-inline-start: 0.5rem solid var(--bs-info);
     border-radius: 0.25rem;
     background-color: var(--bs-light);
     font-style: normal;
     font-family: var(--font-family-headings);
     font-weight: 500;
-    padding: 1rem;
+    padding: 1rem 2rem;
   }  
   .map-block {
     position: relative;
