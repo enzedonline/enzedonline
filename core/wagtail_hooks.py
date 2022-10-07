@@ -51,37 +51,24 @@ def register_align_right_feature(features):
 @hooks.register("register_rich_text_features")
 def register_fa_styling(features):
     """Add <fa> to the richtext editor and page."""
-
-    feature_name = "fa"
-    type_ = "FA"
-    tag = "fa"
-
-    control = {
-        "type": type_,
-        "icon": FONT_AWESOME_ICON,
-        "description": "Font Awesome",
-        'style': {            
+    register_inline_styling(
+        features=features,
+        feature_name='fa',
+        description="Font Awesome Icon",
+        type_="FA",
+        tag="fa",
+        format='style="display:none;"',
+        editor_style={            
             'background-color': 'orange',            
             'color': '#666',
             'font-family': 'monospace',
             'font-size': '0.9rem',
             'font-weight': 'bolder',
-            'padding-left': '3px',
-            'padding-right': '4px',
-            'border-radius': '6px'
-        }    
-    }
-
-    features.register_editor_plugin(
-        "draftail", feature_name, InlineStyleFeature(control)
+            'padding': '0 0.4rem',
+            'border-radius': '0.6rem'
+        },
+        icon=FONT_AWESOME_ICON
     )
-
-    db_conversion = {
-        "from_database_format": {tag: InlineStyleElementHandler(type_)},
-        "to_database_format": {"style_map": {type_: {"element": tag + ' style="display:none;"'}}}
-    }
-
-    features.register_converter_rule("contentstate", feature_name, db_conversion)
 
 @hooks.register("register_rich_text_features")
 def register_small_styling(features):
