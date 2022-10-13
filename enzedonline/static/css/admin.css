@@ -105,6 +105,15 @@ body {
 .Draftail-ToolbarButton {
   padding: 0.1rem 0.2rem 0.2rem 0.3rem !important;
 }
+.Draftail-block--blockquote {
+  border-inline-start: 0.5rem solid var(--bs-info);
+  border-radius: 0.25rem;
+  background-color: var(--bs-light);
+  font-style: normal;
+  font-family: var(--font-family-headings);
+  font-weight: 500;
+  padding: 1rem 2rem;
+}
 
 /* --------------------------------------------------------------------- */
 /* Admin Styles */

@@ -1,13 +1,4 @@
 /* Custom draftail styles */
-.Draftail-block--blockquote {
-    border-inline-start: 0.5rem solid var(--bs-info);
-    border-radius: 0.25rem;
-    background-color: var(--bs-light);
-    font-style: normal;
-    font-family: var(--font-family-headings);
-    font-weight: 500;
-    padding: 1rem 2rem;
-}
 .Draftail-block--left-align .public-DraftStyleDefault-ltr {
     text-align: start;
 }
