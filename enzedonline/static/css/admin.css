@@ -131,6 +131,9 @@ body {
   margin-bottom: 0;
   padding-top: 0;
 }
+.title {
+  font-family: var(--font-family-headings);
+}
 .listing .title {
   padding-bottom: 0;
   padding-top: 0.7rem;
