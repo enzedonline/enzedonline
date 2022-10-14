@@ -131,9 +131,6 @@ body {
   margin-bottom: 0;
   padding-top: 0;
 }
-.title {
-  font-family: var(--font-family-headings);
-}
 .listing .title {
   padding-bottom: 0;
   padding-top: 0.7rem;
@@ -160,6 +157,15 @@ body {
 }
 .field__label {
   text-align: start;
+}
+.field-content {
+  width: 100%;
+}
+fieldset {
+  padding: 0;
+}
+label {
+  width: 100%;
 }
 .tagit,
 select {
@@ -197,9 +203,14 @@ header {
   font-weight: 500;
 }
 .title input:not([type=submit]) {
-    font-size: var(--font-size-1);
-    font-family: var(--font-family-headings);
-    font-weight: 500;
+    font-size: var(--font-size-2) !important;
+    font-family: var(--font-family-headings) !important;
+    font-weight: 500 !important;
+    padding-inline-start: 0.5rem !important;
+    padding-inline-end: 0.5rem !important;
+    line-height: 1 !important;
+    padding-top: 0.3rem !important;
+    padding-bottom: 0.3rem !important;
 }
 .full input:not([type=submit]), .full textarea {
     padding-top: 0;
@@ -208,8 +219,11 @@ header {
 }
 @media screen and (min-width: 50em) {
   .object.full input:not([type=submit]), .object.full textarea {
-    border-width: 1px;
+    border-width: 1px !important;
   }
+}
+.help {
+  font-size: 0.75rem;
 }
 .object-help {
     line-height: 1.2;
@@ -219,7 +233,7 @@ header {
 .title .help {
     padding-top: 0.1rem;
 }
-.object-help.help {
+.object-help .help {
   padding-left: 0 !important;
 }
 .object .object-help .icon-help {
