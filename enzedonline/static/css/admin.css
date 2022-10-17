@@ -106,13 +106,13 @@ body {
   padding: 0.1rem 0.2rem 0.2rem 0.3rem !important;
 }
 .Draftail-block--blockquote {
-  border-inline-start: 0.5rem solid var(--bs-info);
+  border-inline-start: 0.5rem solid var(--bs-info) !important;
   border-radius: 0.25rem;
   background-color: var(--bs-light);
   font-style: normal;
   font-family: var(--font-family-headings);
   font-weight: 500;
-  padding: 1rem 2rem;
+  padding: 1rem 2rem !important;
 }
 
 /* --------------------------------------------------------------------- */
