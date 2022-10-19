@@ -280,7 +280,7 @@ WAGTAILADMIN_RICH_TEXT_EDITORS = {
         'OPTIONS': {
             'features': ['h2', 'h3', 'h4', 'h5', 'h6', 'bold', 'italic', 'underline', 'ol', 'ul',
                          'link', 'hr', 'small', 'highlight', 'code', 'document-link', 'fa', 'blockquote',
-                         'left-align', 'centre-align', 'right-align']
+                         'left-align', 'centre-align', 'right-align', 'code-block']
         }
     },
     'minimal': {

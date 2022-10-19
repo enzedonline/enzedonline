@@ -1,7 +1,7 @@
 :root {
   --font-family-headings: "Quicksand", sans-serif;
   --font-family-body: "Work Sans", sans-serif;
-  --font-family-monospace: "Ubuntu Mono", "Courier New", monospace;
+  --font-family-monospace: "Roboto Mono", "Courier New", monospace;
   --font-size-1: clamp( 2rem, 1.7993rem + 0.8451vw, 2.75rem );
   --font-size-2: clamp( 1.8rem, 1.6394rem + 0.6761vw, 2.4rem );
   --font-size-3: clamp( 1.55rem, 1.4162rem + 0.5634vw, 2.05rem );

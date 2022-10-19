@@ -8,3 +8,13 @@
 .Draftail-block--right-align .public-DraftStyleDefault-ltr {
     text-align: end;
 }
+.Draftail-block--CODE-BLOCK {
+    font-family: "Ubuntu Mono", "Courier New", monospace;
+    font-size: var(--font-size-6);
+    text-align: left !important;
+    color: #f8f8f2;
+    background-color: #272822;
+    padding: 0.06rem 0.3rem;
+    text-align: left;
+    padding-left: 1rem;
+}

@@ -8,7 +8,9 @@ from wagtail.admin.rich_text.converters.html_to_contentstate import \
 from wagtail.admin.rich_text.editors.draftail.features import \
     InlineStyleFeature
 
-from .draftail_extensions import *
+from .draftail_extensions import (DRAFTAIL_ICONS,
+                                  register_block_feature,
+                                  register_inline_styling)
 from .utils import purge_page_cache_fragments
 
 
@@ -21,7 +23,7 @@ def register_align_left_feature(features):
         description=_('Left align text'),
         css_class='text-start',
         element='p',
-        icon=LEFT_ALIGN_ICON
+        icon=DRAFTAIL_ICONS.left_align
     )
     
 @hooks.register('register_rich_text_features')
@@ -33,7 +35,7 @@ def register_align_centre_feature(features):
         description=_('Centre align text'),
         css_class='text-center',
         element='p',
-        icon=CENTRE_ALIGN_ICON
+        icon=DRAFTAIL_ICONS.centre_align
     )
     
 @hooks.register('register_rich_text_features')
@@ -45,7 +47,19 @@ def register_align_right_feature(features):
         description=_('Right align text'),
         css_class='text-end',
         element='p',
-        icon=RIGHT_ALIGN_ICON
+        icon=DRAFTAIL_ICONS.right_align
+    )
+
+@hooks.register('register_rich_text_features')
+def register_code_block_feature(features):
+    register_block_feature(
+        features=features,
+        feature_name='code-block',
+        type_='CODE-BLOCK',
+        description='Code Block',
+        css_class='code-block',
+        element='div',
+        icon=DRAFTAIL_ICONS.code_block
     )
     
 @hooks.register("register_rich_text_features")
@@ -67,7 +81,7 @@ def register_fa_styling(features):
             'padding': '0 0.4rem',
             'border-radius': '0.6rem'
         },
-        icon=FONT_AWESOME_ICON
+        icon=DRAFTAIL_ICONS.font_awesome
     )
 
 @hooks.register("register_rich_text_features")
@@ -78,7 +92,7 @@ def register_small_styling(features):
         type_='SMALL',
         tag='small',
         description='Small',
-        icon=SMALL_FONT_ICON
+        icon=DRAFTAIL_ICONS.decrease_font
     )
 
 @hooks.register("register_rich_text_features")
@@ -89,7 +103,7 @@ def register_underline_styling(features):
         type_='UNDERLINE',
         tag='u',
         description='Underline',
-        icon=UNDERLINE_ICON
+        icon=DRAFTAIL_ICONS.underline
     )
 
 @hooks.register('register_rich_text_features')
@@ -101,7 +115,7 @@ def register_highlighted_text_feature(features):
         format='style="background-color: yellow;padding-left: 0.15rem;padding-right: 0.15rem;"',
         editor_style={'background-color': 'yellow', 'padding-left': '0.15rem', 'padding-right': '0.15rem'},
         description='Highlighted Text',
-        icon=HIGHLIGHTER_ICON,
+        icon=DRAFTAIL_ICONS.highlighter,
     )
 
 @hooks.register('before_serve_document')
