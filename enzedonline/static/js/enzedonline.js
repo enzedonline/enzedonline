@@ -43,15 +43,15 @@ $(document).ready(function () {
   $('a[href^="https://"]').attr("rel", "nofollow noopener");
 });
 
-// change rich text <fa> font awesome tags to <i class="...">
-$(document).ready(function () {
+// change rich text <fa> font awesome tags: 
+// <fa style="display:none;">something</fa> -> <fa class="something">&nbsp;&nbsp;&nbsp;&nbsp;</fa>
+$(document).ready(() => {
   fa_icons = document.getElementsByTagName('fa');
   for (let i = 0; i < fa_icons.length; i++) {
     const fa_class = fa_icons[i].innerText;
     if (fa_class) {
-      fa_icons[i].innerText = "";
-      const fa = fa_icons[i].appendChild(document.createElement("i"));
-      fa.className = fa_class;
+      fa_icons[i].className = fa_class;
+      fa_icons[i].innerHTML = "&nbsp;".repeat(4);
       fa_icons[i].removeAttribute('style');
     }
   }
