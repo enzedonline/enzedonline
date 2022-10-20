@@ -9,7 +9,7 @@
     text-align: end;
 }
 .Draftail-block--CODE-BLOCK {
-    font-family: "Ubuntu Mono", "Courier New", monospace;
+    font-family: var(--font-family-monospace);
     font-size: var(--font-size-6);
     text-align: left !important;
     color: #f8f8f2;
