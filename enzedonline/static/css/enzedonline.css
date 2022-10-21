@@ -1,42 +1,44 @@
 :root {
-    --font-family-headings: "Quicksand", sans-serif;
-    --font-family-body: "Work Sans", sans-serif;
-    --font-family-monospace: "Roboto Mono", "Courier New", monospace;
-    --font-size-1: clamp( 2rem, 1.7993rem + 0.8451vw, 2.75rem );
-    --font-size-2: clamp( 1.8rem, 1.6394rem + 0.6761vw, 2.4rem );
-    --font-size-3: clamp( 1.55rem, 1.4162rem + 0.5634vw, 2.05rem );
-    --font-size-4: clamp( 1.35rem, 1.2563rem + 0.3944vw, 1.7rem );
-    --font-size-5: clamp( 1.1rem, 1.0331rem + 0.2817vw, 1.35rem );
-    --font-size-6: clamp( 0.9rem, 0.8732rem + 0.1127vw, 1rem );
-    --font-size-body: clamp( 1rem, 0.9599rem + 0.169vw, 1.15rem );
-  }
-  :target::before {
-    content: "";
-    display: block;
-    height: 80px;
-    margin-top: -80px;
-  }
-  /* ======= Scroll Bar ======= */
-  /* width */
-  ::-webkit-scrollbar {
-    width: 12px;
-    height: 14px;
-  }
-  /* Track */
-  ::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 6px grey; 
-    border-radius: 8px;
-  }
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
-    background: grey; 
-    border-radius: 8px;
-  }
-  /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
-    background: #adb5bd; 
-  }
-  /* ======= End Scroll Bar ======= */
+  --font-family-headings: "Quicksand", sans-serif;
+  --font-family-body: "Work Sans", sans-serif;
+  --font-family-monospace: "Roboto Mono", "Courier New", monospace;
+  --font-size-1: clamp( 2rem, 1.7993rem + 0.8451vw, 2.75rem );
+  --font-size-2: clamp( 1.8rem, 1.6394rem + 0.6761vw, 2.4rem );
+  --font-size-3: clamp( 1.55rem, 1.4162rem + 0.5634vw, 2.05rem );
+  --font-size-4: clamp( 1.35rem, 1.2563rem + 0.3944vw, 1.7rem );
+  --font-size-5: clamp( 1.1rem, 1.0331rem + 0.2817vw, 1.35rem );
+  --font-size-6: clamp( 0.9rem, 0.8732rem + 0.1127vw, 1rem );
+  --font-size-body: clamp( 1rem, 0.9599rem + 0.169vw, 1.15rem );
+}
+
+/* ======= Scrolling ======= */
+html {
+  scroll-behavior: smooth;  
+  scroll-padding-top: 4rem;
+}
+
+/* ======= Scroll Bar ======= */
+/* width */
+::-webkit-scrollbar {
+  width: 12px;
+  height: 14px;
+}
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px grey; 
+  border-radius: 8px;
+}
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: grey; 
+  border-radius: 8px;
+}
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #adb5bd; 
+}
+/* ======= End Scroll Bar ======= */
+
   body {
     margin: 0;
     font-family: var(--font-family-body);
