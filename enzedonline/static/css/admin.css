@@ -227,7 +227,7 @@ header {
 .title-wrapper {
   font-family: var(--font-family-headings) !important;
   font-weight: 500 !important;
-  padding: .6em 0 .9em 5em !important;
+  padding: 0 !important;
 }
 .object>.title-wrapper:before {
   line-height: 1.3em !important;
