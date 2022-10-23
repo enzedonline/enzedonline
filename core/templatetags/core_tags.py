@@ -64,9 +64,9 @@ def search_paginator_filter(context):
 @register.simple_tag()
 def get_template_set(set):
     try:
-        template_set = TemplateText.objects.filter(template_set=set).first().localized 
+        template_set = TemplateText.objects.filter(template_set=set).first()
         if template_set:
-            items = template_set.templatetext_items.all()
+            items = template_set.localized.templatetext_items.all()
             if items:
                 text_dict = {}
                 for i in items:
@@ -80,8 +80,8 @@ def get_template_set(set):
 @register.simple_tag()
 def get_email_signature(signature):
     try:
-        signature = EmailSignature.objects.filter(signature_name=signature).first().localized 
-        return signature if signature else EmailSignature.objects.none()
+        signature = EmailSignature.objects.filter(signature_name=signature).first()
+        return signature.localized  if signature else EmailSignature.objects.none()
                 
     except (AttributeError, EmailSignature.DoesNotExist):
         return EmailSignature.objects.none()    
