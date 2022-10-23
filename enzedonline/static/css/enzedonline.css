@@ -603,3 +603,9 @@ html {
   code[class*="language-"], pre[class*="language-"] {
     line-height: 1.3 !important;
   }
+
+/* Allow Mathjax equation to have custom alignment */
+mjx-container[jax="CHTML"][display="true"] {
+  text-align: inherit !important;
+}
+
