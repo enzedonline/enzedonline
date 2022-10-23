@@ -3,10 +3,10 @@
   --font-family-body: "Work Sans", sans-serif;
   --font-family-monospace: "Roboto Mono", "Courier New", monospace;
   --font-size-1: clamp(2rem, 1.7993rem + 0.8451vw, 2.75rem);
-  --font-size-2: clamp(1.8rem, 1.6394rem + 0.6761vw, 2.4rem);
-  --font-size-3: clamp(1.55rem, 1.4162rem + 0.5634vw, 2.05rem);
-  --font-size-4: clamp(1.35rem, 1.2563rem + 0.3944vw, 1.7rem);
-  --font-size-5: clamp(1.1rem, 1.0331rem + 0.2817vw, 1.35rem);
+  --font-size-2: clamp(1.8rem, 1.6261rem + 0.7324vw, 2.45rem);
+  --font-size-3: clamp(1.6rem, 1.4662rem + 0.5634vw, 2.1rem);
+  --font-size-4: clamp(1.4rem, 1.293rem + 0.4507vw, 1.8rem);
+  --font-size-5: clamp(1.2rem, 1.1331rem + 0.2817vw, 1.45rem);
   --font-size-6: clamp(0.9rem, 0.8732rem + 0.1127vw, 1rem);
   --font-size-body: clamp(1rem, 0.9599rem + 0.169vw, 1.15rem);
 }
@@ -114,28 +114,28 @@ a {
   padding-left: 10px;
 }
 .toc-item-l1 {
-  font-size: var(--font-size-5);
+  font-size: calc(var(--font-size-4)*0.9);
   text-indent: 0rem;
   margin-bottom: 0;
 }
 .toc-item-l2 {
-  font-size: var(--font-size-5);
+  font-size: calc(var(--font-size-4)*0.85);
   text-indent: 0.8rem;
   margin-bottom: 0;
 }
 .toc-item-l3 {
   text-indent: 1.6rem;
-  font-size: var(--font-size-body);
+  font-size: calc(var(--font-size-4)*0.8);
   margin-bottom: 0;
 }
 .toc-item-l4 {
   text-indent: 2.4rem;
-  font-size: var(--font-size-6);
+  font-size: calc(var(--font-size-4)*0.75);
   margin-bottom: 0;
 }
 .toc-item-l5 {
   text-indent: 3.2rem;
-  font-size: var(--font-size-6);
+  font-size: calc(var(--font-size-4)*0.7);
   margin-bottom: 0;
 }
 .text-white a {
