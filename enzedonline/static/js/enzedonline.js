@@ -57,16 +57,38 @@ $(document).ready(() => {
   }
 });
 
+$(document).ready(() => {
+  let body = document.body.textContent;
+  if (body.match(/(?:\$|\\\(|\\\[|\\begin\{.*?})/)) {
+    if (!window.MathJax) {
+      window.MathJax = {
+        tex: {
+          inlineMath: {'[+]': [['$', '$']]}
+        }
+      };
+    }
+    let script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src = 'https://polyfill.io/v3/polyfill.min.js?features=es6';
+    document.head.appendChild(script);
+    script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+    script.id = 'MathJax-script';
+    script.async = true;
+    document.head.appendChild(script);
+  }
+});
+
 // include js script only if not already included
 let include_js = (js, id) => {
   let script_tag = document.getElementById(`${id}`)
   if (!script_tag) {
-    let target_tag = document.getElementsByTagName("head")[0];
     let script = document.createElement('script');
     script.type = 'text/javascript';
     script.src = `${js}`;
     script.id = `${id}`;
-    target_tag.appendChild(script);
+    document.head.appendChild(script);
     if (document.getElementById(`${id}`)) {
       return script;
     }
@@ -83,12 +105,11 @@ let include_js = (js, id) => {
 let include_css = (css, id) => {
   let link_tag = document.getElementById(`${id}`)
   if (!link_tag) {
-    let target_tag = document.getElementsByTagName("head")[0];
     let link = document.createElement('link');
     link.rel = 'stylesheet';
     link.href = `${css}`;
     link.id = `${id}`;
-    target_tag.appendChild(link);
+    document.head.appendChild(link);
     if (document.getElementById(`${id}`)) {
       return link;
     }
