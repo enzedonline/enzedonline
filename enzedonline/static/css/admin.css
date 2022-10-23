@@ -37,7 +37,6 @@ body {
   font-size: var(--font-size-body);
   font-weight: 400;
   line-height: 1.5;
-  text-align: justify;
 }
 .h1,
 .h2,
@@ -55,6 +54,7 @@ h6 {
   margin-bottom: 0.8rem;
   font-weight: 500;
   line-height: 1.2;
+  text-align: justify;
 }
 .h1,
 h1 {
@@ -87,6 +87,7 @@ h6 {
 p {
   font-size: var(--font-size-body);
   font-family: var(--font-family-body);
+  text-align: justify;
 }
 .a, 
 a {
@@ -227,11 +228,17 @@ header {
 .title-wrapper {
   font-family: var(--font-family-headings) !important;
   font-weight: 500 !important;
-  padding: 0 !important;
 }
 .object>.title-wrapper:before {
   line-height: 1.3em !important;
 }
+.object>.title-wrapper {
+  line-height: 1;
+  padding: .6em 0 .9em 4em !important;
+} 
+/* .object>.title-wrapper label {
+  padding: 0.9em 0 0.9em 5em;
+} */
 .title input:not([type=submit]) {
     font-size: var(--font-size-2) !important;
     font-family: var(--font-family-headings) !important;
