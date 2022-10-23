@@ -81,15 +81,17 @@ h3 {
 .h4,
 h4 {
   font-size: var(--font-size-4);
-  padding-top: 0.15rem 0;
+  padding: 0.15rem 0;
 }
 .h5,
 h5 {
   font-size: var(--font-size-5);
+  padding: 0.125rem 0 !important;
 }
 .h6,
 h6 {
   font-size: var(--font-size-6);
+  padding: 0.1rem 0 !important;
 }
 .p,
 p {

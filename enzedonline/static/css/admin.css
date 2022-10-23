@@ -2,13 +2,13 @@
   --font-family-headings: "Quicksand", sans-serif;
   --font-family-body: "Work Sans", sans-serif;
   --font-family-monospace: "Roboto Mono", "Courier New", monospace;
-  --font-size-1: clamp( 2rem, 1.7993rem + 0.8451vw, 2.75rem );
-  --font-size-2: clamp( 1.8rem, 1.6394rem + 0.6761vw, 2.4rem );
-  --font-size-3: clamp( 1.55rem, 1.4162rem + 0.5634vw, 2.05rem );
-  --font-size-4: clamp( 1.35rem, 1.2563rem + 0.3944vw, 1.7rem );
-  --font-size-5: clamp( 1.1rem, 1.0331rem + 0.2817vw, 1.35rem );
-  --font-size-6: clamp( 0.9rem, 0.8732rem + 0.1127vw, 1rem );
-  --font-size-body: clamp( 1rem, 0.9599rem + 0.169vw, 1.15rem );
+  --font-size-1: clamp(2rem, 1.7993rem + 0.8451vw, 2.75rem);
+  --font-size-2: clamp(1.8rem, 1.6261rem + 0.7324vw, 2.45rem);
+  --font-size-3: clamp(1.6rem, 1.4662rem + 0.5634vw, 2.1rem);
+  --font-size-4: clamp(1.4rem, 1.293rem + 0.4507vw, 1.8rem);
+  --font-size-5: clamp(1.2rem, 1.1331rem + 0.2817vw, 1.45rem);
+  --font-size-6: clamp(0.9rem, 0.8732rem + 0.1127vw, 1rem);
+  --font-size-body: clamp(1rem, 0.9599rem + 0.169vw, 1.15rem);
   --bs-blue: #4582ec;
   --bs-indigo: #6610f2;
   --bs-purple: #6f42c1;
@@ -38,55 +38,40 @@ body {
   font-weight: 400;
   line-height: 1.5;
 }
-.h1,
-.h2,
-.h3,
-.h4,
-.h5,
-.h6,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: var(--font-family-headings);
-  margin-bottom: 0.8rem;
-  font-weight: 500;
-  line-height: 1.2;
-  text-align: justify;
+.h1,.h2,.h3,.h4,.h5,.h6,h1,h2,h3,h4,h5,h6 {
+  font-family: var(--font-family-headings) !important;
+  margin: 0 0 0.8rem 0 !important;
+  font-weight: 500 !important;
+  line-height: 1.2 !important;
+  text-align: justify !important;
 }
-.h1,
-h1 {
-  font-size: var(--font-size-1);
+.h1,h1 {
+  font-size: var(--font-size-1) !important;
 }
-.h2,
-h2 {
-  font-size: var(--font-size-2);
-  padding: 0.35rem 0;
+.h2,h2 {
+  font-size: var(--font-size-2) !important;
+  padding: 0.35rem 0 !important;
 }
-.h3,
-h3 {
-  font-size: var(--font-size-3);
-  padding: 0.25rem 0;
+.h3,h3 {
+  font-size: var(--font-size-3) !important;
+  padding: 0.25rem 0 !important;
 }
-.h4,
-h4 {
-  font-size: var(--font-size-4);
-  padding-top: 0.15rem 0;
+.h4,h4 {
+  font-size: var(--font-size-4) !important;
+  padding: 0.15rem 0 !important;
 }
-.h5,
-h5 {
-  font-size: var(--font-size-5);
+.h5,h5 {
+  font-size: var(--font-size-5) !important;
+  padding: 0.125rem 0 !important;
 }
-.h6,
-h6 {
-  font-size: var(--font-size-6);
+.h6,h6 {
+  font-size: var(--font-size-6) !important;
+  padding: 0.1rem 0 !important;
 }
 .p,
 p {
-  font-size: var(--font-size-body);
-  font-family: var(--font-family-body);
+  font-size: var(--font-size-body) !important;
+  font-family: var(--font-family-body) !important;
   text-align: justify;
 }
 .a, 
