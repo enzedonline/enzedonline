@@ -250,7 +250,7 @@ header {
   padding: 0.9em 0 0.9em 5em;
 } */
 .title input:not([type=submit]) {
-    font-size: var(--font-size-2) !important;
+    font-size: var(--font-size-4) !important;
     font-family: var(--font-family-headings) !important;
     font-weight: 500 !important;
     padding-inline-start: 0.8rem !important;
