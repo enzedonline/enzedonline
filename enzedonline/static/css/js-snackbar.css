@@ -1,5 +1,5 @@
 ﻿.js-snackbar-container {
-    position: absolute;
+    position: fixed;
     bottom: 2rem;
     right: 0;
     display: flex;
