@@ -37,6 +37,7 @@ body {
   font-size: var(--font-size-body);
   font-weight: 400;
   line-height: 1.5;
+  color: var(--bs-dark);
 }
 .h1,.h2,.h3,.h4,.h5,.h6,h1,h2,h3,h4,h5,h6 {
   font-family: var(--font-family-headings) !important;
@@ -125,7 +126,31 @@ a {
   font-weight: 500;
   padding: 1rem 2rem !important;
 }
+.Draftail-block--header-two {
+  font-size: var(--font-size-2) !important;
+  color: var(--bs-dark) !important;
+}
+.Draftail-block--header-three {
+  font-size: var(--font-size-3) !important;
+  color: var(--bs-dark) !important;
+}
+.Draftail-block--header-four {
+  font-size: var(--font-size-4) !important;
+  color: var(--bs-dark) !important;
+}
+.Draftail-block--header-five {
+  font-size: var(--font-size-5) !important;
+  color: var(--bs-dark) !important;
+}
+.Draftail-block--header-six {
+  font-size: var(--font-size-6) !important;
+}
+.Draftail-block--unstyled  {
+  font-size: var(--font-family-body) !important;
+  font-family: var(--font-family-body) !important;
+  color: var(--bs-dark) !important;
 
+}
 /* --------------------------------------------------------------------- */
 /* Admin Styles */
 /* --------------------------------------------------------------------- */
@@ -272,4 +297,7 @@ header {
     border: 0;
     border-bottom: 1px solid #ededed;
   }
+}
+.page-explorer .listing .index .privacy-indicator {
+  right: 0.8em;
 }
