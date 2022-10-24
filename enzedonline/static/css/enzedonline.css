@@ -120,23 +120,35 @@ a {
   text-indent: 0rem;
   margin-bottom: 0;
 }
+.toc-item-l2::before {
+  content: '• ';
+}
 .toc-item-l2 {
   font-size: calc(var(--font-size-4)*0.85);
-  text-indent: 0.8rem;
+  text-indent: 1.2rem;
   margin-bottom: 0;
 }
+.toc-item-l3::before {
+  content: '◦ ';
+}
 .toc-item-l3 {
-  text-indent: 1.6rem;
+  text-indent: 2.4rem;
   font-size: calc(var(--font-size-4)*0.8);
   margin-bottom: 0;
 }
+.toc-item-l4::before {
+  content: '⁃ ';
+}
 .toc-item-l4 {
-  text-indent: 2.4rem;
+  text-indent: 3.6rem;
   font-size: calc(var(--font-size-4)*0.75);
   margin-bottom: 0;
 }
+.toc-item-l5::before {
+  content: '∙ ';
+}
 .toc-item-l5 {
-  text-indent: 3.2rem;
+  text-indent: 4.8rem;
   font-size: calc(var(--font-size-4)*0.7);
   margin-bottom: 0;
 }
