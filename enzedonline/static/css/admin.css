@@ -43,7 +43,6 @@ body {
   margin: 0 0 0.8rem 0 !important;
   font-weight: 500 !important;
   line-height: 1.2 !important;
-  text-align: justify !important;
 }
 .h1,h1 {
   font-size: var(--font-size-1) !important;
