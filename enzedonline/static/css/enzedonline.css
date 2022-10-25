@@ -116,41 +116,46 @@ a {
   padding-left: 10px;
 }
 .toc-item-l1 {
-  font-size: calc(var(--font-size-4)*0.9);
+  font-size: calc(var(--font-size-4)*0.8);
   text-indent: 0rem;
   margin-bottom: 0;
+  padding-top: 0.2rem;
 }
 .toc-item-l2::before {
   content: '• ';
 }
 .toc-item-l2 {
-  font-size: calc(var(--font-size-4)*0.85);
+  font-size: calc(var(--font-size-4)*0.75);
   text-indent: 1.2rem;
   margin-bottom: 0;
+  padding-top: 0.175rem;
 }
 .toc-item-l3::before {
   content: '◦ ';
 }
 .toc-item-l3 {
   text-indent: 2.4rem;
-  font-size: calc(var(--font-size-4)*0.8);
+  font-size: calc(var(--font-size-4)*0.7);
   margin-bottom: 0;
+  padding-top: 0.15rem;
 }
 .toc-item-l4::before {
   content: '⁃ ';
 }
 .toc-item-l4 {
   text-indent: 3.6rem;
-  font-size: calc(var(--font-size-4)*0.75);
+  font-size: calc(var(--font-size-4)*0.65);
   margin-bottom: 0;
+  padding-top: 0.125rem;
 }
 .toc-item-l5::before {
   content: '∙ ';
 }
 .toc-item-l5 {
   text-indent: 4.8rem;
-  font-size: calc(var(--font-size-4)*0.7);
+  font-size: calc(var(--font-size-4)*0.6);
   margin-bottom: 0;
+  padding-top: 0.1rem;
 }
 .text-white a {
   font-weight: bolder;
