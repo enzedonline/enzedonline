@@ -116,7 +116,7 @@ a {
   padding-left: 10px;
 }
 .toc-item-l1 {
-  font-size: calc(var(--font-size-4)*0.8);
+  font-size: clamp( 1.35rem, 1.3232rem + 0.1127vw, 1.45rem );
   text-indent: 0rem;
   margin-bottom: 0;
   padding-top: 0.2rem;
@@ -125,8 +125,9 @@ a {
   content: '• ';
 }
 .toc-item-l2 {
-  font-size: calc(var(--font-size-4)*0.75);
-  text-indent: 1.2rem;
+  font-size: clamp( 1.25rem, 1.2232rem + 0.1127vw, 1.35rem );
+  text-indent: -0.75rem;
+  padding-left: 1.8rem;
   margin-bottom: 0;
   padding-top: 0.175rem;
 }
@@ -134,8 +135,9 @@ a {
   content: '◦ ';
 }
 .toc-item-l3 {
-  text-indent: 2.4rem;
-  font-size: calc(var(--font-size-4)*0.7);
+  text-indent: -0.75rem;
+  padding-left: 3rem;
+  font-size: clamp( 1.15rem, 1.1099rem + 0.169vw, 1.3rem );
   margin-bottom: 0;
   padding-top: 0.15rem;
 }
@@ -143,8 +145,9 @@ a {
   content: '⁃ ';
 }
 .toc-item-l4 {
-  text-indent: 3.6rem;
-  font-size: calc(var(--font-size-4)*0.65);
+  text-indent: -0.65rem;
+  padding-left: 4.2rem;
+  font-size: clamp( 1.05rem, 1.0099rem + 0.169vw, 1.2rem );
   margin-bottom: 0;
   padding-top: 0.125rem;
 }
@@ -152,8 +155,9 @@ a {
   content: '∙ ';
 }
 .toc-item-l5 {
-  text-indent: 4.8rem;
-  font-size: calc(var(--font-size-4)*0.6);
+  text-indent: -0.5rem;
+  padding-left: 5.4rem;
+  font-size: clamp( 1rem, 0.9732rem + 0.1127vw, 1.1rem );
   margin-bottom: 0;
   padding-top: 0.1rem;
 }
