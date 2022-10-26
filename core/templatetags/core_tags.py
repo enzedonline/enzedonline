@@ -138,3 +138,13 @@ def get_picture_rendition(image, width):
         return image['file'].get_rendition(f"width-{width}|format-webp")
     else:
         return image['file'].get_rendition("original|format-webp")
+
+@register.simple_tag()
+def get_logo(logo):
+    try:
+        logo = CompanyLogo.objects.filter(name=logo).first().localized
+        return logo if logo else CompanyLogo.objects.none()
+                
+    except (AttributeError, CompanyLogo.DoesNotExist):
+        return CompanyLogo.objects.none()    
+    
