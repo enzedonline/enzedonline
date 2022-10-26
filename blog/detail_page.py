@@ -21,7 +21,7 @@ class BlogDetailPage(SEOPage):
 
     content_panels = SEOPage.content_panels + [
         FieldPanel('body'),
-        InlinePanel('customcomments', label=_("Comments")),    
+        # InlinePanel('customcomments', label=_("Comments")),    
     ]
 
     search_fields = SEOPage.search_fields + [
