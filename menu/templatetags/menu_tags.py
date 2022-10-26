@@ -1,6 +1,6 @@
 from django import template
 from menu.models import Menu
-from site_settings.models import CompanyLogo, SocialMedia
+from site_settings.models import SocialMedia
 from wagtail.images.models import Image
 from wagtail_localize.synctree import Locale, Page
 
