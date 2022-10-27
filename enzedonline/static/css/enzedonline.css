@@ -106,6 +106,9 @@ a {
   font-family: var(--font-family-headings);
   text-align: left;
 }
+.toc a {
+  text-decoration: none;
+}
 .toc-title {
   font-family: var(--font-family-headings);
   font-size: var(--font-size-2);
