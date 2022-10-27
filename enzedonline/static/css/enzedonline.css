@@ -122,7 +122,6 @@ a {
   font-size: clamp( 1.35rem, 1.3232rem + 0.1127vw, 1.45rem );
   text-indent: 0rem;
   margin-bottom: 0;
-  padding-top: 0.2rem;
 }
 .toc-item-l2::before {
   content: '• ';
@@ -132,7 +131,6 @@ a {
   text-indent: -0.75rem;
   padding-left: 1.8rem;
   margin-bottom: 0;
-  padding-top: 0.175rem;
 }
 .toc-item-l3::before {
   content: '◦ ';
