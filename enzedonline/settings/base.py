@@ -192,6 +192,7 @@ WAGTAILEMBEDS_RESPONSIVE_HTML = True
 
 WAGTAIL_SITE_NAME = "enzedonline"
 
+# Embeds
 WAGTAILEMBEDS_FINDERS = [
     {
         'class': 'core.oembedfinder.YouTubePreserveRelFinder',
@@ -200,6 +201,7 @@ WAGTAILEMBEDS_FINDERS = [
         'class': 'wagtail.embeds.finders.oembed',
     }
 ]
+WAGTAILEMBEDS_RESPONSIVE_HTML = True
 
 # multiple configs not supported for one backend type
 # revisit at some later date if this gets addressed
