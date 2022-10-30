@@ -16,6 +16,7 @@ class CustomUser(AbstractUser):
         )
     city = models.CharField(verbose_name=_("City"), max_length=1024, blank=True, null=True)
     country = CountryField(blank=True, null=True)
+    website = models.URLField(blank=True, null=True)
     url = AutoSlugField(populate_from='username')
 
     class Meta:

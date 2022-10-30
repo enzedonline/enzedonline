@@ -22,6 +22,7 @@ class CustomUserAdmin(UserAdmin):
             'country', 
             # 'mobile_phone', 
             # 'additional_information', 
+            'website',
             )}
         ),
     )
@@ -36,6 +37,7 @@ class CustomUserAdmin(UserAdmin):
             'country', 
             # 'mobile_phone', 
             # 'additional_information', 
+            'website',
             )}
         ),
     )
