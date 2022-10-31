@@ -1,7 +1,9 @@
+import re
 from datetime import datetime
 
 from django import template
 from django.utils.safestring import mark_safe
+from django.utils.text import normalize_newlines
 from site_settings.models import CompanyLogo, EmailSignature, TemplateText
 from wagtail.admin.templatetags.wagtailadmin_tags import render_with_errors
 from wagtail.models import Page
@@ -14,6 +16,14 @@ def is_in_group(user, group_name):
         return False
     else:
         return user.groups.get_queryset().filter(name=group_name).exists() 
+
+@register.filter()
+def strip_newlines(text):
+    return re.sub(" +", " ", normalize_newlines(text).replace('\n', ' '))
+
+@register.filter()
+def replace_doublequotes(text):
+    return text.replace('"', '\'')
 
 @register.simple_tag()
 def trans_url(link):
