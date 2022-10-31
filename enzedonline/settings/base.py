@@ -300,9 +300,7 @@ WAGTAILADMIN_RICH_TEXT_EDITORS = {
     },
 }
 
-# # Backup Settings
-# DBBACKUP_STORAGE = 'django.core.files.storage.FileSystemStorage'
-# DBBACKUP_STORAGE_OPTIONS = {'location': os.path.join(BASE_DIR, '../backups')}
+WAGTAILMETADATA_IMAGE_FILTER = "thumbnail-800x400|format-png"
 
 # FIX NEEDED FOR DJANGO 3.2.x
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
