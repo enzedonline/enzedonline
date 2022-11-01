@@ -35,17 +35,30 @@ let convertUTCDateToLocalDate = (date, date_options, time_options) => {
   );
 };
 
-// set all external links to open in new tab
+// global on document ready code
 $(document).ready(function () {
+  // format chains of code-blocks as a single group
+  codeBlocks = document.getElementsByClassName('code-block');
+  for (let i = 0; i < codeBlocks.length; i++) {
+    if ((!codeBlocks[i].previousSibling.classList) || (!codeBlocks[i].previousSibling.classList.contains('code-block'))) {
+        codeBlocks[i].style.paddingTop='0.5em';
+      }
+    
+    if ((!codeBlocks[i].nextSibling.classList) || (!codeBlocks[i].nextSibling.classList.contains('code-block'))) {
+        codeBlocks[i].style.paddingBottom='0.5em';
+        codeBlocks[i].style.marginBottom='1em';
+      }
+    
+  }
+
+  // set all external links to open in new tab
   $('a[href^="http://"]').attr("target", "_blank");
   $('a[href^="http://"]').attr("rel", "nofollow noopener");
   $('a[href^="https://"]').attr("target", "_blank");
   $('a[href^="https://"]').attr("rel", "nofollow noopener");
-});
 
-// change rich text <fa> font awesome tags: 
-// <fa style="display:none;">something</fa> -> <fa class="something">&nbsp;&nbsp;&nbsp;&nbsp;</fa>
-$(document).ready(() => {
+  // change rich text <fa> font awesome tags: 
+  // <fa style="display:none;">something</fa> -> <fa class="something">&nbsp;&nbsp;&nbsp;&nbsp;</fa>
   fa_icons = document.getElementsByTagName('fa');
   for (let i = 0; i < fa_icons.length; i++) {
     const fa_class = fa_icons[i].innerText;
@@ -55,9 +68,8 @@ $(document).ready(() => {
       fa_icons[i].removeAttribute('style');
     }
   }
-});
 
-$(document).ready(() => {
+  // load mathjax if equation found on page
   let body = document.body.textContent;
   if (body.match(/(?:\$|\\\(|\\\[|\\begin\{.*?})/)) {
     if (!window.MathJax) {
