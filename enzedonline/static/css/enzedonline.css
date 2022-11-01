@@ -655,7 +655,8 @@ pre[class*="language-"] {
   line-height: 1.3 !important;
 }
 
-/* Allow Mathjax equation to have custom alignment */
+/* Allow Mathjax equation to have custom alignment and set font size to inherit */
 mjx-container[jax="CHTML"][display="true"] {
   text-align: inherit !important;
+  font-size: inherit !important;
 }
