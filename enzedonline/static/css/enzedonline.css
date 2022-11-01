@@ -193,6 +193,7 @@ a {
   font-family: var(--font-family-headings);
   font-size: var(--font-size-2);
   font-weight: 500;
+  line-height: 1.1;
   color: #fff;
 }
 .banner-subheading {
@@ -252,7 +253,7 @@ a {
 }
 .nav-link {
   font-family: var(--font-family-headings);
-  font-size: var(--font-size-5);
+  font-size: clamp( 1.05rem, 0.7441rem + 0.6275vw, 1.45rem );
   font-weight: 500;
 }
 .nav-link.active {
