@@ -10,11 +10,10 @@
 }
 .Draftail-block--CODE-BLOCK {
     font-family: var(--font-family-monospace);
-    font-size: var(--font-size-6);
+    font-size: var(--font-size-6) !important;
     text-align: left !important;
     color: #f8f8f2;
     background-color: #272822;
-    padding: 0.06rem 0.3rem;
-    text-align: left;
-    padding-left: 1rem;
+    padding: 1em;
+    line-height: 1.2;
 }
