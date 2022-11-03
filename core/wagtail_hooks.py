@@ -3,10 +3,6 @@ from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from wagtail import hooks
 from wagtail.admin.menu import MenuItem
-from wagtail.admin.rich_text.converters.html_to_contentstate import \
-    InlineStyleElementHandler
-from wagtail.admin.rich_text.editors.draftail.features import \
-    InlineStyleFeature
 
 from .draftail_extensions import (DRAFTAIL_ICONS,
                                   register_block_feature,
@@ -19,7 +15,6 @@ def register_image_operations():
     return [
         ('thumbnail', ThumbnailOperation)
     ]
-
 
 @hooks.register('register_rich_text_features')
 def register_align_left_feature(features):
