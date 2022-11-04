@@ -635,7 +635,7 @@ code, .inline-code {
   font-family: var(--font-family-monospace);
   color: darkslateblue;
   background-color: beige;
-  padding: 0.02em 0.3em;
+  padding: 0 .3em 0.01em .3em;
   border-radius: 0.3rem;
 }
 .bg-info .inline-code {
