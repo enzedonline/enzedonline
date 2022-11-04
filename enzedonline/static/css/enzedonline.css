@@ -635,8 +635,12 @@ code, .inline-code {
   font-family: var(--font-family-monospace);
   color: darkslateblue;
   background-color: oldlace;
-  padding: 0.06rem 0.3rem;
+  padding: 0.02em 0.3em;
   border-radius: 0.3rem;
+}
+.bg-info .inline-code {
+  color: floralwhite;
+  background-color: #272822f0;
 }
 .code-block {
   font-size: var(--font-size-6);

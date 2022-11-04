@@ -135,6 +135,19 @@ def register_highlighted_text_feature(features):
         icon=DRAFTAIL_ICONS.highlighter,
     )
 
+@hooks.register('register_rich_text_features')
+def register_code_text_feature(features):
+    register_inline_styling(
+        features=features,
+        feature_name='inline-code',
+        type_='CODE',
+        tag='code',
+        format='class="inline-code"',
+        editor_style={'font-size': 'var(--font-size-6)', 'font-family': 'var(--font-family-monospace)', 'color': 'darkslateblue', 'background-color': 'oldlace', 'padding': '0.02em 0.3em', 'border-radius': '0.3rem'},
+        description='Inline Code',
+        icon=DRAFTAIL_ICONS.code,
+    )
+
 @hooks.register('before_serve_document')
 def serve_pdf(document, request):
     if document.file_extension != 'pdf':
