@@ -143,7 +143,7 @@ def register_code_text_feature(features):
         type_='CODE',
         tag='code',
         format='class="inline-code"',
-        editor_style={'font-size': 'var(--font-size-6)', 'font-family': 'var(--font-family-monospace)', 'color': 'darkslateblue', 'background-color': 'oldlace', 'padding': '0.02em 0.3em', 'border-radius': '0.3rem'},
+        editor_style={'font-size': '.9em', 'font-family': 'var(--font-family-monospace)', 'color': 'darkslateblue', 'background-color': 'oldlace', 'padding': '0.02em 0.3em', 'border-radius': '0.3rem'},
         description='Inline Code',
         icon=DRAFTAIL_ICONS.code,
     )
