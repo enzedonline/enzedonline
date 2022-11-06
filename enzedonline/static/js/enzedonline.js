@@ -27,7 +27,7 @@ let localDateTime = (element, date) => {
 // Usage: document.getElementById("id").innerText = convertUTCDateToLocalDate(new Date('2021-08-12 09:58:22'));
 // Non-numeric month format will cause errors in multi-lingual setting
 let convertUTCDateToLocalDate = (date, date_options, time_options) => {
-  local_date = new Date(date.getTime() - date.getTimezoneOffset() * 60000);
+  local_date = new Date(date.getTime() + date.getTimezoneOffset() * 60000);
   return (
     local_date.toLocaleDateString(undefined, date_options) +
     " " +
