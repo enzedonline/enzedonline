@@ -9,51 +9,49 @@
 
 {% cache None cache_settings.slug "head" cache_settings.latest_revision_created_at %}
 
-  {# Meta Tags #}
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  {% robots %}
-  {% if request is not None %} {# 500 error has no request #}
-    {% meta_tags as meta_tags %}
-    {% if meta_tags is not None %}{{ meta_tags }}{% endif %}
-  {% endif %} 
-  <meta property="og:type" content="website"/>
-  <meta name="target" content="all"/>
-  <meta name="audience" content="all"/>
-  <meta name="coverage" content="Worldwide"/>
-  <meta name="distribution" content="Global"/>
-  <meta name="rating" content="safe for kids"/>
-  <meta property="fb:app_id" content="{{ settings.site_settings.Tokens.facebook_app_id }}" />
-  {% canonical %}
-
   {# Fonts #}
-  <link rel="preload" href="{% static 'css/enzedonlinefonts-min.css' %}" as="style">
-  <link rel="stylesheet" href="{% static 'css/enzedonlinefonts-min.css' %}" type="text/css">
+    <link rel="preload" href="{% static 'css/enzedonlinefonts-min.css' %}" as="style">
+    <link rel="stylesheet" href="{% static 'css/enzedonlinefonts-min.css' %}" type="text/css">
 
- {# Global stylesheets #}
- <link rel="preload" href="{% static 'css/litera.bootstrap.min.css' %}" as="style">
- <link rel="stylesheet" href="{% static 'css/litera.bootstrap.min.css' %}" type="text/css">
- <link rel="stylesheet" href="{% static 'css/flexmasonry.css' %}">
- <link rel="stylesheet" href="{% static 'css/enzedonline-min.css' %}" media="print" onload="this.media='all'">
+  {# Global stylesheets #}
+    <link rel="stylesheet" href="{% static 'css/litera.bootstrap.min.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/enzedonline-min.css' %}" type="text/css">
 
- {# Global javascript #}
-  <script src="{% static 'js/jquery-3.6.0.min.js'%}"></script>  
-  <script async src="{% static 'js/bootstrap.bundle.min.js'%}"></script>
-  <script src="{% static 'js/enzedonline.js'%}"></script>
-  <script src="{% static 'js/flexmasonry.js' %}"></script>
-  <script src="{% static 'js/flexmasonry.extra.js'%}"></script>
-  <script defer src="https://kit.fontawesome.com/{{ settings.site_settings.Tokens.fontawesome }}.js" crossorigin="anonymous" async></script>
+  {# Global javascript #}
+    <script async src="{% static 'js/jquery-3.6.0.min.js'%}"></script>  
+    <script async src="{% static 'js/bootstrap.bundle.min.js'%}"></script>
+    <script async src="{% static 'js/enzedonline.js'%}"></script>
 
-   {# favicon #}
-  <link rel="apple-touch-icon" sizes="180x180" href="{% static 'favicon/apple-touch-icon.png' %}">
-  <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon/favicon-32x32.png' %}">
-  <link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicon/favicon-16x16.png' %}">
-  <link rel="manifest" href="{% static 'favicon/site.webmanifest' %}">
-  <link rel="mask-icon" href="{% static 'favicon/safari-pinned-tab.svg' %}" color="#4582ec">
-  <link rel="shortcut icon" href="{% static 'favicon/favicon.ico' %}">
-  <meta name="msapplication-TileColor" content="#2d89ef">
-  <meta name="msapplication-config" content="{% static 'favicon/browserconfig.xml' %}">
-  <meta name="theme-color" content="#4582ec">
+  {# Meta Tags #}
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    {% robots %}
+    {% if request is not None %} {# 500 error has no request #}
+      {% meta_tags as meta_tags %}
+      {% if meta_tags is not None %}{{ meta_tags }}{% endif %}
+    {% endif %} 
+    <meta property="og:type" content="website"/>
+    <meta name="target" content="all"/>
+    <meta name="audience" content="all"/>
+    <meta name="coverage" content="Worldwide"/>
+    <meta name="distribution" content="Global"/>
+    <meta name="rating" content="safe for kids"/>
+    <meta property="fb:app_id" content="{{ settings.site_settings.Tokens.facebook_app_id }}" />
+    {% canonical %}
+
+  {# Additional javascript #}
+    <script defer src="https://kit.fontawesome.com/{{ settings.site_settings.Tokens.fontawesome }}.js" crossorigin="anonymous" async></script>
+
+  {# favicon #}
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'favicon/apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicon/favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static 'favicon/site.webmanifest' %}">
+    <link rel="mask-icon" href="{% static 'favicon/safari-pinned-tab.svg' %}" color="#4582ec">
+    <link rel="shortcut icon" href="{% static 'favicon/favicon.ico' %}">
+    <meta name="msapplication-TileColor" content="#2d89ef">
+    <meta name="msapplication-config" content="{% static 'favicon/browserconfig.xml' %}">
+    <meta name="theme-color" content="#4582ec">
 
   {% block extra_css %}
   {% endblock %}

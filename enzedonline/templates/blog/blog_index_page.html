@@ -1,6 +1,12 @@
 {% extends "base.html" %}
 {% load static adv_cache wagtailimages_tags wagtailcore_tags core_tags %}
 
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'css/flexmasonry.css' %}" type="text/css">
+    <script async src="{% static 'js/flexmasonry.js' %}"></script>
+    <script async src="{% static 'js/flexmasonry.extra.js'%}"></script>
+{% endblock extra_head %}
+
 {% block header %}
     {# Page Banner #}
     {% include 'core/banner_image.html' %}
