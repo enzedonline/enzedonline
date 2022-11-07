@@ -13,8 +13,10 @@
     </picture>
     <div class="card-body">
         <h4 class="card-title fw-bolder text-center">{{ post.localized.title }}</h4>
-        <p class="blog-summary">{{ post.summary|linebreaksbr }}</p>
-        <p class="blog-summary small mb-0" id="post_{{post.localized.pk}}"></p>
+        <div class="blog-summary">
+            {{ post.summary|linebreaksbr }}
+        </div>
+        <div class="blog-date" id="post_{{post.localized.pk}}"></div>
     </div>
     <a href="{{post.localized.url}}{{filter.qstring}}" class="stretched-link"></a>
 </div>

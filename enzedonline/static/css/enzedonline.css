@@ -504,11 +504,17 @@ a {
 }
 .blog-summary {
   line-height: 1.2;
-  color: #868e96 !important;
+  color: var(--bs-gray-dark);
   font-size: var(--font-size-6);
+  border-top: 1px solid gainsboro;
+  border-bottom: 1px solid gainsboro;
+  padding: 1em 0;
+  margin-bottom: 0.5em;
 }
-.blog-summary.small {
-  font-size: 0.875em;
+.blog-date{
+  color: var(--bs-gray);
+  text-align: center;
+  font-size: smaller;
 }
 .avatar {
   border-radius: 8px;

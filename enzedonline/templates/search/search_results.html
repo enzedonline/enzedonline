@@ -1,6 +1,12 @@
 {% extends "base.html" %}
 {% load static core_tags %}
 
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'css/flexmasonry.css' %}" type="text/css">
+    <script src="{% static 'js/flexmasonry.js' %}"></script>
+    <script src="{% static 'js/flexmasonry.extra.js'%}"></script>
+{% endblock extra_head %}
+
 {% block content %}
 {% get_template_set 'search' as trans %}
 <title>Enzed Online - {{ trans.title }}</title>
