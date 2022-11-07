@@ -5,6 +5,18 @@
     <link rel="stylesheet" href="{% static 'css/flexmasonry.css' %}" type="text/css">
     <script src="{% static 'js/flexmasonry.js' %}"></script>
     <script src="{% static 'js/flexmasonry.extra.js'%}"></script>
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "url": "http://enzedonline.com/",
+            "potentialAction": {
+              "@type": "SearchAction",
+              "target": "http://enzedonline.com/search?&query={query}",
+              "query": "required"
+            }
+        }
+    </script>    
 {% endblock extra_head %}
 
 {% block header %}
