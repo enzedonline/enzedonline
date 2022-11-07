@@ -503,9 +503,9 @@ a {
   color: white;
 }
 .blog-summary {
-  line-height: 1.2;
+  line-height: 1.3;
   color: var(--bs-gray-dark);
-  font-size: var(--font-size-6);
+  font-size: clamp(0.9rem, 0.8599rem + 0.169vw, 1.05rem);
   border-top: 1px solid gainsboro;
   border-bottom: 1px solid gainsboro;
   padding: 1em 0;
