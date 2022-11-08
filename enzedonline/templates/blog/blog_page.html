@@ -2,13 +2,16 @@
 {% load static core_tags adv_cache wagtailcore_tags wagtailimages_tags %} 
 
 {% block extra_head %}
-    {% if self.blog_type == 'TechBlogDetailPage' %}
-      {# Code Block JS - only load if tech blog #}
-      <link rel="stylesheet" type="text/css" href="{% static 'css/prism.css' %}">
-      <script src="{% static 'js/prism.js' %}"></script>
-      {# load Article metadata #}
-      {% include 'blog/detail/structured_data.html' %}
-    {% endif %} 
+  <link rel="stylesheet" href="{% static 'css/flexmasonry.css' %}" type="text/css">
+  <script src="{% static 'js/flexmasonry.js' %}"></script>
+  <script src="{% static 'js/flexmasonry.extra.js'%}"></script>
+  {% if self.blog_type == 'TechBlogDetailPage' %}
+    {# Code Block JS - only load if tech blog #}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/prism.css' %}">
+    <script src="{% static 'js/prism.js' %}"></script>
+    {# load Article metadata #}
+    {% include 'blog/detail/structured_data.html' %}
+  {% endif %} 
 {% endblock extra_head %}
 
 {% block header %}
