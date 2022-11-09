@@ -1,17 +1,21 @@
 {% extends "base.html" %} 
-{% load static core_tags adv_cache wagtailcore_tags wagtailimages_tags %} 
+{% load static core_tags adv_cache wagtailcore_tags %} 
 
 {% block extra_head %}
   <link rel="stylesheet" href="{% static 'css/flexmasonry.css' %}" type="text/css">
   <script src="{% static 'js/flexmasonry.js' %}"></script>
   <script src="{% static 'js/flexmasonry.extra.js'%}"></script>
+  <script src="{% static 'js/comment_login.js'%}"></script>
+
   {% if self.blog_type == 'TechBlogDetailPage' %}
     {# Code Block JS - only load if tech blog #}
     <link rel="stylesheet" type="text/css" href="{% static 'css/prism.css' %}">
     <script src="{% static 'js/prism.js' %}"></script>
     {# load Article metadata #}
-    {% include 'blog/detail/structured_data.html' %}
   {% endif %} 
+  {% cache None page.slug "structure" self.latest_revision_created_at %}
+    {% include 'blog/detail/structured_data.html' %}
+  {% endcache %}
 {% endblock extra_head %}
 
 {% block header %}
@@ -21,14 +25,12 @@
 
 {% block content %}
 
-  {# Login Form JS #}
   {% url 'account_login' as login_url %}
   {{ login_url |json_script:"login_url" }} 
-  <script src="{% static 'js/comment_login.js'%}"></script>
 
   {% cache None page.slug "body" self.latest_revision_created_at %}
 
-    <div class="container-fluid mt-3 px-2 px-sm-5">
+    <div id='content' class="container-fluid mt-3 px-2 px-sm-5">
       
       {# Categories #}
       {% include 'blog/detail/categories.html' %}

@@ -1,6 +1,12 @@
 {% extends "base.html" %}
 {% load adv_cache static wagtailcore_tags %}
 
+{% block extra_head %}
+  {% cache None page.slug "structure" self.latest_revision_created_at %}
+    {% include 'service/structured_data.html' %}
+  {% endcache %} 
+{% endblock extra_head %}
+
 {% block header %}
     {# Page Banner #}
     {% include 'core/banner_image.html' %}

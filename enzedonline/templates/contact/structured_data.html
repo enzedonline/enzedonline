@@ -1,0 +1,34 @@
+{% load static structured_data_tags core_tags %} 
+{% get_google_thumbnails self.search_image as thumbnails %}
+{% get_social_media_sameas as sameAs %}
+{% get_organisation_logo as logo %}
+
+{% autoescape off %}
+<script type="application/ld+json" id="thisArticle">
+  {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    "headline": "{{ self.seo_title|replace_doublequotes }}",
+    "name": "{{ self.title|replace_doublequotes }}",
+    "description": "{{ self.summary|strip_newlines|replace_doublequotes }}",
+    "image": ["{{ thumbnails.tn1x1.full_url }}","{{ thumbnails.tn4x3.full_url }}","{{ thumbnails.tn16x9.full_url }}"],
+    "datePublished": "{{ self.first_published_at|date:'c' }}",
+    "dateModified": "{{ self.last_published_at|date:'c' }}",
+    "author": [{
+        "@type": "Person",
+        "name": "{{ self.owner.get_full_name }}",
+        "url": "{{ self.owner.website }}",
+        "sameAs": [{{ sameAs }}]
+    }],
+    "publisher": {
+        "@type": "Organization",
+        "@id": "{{ page.get_site.root_url }}",
+        "name": "{{ page.get_site.site_name }}",
+        "logo": "{{ logo }}",
+        "url": "{{ page.get_site.root_url }}",
+        "sameAs": [{{ sameAs }}]
+    },
+    "url": "{{ self.full_url }}"
+  }
+</script>
+{% endautoescape %}
