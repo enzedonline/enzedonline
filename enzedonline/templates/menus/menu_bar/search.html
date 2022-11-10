@@ -1,11 +1,20 @@
-{% load core_tags %}
+{% load static core_tags %}
 
 {# Desktop Search Menu #}
 <div class="collapse navbar-collapse dual-collapse3 d-none d-md-block order-3 pe-2 pe-md-0 ms-auto me-0 flex-grow-1 flex-md-grow-0 enzed-menu-collapse" id="desktop-search" aria-label="Search on desktop">
     <ul class="navbar-nav ms-auto me-0 ps-3 ps-md-0">
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" title="Search" id="navbardrop" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-search"></i>
+                <span class="text-white">
+                    <svg style="
+                        width: 1.3em;
+                        height: 1.2em;
+                        vertical-align: -0.3em;
+                        margin-right: -0.3em;
+                    ">
+                        <use href="{% static 'svg/search.svg' %}#search" fill="currentColor" />
+                    </svg>                  
+                </span>
             </a>
             <div class="dropdown-menu dropdown-menu-end search-menu">
                 <form action="{% url 'search' %}" method="get">

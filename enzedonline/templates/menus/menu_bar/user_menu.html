@@ -13,11 +13,19 @@
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle ps-md-1" title="{{ request.user.display_name }}" id="navbardrop" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                     {% if request.user.is_authenticated %}
-                        <span class="text-white"><i class="fas fa-user fa-lg"></i></span>
-                        {{ trans.profile }}
+                        <span class="text-white">
+                            <svg style="width:1.25em; height:1.3em; margin-right: -0.15em;">
+                                <use href="{% static 'svg/user-logged-in.svg' %}#user" fill="currentColor" />
+                            </svg>                  
+                        </span>
+                        <span style="margin-right: -0.15em;">{{ trans.profile }}<span>
                     {% else %}
-                        <span class="text-white"><i class="far fa-user fa-lg"></i></span>
-                        {{ trans.login }}
+                        <span class="text-white">
+                            <svg style="width:1.25em; height:1.3em; margin-right: -0.15em;">
+                                <use href="{% static 'svg/user-logged-out.svg' %}#user" fill="currentColor" />
+                            </svg>                                              
+                        </span>
+                        <span style="margin-right: -0.15em;">{{ trans.login }}<span>
                     {% endif %}
                 </a>
                 <div class="dropdown-menu dropdown-menu-end">
