@@ -4,7 +4,7 @@
 {# Analytics #}
 {% if debug is None and not request.is_preview and not request.user|is_in_group:"Editors" %}
   <script async src="https://www.googletagmanager.com/gtag/js?id={{ settings.site_settings.Tokens.google_analytics }}"></script>
-  <script src="{% static 'js/analytics.js'%}"></script>
+  <script async src="{% static 'js/analytics.js'%}"></script>
 {% endif %}
 
 {% cache None cache_settings.slug "head" cache_settings.latest_revision_created_at %}
