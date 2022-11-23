@@ -136,11 +136,11 @@ class BlogListingPage(SEOPage):
         default_lang = Locale.get_default()
         
         if type(self).__name__ == 'TechBlogListingPage':
-            all_posts = TechBlogDetailPage.objects.filter(locale_id=default_lang.id).live().public().reverse()
+            all_posts = TechBlogDetailPage.objects.filter(locale_id=default_lang.id).live().defer_streamfields().public().reverse()
             categories = TechBlogCategory.objects.filter(locale_id=active_lang.id)
             tags = Tag.objects.annotate(ntag=models.Count('blog_techblogpagetag_items')).filter(ntag__gt=0).order_by('name')
         else:
-            all_posts = PersonalBlogDetailPage.objects.filter(locale_id=default_lang.id).live().public().reverse()
+            all_posts = PersonalBlogDetailPage.objects.filter(locale_id=default_lang.id).live().defer_streamfields().public().reverse()
             categories = PersonalBlogCategory.objects.filter(locale_id=active_lang.id)
             tags = Tag.objects.annotate(ntag=models.Count('blog_personalblogpagetag_items')).filter(ntag__gt=0).order_by('name')
 

@@ -35,9 +35,9 @@ def search(request):
         s = get_search_backend(backend='default')
 
         if order_by == 'date':
-            search_results = s.search(search_query, Page.objects.live().order_by('last_published_at').reverse().specific(), order_by_relevance=False) 
+            search_results = s.search(search_query, Page.objects.live().defer_streamfields().order_by('last_published_at').reverse().specific(), order_by_relevance=False) 
         else:            
-            search_results = s.search(search_query, Page.objects.live().specific())
+            search_results = s.search(search_query, Page.objects.live().defer_streamfields().specific())
             order_by = None
         
         # Log the query so Wagtail can suggest promoted results

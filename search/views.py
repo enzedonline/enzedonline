@@ -22,10 +22,10 @@ def enzed_search(request):
     
     if search_query:
         if search_order=='date':
-            scope = Page.objects.live().filter(locale=Locale.get_active()).order_by('-first_published_at')
+            scope = Page.objects.live().defer_streamfields().filter(locale=Locale.get_active()).order_by('-first_published_at')
             search_results = s.search(search_query, scope, order_by_relevance=False)
         else:
-            scope = Page.objects.live().filter(locale=Locale.get_active())
+            scope = Page.objects.live().defer_streamfields().filter(locale=Locale.get_active())
             search_results = s.search(search_query, scope)
             
         # Record hit

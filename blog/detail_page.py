@@ -40,7 +40,7 @@ class BlogDetailPage(SEOPage):
 
         active_lang = Locale.get_active()
         default_lang = Locale.get_default()
-        siblings = self.__class__.objects.sibling_of(self).live()
+        siblings = self.__class__.objects.sibling_of(self).live().defer_streamfields()
         category_filter = request.GET.get('category', None)
         tag_filter = request.GET.get('tag', None)
         

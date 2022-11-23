@@ -9,7 +9,7 @@ register = template.Library()
 def get_latest_posts(post_count):
     # .order_by('first_published_at') required to pick up both blog types in order
     posts = (
-        BlogDetailPage.objects.live()
+        BlogDetailPage.objects.live().defer_streamfields()
         .public()
         .filter(locale_id=Locale.get_active().id)
         .order_by("first_published_at")
