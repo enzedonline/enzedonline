@@ -14,7 +14,7 @@
 /* ======= Scrolling ======= */
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 4rem;
+  scroll-padding-top: 5rem;
 }
 
 /* ======= Scroll Bar ======= */
