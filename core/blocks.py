@@ -881,25 +881,25 @@ class TwoColumnBaseBlock(StructBlock):
         required=False,
         min_value=0,
         label=_("Left Column Minimum Width (pixels) - optional"),
-        help_text=_("The minimum width the left column can shrink to above the breakpoint. Leave blank to kep width proportional.")
+        help_text=_("The minimum width the left column can shrink to above the breakpoint. Leave blank to keep width proportional.")
     )
     left_max = IntegerBlock(
         required=False,
         min_value=0,
         label=_("Left Column Maximum Width (pixels)"),
-        help_text=_("The maximum width the left column can grow to above the breakpoint. Leave blank to kep width proportional.")
+        help_text=_("The maximum width the left column can grow to above the breakpoint. Leave blank to keep width proportional.")
     )
     right_min = IntegerBlock(
         required=False,
         min_value=0,
         label=_("Right Column Minimum Width (pixels)"),
-        help_text=_("The minimum width the right column can shrink to above the breakpoint. Leave blank to kep width proportional.")
+        help_text=_("The minimum width the right column can shrink to above the breakpoint. Leave blank to keep width proportional.")
     )
     right_max = IntegerBlock(
         required=False,
         min_value=0,
         label=_("Right Column Maximum Width (pixels)"),
-        help_text=_("The maximum width the right column can grow to above the breakpoint. Leave blank to kep width proportional.")
+        help_text=_("The maximum width the right column can grow to above the breakpoint. Leave blank to keep width proportional.")
     )
     horizontal_padding = IntegerBlock(
         default = 4,
@@ -961,13 +961,13 @@ class ThreeColumnBaseBlock(StructBlock):
         required=False,
         min_value=0,
         label=_("Outer Column Minimum Width (pixels)"),
-        help_text=_("The minimum width the left and right columns can shrink to above the breakpoint. Leave blank to kep width proportional.")
+        help_text=_("The minimum width the left and right columns can shrink to above the breakpoint. Leave blank to keep width proportional.")
     )
     outer_max = IntegerBlock(
         required=False,
         min_value=0,
         label=_("Outer Column Maximum Width (pixels)"),
-        help_text=_("The maximum width the left and right columns can grow to above the breakpoint. Leave blank to kep width proportional.")
+        help_text=_("The maximum width the left and right columns can grow to above the breakpoint. Leave blank to keep width proportional.")
     )
     horizontal_padding = IntegerBlock(
         default = 4,
