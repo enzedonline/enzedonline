@@ -1,41 +1,21 @@
 {% load static wagtailcore_tags grid_block_tags %}
-{% three_column_layout value as layout %}
+{% three_column_layout value block.id as layout %}
+{% if layout.size %}{{ layout.size }}{% endif %}
 
   <div class="row">
-    <div class="col{{ layout.left }} {{ layout.horizontal_padding }} {{ layout.hide_sides }} size-{{block.id}}">
-        {% for block in value.left_column %}
-            {% include_block block %}
-        {% endfor %}
+    <div {{ layout.l_class }}>
+      {% for block in value.left_column %}
+        {% include_block block %}
+      {% endfor %}
     </div>
-    <div class="col{{ layout.centre }} {{ layout.horizontal_padding }} {% if value.vertical_border %}three-column-divider{% endif %}">
-        {% for block in value.centre_column %}
-            {% include_block block %}
-        {% endfor %}
+    <div {{ layout.m_class }}>
+      {% for block in value.centre_column %}
+        {% include_block block %}
+      {% endfor %}
     </div>
-    <div class="col{{ layout.right }} {{ layout.horizontal_padding }} {{ layout.hide_sides }} size-{{block.id}}">
-        {% for block in value.right_column %}
-            {% include_block block %}
-        {% endfor %}
+    <div {{ layout.r_class }}>
+      {% for block in value.right_column %}
+        {% include_block block %}
+      {% endfor %}
     </div>
   </div>
-
-
-<style>
-.three-column-divider{
-  border-left: 1px solid #DADADA;
-  border-right: 1px solid #DADADA;
-}
-@media (max-width: {{ layout.breakpoint_pixels }}) {
-  .three-column-divider {
-    border-left: 0px solid #DADADA !important;
-    border-right: 0px solid #DADADA !important;
-  }
-}
-@media (min-width: {{ layout.breakpoint_pixels }}) {
-  .size-{{block.id}} {
-    min-width: {{ layout.outer_min |default:"0px"}};
-    max-width: {{ layout.outer_max |default:"100%"}};
-  }  
-}
-
-</style>
