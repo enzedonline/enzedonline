@@ -224,6 +224,48 @@ a {
   line-height: 1.3;
   color: #fff;
 }
+.divider, .divider-sm, .divider-md, .divider-lg {
+  border-right: 1px solid #DADADA;
+  padding: 0px;
+  width: 0px;
+}
+@media (max-width: 575px) {
+  .divider-sm {
+    display: none;
+  }
+}
+@media (max-width: 767px) {
+  .divider-md {
+    display: none;
+  }
+}
+@media (max-width: 991px) {
+  .divider-lg {
+    display: none;
+  }
+}
+.three-col-divider, .three-col-divider-sm, .three-col-divider-md, .three-col-divider-lg {
+  border-left: 1px solid #DADADA;
+  border-right: 1px solid #DADADA;
+}
+@media (max-width: 575px) {
+  .three-col-divider-sm {
+    border-left: 0px;
+    border-right: 0px;
+  }
+}
+@media (max-width: 767px) {
+  .three-col-divider-md {
+    border-left: 0px;
+    border-right: 0px;
+  }
+}
+@media (max-width: 991px) {
+  .three-col-divider-lg {
+    border-left: 0px;
+    border-right: 0px;
+  }
+}
 .comments-header {
   font-family: var(--font-family-headings);
   font-size: var(--font-size-5);
@@ -570,18 +612,6 @@ a {
 .rich-text img {
   max-width: 100%;
   height: auto;
-}
-.responsive-object {
-  position: relative;
-}
-.responsive-object iframe,
-.responsive-object object,
-.responsive-object embed {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
 }
 .table-caption {
   padding-top: 1rem;
