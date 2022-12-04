@@ -23,7 +23,7 @@ urlpatterns = [
     path('admin/', include(wagtailadmin_urls)),
     path('documents/', include(wagtaildocs_urls)),
     re_path(r'^robots\.txt$', RobotsView.as_view(), name='robots'),
-    re_path(r'^sitemap.xml$', sitemap),
+    re_path(r'^sitemap.xml$', sitemap, name='sitemap'),
     re_path(r'^comments/', include('django_comments_xtd.urls')),
     path('sentry-debug/', trigger_error),
     path(r'jsi18n/', JavaScriptCatalog.as_view(), name='javascript-catalog'),

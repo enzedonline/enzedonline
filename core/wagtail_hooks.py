@@ -1,14 +1,15 @@
+from django.conf import settings
 from django.http import HttpResponse
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from wagtail import hooks
 from wagtail.admin.menu import MenuItem
 
-from .draftail_extensions import (DRAFTAIL_ICONS,
-                                  register_block_feature,
+from .draftail_extensions import (DRAFTAIL_ICONS, register_block_feature,
                                   register_inline_styling)
-from .utils import purge_page_cache_fragments
 from .thumbnails import ThumbnailOperation
+from .utils import ping_google, purge_page_cache_fragments
+
 
 @hooks.register('register_image_operations')
 def register_image_operations():
@@ -165,6 +166,10 @@ def register_refresh_cache_menu_item():
 @hooks.register('after_delete_page')
 def do_after_delete_page(request, page):
     purge_page_cache_fragments(page.slug)
+    if not settings.DEBUG:
+        ping_google(request)
 
-
-    
+@hooks.register("after_publish_page")
+def register_ping_google_after_publish(request, page):
+    if not settings.DEBUG:
+        ping_google(request)
