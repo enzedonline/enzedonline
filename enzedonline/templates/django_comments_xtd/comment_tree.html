@@ -35,7 +35,7 @@
                         {% endif %}
                         &nbsp;&nbsp;
                         <span class="ms-auto me-2 small">
-                            <a class="permalink" title="{{ trans.permalink }}" href="{% get_comment_permalink item.comment %}"><i class="fas fa-link"></i></a>
+                            <a class="permalink" title="{{ trans.permalink }}" href="{% get_comment_permalink item.comment %}" rel="nofollow"><i class="fas fa-link"></i></a>
                         </span>
                     </div>
                     <div class="row">
@@ -46,7 +46,7 @@
                         </div>
                         <div class="col-auto p-0">
                             {% if item.comment.allow_thread and not item.comment.is_removed %}
-                                <a class="small mutedlink p-0" href="{{ item.comment.get_reply_url }}">{{ trans.reply }}</a>
+                                <a class="small mutedlink p-0" href="{{ item.comment.get_reply_url }}" rel="nofollow">{{ trans.reply }}</a>
                             {% endif %}
                         </div>
                     </div>
@@ -61,11 +61,14 @@
                                 {% if allow_flagging and item.flagged %}
                                     <i class="fas fa-flag text-danger" title="{{ trans.comment_flagged}}"></i>
                                 {% elif allow_flagging %}
-                                    <a class="mutedlink" href="{% url 'comments-flag' item.comment.pk %}">
-                                        <i class="fas fa-flag" title="{{ trans.flag_comment }}"></i></a>
+                                    <a class="mutedlink" href="{% url 'comments-flag' item.comment.pk %}" rel="nofollow">
+                                        <i class="fas fa-flag" title="{{ trans.flag_comment }}"></i>
+                                    </a>
                                 {% endif %}
                                 {% if perms.comments.can_moderate %}
-                                    <a class="mutedlink" href="{% url 'comments-delete' item.comment.pk %}"><i class="fas fa-trash-alt" title="{{ trans.remove_comment }}"></i></a>
+                                    <a class="mutedlink" href="{% url 'comments-delete' item.comment.pk %}" rel="nofollow">
+                                        <i class="fas fa-trash-alt" title="{{ trans.remove_comment }}"></i>
+                                    </a>
                                 {% endif %}
                             {% endif %}
                         </span>

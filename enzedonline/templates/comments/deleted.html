@@ -5,7 +5,7 @@
 {% block title %}{{ trans.comment_removed }}.{% endblock %}
 
 {% block header %}
-<a href="{{ comment.content_object.get_absolute_url }}">{{ comment.content_object }}</a>
+<a href="{{ comment.content_object.get_absolute_url }}" rel="nofollow">{{ comment.content_object }}</a>
 {% endblock %}
 
 {% block content %}

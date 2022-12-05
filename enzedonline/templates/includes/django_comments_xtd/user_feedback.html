@@ -10,6 +10,7 @@
                 {% if show_feedback and item.likedit_users %}
                 <a class="badge bg-primary disabled small ms-2" 
                     data-bs-toggle="tooltip"
+                    rel = "nofollow"
                     title="{{ item.likedit_users|join:'<br/>' }}">
                     {{ item.likedit_users|length }}</a>
                 {% endif %}

@@ -15,7 +15,7 @@
                 <h6 class="card-text pb-0">
                     -&nbsp;
                     {% if form.cleaned_data.url %}
-                    <a href="{{ comment.user_url }}" target="_new">{% endif %}
+                    <a href="{{ comment.user_url }}" target="_new" rel="nofollow">{% endif %}
                     {{ form.cleaned_data.name }}{% if form.cleaned_data.url %}</a>{% endif %}
                 </h6>
             </div>

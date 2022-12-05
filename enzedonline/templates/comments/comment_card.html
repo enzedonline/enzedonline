@@ -8,7 +8,7 @@
             <p class="card-text">{{ comment.comment }}</p>
                 <h6 class="card-text pb-0">
                     <span id='date_{{comment.pk}}'></span>&nbsp;-
-                    {% if comment.user_url %}<a href="{{ comment.user_url }}" target="_new">{% endif %}
+                    {% if comment.user_url %}<a href="{{ comment.user_url }}" target="_new" rel="nofollow">{% endif %}
                     {% include 'comments/display_name.html' %}
                     {% if comment.user_url %}</a>{% endif %}
                 </h6>
