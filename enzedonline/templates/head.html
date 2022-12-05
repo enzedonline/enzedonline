@@ -21,6 +21,7 @@
     <script src="{% static 'js/jquery-3.6.0.min.js'%}"></script>  
     <script defer src="{% static 'js/bootstrap.bundle.min.js'%}"></script>
     <script src="{% static 'js/enzedonline.js'%}"></script>
+    <script async src="https://kit.fontawesome.com/{{ settings.site_settings.Tokens.fontawesome }}.js" crossorigin="anonymous" async></script>
 
   {# Meta Tags #}
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -38,9 +39,6 @@
     <meta name="rating" content="safe for kids"/>
     <meta property="fb:app_id" content="{{ settings.site_settings.Tokens.facebook_app_id }}" />
     {% canonical %}
-
-  {# Additional javascript #}
-    <script defer src="https://kit.fontawesome.com/{{ settings.site_settings.Tokens.fontawesome }}.js" crossorigin="anonymous" async></script>
 
   {# favicon #}
     <link rel="apple-touch-icon" sizes="180x180" href="{% static 'favicon/apple-touch-icon.png' %}">
