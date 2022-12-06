@@ -12,8 +12,11 @@
         <ul class="nav bg-transparent px-2">
           {% for icon in social_media_icons %}
           <li class="nav-item px-2">
-            <a href="{{ icon.link }}" title="{{ icon.alt }}">
-              <img src="{{ icon.image }}" alt="{{ icon.alt }}" />
+            <a href="{{ icon.link }}" title="{{ icon.alt }}" aria-label="{{ icon.alt }}">
+              <img src="{{ icon.image }}" alt="{{ icon.alt }}"
+                height="25px"
+                width="25px"
+              />
             </a>
           </li>
           {% endfor %}

@@ -182,7 +182,7 @@ def get_social_media_icons():
             item = {}
             locale_icon = icon.localized
             item['link'] = locale_icon.url
-            item['image'] = locale_icon.photo.get_rendition('fill-25x25').url
+            item['image'] = locale_icon.photo.get_rendition('fill-50x50').url
             item['alt'] = locale_icon.site_name
             social_media_icons.append(item)
         return social_media_icons
