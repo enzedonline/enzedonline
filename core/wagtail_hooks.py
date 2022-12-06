@@ -94,7 +94,7 @@ def register_smaller_styling(features):
         feature_name='smaller',
         type_='SMALLER',
         tag='span',
-        format='style="font-size:smaller"',
+        format='style="font-size:smaller;"',
         editor_style={'font-size':'smaller'},
         description='Decrease Font',
         icon=DRAFTAIL_ICONS.decrease_font
@@ -107,7 +107,7 @@ def register_larger_styling(features):
         feature_name='larger',
         type_='LARGER',
         tag='span',
-        format='style="font-size:larger"',
+        format='style="font-size:larger;"',
         editor_style={'font-size':'larger'},
         description='Increase Font',
         icon=DRAFTAIL_ICONS.increase_font
