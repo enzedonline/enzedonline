@@ -33,9 +33,9 @@ def trans_url(link):
 def trans_page_from_slug(slug, specific=False):
     try:
         if specific:
-            return Page.objects.live().filter(slug=slug).first().defer_streamfields().specific.localized
+            return Page.objects.live().filter(slug=slug).first().specific.localized
         else:
-            return Page.objects.live().filter(slug=slug).first().defer_streamfields().localized
+            return Page.objects.live().filter(slug=slug).first().localized
     except:
         return Page.objects.none()
 
