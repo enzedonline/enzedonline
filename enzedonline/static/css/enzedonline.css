@@ -333,7 +333,8 @@ a {
 }
 .footer-nav-link {
   font-family: var(--font-family-headings);
-  font-weight: 400;
+  font-size: clamp( 1.05rem, 0.7441rem + 0.6275vw, 1.45rem );
+  font-weight: 500;
   color: var(--bs-white) !important;
   text-decoration: none;
   padding: 0em 1em;

@@ -7,15 +7,15 @@
 <div class="container">
   <div class="my-4">
     <h3 class="text-center">{{ trans.preview_header}}</h3>
-    <hr/>
+    <hr>
   </div>
   <p class="lead text-center">
-    {{ trans.previewing }}:<br/>
+    {{ trans.previewing }}:<br>
     <a href="{{ form.target_object.get_absolute_url }}">{{ form.target_object }}</a>
   </p>
   <div class="row">
     <div class="col-md-12">
-      <hr/>
+      <hr>
       {% if not comment %}
         <div class="alert alert-warning" role="alert">
           {{ trans.empty }}

@@ -22,22 +22,23 @@
     <script defer src="{% static 'js/bootstrap.bundle.min.js'%}"></script>
     <script src="{% static 'js/enzedonline.js'%}"></script>
     <script defer src="https://kit.fontawesome.com/{{ settings.site_settings.Tokens.fontawesome }}.js" crossorigin="anonymous"></script>
+    <script defer src="{% static 'js/navbar.js'%}"></script>
 
   {# Meta Tags #}
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     {% robots %}
     {% if request is not None %} {# 500 error has no request #}
       {% meta_tags as meta_tags %}
       {% if meta_tags is not None %}{{ meta_tags }}{% endif %}
     {% endif %} 
-    <meta property="og:type" content="website"/>
-    <meta name="target" content="all"/>
-    <meta name="audience" content="all"/>
-    <meta name="coverage" content="Worldwide"/>
-    <meta name="distribution" content="Global"/>
-    <meta name="rating" content="safe for kids"/>
-    <meta property="fb:app_id" content="{{ settings.site_settings.Tokens.facebook_app_id }}" />
+    <meta property="og:type" content="website">
+    <meta name="target" content="all">
+    <meta name="audience" content="all">
+    <meta name="coverage" content="Worldwide">
+    <meta name="distribution" content="Global">
+    <meta name="rating" content="safe for kids">
+    <meta property="fb:app_id" content="{{ settings.site_settings.Tokens.facebook_app_id }}">
     {% canonical %}
 
   {# favicon #}

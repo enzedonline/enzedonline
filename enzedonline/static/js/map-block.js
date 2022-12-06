@@ -209,7 +209,7 @@
               new mapboxgl.Popup().setHTML(
                 "<b>" +
                   waypoint.pin_label +
-                  "</b><br/>" +
+                  "</b><br>" +
                   `<a href="https://www.google.com/maps?q=${waypoint.latitude},${waypoint.longitude}" 
                          target="_blank">${waypoint.latitude}, ${waypoint.longitude}</a>`
               )

@@ -36,7 +36,8 @@
         {% cache None page.slug "blog_list" self.latest_revision_created_at %}
             {% get_template_set 'common' as trans %}
             <div class="container-fluid pt-0 pt-md-2 px-2 px-sm-5 pb-4">
-                <h3 class="fw-bold ps-4 pb-0">{{ trans.latest_blogs }}</h3><hr/>
+                <h3 class="fw-bold ps-4 pb-0">{{ trans.latest_blogs }}</h3>
+                <hr>
                 {% include 'core/blog_posts.html' %}
             </div>
         {% endcache %}

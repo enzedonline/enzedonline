@@ -12,15 +12,15 @@
     <div class="card-body p-0 lh-sm">
       <div style="text-align: center;">  
         <picture>
-          <source media="(min-width: 1500px)" srcset="{{ webp_img_scale_100.url }}" type="image/webp"/>
-          <source media="(min-width: 1000px)" srcset="{{ webp_img_w_750.url }} 750w" type="image/webp"/>
-          <source srcset="{{ webp_img_w_500.url }} 500w" type="image/webp"/>
+          <source media="(min-width: 1500px)" srcset="{{ webp_img_scale_100.url }}" type="image/webp">
+          <source media="(min-width: 1000px)" srcset="{{ webp_img_w_750.url }} 750w" type="image/webp">
+          <source srcset="{{ webp_img_w_500.url }} 500w" type="image/webp">
           <img
             src="{{ fallback.url }}"
             alt="{{ self.image.seo_title }}"
             width = "100%"
             height = "auto"
-          />
+          >
         </picture>
       </div>
       <div class="py-0 text-break">

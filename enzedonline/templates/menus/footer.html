@@ -6,7 +6,7 @@
   {% get_menu 'Privacy' as privacy_menu %} 
   {% get_social_media_icons as social_media_icons %}
 
-  <footer class="footer">
+  <div class="footer">
     <nav class="navbar navbar-dark bg-dark py-1">
       <div>
         <ul class="nav bg-transparent px-2">
@@ -14,9 +14,9 @@
           <li class="nav-item px-2">
             <a href="{{ icon.link }}" title="{{ icon.alt }}" aria-label="{{ icon.alt }}">
               <img src="{{ icon.image }}" alt="{{ icon.alt }}"
-                height="25px"
-                width="25px"
-              />
+                   style="height:clamp(25px, 21.5000px + 0.8750vw, 32px);
+                          width:clamp(25px, 21.5000px + 0.8750vw, 32px);"
+              >
             </a>
           </li>
           {% endfor %}
@@ -27,7 +27,7 @@
       {% if privacy_menu %}
         {% get_menu_items privacy_menu request as privacy_menu_items %}
         {% for privacy_page in privacy_menu_items %}
-          <span class="mx-auto">
+          <span class="mx-lg-auto">
             <a class="footer-nav-link" href="{{ privacy_page.url }}"
               >{{ privacy_page.title }}</a
             >
@@ -37,11 +37,11 @@
 
       <div class="py-0 mb-n3 d-none d-sm-block justify-content-end content-align-middle text-muted">
         <a class="footer-nav-link" href="/">
-          <span class="fw-light small">Website by Enzed Online</span>
+          <span style="font-size:smaller;">Website by Enzed Online</span>
         </a>
       </div>
     </nav>
 
-  </footer>
+  </div>
 
 {% endcache %}

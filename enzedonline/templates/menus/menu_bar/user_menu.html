@@ -8,24 +8,27 @@
     {% get_menu_items user_menu request as user_menu_items %}
     {% get_template_set 'user-menu' as trans %}
 
-    <div class="collapse navbar-collapse dual-collapse2 order-3 pe-md-0 ms-auto me-1 flex-grow-1 flex-md-grow-0 enzed-menu-collapse" id="user-profile-menu" aria-label="User profile menu">
-        <ul class="navbar-nav ps-3 ps-md-0">
+    <div class="collapse navbar-collapse dual-collapse2 order-3 pe-md-0 ms-auto me-1 flex-grow-1 flex-md-grow-0 enzed-menu-collapse" 
+         id="user-profile-menu">
+        <ul class="navbar-nav ps-3 ps-md-0" aria-label="User profile menu">
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle ps-md-1" title="{{ request.user.display_name }}" id="navbardrop" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle ps-md-1" 
+                   title="{{ request.user.display_name }}" id="user_menu_navbardrop" 
+                   data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                     {% if request.user.is_authenticated %}
                         <span class="text-white">
                             <svg style="width:1.25em; height:1.3em; margin-right: -0.15em;">
                                 <use href="{% static 'svg/user-logged-in.svg' %}#user" fill="currentColor" />
                             </svg>                  
                         </span>
-                        <span style="margin-right: -0.15em;">{{ trans.profile }}<span>
+                        <span style="margin-right: -0.15em;">{{ trans.profile }}</span>
                     {% else %}
                         <span class="text-white">
                             <svg style="width:1.25em; height:1.3em; margin-right: -0.15em;">
                                 <use href="{% static 'svg/user-logged-out.svg' %}#user" fill="currentColor" />
                             </svg>                                              
                         </span>
-                        <span style="margin-right: -0.15em;">{{ trans.login }}<span>
+                        <span style="margin-right: -0.15em;">{{ trans.login }}</span>
                     {% endif %}
                 </a>
                 <div class="dropdown-menu dropdown-menu-end">

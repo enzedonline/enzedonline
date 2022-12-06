@@ -51,8 +51,8 @@
             {% image self.intro_image width-300 format-webp as webp_img_w_300 %}
             {% image self.intro_image width-300 as fallback %}
             <picture>
-              <source srcset="{{ webp_img_w_300.url }} 300w" type="image/webp" />
-              <source srcset="{{ fallback.url }} 300w" />
+              <source srcset="{{ webp_img_w_300.url }} 300w" type="image/webp">
+              <source srcset="{{ fallback.url }} 300w">
               <img
                 src="{{ fallback.url }}"
                 alt="{{ self.intro_image.title }}"
