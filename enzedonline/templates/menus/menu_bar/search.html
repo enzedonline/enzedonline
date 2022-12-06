@@ -1,10 +1,22 @@
 {% load static core_tags %}
+{% get_search_or_none as previous_term %}
 
 {# Desktop Search Menu #}
-<div class="collapse navbar-collapse dual-collapse3 d-none d-md-block order-3 pe-2 pe-md-0 ms-auto me-0 flex-grow-1 flex-md-grow-0 enzed-menu-collapse" id="desktop-search" aria-label="Search on desktop">
+<div 
+    class="collapse navbar-collapse dual-collapse3 d-none d-md-block order-3 pe-2 pe-md-0 ms-auto me-0 flex-grow-1 flex-md-grow-0 enzed-menu-collapse" 
+    id="desktop-search" 
+    >
     <ul class="navbar-nav ms-auto me-0 ps-3 ps-md-0">
         <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" title="Search" id="navbardrop" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+            <a class="nav-link dropdown-toggle" 
+               title="Search" id="navbardrop" 
+               data-bs-toggle="dropdown" 
+               role="button" 
+               rel="nofollow"
+               href="#"
+               aria-haspopup="true" 
+               aria-expanded="false"
+               aria-label="Click to search on desktop">
                 <span class="text-white">
                     <svg style="
                         width: 1.3em;
@@ -20,7 +32,14 @@
                 <form action="{% url 'search' %}" method="get">
                     <div class="form-group row g-1 my-1 pb-1">
                         <div class="col">
-                            <input type="text" onfocus="this.select();" onmouseup="return false;" name="query" id="searchbox" class="form-control py-1 ps-2" value={% get_search_or_none %}>
+                            <input type="text" 
+                                   onfocus="this.select();" 
+                                   onmouseup="return false;" 
+                                   name="query" 
+                                   id="searchbox" 
+                                   class="form-control py-1 ps-2" 
+                                   aria-label="Desktop search form"
+                                   {% if previous_term %}value="{{ previous_term }}"{% endif %}>
                         </div>
                         <div class="col-auto">
                             <input type="submit" value="Search" class="btn-primary form-control py-1">
@@ -32,13 +51,21 @@
     </ul>
 </div>
 {# Mobile Search Menu #}
-<div class="collapse navbar-collapse dual-collapse2 order-5 order-md-0 pt-2 p-md-0 m-md-0 enzed-menu-collapse" id="mobile-search" aria-label="Search on mobile">
+<div class="collapse navbar-collapse dual-collapse2 order-5 order-md-0 pt-2 p-md-0 m-md-0 enzed-menu-collapse" 
+    id="mobile-search" 
+    >
     <ul class="navbar-nav ps-3 d-md-none">
         <li class="nav-item">
             <form action="{% url 'search' %}" method="get">
                 <div class="form-group row g-1 my-1 pb-1">
                     <div class="col">
-                        <input type="text" onfocus="this.select();" onmouseup="return false;" name="query" class="form-control py-1 px-2" value="{% get_search_or_none %}">
+                        <input type="text" 
+                               onfocus="this.select();" 
+                               onmouseup="return false;" 
+                               name="query" 
+                               class="form-control py-1 px-2" 
+                               aria-label="Search on mobile"
+                               {% if previous_term %}value="{{ previous_term }}"{% endif %}>
                     </div>
                     <div class="col-auto">
                         <input type="submit" value="Search" class="btn-primary form-control py-1">
