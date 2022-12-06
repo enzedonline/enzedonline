@@ -3,22 +3,22 @@
     {% image post.localized.search_image thumbnail-500x250 format-webp as webp_img_w_500 %} 
     {% image post.localized.search_image thumbnail-500x250 as fallback %}
     <picture>
-    <source srcset="{{ webp_img_w_500.url }} 500w" type="image/webp" />
-    <source srcset="{{ fallback.url }} 500w" />
-    <img
-        src="{{ fallback.url }}"
-        alt="{{ post.localized.title }}"
-        style="width: 100%; height: auto"
-    />
+        <source srcset="{{ webp_img_w_500.url }} 500w" type="image/webp" />
+        <source srcset="{{ fallback.url }} 500w" />
+        <img
+            src="{{ fallback.url }}"
+            alt="{{ post.localized.title }}"
+            style="width: 100%; height: auto"
+        />
     </picture>
     <div class="card-body">
-        <h4 class="card-title fw-bolder text-center">{{ post.localized.title }}</h4>
+        <h3 class="h4 card-title fw-bolder text-center">{{ post.localized.title }}</h3>
         <div class="blog-summary">
             {{ post.summary|linebreaksbr }}
         </div>
         <div class="blog-date" id="post_{{post.localized.pk}}"></div>
     </div>
-    <a href="{{post.localized.url}}{{filter.qstring}}" class="stretched-link"></a>
+    <a href="{{post.localized.url}}{{filter.qstring}}" class="stretched-link" aria-label="Read {{ post.localized.title }}"></a>
 </div>
 <script>
     localDateTime(
