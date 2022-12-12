@@ -48,17 +48,19 @@
         {# Optional image only visible md & above, <hr> for widths below this only #}
         {% if self.intro_image %}
           <div class="d-none d-md-block">
+            {% image self.intro_image width-700 format-webp as webp_img_w_700 %} 
+            {% image self.intro_image width-550 format-webp as webp_img_w_550 %}
             {% image self.intro_image width-300 format-webp as webp_img_w_300 %}
-            {% image self.intro_image width-300 as fallback %}
+            {% image self.intro_image width-700 as fallback %}
             <picture>
-              <source srcset="{{ webp_img_w_300.url }} 300w" type="image/webp">
-              <source srcset="{{ fallback.url }} 300w">
+              <source media="(max-width: 900px)" sizes="(max-width: 900px) 900px" srcset="{{ webp_img_w_300.url }} 600w" type="image/webp">
+              <source media="(max-width: 1500px)" sizes="(max-width: 1500px) 1200px" srcset="{{ webp_img_w_550.url }} 600w" type="image/webp">
+              <source media="(min-width: 1501px)" sizes="(min-width: 1501px) 1501px" srcset="{{ webp_img_w_700.url }} 2100w" type="image/webp">
               <img
                 src="{{ fallback.url }}"
                 alt="{{ self.intro_image.title }}"
-                style="width: 100%; height: auto; max-width: 300px;"
-                class="mt-4"
-              />
+                style="width: 100%; height: auto;"
+              >
             </picture>
           </div>
         {% endif %}
@@ -117,7 +119,7 @@
                 </div>
               {% else %}
                 <div class="font-label pt-2 pb-1">
-                  {{ field.label_tag }}
+                  {% if field.name != 'wagtailcaptcha' %}{{ field.label_tag }}{% endif %}
                 </div>
                 {% if form.is_bound %} 
                   {% if field.errors %} 
@@ -126,17 +128,38 @@
                     {% render_field field class="form-control is-valid form-control-sm" %} 
                   {% endif %} 
                 {% else %} 
-                  {% render_field field class="form-control form-control-sm" %} 
+                  {% if field.name=='wagtailcaptcha' %}
+                    {% render_field field %} 
+                  {% else %}
+                    {% if field.name=='wagtailcaptcha' %}
+                      {% render_field field %} 
+                    {% else %}
+                      {% render_field field class="form-control form-control-sm" %} 
+                    {% endif %}
+                  {% endif %}
                 {% endif %} 
               {% endif %}
               {% if field.errors or field.help_text%}
-                <div class="row">
+              <div class="row">
+                {% if field.name == 'wagtailcaptcha' %}
+                  {% if field.errors %}
+                    <ul class="list-unstyled pl-3">
+                      {% for error in field.errors %}
+                        <small class="text-danger">
+                          <li>{{ error }}</li>
+                        </small>
+                      {% endfor %}
+                    </ul>
+                  {% endif %}
+                {% else %}
                   <div {% if field.errors %}class="col"{% else %}class="col-auto"{% endif%}>
                     {% if field.help_text %}
-                      <small class="form-text text-muted">{{ field.help_text|linebreaksbr }}</small>
+                      <small class="form-text text-muted">{{ field.help_text|linebreaksbr }}<br />&nbsp;</small>
+                    {% else %}
+                      <small>&nbsp;</small>
                     {% endif %}
                   </div>
-                  <div {% if field.errors %}class="col-auto text-end"{% else %}class="col"{% endif %}>
+                  <div {% if field.errors %}class="col-auto text-right"{% else %}class="col"{% endif %}>
                     {% if field.errors %}
                       <ul class="list-unstyled">
                         {% for error in field.errors %}
@@ -147,8 +170,9 @@
                       </ul>
                     {% endif %}
                   </div>
-                </div>
-              {% endif %} 
+                {% endif %}
+              </div>
+            {% endif %} 
             {% endfor %}
           </div>
           <button class="btn btn-primary btn-lg" type="submit">{{ page.submit_button_text }}</button>

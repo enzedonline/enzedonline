@@ -11,39 +11,39 @@
             {% for slide in self.carousel_images %}
                 <div class="carousel-item {% if forloop.first %}active{% endif %}">
                     {% if self.format == '4-1' %}
-                        {% image slide.value.image.file fill-2100x525-c100 format-webp as webp_img_w_2100 %} 
+                        {% image slide.value.image.file fill-1800x525-c100 format-webp as webp_img_w_1800 %} 
                         {% image slide.value.image.file fill-1500x375-c100 format-webp as webp_img_w_1500 %} 
                         {% image slide.value.image.file fill-900x225-c100 format-webp as webp_img_w_900 %} 
                         {% image slide.value.image.file fill-600x150-c100 format-webp as webp_img_w_600 %}
                         {% image slide.value.image.file fill-300x75-c100 format-webp as webp_img_w_300 %}
                         {% image slide.value.image.file fill-148x37-c100 format-webp as webp_img_w_150 %}
-                        {% image slide.value.image.file fill-2100x525-c100 as fallback %} 
+                        {% image slide.value.image.file fill-1800x525-c100 as fallback %} 
                     {% elif self.format == '3-1' %}
-                        {% image slide.value.image.file fill-2100x700-c100 format-webp as webp_img_w_2100 %} 
+                        {% image slide.value.image.file fill-1800x700-c100 format-webp as webp_img_w_1800 %} 
                         {% image slide.value.image.file fill-1500x500-c100 format-webp as webp_img_w_1500 %} 
                         {% image slide.value.image.file fill-900x300-c100 format-webp as webp_img_w_900 %} 
                         {% image slide.value.image.file fill-600x200-c100 format-webp as webp_img_w_600 %}
                         {% image slide.value.image.file fill-300x100-c100 format-webp as webp_img_w_300 %}
                         {% image slide.value.image.file fill-150x50-c100 format-webp as webp_img_w_150 %}
-                        {% image slide.value.image.file fill-2100x700-c100 as fallback %} 
+                        {% image slide.value.image.file fill-1800x700-c100 as fallback %} 
                     {% elif self.format == '4-3' %}
-                        {% image slide.value.image.file fill-2100x1400-c100 format-webp as webp_img_w_2100 %} 
+                        {% image slide.value.image.file fill-1800x1400-c100 format-webp as webp_img_w_1800 %} 
                         {% image slide.value.image.file fill-1500x1000-c100 format-webp as webp_img_w_1500 %} 
                         {% image slide.value.image.file fill-900x600-c100 format-webp as webp_img_w_900 %} 
                         {% image slide.value.image.file fill-600x400-c100 format-webp as webp_img_w_600 %}
                         {% image slide.value.image.file fill-300x225-c100 format-webp as webp_img_w_300 %}
                         {% image slide.value.image.file fill-148x111-c100 format-webp as webp_img_w_150 %}
-                        {% image slide.value.image.file fill-2100x1400-c100 as fallback %} 
+                        {% image slide.value.image.file fill-1800x1400-c100 as fallback %} 
                     {% elif self.format == '1-1' %}
-                        {% image slide.value.image.file fill-2100x2100-c100 format-webp as webp_img_w_2100 %} 
+                        {% image slide.value.image.file fill-1800x1800-c100 format-webp as webp_img_w_1800 %} 
                         {% image slide.value.image.file fill-1500x1500-c100 format-webp as webp_img_w_1500 %} 
                         {% image slide.value.image.file fill-900x900-c100 format-webp as webp_img_w_900 %} 
                         {% image slide.value.image.file fill-600x600-c100 format-webp as webp_img_w_600 %}
                         {% image slide.value.image.file fill-300x300-c100 format-webp as webp_img_w_300 %}
                         {% image slide.value.image.file fill-150x150-c100 format-webp as webp_img_w_150 %}
-                        {% image slide.value.image.file fill-2100x2100-c100 as fallback %} 
+                        {% image slide.value.image.file fill-1800x1800-c100 as fallback %} 
                     {% elif self.format == '3-4' %}
-                        {% image slide.value.image.file fill-2100x2800-c100 format-webp as webp_img_w_2100 %} 
+                        {% image slide.value.image.file fill-1800x2800-c100 format-webp as webp_img_w_1800 %} 
                         {% image slide.value.image.file fill-1500x2000-c100 format-webp as webp_img_w_1500 %} 
                         {% image slide.value.image.file fill-900x1200-c100 format-webp as webp_img_w_900 %} 
                         {% image slide.value.image.file fill-600x800-c100 format-webp as webp_img_w_600 %}
@@ -51,7 +51,7 @@
                         {% image slide.value.image.file fill-150x200-c100 format-webp as webp_img_w_150 %}
                         {% image slide.value.image.file fill-1500x2000-c100 as fallback %} 
                     {% elif self.format == '1-3' %}
-                        {% image slide.value.image.file fill-2100x6300-c100 format-webp as webp_img_w_2100 %} 
+                        {% image slide.value.image.file fill-1800x6300-c100 format-webp as webp_img_w_1800 %} 
                         {% image slide.value.image.file fill-1500x4500-c100 format-webp as webp_img_w_1500 %} 
                         {% image slide.value.image.file fill-900x2700-c100 format-webp as webp_img_w_900 %} 
                         {% image slide.value.image.file fill-600x1800-c100 format-webp as webp_img_w_600 %}
@@ -61,13 +61,12 @@
                     {% endif %}
                         
                     <picture>
-                        <source media="(min-width: 1501px)" srcset="{{ webp_img_w_2100.url }} 2100w" type="image/webp">
-                        <source media="(min-width: 901px)" srcset="{{ webp_img_w_1500.url }} 1500w" type="image/webp">
-                        <source media="(min-width: 601px)" srcset="{{ webp_img_w_900.url }} 900w" type="image/webp">
-                        <source media="(min-width: 301px)" srcset="{{ webp_img_w_600.url }} 600w" type="image/webp">
-                        <source media="(min-width: 151px)" srcset="{{ webp_img_w_300.url }} 300w" type="image/webp">
-                        <source srcset="{{ webp_img_w_150.url }} 150w" type="image/webp">
-                        <source srcset="{{ fallback.url }}">
+                        <source media="(max-width: 150px)" sizes="(max-width: 150px) 1500px" srcset="{{ webp_img_w_150.url }} 150w" type="image/webp">
+                        <source media="(max-width: 300px)" sizes="(max-width: 300px) 300px" srcset="{{ webp_img_w_300.url }} 300w" type="image/webp">
+                        <source media="(max-width: 600px)" sizes="(max-width: 600px) 600px" srcset="{{ webp_img_w_600.url }} 600w" type="image/webp">
+                        <source media="(max-width: 900px)" sizes="(max-width: 900px) 900px" srcset="{{ webp_img_w_900.url }} 900w" type="image/webp">
+                        <source media="(max-width: 1500px)" sizes="(max-width: 1500px) 1500px" srcset="{{ webp_img_w_1500.url }} 1500w" type="image/webp">
+                        <source media="(min-width: 1501px)" sizes="(min-width: 1501px) 1501px" srcset="{{ webp_img_w_1800.url }} 1800w" type="image/webp">
                         <img
                             class="d-block w-100"
                             src="{{ fallback.url }}"

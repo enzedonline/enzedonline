@@ -1,19 +1,16 @@
 {% load wagtailimages_tags core_tags %}
-{% get_picture_rendition self.image 1800 as webp_img_w_1800 %} 
-{% get_picture_rendition self.image 1500 as webp_img_w_1500 %} 
-{% get_picture_rendition self.image 900 as webp_img_w_900 %} 
-{% get_picture_rendition self.image 600 as webp_img_w_600 %}
-{% get_picture_rendition self.image 300 as webp_img_w_300 %}
-{% image self.image.file width-2100 as fallback %}
+{% get_picture_rendition self.image 1800 as webp_img_w_1800 %}
+{% get_picture_rendition self.image 1000 as webp_img_w_1000 %}
+{% get_picture_rendition self.image 750 as webp_img_w_750 %}
+{% get_picture_rendition self.image 500 as webp_img_w_500 %}
+{% image self.image.file width-1800 as fallback %}
 
 {% if self.link %}<a href="{{ self.link.url }}">{% endif %}
     <picture>
-      <source media="(min-width: 1501px)" srcset="{{ webp_img_w_1800.url }} 2100w" type="image/webp">
-      <source media="(min-width: 901px)" srcset="{{ webp_img_w_1500.url }} 1500w" type="image/webp">
-      <source media="(min-width: 601px)" srcset="{{ webp_img_w_900.url }} 900w" type="image/webp">
-      <source media="(min-width: 301px)" srcset="{{ webp_img_w_600.url }} 600w" type="image/webp">
-      <source srcset="{{ webp_img_w_300.url }} 300w" type="image/webp">
-      <source srcset="{{ fallback.url }} 2100w">
+      <source media="(max-width: 500px)" sizes="(max-width: 500px) 500px" srcset="{{ webp_img_w_500.url }} 500w" type="image/webp">
+      <source media="(max-width: 750px)" sizes="(max-width: 750px) 750px" srcset="{{ webp_img_w_750.url }} 750w" type="image/webp">
+      <source media="(max-width: 1000px)" sizes="(max-width: 1000px) 500px" srcset="{{ webp_img_w_1000.url }} 1000w" type="image/webp">
+      <source media="(min-width: 1001px)" sizes="(min-width: 1001px) 1001px" srcset="{{ webp_img_w_1800.url }} 1001w" type="image/webp">
       <img
         src="{{ fallback.url }}"
         alt="{{ self.image.seo_title }}"

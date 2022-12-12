@@ -3,8 +3,7 @@
     {% image post.localized.search_image thumbnail-500x250 format-webp as webp_img_w_500 %} 
     {% image post.localized.search_image thumbnail-500x250 as fallback %}
     <picture>
-        <source srcset="{{ webp_img_w_500.url }} 500w" type="image/webp">
-        <source srcset="{{ fallback.url }} 500w">
+        <source media="(min-width: 1px)" sizes="(min-width: 1px) 1px" srcset="{{ webp_img_w_500.url }} 500w" type="image/webp">
         <img
             src="{{ fallback.url }}"
             alt="{{ post.localized.title }}"

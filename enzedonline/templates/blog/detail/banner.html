@@ -11,12 +11,15 @@
 
   <div class="banner-overlay-container">
     <picture>
-      <source media="(min-width: 1501px)" srcset="{{ webp_img_w_2100.url }} 2100w" type="image/webp">
-      <source media="(min-width: 901px)" srcset="{{ webp_img_w_1500.url }} 1500w" type="image/webp">
-      <source media="(min-width: 601px)" srcset="{{ webp_img_w_900.url }} 900w" type="image/webp">
-      <source srcset="{{ webp_img_w_600.url }} 600w" type="image/webp">
-      <source srcset="{{ fallback.url }} 2100w">
-      <img src="{{ fallback.url }}" alt="{{ self.title }}" style="width: 100%; height: auto">
+      <source media="(max-width: 600px)" sizes="(max-width: 600px) 600px" srcset="{{ webp_img_w_600.url }} 600w" type="image/webp">
+      <source media="(max-width: 900px)" sizes="(max-width: 900px) 900px" srcset="{{ webp_img_w_900.url }} 900w" type="image/webp">
+      <source media="(max-width: 1500px)" sizes="(max-width: 1500px) 1500px" srcset="{{ webp_img_w_1500.url }} 1500w" type="image/webp">
+      <source media="(min-width: 1501px)" sizes="(min-width: 1501px) 1501px" srcset="{{ webp_img_w_2100.url }} 2100w" type="image/webp">
+      <img
+        src="{{ fallback.url }}"
+        alt="{{ self.title }}"
+        style="width: 100%; height: auto;"
+      >
     </picture>
     {% if blog_index.banner_headline or blog_index.banner_small_text %}
       <div class="banner-overlay-text-block ps-2 ps-md-3 ps-lg-4 pt-1 pt-md-0">

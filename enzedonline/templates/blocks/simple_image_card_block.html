@@ -1,9 +1,10 @@
 {% load wagtailimages_tags wagtailcore_tags flex_card_tags core_tags %}
 
+{% get_picture_rendition self.image 1800 as webp_img_w_1800 %}
 {% get_picture_rendition self.image 1000 as webp_img_w_1000 %}
 {% get_picture_rendition self.image 750 as webp_img_w_750 %}
 {% get_picture_rendition self.image 500 as webp_img_w_500 %}
-{% image self.image.file original as fallback %}
+{% image self.image.file width-1800 as fallback %}
 
 {% padding self.border self.background as pad %}
 
@@ -12,14 +13,14 @@
     <div class="card-body p-0 lh-sm">
       <div style="text-align: center;">  
         <picture>
-          <source media="(min-width: 1500px)" srcset="{{ webp_img_scale_100.url }}" type="image/webp">
-          <source media="(min-width: 1000px)" srcset="{{ webp_img_w_750.url }} 750w" type="image/webp">
-          <source srcset="{{ webp_img_w_500.url }} 500w" type="image/webp">
+          <source media="(max-width: 500px)" sizes="(max-width: 500px) 500px" srcset="{{ webp_img_w_500.url }} 500w" type="image/webp">
+          <source media="(max-width: 750px)" sizes="(max-width: 750px) 750px" srcset="{{ webp_img_w_750.url }} 750w" type="image/webp">
+          <source media="(max-width: 1000px)" sizes="(max-width: 1000px) 500px" srcset="{{ webp_img_w_1000.url }} 1000w" type="image/webp">
+          <source media="(min-width: 1001px)" sizes="(min-width: 1001px) 1001px" srcset="{{ webp_img_w_1800.url }} 1001w" type="image/webp">
           <img
             src="{{ fallback.url }}"
             alt="{{ self.image.seo_title }}"
-            width = "100%"
-            height = "auto"
+            style="width: 100%; height: auto;"
           >
         </picture>
       </div>

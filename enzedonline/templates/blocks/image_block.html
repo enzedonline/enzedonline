@@ -12,14 +12,16 @@
     {% if self.max_width %} style="max-width: calc({{self.max_width}}px + 0.5rem);"{% endif %}>
     <figure class="m-0{% if self.max_width %}" style="max-width: {{self.max_width}}px;"{% endif %}>
       <picture class="srcset">
-        <source media="(min-width: 1600px)" srcset="{{ webp_img_w_1800.url }}" type="image/webp">
-        <source media="(min-width: 1200px)" srcset="{{ webp_img_w_1600.url }} 1600w" type="image/webp">
-        <source media="(min-width: 750px)" srcset="{{ webp_img_w_1200.url }} 1200w" type="image/webp">
-        <source media="(min-width: 500px)" srcset="{{ webp_img_w_750.url }} 750w" type="image/webp">
-        <source srcset="{{ webp_img_w_500.url }} 500w" type="image/webp">
-        <source srcset="{{ fallback.url }}">
-
-        <img class="srcset__image" src="{{ fallback.url }}" alt="{{ self.image.seo_title }}" style='width: 100%; height: auto;'>
+        <source media="(max-width: 500px)" sizes="(max-width: 500px) 500px" srcset="{{ webp_img_w_500.url }} 500w" type="image/webp">
+        <source media="(max-width: 750px)" sizes="(max-width: 750px) 750px" srcset="{{ webp_img_w_750.url }} 750w" type="image/webp">
+        <source media="(max-width: 1200px)" sizes="(max-width: 1200px) 1200px" srcset="{{ webp_img_w_1200.url }} 1200w" type="image/webp">
+        <source media="(max-width: 1600px)" sizes="(max-width: 1600px) 1600px" srcset="{{ webp_img_w_1600.url }} 1600w" type="image/webp">
+        <source media="(min-width: 1601px)" sizes="(min-width: 1601px) 1601px" srcset="{{ webp_img_w_1800.url }} 1800w" type="image/webp">
+        <img 
+          src="{{ fallback.url }}" 
+          alt="{{ self.image.seo_title }}" 
+          style='width: 100%; height: auto;'
+        >
       </picture>
       {% if self.caption or self.attribution %}
         <figcaption class="image-block-caption text-end px-1 pt-1 pb-2 lh-sm">
