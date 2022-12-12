@@ -10,7 +10,11 @@
                 class="socialaccount_provider {{provider.id}} {{brand.id}}"
                 href="{% provider_login_url provider.id openid=brand.openid_url process=process %}"
                 >
-                <img alt="{{ brand.name }}" src="{% static 'images/'%}{{ brand.name }}logo.png" width="40" height="40">
+                <img 
+                    alt="{{ brand.name }}" 
+                    src="{% static 'images/'%}{{ brand.name }}logo.png" 
+                    style="width=40; height=40"
+                >
             </a>
         </div>
     {% endfor %}
@@ -18,7 +22,12 @@
     <div class="col-auto">
         <a title="{{ provider.name }}" class="socialaccount_provider {{ provider.id }} text-decoration-none" 
             href="{% provider_login_url provider.id process=process scope=scope auth_params=auth_params next=next %}">
-            <img alt="{{ provider.name }}" class="avatar mb-3 me-3" src="{% static 'images/' %}{{ provider.name }}logo.png" width="40" height="40">
+            <img
+                alt="{{ provider.name }}" 
+                class="avatar mb-3 me-3" 
+                src="{% static 'images/' %}{{ provider.name }}logo.png"
+                style="width=40; height=40"
+            >
         </a>
     </div>
 {% endfor %}

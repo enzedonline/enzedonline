@@ -21,7 +21,12 @@
       {% endif %}
     </div>
     <div class="col-2 text-end">
-      <img alt="{{ provider.name }}" class="avatar mb-3" style="min-width: 40px;max-width: 80px;" src="{% static 'images/' %}{{ provider.name }}logo.png" width="80%">
+      <img 
+        alt="{{ provider.name }}" 
+        class="avatar mb-3" 
+        style="min-width: 40px;max-width: 80px;width: 80%" 
+        src="{% static 'images/' %}{{ provider.name }}logo.png"
+      >
     </div>
   </div>
 
