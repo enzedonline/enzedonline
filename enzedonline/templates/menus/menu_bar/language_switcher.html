@@ -20,7 +20,7 @@
                 {% language_switcher self as switcher %}
                 {% for lang in switcher.switch_pages %}
                     <a class="dropdown-item switcher-item" href="{{ lang.url }}">
-                        {% image lang.flag fill-16x11 class="image-menu" %}&nbsp
+                        {% image lang.flag fill-16x11 class="image-menu" %}&nbsp;
                         {{ lang.language }}
                     </a>
                     {{ lang.alternate | safe}}
