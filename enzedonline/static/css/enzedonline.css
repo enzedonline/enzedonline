@@ -227,7 +227,7 @@ a {
 .divider, .divider-sm, .divider-md, .divider-lg {
   border-right: 1px solid #DADADA;
   padding: 0px;
-  width: 0px;
+  border-width: 0px;
 }
 @media (max-width: 575px) {
   .divider-sm {
