@@ -1,6 +1,8 @@
 {% load static wagtailcore_tags grid_block_tags %}
 {% two_column_layout value block.id as layout %}
-{% if layout.size %}{{ layout.size }}{% endif %}
+{% if layout.size %}
+<script>document.styleSheets[0].insertRule("{{ layout.size }}")</script>
+{% endif %}
 
   <div class="row">
     <div {{ layout.l_class }}>

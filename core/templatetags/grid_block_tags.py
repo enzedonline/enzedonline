@@ -45,21 +45,21 @@ def two_column_layout(value, block_id):
     right_col = f"col{breakpoint}{('-' + right) if right and right < left else ''}"
 
     l_minmax_style = r_minmax_style = ''
-    l_minmax_style = f"min-width:{str(value['left_min'])}px;" if value['left_min'] else ''
-    l_minmax_style += f"max-width:{str(value['left_max'])}px;" if value['left_max'] else ''
-    r_minmax_style = f"min-width:{str(value['right_min'])}px;" if value['right_min'] else ''
-    r_minmax_style += f"max-width:{str(value['right_max'])}px;" if value['right_max'] else ''
+    l_minmax_style = f"min-width:{str(value['left_min'])}px !important;" if value['left_min'] else ''
+    l_minmax_style += f"max-width:{str(value['left_max'])}px !important;" if value['left_max'] else ''
+    r_minmax_style = f"min-width:{str(value['right_min'])}px !important;" if value['right_min'] else ''
+    r_minmax_style += f"max-width:{str(value['right_max'])}px !important;" if value['right_max'] else ''
 
     sizel = sizer = ''
     if l_minmax_style or r_minmax_style:
-        style = f"<style>@media (min-width: { breakpoint_to_pixels(breakpoint) }) {{"
+        style = f"@media (min-width: { breakpoint_to_pixels(breakpoint) }) {{"
         if l_minmax_style:
             style += f".sizel-{block_id} {{{l_minmax_style}}}"
             sizel = f" sizel-{block_id}"
         if r_minmax_style:
             style += f".sizer-{block_id} {{{r_minmax_style}}}"
             sizer = f" sizer-{block_id}"
-        style += "}</style>"
+        style += "}"
 
     return {
         'l_class': mark_safe(f'class="{left_col}{lcol_horizontal_padding}{left_order}{hide_left}{sizel} mx-auto"'),
@@ -90,18 +90,18 @@ def three_column_layout(value, block_id):
         hide_sides = f' d-none d{breakpoint}-block' if value['hide'] == 'hide-sides' else ''
 
     left_col = f'col{breakpoint}{("-" + left) if left else ""}'
-    centre_col = f'col{breakpoint}{("-" + centre) if left else ""}'
+    centre_col = f'col{breakpoint}'
     right_col = f'col{breakpoint}{("-" + right) if left else ""}'
 
     minmax_style = size = ''
-    minmax_style = f"min-width:{str(value['outer_min'])}px;" if value['outer_min'] else ''
-    minmax_style += f"max-width:{str(value['outer_max'])}px;" if value['outer_max'] else ''
+    minmax_style = f"min-width:{str(value['outer_min'])}px !important;" if value['outer_min'] else ''
+    minmax_style += f"max-width:{str(value['outer_max'])}px !important;" if value['outer_max'] else ''
     
     if minmax_style:
-        style = f"<style>@media (min-width: { breakpoint_to_pixels(breakpoint) }) {{"
+        style = f"@media (min-width: { breakpoint_to_pixels(breakpoint) }) {{"
         style += f".size-{block_id} {{{minmax_style}}}"
         size = f" size-{block_id}"
-        style += "}</style>"
+        style += "}"
     
     return {
         'l_class': mark_safe(f'class="{left_col}{lcol_horizontal_padding}{hide_sides}{size} mx-auto"'),
