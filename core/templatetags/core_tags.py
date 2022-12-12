@@ -55,7 +55,10 @@ def canonical(context):
     page = get_context_var_or_none(context, 'self')
     if not page:
         return ''
-    return mark_safe(f'<link rel="canonical" href="{page.full_url}">')
+    elif type(page).__name__=='HomePage':
+        return mark_safe(f'<link rel="canonical" href="{page.get_url_parts()[1]}/">')
+    else:
+        return mark_safe(f'<link rel="canonical" href="{page.full_url}">')
 
 @register.simple_tag(takes_context=True)
 def get_cache_key_settings(context):
