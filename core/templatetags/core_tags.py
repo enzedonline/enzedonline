@@ -66,7 +66,7 @@ def get_cache_key_settings(context):
     if not page:
         page = {}
         page['slug'] = '_DynamicPage'
-        page['latest_revision_created_at'] = datetime.now()
+        page['last_published_at'] = datetime.now()
     return page
 
 @register.simple_tag()

@@ -1,6 +1,6 @@
 {% load adv_cache wagtailimages_tags %} 
 
-{% cache None page.slug "banner" self.latest_revision_created_at %}
+{% cache None page.slug "banner" self.last_published_at %}
 
 {% with self.get_parent.specific as blog_index %} 
   {% image blog_index.banner_image fill-2100x525-c100 format-webp as webp_img_w_2100 %} 

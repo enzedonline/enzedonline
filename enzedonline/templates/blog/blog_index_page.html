@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="{% static 'css/flexmasonry.css' %}" type="text/css">
     <script src="{% static 'js/flexmasonry.js' %}"></script>
     <script src="{% static 'js/flexmasonry.extra.js'%}"></script>
-    {% cache None page.slug "structure" self.latest_revision_created_at %}
+    {% cache None page.slug "structure" self.last_published_at %}
         {% include 'blog/index/structured_data.html' %}
     {% endcache %}
 {% endblock extra_head %}
@@ -18,7 +18,7 @@
 {% block content %}
 {% get_template_set 'common' as trans %}
 
-{% cache None page.slug "body" self.latest_revision_created_at %}
+{% cache None page.slug "body" self.last_published_at %}
 
     {# Top Content Section #}
     <div class="container-fluid pt-0 pt-md-2 px-2 px-sm-5 pb-4">
@@ -89,7 +89,7 @@
     {% if posts.paginator.num_pages > 1 %}
         {% paginator_filter filter.qstring as pgn_filter %}
         {% include 'core/paginator.html' with pages=posts %}
-        {% endif %}
+    {% endif %}
 </div>
 
 {% endblock content %}
