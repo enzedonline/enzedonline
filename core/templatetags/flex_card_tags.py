@@ -33,9 +33,12 @@ def embed_button_layout(value):
     return f"mt-auto p-0 {justification}"
 
 @register.simple_tag()
-def row_layout(value):
+def row_layout(value, block_id):
     layout = {}
     
+    minmax_style = (f"min-width:{str(value['image_min'])}" if value['image_min'] else '200') + "px !important;"
+    minmax_style += f"max-width:{str(value['image_max'])}px !important;" if value['image_max'] else ''
+
     if value['format'].find('right') != -1:
         layout['row_class'] = 'row flex-row-reverse'
         text_padding = 'pe'
@@ -47,19 +50,15 @@ def row_layout(value):
         layout['image_column'] = f"col-{value['breakpoint']}-4 pt-4"
         layout['text_column'] = f"p-0 {text_padding}-{value['breakpoint']}-3 pt-{value['breakpoint']}-1 text-break"
         if value['breakpoint'] == 'md':
-            layout['breakpoint'] = '768px'
+            breakpoint = '768px'
         else:
-            layout['breakpoint'] = '576px'
+            breakpoint = '576px'
+        layout['image_style'] = f"@media (min-width: {breakpoint}) {{.size-{block_id} {{{minmax_style}}}}}"
+
     else:
         layout['image_column'] = 'col-4 pt-4'
         layout['text_column'] = f"p-0 {text_padding}-3 pt-1 text-break"
         layout['breakpoint'] = '0px'
+        layout['image_style'] = f".size-{block_id} {{{minmax_style}}}"
   
-    image_min = 'min-width: ' + str(value['image_min'] if value['image_min'] else 200) + 'px;'
-    image_max = (f"max-width: {str(value['image_max'])}px;") if value['image_max'] else ''
-    layout['image_style'] = f'{image_min}{image_max}'
-    
     return layout
-
-
-
