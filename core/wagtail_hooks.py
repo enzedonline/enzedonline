@@ -67,14 +67,13 @@ def register_code_block_feature(features):
     
 @hooks.register("register_rich_text_features")
 def register_fa_styling(features):
-    """Add <fa> to the richtext editor and page."""
+    """Add font-awesome icons to the richtext editor and page."""
     register_inline_styling(
         features=features,
         feature_name='fa',
         description="Font Awesome Icon",
         type_="FA",
-        tag="fa",
-        format='style="display:none;"',
+        format='class="fa-icon"',
         editor_style={            
             'background-color': 'orange',            
             'color': '#666',

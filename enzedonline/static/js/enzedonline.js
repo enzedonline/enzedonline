@@ -72,7 +72,15 @@ $(document).ready(function () {
       fa_icons[i].removeAttribute('style');
     }
   }
-
+  faIcons = [...document.getElementsByClassName('fa-icon')];
+  faIcons.forEach(faIcon => {
+    const faClass = faIcon.innerText;
+    if (faClass) {
+      faIcon.innerHTML = "&nbsp;".repeat(4);
+      faIcon.className = faClass;
+    }
+  });
+  
   // load mathjax if equation found on page
   let body = document.body.textContent;
   if (body.match(/(?:\$|\\\(|\\\[|\\begin\{.*?})/)) {

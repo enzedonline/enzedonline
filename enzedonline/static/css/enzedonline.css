@@ -560,6 +560,9 @@ a {
   text-align: center;
   font-size: smaller;
 }
+.fa-icon{
+  display: none;
+}
 .avatar {
   border-radius: 8px;
 }
