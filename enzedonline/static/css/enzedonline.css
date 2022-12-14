@@ -266,6 +266,11 @@ a {
     border-right: 0px;
   }
 }
+@media (min-width: 768px) {
+  .contact-intro {
+    max-width: 25rem;
+  }
+}
 .comments-header {
   font-family: var(--font-family-headings);
   font-size: var(--font-size-5);

@@ -10,17 +10,20 @@
 {% block content %} 
 
 <div class="container-fluid px-2 px-sm-5 pb-4">
-  <div class="row">
+  <div class="row pt-md-4">
 
     {# Column break at md #}
     {% cache None page.slug "body" self.last_published_at %}
 
-      <div class="col-md-5 px-md-3 pt-2 sizel">
+      <div class="col-md-5 px-sm-0 pt-2 contact-intro">
         <h1>{{ self.title }}</h1>
+        <hr>
         {# Intro text stream block #}
-        {% for block in page.intro_text %}
-            {% include_block block %}
-        {% endfor %}
+        <div class="pb-1 pb-md-3 pt-md-1">
+          {% for block in page.intro_text %}
+              {% include_block block %}
+          {% endfor %}
+        </div>
 
         {# Optional image only visible md & above, <hr> for widths below this only #}
         {% if self.intro_image %}
@@ -46,13 +49,13 @@
         </div>
 
       </div>
-      <div class ="col-md-auto divider-md"></div>
+      <div class ="col-md-auto ps-5 me-5 divider-md"></div>
     {% endcache %}
 
     {# Column break at md, hide border below this width #}
-    <div class="col-md px-md-3 pt-md-3">
+    <div class="col-md px-sm-0 pt-1 pt-md-3">
       <div class="card bg-warning p-1 lh-sm">
-        <div class="card-body pb-0 privacy-notice">
+        <div class="card-body pb-md-0 privacy-notice">
           {{ self.privacy_notice|richtext }}
         </div>
       </div>       
