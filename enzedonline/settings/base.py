@@ -300,7 +300,7 @@ WAGTAILADMIN_RICH_TEXT_EDITORS = {
     },
 }
 
-WAGTAILMETADATA_IMAGE_FILTER = "thumbnail-800x400|format-png"
+WAGTAILMETADATA_IMAGE_FILTER = "thumbnail-688x272|format-png"
 
 # FIX NEEDED FOR DJANGO 3.2.x
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
