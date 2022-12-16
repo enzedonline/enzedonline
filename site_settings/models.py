@@ -8,8 +8,7 @@ from modelcluster.models import ClusterableModel
 from wagtail.admin.panels import (FieldPanel, FieldRowPanel, InlinePanel,
                                   MultiFieldPanel)
 from wagtail.contrib.settings.models import BaseSetting, register_setting
-from wagtail.models import Orderable, TranslatableMixin
-from wagtail.models.i18n import Locale
+from wagtail.models import Orderable, TranslatableMixin, Locale
 from wagtail.snippets.models import register_snippet
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
