@@ -1,24 +1,19 @@
 {% load wagtailcore_tags flex_card_tags %}
-
+{% row_layout self block.id as layout %}
+{% if layout.image_style %}
+<script>document.styleSheets[0].insertRule("{{ layout.image_style }}")</script>
+{% endif %}
 <div class="{% card_layout self %}">
-    {% row_layout self as layout %}
-    <div class="{{ layout.row_class }}">
-      <div class="{{ layout.image_column }} size-{{block.id}}">
-        {% include 'blocks/embed/image.html' %}
-      </div>      
-      <div class="col">
-        <div class="{{ layout.text_column }}">
-          <h5 class="card-title fw-bolder pt-3">{{ self.title }}</h5>
-          <p class="lh-sm">{{ self.description|linebreaksbr }}</p>
-        </div>
-        {% include 'blocks/embed/button.html' %}
+  <div class="{{ layout.row_class }}">
+    <div class="{{ layout.image_column }} size-{{block.id}}">
+      {% include 'blocks/embed/image.html' %}
+    </div>      
+    <div class="col">
+      <div class="{{ layout.text_column }}">
+        <h5 class="card-title fw-bolder pt-3">{{ self.title }}</h5>
+        <p class="lh-sm">{{ self.description|linebreaksbr }}</p>
       </div>
+      {% include 'blocks/embed/button.html' %}
     </div>
+  </div>
 </div>
-
-<style>
-    @media (min-width: {{ layout.breakpoint }}) {
-      .size-{{block.id}} {
-        {{ layout.image_style }}
-      }  
-</style>

@@ -1,6 +1,10 @@
 {% load wagtailcore_tags flex_card_tags %}
+{% row_layout self block.id as layout %}
+{% if layout.image_style %}
+<script>document.styleSheets[0].insertRule("{{ layout.image_style }}")</script>
+{% endif %}
 
-<div class="{% card_layout self %}">
+<div class="{% card_layout self %} size-{{block.id}} mx-auto">
     {% include 'blocks/embed/image.html' %}
     <div class="py-0 text-break">
         <h5 class="card-title fw-bolder pt-3">{{ self.title }}</h5>
