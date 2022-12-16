@@ -41,7 +41,10 @@ def trans_page_from_slug(slug, specific=False):
 
 @register.filter()
 def homepage_url(request):
-    return request._wagtail_site.root_page.localized.url
+    try:
+        return request._wagtail_site.root_page.localized.url
+    except:
+        '/'
 
 @register.simple_tag(takes_context=True)
 def robots(context):
