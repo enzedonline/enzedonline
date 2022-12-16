@@ -124,7 +124,8 @@ a {
   margin-bottom: 0;
 }
 .toc-item-l2::before {
-  content: '• ';
+  content: '•';
+  padding-right: 0.5em;
 }
 .toc-item-l2 {
   font-size: clamp( 1.25rem, 1.2232rem + 0.1127vw, 1.35rem );
@@ -133,7 +134,8 @@ a {
   margin-bottom: 0;
 }
 .toc-item-l3::before {
-  content: '◦ ';
+  content: '◦';
+  padding-right: 0.5em;
 }
 .toc-item-l3 {
   text-indent: -0.75rem;
@@ -143,7 +145,8 @@ a {
   padding-top: 0.15rem;
 }
 .toc-item-l4::before {
-  content: '⁃ ';
+  content: '▪';
+  padding-right: 0.5em;
 }
 .toc-item-l4 {
   text-indent: -0.65rem;
@@ -153,7 +156,8 @@ a {
   padding-top: 0.125rem;
 }
 .toc-item-l5::before {
-  content: '∙ ';
+  content: '⁃';
+  padding-right: 0.5em;
 }
 .toc-item-l5 {
   text-indent: -0.5rem;
