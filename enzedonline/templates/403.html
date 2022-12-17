@@ -1,11 +1,5 @@
 {% extends "base.html" %}
 {% load core_tags %}
-
-{% block body_class %}template-403{% endblock %}
-
-{% block extra_head %}
-{% endblock extra_head %}
-
 {% block content %}
     {% get_template_set 'page-error' as trans %}
     <title>{{ trans.403_title }}</title>
