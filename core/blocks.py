@@ -695,6 +695,11 @@ class DocumentBlock(StructBlock):
         label = _("Text Alignment"),
         help_text = _("Only used if full width button")
     )
+    allow_indexing = BooleanBlock(
+        label = _("Allow Search Engines to Index this Document"),
+        default = False,
+        required = False
+    )
 
     class Meta:
         template = "blocks/document_block.html"
