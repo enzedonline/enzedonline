@@ -61,17 +61,8 @@ $(document).ready(function () {
   $('a[href^="https://"]').attr("target", "_blank");
   $('a[href^="https://"]').attr("rel", "nofollow noopener");
 
-  // change rich text <fa> font awesome tags: 
-  // <fa style="display:none;">something</fa> -> <fa class="something">&nbsp;&nbsp;&nbsp;&nbsp;</fa>
-  fa_icons = document.getElementsByTagName('fa');
-  for (let i = 0; i < fa_icons.length; i++) {
-    const fa_class = fa_icons[i].innerText;
-    if (fa_class) {
-      fa_icons[i].className = fa_class;
-      fa_icons[i].innerHTML = "&nbsp;".repeat(4);
-      fa_icons[i].removeAttribute('style');
-    }
-  }
+  // change rich text <span class="fa-icon"> font awesome tags: 
+  // <span class="fa-icon">something</span> -> <span class="something">&nbsp;&nbsp;&nbsp;&nbsp;</span>
   faIcons = [...document.getElementsByClassName('fa-icon')];
   faIcons.forEach(faIcon => {
     const faClass = faIcon.innerText;
