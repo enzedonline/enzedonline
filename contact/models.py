@@ -87,6 +87,10 @@ class ContactPage(SEOWagtailCaptchaEmailForm):
         verbose_name=_("Form Error Warning"),
         help_text=_("Text to display above the form in case there was a problem")
     )
+    send_error_text = RichTextField(editor='basic',
+        verbose_name=_("Error Message to Display On Website After Email Failure")
+    )
+    send_error = models.BooleanField(default=False, null=True, blank=True)
     to_address = models.CharField(
         max_length=255,
         verbose_name=_('To Address'),
@@ -150,6 +154,7 @@ class ContactPage(SEOWagtailCaptchaEmailForm):
         InlinePanel("form_fields", label = "Form Fields"),
         FieldPanel("submit_button_text"),
         FieldPanel("form_error_warning"),
+        FieldPanel("send_error_text"),
         FieldPanel("thank_you_text"),
         MultiFieldPanel([
             FieldRowPanel([
@@ -229,11 +234,13 @@ class ContactPage(SEOWagtailCaptchaEmailForm):
         return html_email
 
     def send_mail(self, form):
-        notification_email = self.get_notification_email(form)
-        receipt_email = self.html_email(self.get_receipt_email(notification_email['contact_email_address']))
-        receipt_email.reply_to = [x.strip() for x in self.reply_to.split(',')]
-        notification_email = self.html_email(notification_email)
-        connection = mail.get_connection(**self.mail_settings)    
-        connection.send_messages([notification_email, receipt_email])
-        connection.close()        
-
+        try:
+            notification_email = self.get_notification_email(form)
+            receipt_email = self.html_email(self.get_receipt_email(notification_email['contact_email_address']))
+            receipt_email.reply_to = [x.strip() for x in self.reply_to.split(',')]
+            notification_email = self.html_email(notification_email)
+            connection = mail.get_connection(**self.mail_settings)    
+            connection.send_messages([notification_email, receipt_email])
+            connection.close()        
+        except:
+            self.send_error = True

@@ -295,7 +295,7 @@ WAGTAILADMIN_RICH_TEXT_EDITORS = {
     'basic': {
         'WIDGET': 'wagtail.admin.rich_text.DraftailRichTextArea',
         'OPTIONS': {
-            'features': ['h2', 'h3', 'h4', 'bold', 'italic', 'link', 'ol', 'ul', 'hr']
+            'features': ['h2', 'h3', 'h4', 'bold', 'italic', 'link', 'ol', 'ul', 'hr', 'fa']
         }
     },
 }
