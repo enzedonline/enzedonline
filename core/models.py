@@ -108,13 +108,16 @@ class SEOPage(SEOPageMixin, Page):
 
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
-        if request.is_preview:
-            context['cache_name'] = 'preview'
-            context['cache_date'] = datetime.now()
-        else:
-            context['cache_name'] = self.slug
-            context['cache_date'] = self.last_published_at
+        try:
+            if request.is_preview:
+                context['cache_name'] = 'preview'
+                context['cache_date'] = datetime.now()
+                return context
+        except:
+            pass
 
+        context['cache_name'] = self.slug
+        context['cache_date'] = self.last_published_at
         return context
 
 class CaptchaV3FormBuilder(WagtailCaptchaFormBuilder):
@@ -124,16 +127,9 @@ class CaptchaV3FormBuilder(WagtailCaptchaFormBuilder):
         fields[self.CAPTCHA_FIELD_NAME] = ReCaptchaField(label="", widget=ReCaptchaV3())
         return fields
 
-class SEOWagtailCaptchaEmailForm(SEOPageMixin, WagtailCaptchaEmailForm):
+class SEOWagtailCaptchaEmailForm(WagtailCaptchaEmailForm, SEOPage):
     # form_builder = CaptchaV3FormBuilder
     pass
 
     class Meta:
         abstract = True
-
-    def get_context(self, request, *args, **kwargs):
-        context = super().get_context(request, *args, **kwargs)
-        # 'WSGIRequest' object has no attribute 'is_preview'
-        context['cache_name'] = self.slug
-        context['cache_date'] = self.last_published_at
-        return context
