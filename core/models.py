@@ -131,3 +131,9 @@ class SEOWagtailCaptchaEmailForm(SEOPageMixin, WagtailCaptchaEmailForm):
     class Meta:
         abstract = True
 
+    def get_context(self, request, *args, **kwargs):
+        context = super().get_context(request, *args, **kwargs)
+        # 'WSGIRequest' object has no attribute 'is_preview'
+        context['cache_name'] = self.slug
+        context['cache_date'] = self.last_published_at
+        return context
