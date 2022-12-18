@@ -2,7 +2,7 @@
 {% load adv_cache wagtailcore_tags widget_tweaks contact_page_tags wagtailimages_tags %} 
 
 {% block extra_head %}
-  {% cache None page.slug "structure" self.last_published_at %}
+  {% cache None cache_name "structure" cache_date %}
     {% include 'contact/structured_data.html' %}
   {% endcache %} 
 {% endblock extra_head %}
@@ -13,7 +13,7 @@
   <div class="row pt-md-4">
 
     {# Column break at md #}
-    {% cache None page.slug "body" self.last_published_at %}
+    {% cache None cache_name "body" cache_date %}
 
       <div class="col-md-5 px-sm-0 pt-2 contact-intro">
         <h1>{{ self.title }}</h1>

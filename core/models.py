@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from captcha.fields import ReCaptchaField
 from captcha.widgets import ReCaptchaV3
 from django.conf import settings
@@ -103,7 +105,18 @@ class SEOPage(SEOPageMixin, Page):
 
     class Meta:
         abstract = True
-        
+
+    def get_context(self, request, *args, **kwargs):
+        context = super().get_context(request, *args, **kwargs)
+        if request.is_preview:
+            context['cache_name'] = 'preview'
+            context['cache_date'] = datetime.now()
+        else:
+            context['cache_name'] = self.slug
+            context['cache_date'] = self.last_published_at
+
+        return context
+
 class CaptchaV3FormBuilder(WagtailCaptchaFormBuilder):
     @property
     def formfields(self):

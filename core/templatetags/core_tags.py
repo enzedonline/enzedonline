@@ -66,11 +66,14 @@ def canonical(context):
 @register.simple_tag(takes_context=True)
 def get_cache_key_settings(context):
     page = get_context_var_or_none(context, 'self')
+    cache = {}
     if not page:
-        page = {}
-        page['slug'] = '_DynamicPage'
-        page['last_published_at'] = datetime.now()
-    return page
+        cache['cache_name'] = '_DynamicPage'
+        cache['cache_date'] = datetime.now()
+    else:
+        cache['cache_name'] = get_context_var_or_none(context, 'cache_name')
+        cache['cache_date'] = get_context_var_or_none(context, 'cache_date')
+    return cache
 
 @register.simple_tag()
 def paginator_filter(filter):

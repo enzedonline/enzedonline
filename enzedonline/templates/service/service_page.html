@@ -2,7 +2,7 @@
 {% load adv_cache static wagtailcore_tags %}
 
 {% block extra_head %}
-  {% cache None page.slug "structure" self.last_published_at %}
+  {% cache None cache_name "structure" cache_date %}
     {% include 'service/structured_data.html' %}
   {% endcache %} 
 {% endblock extra_head %}
@@ -14,7 +14,7 @@
 
 {% block content %}
 
-    {% cache None page.slug "body" self.last_published_at %}
+    {% cache None cache_name "body" cache_date %}
 
         <div class="container-fluid pt-0 pt-md-2 px-2 px-sm-5 pb-4">
             <div class="row mt-4 text-center">

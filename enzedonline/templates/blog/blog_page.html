@@ -13,7 +13,7 @@
     <script src="{% static 'js/prism.js' %}"></script>
     {# load Article metadata #}
   {% endif %} 
-  {% cache None page.slug "structure" self.last_published_at %}
+  {% cache None cache_name "structure" cache_date %}
     {% include 'blog/detail/structured_data.html' %}
   {% endcache %}
 {% endblock extra_head %}
@@ -28,7 +28,7 @@
   {% url 'account_login' as login_url %}
   {{ login_url |json_script:"login_url" }} 
 
-  {% cache None page.slug "body" self.last_published_at %}
+  {% cache None cache_name "body" cache_date %}
 
     <div id='content' class="container-fluid mt-3 px-3 px-sm-5">
       
