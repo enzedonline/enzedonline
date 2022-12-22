@@ -63,12 +63,10 @@ def canonical(context):
         href = f'{page.get_url_parts()[1]}/'
     else:
         href = page.full_url
-    # add pagination if any for blog list pages
-    if page_type == 'TechBlogListingPage' or page_type == 'PersonalBlogListingPage':
-        request = get_context_var_or_none(context, 'request')
-        pagination = request.GET.get('page', None)
-        if pagination and pagination != '1':
-            href += f'?page={pagination}'
+    # add pagination for blog posts if any 
+    pagination = get_context_var_or_none(context, 'posts')
+    if pagination and pagination.number > 1:
+        href += f'?page={pagination.number}'
     return mark_safe(f'<link rel="canonical" href="{href}">')
 
 @register.simple_tag(takes_context=True)
