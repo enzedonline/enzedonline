@@ -58,14 +58,3 @@ class HomePage(SEOPage):
     class Meta:
         verbose_name = "Home Page"
 
-    def get_sitemap_urls(self, request):
-        sitemap = super().get_sitemap_urls(request)
-
-        for locale_home in self.get_siblings(inclusive=False).live():
-            for entry in locale_home.get_sitemap_urls(request):
-                sitemap.append(entry)
-            for child_page in locale_home.get_descendants().live():
-                for entry in child_page.get_sitemap_urls(request):
-                    sitemap.append(entry)
-        return sitemap        
-

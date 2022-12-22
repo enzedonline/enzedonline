@@ -1,4 +1,4 @@
-from core.views import RobotsView
+from core.views import RobotsView, sitemap
 from search.views import enzed_search
 from django.conf import settings
 from django.urls import re_path
@@ -10,7 +10,6 @@ from django.views.i18n import JavaScriptCatalog
 from core.views import refresh_page_cache
 from userauth.views import *
 from wagtail.admin import urls as wagtailadmin_urls
-from wagtail.contrib.sitemaps.views import sitemap
 from wagtail import urls as wagtail_urls
 from wagtail.documents import urls as wagtaildocs_urls
 from django.views.generic import RedirectView

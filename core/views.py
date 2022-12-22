@@ -1,12 +1,14 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.shortcuts import redirect, render
+from django.template.response import TemplateResponse
+from django.utils.http import http_date
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import TemplateView
-from wagtail.models import Page
+from wagtail.models import Page, Site
 from wagtail.search.backends import get_search_backend
 from wagtail.search.models import Query
-from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 
 from .utils import clear_page_cache, paginator_range
 
@@ -80,4 +82,29 @@ def search(request):
             'search_results': Page.objects.none(),
         })        
 
+def sitemap(request):
+    site = Site.find_for_request(request)
+    root_page = Page.objects.defer_streamfields().get(id=site.root_page_id)
 
+    urlset = []
+    for locale_home in root_page.get_translations(inclusive=True).defer_streamfields().live().public().specific():
+        urlset.append(locale_home.get_sitemap_urls(request))
+        for child_page in locale_home.get_descendants().defer_streamfields().live().public().specific():
+            urlset.append(child_page.get_sitemap_urls(request))
+    try:
+        urlset.remove([])
+    except:
+        pass
+    last_modified = max([x['lastmod'] for x in urlset])
+
+    return TemplateResponse(
+        request, 
+        template='sitemap.xml', 
+        context={'urlset': urlset},
+        content_type='application/xml',
+        headers={
+            "X-Robots-Tag": "noindex, noodp, noarchive", 
+            "last-modified": http_date(last_modified.timestamp()),
+            "vary": "Accept-Encoding",
+            }
+        )

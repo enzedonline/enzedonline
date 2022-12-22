@@ -8,7 +8,7 @@ from django.db import models
 from django.forms.utils import ErrorList
 from django.utils.translation import gettext_lazy as _
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
-from wagtail.models import Page
+from wagtail.models import Page, Locale
 from wagtail.search import index
 from wagtailcaptcha.forms import WagtailCaptchaFormBuilder
 from wagtailcaptcha.models import WagtailCaptchaEmailForm
@@ -40,6 +40,39 @@ class SEOPageMixin(index.Indexed, WagtailImageMetadataMixin, models.Model):
         help_text=_("A summary of the page to be used on index pages and on-site searching.")
     )
 
+    search_engine_index = models.BooleanField(
+        blank=False,
+        null=False,
+        default=True,
+        verbose_name=_("Allow search engines to index this page?")
+    )
+
+    search_engine_changefreq = models.CharField(
+        max_length=25,
+        choices=[
+            ("always", _("Always")),
+            ("hourly", _("Hourly")),
+            ("daily", _("Daily")),
+            ("weekly", _("Weekly")),
+            ("monthly", _("Monthly")),
+            ("yearly", _("Yearly")),
+            ("never", _("Never")),
+        ],
+        blank=True,
+        null=True,
+        verbose_name=_("Search Engine Change Frequency (Optional)"),
+        help_text=_("How frequently the page is likely to change? (Leave blank for default)")
+    )
+
+    search_engine_priority = models.DecimalField(
+        max_digits=2, 
+        decimal_places=1,
+        blank=True,
+        null=True,
+        verbose_name=_("Search Engine Priority (Optional)"),
+        help_text=_("The priority of this URL relative to other URLs on your site. Valid values range from 0.0 to 1.0. (Leave blank for default)")
+    )
+
     content_panels = Page.content_panels + [
         FieldPanel('summary'),
     ]
@@ -51,6 +84,11 @@ class SEOPageMixin(index.Indexed, WagtailImageMetadataMixin, models.Model):
             FieldPanel('seo_title'),
             FieldPanel('search_description'),
         ], _('SEO Page Configuration')),
+        MultiFieldPanel([
+            FieldPanel('search_engine_index'),
+            FieldPanel('search_engine_changefreq'),
+            FieldPanel('search_engine_priority'),
+        ], _("Search Engine Indexing")),
     ]
 
     def get_meta_url(self):
@@ -64,6 +102,50 @@ class SEOPageMixin(index.Indexed, WagtailImageMetadataMixin, models.Model):
 
     def get_meta_image(self):
         return self.search_image
+
+    def get_alternates(self):
+        default_locale = Locale.get_default()
+        x_default = None
+
+        trans_pages = self.get_translations(inclusive=True)
+        if trans_pages.count() > 1:
+            alt = []
+            for page in trans_pages:
+                alt.append({
+                    'lang_code': page.locale.language_code,
+                    'location': page.get_full_url()
+                })
+                if page.locale == default_locale:
+                    x_default = page.get_url_parts()
+            # page not translated to default language, use first trans_page instead
+            if not x_default:
+                x_default = trans_pages.first().get_url_parts()
+            # x-default - strip the language component from the url for the default-lang page
+            # https://example.com/en/something/ -> https://example.com/something/
+            x_default = f"{x_default[1]}/{'/'.join(x_default[2].split('/')[2:])}"
+            alt.append({'lang_code': 'x-default', 'location': x_default})
+            return alt
+        else:
+            return None
+
+    @property
+    def lastmod(self):
+        return self.last_published_at or self.latest_revision_created_at
+
+    def get_sitemap_urls(self, request):
+        if self.search_engine_index:
+            url_item = {
+                "location": self.full_url,
+                "lastmod": self.lastmod,
+                "alternates": self.get_alternates()
+            }
+            if self.search_engine_changefreq:
+                url_item["changefreq"] = self.search_engine_changefreq
+            if self.search_engine_priority:
+                url_item["priority"] = self.search_engine_priority
+            return url_item
+        else:
+            return []
 
     class Meta:
         abstract = True
