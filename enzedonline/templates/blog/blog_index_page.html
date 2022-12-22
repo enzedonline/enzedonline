@@ -64,13 +64,13 @@
         {# Blog List #}
         <div class="p-1 p-sm-2 p-md-3 mt-2 mt-sm-3 mt-md-4 bg-light rounded">
             {% nocache %}
-            <span id='list'></span>
-            {% if filter.type == 'category' %}
-                <p class="filter-message">{{trans.showing_blog_category}} <span class="fw-bolder">{{filter.verbose}}</span> {{ trans.category}}</p>
-            {% elif filter.type == 'tag' %}
-                <p class="filter-message">{{trans.showing_blog_tag}} <span class="fw-bolder">#{{filter.verbose}}</span></p>
-            {% endif %}
-            {% include 'core/blog_posts.html' %}
+                <span id='list'></span>
+                {% if filter.type == 'category' %}
+                    <p class="filter-message">{{trans.showing_blog_category}} <span class="fw-bolder">{{filter.verbose}}</span> {{ trans.category}}</p>
+                {% elif filter.type == 'tag' %}
+                    <p class="filter-message">{{trans.showing_blog_tag}} <span class="fw-bolder">#{{filter.verbose}}</span></p>
+                {% endif %}
+                {% include 'core/blog_posts.html' %}
             {% endnocache %}
         </div>
 
@@ -94,7 +94,4 @@
 
 {% endblock content %}
 
-{% block extra_js %}
-
-{% endblock %}
-
+{% block extra_js %}{% endblock extra_js %}

@@ -201,6 +201,12 @@ class BlogListingPage(SEOPage):
         context['page_range_first'] = context['page_range'][0]
         context['page_range_last'] = context['page_range'][-1]
 
+        # canonical page for non-filtered pages are paginated
+        if not (category_filter or tag_filter):
+            context['cache_head'] = f'head-page{posts.number}'
+        else:
+            context['cache_head'] = f'head-page1'
+
         return context
 
     @property
