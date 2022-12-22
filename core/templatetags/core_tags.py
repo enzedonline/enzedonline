@@ -56,12 +56,20 @@ def robots(context):
 @register.simple_tag(takes_context=True)
 def canonical(context):
     page = get_context_var_or_none(context, 'self')
-    if not page:
+    page_type = type(page).__name__
+    if not page: # not a wagtail page, not indexed, return empty string
         return ''
-    elif type(page).__name__=='HomePage':
-        return mark_safe(f'<link rel="canonical" href="{page.get_url_parts()[1]}/">')
+    if page_type == 'HomePage': # drop /en from homepage canonical
+        href = f'{page.get_url_parts()[1]}/'
     else:
-        return mark_safe(f'<link rel="canonical" href="{page.full_url}">')
+        href = page.full_url
+    # add pagination if any for blog list pages
+    if page_type == 'TechBlogListingPage' or page_type == 'PersonalBlogListingPage':
+        request = get_context_var_or_none(context, 'request')
+        pagination = request.GET.get('page', None)
+        if pagination and pagination != '1':
+            href += f'?page={pagination}'
+    return mark_safe(f'<link rel="canonical" href="{href}">')
 
 @register.simple_tag(takes_context=True)
 def get_cache_key_settings(context):
