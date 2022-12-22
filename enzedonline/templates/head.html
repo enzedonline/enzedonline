@@ -7,7 +7,7 @@
   <script defer src="{% static 'js/analytics.js'%}"></script>
 {% endif %}
 
-{% cache None cache_settings.cache_name "head" cache_settings.cache_date %}
+{% cache None cache_settings.cache_name cache_head cache_settings.cache_date %}
 
   {# Fonts #}
     <link rel="preload" href="{% static 'css/enzedonlinefonts-min.css' %}" as="style">
@@ -39,7 +39,7 @@
     <meta name="distribution" content="Global">
     <meta name="rating" content="safe for kids">
     <meta property="fb:app_id" content="{{ settings.site_settings.Tokens.facebook_app_id }}">
-    {% nocache %}{% canonical %}{% endnocache %}
+    {% canonical %}
 
   {# favicon #}
     <link rel="apple-touch-icon" sizes="180x180" href="{% static 'favicon/apple-touch-icon.png' %}">

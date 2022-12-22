@@ -198,6 +198,7 @@ class SEOPage(SEOPageMixin, Page):
         except:
             pass
 
+        context['cache_head'] = 'head'
         context['cache_name'] = self.slug
         context['cache_date'] = self.last_published_at
         return context
