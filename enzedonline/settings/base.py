@@ -193,10 +193,8 @@ WAGTAIL_SITE_NAME = "enzedonline"
 # Embeds
 WAGTAILEMBEDS_FINDERS = [
     {
-        'class': 'core.oembedfinder.YouTubePreserveRelFinder',
-    },
-    {
         'class': 'wagtail.embeds.finders.oembed',
+        'class': 'core.oembedfinder.YouTubeShortsFinder'      
     }
 ]
 WAGTAILEMBEDS_RESPONSIVE_HTML = True

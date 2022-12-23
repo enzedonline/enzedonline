@@ -7,6 +7,12 @@ from wagtail.embeds.finders.oembed import OEmbedFinder
 from wagtail.embeds.oembed_providers import youtube
 import requests
 
+class YouTubeShortsFinder(OEmbedFinder):
+    def __init__(self, providers=None, options=None):
+        youtube['urls'].append(r"^https?://(?:[-\w]+\.)?youtube\.com/shorts/.+$")
+        providers = [youtube] if providers is None else providers.append[youtube]
+        super().__init__(providers=providers, options=options)
+
 class YouTubePreserveRelFinder(OEmbedFinder):
     """ OEmbed finder which preserves the rel=0 parameter on YouTube URLs
 
