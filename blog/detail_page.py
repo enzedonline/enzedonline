@@ -40,7 +40,7 @@ class BlogDetailPage(SEOPage):
 
         active_lang = Locale.get_active()
         default_lang = Locale.get_default()
-        siblings = self.__class__.objects.sibling_of(self).live().defer_streamfields()
+        siblings = self.__class__.objects.sibling_of(self).defer_streamfields().live()
         category_filter = request.GET.get('category', None)
         tag_filter = request.GET.get('tag', None)
         
@@ -69,10 +69,23 @@ class BlogDetailPage(SEOPage):
 
         context['filter'] = filter
 
-        context['next_post'] = siblings.filter(path__gt=self.path).first()
-        context['previous_post'] = siblings.filter(path__lt=self.path).last()
+        context['next_post'], context['previous_post'] = self.get_next_prev(siblings.order_by('-first_published_at'))
 
         return context
+
+    def get_next_prev(self, queryset):
+        idx = self.get_queryset_index(queryset)
+        return (
+            queryset[idx-1] if idx > 0 else None,
+            queryset[idx+1] if (idx != -1 and idx < queryset.count()-1) else None
+        )
+
+    def get_queryset_index(self, queryset):
+        li = list(queryset.values_list('path'))
+        try:
+            return li.index((self.path,))
+        except:
+            return -1
 
     def save(self, *args, **kwargs):
         purge_blog_list_cache_fragments()
