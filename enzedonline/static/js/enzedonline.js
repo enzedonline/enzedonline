@@ -56,10 +56,10 @@ $(document).ready(function () {
   }
 
   // set all external links to open in new tab
-  $('a[href^="http://"]').attr("target", "_blank");
-  $('a[href^="http://"]').attr("rel", "nofollow noopener");
-  $('a[href^="https://"]').attr("target", "_blank");
-  $('a[href^="https://"]').attr("rel", "nofollow noopener");
+  $('a[href^="http"]').attr("target", "_blank");
+  $('a[href^="http"]').attr("rel", "nofollow noopener");
+  $('a[href^="/documents/"]').attr("target", "_blank");
+  $('a[href^="/documents/"]').attr("rel", "nofollow");
 
   // change rich text <span class="fa-icon"> font awesome tags: 
   // <span class="fa-icon">something</span> -> <span class="something">&nbsp;&nbsp;&nbsp;&nbsp;</span>
