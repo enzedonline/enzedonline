@@ -190,7 +190,6 @@ class SEOPage(SEOPageMixin, Page):
 
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
-        context['cache_head'] = 'head'
         context['cache_name'] = self.slug
         context['cache_date'] = self.last_published_at
         try: # WSGI request has no is_preview - thrown on contact page

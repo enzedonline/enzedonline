@@ -72,7 +72,7 @@ def canonical(context):
 @register.simple_tag(takes_context=True)
 def get_cache_key_settings(context):
     page = get_context_var_or_none(context, 'self')
-    cache = {}
+    cache = {'cache_head': context.get('cache_head', 'head')}
     if not page:
         cache['cache_name'] = '_DynamicPage'
         cache['cache_date'] = datetime.now()

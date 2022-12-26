@@ -7,7 +7,7 @@
   <script defer src="{% static 'js/analytics.js'%}"></script>
 {% endif %}
 
-{% cache None cache_settings.cache_name cache_head cache_settings.cache_date %}
+{% cache None cache_settings.cache_name cache_settings.cache_head cache_settings.cache_date %}
 
   {# Fonts #}
     <link rel="preload" href="{% static 'css/enzedonlinefonts-min.css' %}" as="style">
