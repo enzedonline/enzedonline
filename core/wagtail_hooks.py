@@ -61,7 +61,7 @@ def register_code_block_feature(features):
         type_='CODE-BLOCK',
         description='Code Block',
         css_class='code-block',
-        element='div',
+        wrapper='div class="code-block-wrapper"',
         icon=DRAFTAIL_ICONS.code_block
     )
     
