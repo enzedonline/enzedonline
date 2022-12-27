@@ -37,23 +37,6 @@ let convertUTCDateToLocalDate = (date, date_options, time_options) => {
 
 // global on document ready code
 $(document).ready(function () {
-  // format chains of code-blocks as a single group
-  codeBlocks = document.getElementsByClassName('code-block');
-  for (let i = 0; i < codeBlocks.length; i++) {
-    if ((!codeBlocks[i].previousSibling.classList) || (!codeBlocks[i].previousSibling.classList.contains('code-block'))) {
-      codeBlocks[i].style.paddingTop='0.5em';
-      codeBlocks[i].style.borderTopRightRadius='0.3em';
-      codeBlocks[i].style.borderTopLeftRadius='0.3em';
-    }
-    
-    if ((!codeBlocks[i].nextSibling.classList) || (!codeBlocks[i].nextSibling.classList.contains('code-block'))) {
-        codeBlocks[i].style.paddingBottom='0.5em';
-        codeBlocks[i].style.marginBottom='1em';
-        codeBlocks[i].style.borderBottomRightRadius='0.3em';
-        codeBlocks[i].style.borderBottomLeftRadius='0.3em';
-        }
-    
-  }
 
   // set all external links and documents to open in new tab
   $('a[href^="http"], a[href^="/documents/"]').attr({'target': '_blank', 'rel': 'nofollow noopener'});
@@ -91,6 +74,7 @@ $(document).ready(function () {
     document.head.appendChild(script);
   }
 });
+// end on document ready code
 
 // include js script only if not already included
 let include_js = (js, id) => {
