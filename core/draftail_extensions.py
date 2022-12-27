@@ -51,6 +51,7 @@ def register_block_feature(
     description,
     css_class,
     element="div",
+    wrapper=None,
     label=None,
     icon=None,
     editor_style=None,
@@ -75,6 +76,10 @@ def register_block_feature(
         draftail_features.BlockFeature(control, css={"all": ["draftail-editor.css"]}),
     )
 
+    block_map = {"element": element, "props": {"class": css_class}}
+    if wrapper:
+        block_map["wrapper"] = wrapper
+
     features.register_converter_rule(
         "contentstate",
         feature_name,
@@ -84,7 +89,7 @@ def register_block_feature(
             },
             "to_database_format": {
                 "block_map": {
-                    type_: {"element": element, "props": {"class": css_class}}
+                    type_: block_map
                 }
             },
         },
