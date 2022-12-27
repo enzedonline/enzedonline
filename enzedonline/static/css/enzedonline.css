@@ -707,10 +707,16 @@ code, .inline-code {
   font-size: var(--font-size-6);
   font-family: var(--font-family-monospace);
   color: floralwhite;
-  background-color: #272822f0;
+  background-color: #272822;
   padding: 0 1em;
   text-align: left !important;
   line-height: 1.4;
+}
+.code-block-wrapper {
+  background-color: #272822;
+  padding: 0.7em 0;
+  margin-bottom: 0.7em;
+  border-radius: 0.4em;
 }
 label {
   font-family: var(--font-family-headings);
