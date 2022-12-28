@@ -708,14 +708,14 @@ code, .inline-code {
   font-family: var(--font-family-monospace);
   color: floralwhite;
   background-color: #272822;
-  padding: 0 1em;
+  padding: 0;
   text-align: left !important;
-  line-height: 1.4;
+  line-height: 1.6;
 }
 .code-block-wrapper {
   background-color: #272822;
-  padding: 0.7em 0;
-  margin-bottom: 0.7em;
+  padding: 0.8em 1em;
+  margin-bottom: 0.8em;
   border-radius: 0.4em;
 }
 label {
