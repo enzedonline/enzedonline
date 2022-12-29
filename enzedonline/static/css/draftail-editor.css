@@ -12,8 +12,20 @@
     font-family: var(--font-family-monospace);
     font-size: var(--font-size-6) !important;
     text-align: left !important;
+    margin-left: 0 !important;
     color: #f8f8f2;
     background-color: #272822;
-    padding: 0.5em;
+    padding: 0.5em 1.2em;
     line-height: 1.2;
+}
+li.Draftail-block--checklist {
+    margin-left: 0 !important;
+}
+li.Draftail-block--checklist > div.public-DraftStyleDefault-block::before {
+    content: '🗹';
+    padding-right: 1em;
+    margin-left: -2em;
+}
+li.Draftail-block--checklist > div.public-DraftStyleDefault-block {
+    padding-left: 2em;
 }

@@ -59,12 +59,26 @@ def register_code_block_feature(features):
         features=features,
         feature_name='code-block',
         type_='CODE-BLOCK',
+        element='li',
+        wrapper='ul class="code-block-wrapper"',
         description='Code Block',
         css_class='code-block',
-        wrapper='ul class="code-block-wrapper"',
         icon=DRAFTAIL_ICONS.code_block
     )
-    
+
+@hooks.register('register_rich_text_features')
+def register_checklist_feature(features):
+    register_block_feature(
+        features=features,
+        feature_name='checklist',
+        type_='checklist',
+        description='Check List',
+        css_class='check-list',
+        element='li',
+        wrapper="ul class='check-list-wrapper' role='list'",
+        icon="tasks"
+    )
+
 @hooks.register("register_rich_text_features")
 def register_fa_styling(features):
     """Add font-awesome icons to the richtext editor and page."""

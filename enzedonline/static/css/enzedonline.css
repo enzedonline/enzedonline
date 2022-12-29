@@ -703,6 +703,16 @@ code, .inline-code {
   color: floralwhite;
   background-color: #272822f0;
 }
+.check-list-wrapper {
+  list-style: none;
+}
+.check-list {
+  margin-bottom: 0.1em;
+}
+.check-list::marker {
+  content: '🗹';
+  letter-spacing: 0.5em;
+}
 .code-block {
   font-size: var(--font-size-6);
   font-family: var(--font-family-monospace);
@@ -713,8 +723,9 @@ code, .inline-code {
   line-height: 1.6;
 }
 .code-block-wrapper {
+  list-style-type: none;
   background-color: #272822;
-  padding: 0.8em 1em;
+  padding: 0.8em 1.2em;
   margin-bottom: 0.8em;
   border-radius: 0.4em;
 }
