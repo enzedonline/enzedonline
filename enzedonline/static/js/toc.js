@@ -40,14 +40,15 @@ let listContents = (
       if (headers.length > 0) {
         // add ToC title if supplied, add css classes
         if (tocTitle) {
-          let title = toc.appendChild(document.createElement("P"));
+          let title = toc.appendChild(document.createElement("H2"));
           title.innerText = tocTitle;
           title.classList.add("toc", "toc-title");
         }
   
         // add ToC list DIV, add css classes
-        const list = toc.appendChild(document.createElement("DIV"));
+        const list = toc.appendChild(document.createElement("UL"));
         list.classList.add("toc", "toc-list");
+        list.setAttribute('role', 'list')
   
         // loop through headers in order
         for (let i = 0; i < headers.length; i++) {
@@ -61,7 +62,7 @@ let listContents = (
           }
   
           // create element to hold link, add css including level specific css class
-          const linkLine = list.appendChild(document.createElement("P"));
+          const linkLine = list.appendChild(document.createElement("LI"));
           linkLine.classList.add(`toc`, `toc-item-l${level}`);
   
           // create link to point to ID of header

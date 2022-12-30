@@ -117,52 +117,49 @@ a {
 .toc-list {
   padding-bottom: 1rem;
   padding-left: 10px;
+  list-style: none;
 }
 .toc-item-l1 {
   font-size: clamp( 1.35rem, 1.3232rem + 0.1127vw, 1.45rem );
   text-indent: 0rem;
   margin-bottom: 0;
 }
-.toc-item-l2::before {
+.toc-item-l2::marker {
   content: '•';
-  padding-right: 0.5em;
+  letter-spacing: 0.5em;
 }
 .toc-item-l2 {
   font-size: clamp( 1.25rem, 1.2232rem + 0.1127vw, 1.35rem );
-  text-indent: -0.75rem;
-  padding-left: 1.8rem;
+  margin-left: 1.8rem;
   margin-bottom: 0;
 }
-.toc-item-l3::before {
+.toc-item-l3::marker {
   content: '◦';
-  padding-right: 0.5em;
+  letter-spacing: 0.5em;
 }
 .toc-item-l3 {
-  text-indent: -0.75rem;
-  padding-left: 3rem;
   font-size: clamp( 1.15rem, 1.1099rem + 0.169vw, 1.3rem );
+  margin-left: 3rem;
   margin-bottom: 0;
   padding-top: 0.15rem;
 }
-.toc-item-l4::before {
+.toc-item-l4::marker {
   content: '▪';
-  padding-right: 0.5em;
+  letter-spacing: 0.5em;
 }
 .toc-item-l4 {
-  text-indent: -0.65rem;
-  padding-left: 4.2rem;
   font-size: clamp( 1.05rem, 1.0099rem + 0.169vw, 1.2rem );
+  margin-left: 4.1rem;
   margin-bottom: 0;
   padding-top: 0.125rem;
 }
-.toc-item-l5::before {
-  content: '⁃';
-  padding-right: 0.5em;
+.toc-item-l5::marker {
+  content: '−';
+  letter-spacing: 0.5em;
 }
 .toc-item-l5 {
-  text-indent: -0.5rem;
-  padding-left: 5.4rem;
   font-size: clamp( 1rem, 0.9732rem + 0.1127vw, 1.1rem );
+  margin-left: 5.1rem;
   margin-bottom: 0;
   padding-top: 0.1rem;
 }
