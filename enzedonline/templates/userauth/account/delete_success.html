@@ -1,9 +1,6 @@
 {% extends "base.html" %}
 {% load core_tags %}
 
-{% block extra_head %}
-{% endblock extra_head %}
-
 {% block content %}
     {% get_template_set 'accounts' as trans %}
     <title>Enzed Online - {{ trans.account_deleted_title }}</title>

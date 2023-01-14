@@ -12,7 +12,9 @@
     </head>
     
     <body>
-        <script src="{% static 'js/facebook_sdk.js'%}"></script>
+
+        {% include 'scripts.html' %}
+        {% block extra_scripts %}{% endblock extra_scripts %}
 
         <div class="sticky-top">
             {% include 'menus/menu_bar.html' %}
@@ -40,6 +42,7 @@
                 {% include 'menus/footer.html' %}
             </div>
         </footer>
+
     </body>
 
     {% endif %}

@@ -3,9 +3,12 @@
 
 {% block extra_head %}
     <link rel="stylesheet" href="{% static 'css/flexmasonry.css' %}" type="text/css">
+{% endblock extra_head %}
+
+{% block extra_scripts %}
     <script src="{% static 'js/flexmasonry.js' %}"></script>
     <script src="{% static 'js/flexmasonry.extra.js'%}"></script>
-{% endblock extra_head %}
+{% endblock extra_scripts %}
 
 {% block content %}
 <div class="p-3 p-md-4">

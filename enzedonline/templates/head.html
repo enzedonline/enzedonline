@@ -1,12 +1,6 @@
 {% load static adv_cache seo_metadata_tags core_tags %}
 {% get_cache_key_settings as cache_settings %}
 
-{# Analytics #}
-{% if debug is None and not request.is_preview and not request.user|is_in_group:"Editors" %}
-  <script defer src="https://www.googletagmanager.com/gtag/js?id={{ settings.site_settings.Tokens.google_analytics }}"></script>
-  <script defer src="{% static 'js/analytics.js'%}"></script>
-{% endif %}
-
 {% cache None cache_settings.cache_name cache_settings.cache_head cache_settings.cache_date %}
 
   {# Fonts #}
@@ -16,13 +10,6 @@
   {# Global stylesheets #}
     <link rel="stylesheet" href="{% static 'css/litera.bootstrap.min.css' %}" type="text/css">
     <link rel="stylesheet" href="{% static 'css/enzedonline-min.css' %}" type="text/css">
-
-  {# Global javascript #}
-    <script src="{% static 'js/jquery-3.6.0.min.js'%}"></script>  
-    <script defer src="{% static 'js/bootstrap.bundle.min.js'%}"></script>
-    <script src="{% static 'js/enzedonline.js'%}"></script>
-    <script defer src="https://kit.fontawesome.com/{{ settings.site_settings.Tokens.fontawesome }}.js" crossorigin="anonymous"></script>
-    <script defer src="{% static 'js/navbar.js'%}"></script>
 
   {# Meta Tags #}
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">

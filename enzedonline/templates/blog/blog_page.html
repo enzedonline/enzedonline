@@ -3,20 +3,25 @@
 
 {% block extra_head %}
   <link rel="stylesheet" href="{% static 'css/flexmasonry.css' %}" type="text/css">
-  <script src="{% static 'js/flexmasonry.js' %}"></script>
-  <script src="{% static 'js/flexmasonry.extra.js'%}"></script>
-  <script src="{% static 'js/comment_login.js'%}"></script>
-
   {% if self.blog_type == 'TechBlogDetailPage' %}
-    {# Code Block JS - only load if tech blog #}
+    {# Code Block CSS - only load if tech blog #}
     <link rel="stylesheet" type="text/css" href="{% static 'css/prism.css' %}">
-    <script src="{% static 'js/prism.js' %}"></script>
-    {# load Article metadata #}
   {% endif %} 
+  {# load Article metadata #}
   {% cache None cache_name "structure" cache_date %}
     {% include 'blog/detail/structured_data.html' %}
   {% endcache %}
 {% endblock extra_head %}
+
+{% block extra_scripts %}
+  <script src="{% static 'js/comment_login.js'%}"></script>
+  <script src="{% static 'js/flexmasonry.js' %}"></script>
+  <script src="{% static 'js/flexmasonry.extra.js'%}"></script>
+  {% if self.blog_type == 'TechBlogDetailPage' %}
+    {# Code Block JS - only load if tech blog #}
+    <script defer src="{% static 'js/prism.js' %}"></script>
+  {% endif %} 
+{% endblock extra_scripts %}
 
 {% block header %}
   {# Page Banner #}
