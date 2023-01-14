@@ -410,7 +410,8 @@ a {
 .search-menu {
   padding: 0 1em;
   min-width: 30rem;
-  background-color: --bs-light;
+  background: var(--bs-light);
+  margin-top: .7em !important;
 }
 .privacy-notice {
   font-size: var(--font-size-6);
