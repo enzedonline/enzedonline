@@ -23,7 +23,6 @@
         </ul>
       </div>
 
-      {% get_menu 'privacy' as privacy_menu %}
       {% if privacy_menu %}
         {% get_menu_items privacy_menu request as privacy_menu_items %}
         {% for privacy_page in privacy_menu_items %}
