@@ -1,6 +1,9 @@
+import re
+from html import unescape
 from urllib.parse import urlencode
 from urllib.request import urlopen
 
+from bs4 import BeautifulSoup
 from django.core.cache import caches
 from django.db import connection
 from django.urls import reverse
@@ -81,3 +84,42 @@ def isfloat(element: str) -> bool:
         return True
     except ValueError:
         return False
+
+def get_streamfield_text(
+    streamfield, 
+    strip_newlines=True, 
+    strip_punctuation=True, 
+    lowercase=False,
+    strip_tags=[]
+    ):
+    
+    html = streamfield.render_as_block()
+    soup = BeautifulSoup(unescape(html), "html.parser")
+
+    # strip unwanted tags tags (e.g. ['code', 'script', 'style'])
+    for element in soup(strip_tags):
+        element.extract()
+
+    inner_text = ' '.join(soup.findAll(text=True))
+
+    # replace &nbsp; with space
+    inner_text = inner_text.replace('\xa0',' ')
+
+    # strip font awesome text
+    inner_text = re.sub(r'\bfa-[^ ]*', '', inner_text)
+
+    if strip_newlines:
+        inner_text = re.sub(r'([\n]+.?)+', ' ', inner_text)
+
+    if strip_punctuation:
+        import string
+        punctuation = f'{string.punctuation}“”‘’«»‹›–'
+        inner_text = inner_text.translate(str.maketrans('', '', punctuation))
+
+    if lowercase:
+        inner_text = inner_text.lower()
+
+    # strip excess whitespace
+    inner_text = re.sub(r' +', ' ', inner_text).strip()
+
+    return inner_text
