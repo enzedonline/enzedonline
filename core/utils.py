@@ -105,6 +105,9 @@ def get_streamfield_text(
     # replace &nbsp; with space
     inner_text = inner_text.replace('\xa0',' ')
 
+    # replace & with and
+    inner_text = inner_text.replace(' & ',' and ')
+
     # strip font awesome text
     inner_text = re.sub(r'\bfa-[^ ]*', '', inner_text)
 
@@ -113,7 +116,7 @@ def get_streamfield_text(
 
     if strip_punctuation:
         import string
-        punctuation = f'{string.punctuation}“”‘’«»‹›–'
+        punctuation = f'{string.punctuation}“”‘’–«»‹›¿¡'
         inner_text = inner_text.translate(str.maketrans('', '', punctuation))
 
     if lowercase:
