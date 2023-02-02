@@ -10,7 +10,7 @@
     "@type": "WebPage",
     "mainEntity":{
       "@type": "{% if self.get_parent.slug == 'tech-blog' %}TechArticle{% else %}BlogPosting{% endif %}",
-      "headline": "{{ self.seo_title|replace_doublequotes }}",
+      "headline": "{{ self.get_meta_title|replace_doublequotes }}",
       "name": "{{ self.title|replace_doublequotes }}",
       "description": "{{ self.summary|strip_newlines|replace_doublequotes }}",
       "image": ["{{ thumbnails.tn1x1.full_url }}","{{ thumbnails.tn4x3.full_url }}","{{ thumbnails.tn16x9.full_url }}"],
@@ -43,13 +43,9 @@
               "url": "{{ page.get_site.root_url }}",
               "sameAs": [{{ sameAs }}]
           }
-      }
+      },
+      "wordCount": "{{ self.wordcount }}"
     }
   }
 </script>
 {% endautoescape %}
-
-<script src="{% static 'js/structured_data.js'%}"></script>
-<script>
-  $(document).ready(function(){addDocWordCount('content', 'thisArticle', ['mainEntity', 'wordCount'])});
-</script>
