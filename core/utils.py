@@ -90,15 +90,17 @@ def get_streamfield_text(
     strip_newlines=True, 
     strip_punctuation=True, 
     lowercase=False,
-    strip_tags=[]
+    strip_tags=['style', 'script']
     ):
     
     html = streamfield.render_as_block()
     soup = BeautifulSoup(unescape(html), "html.parser")
 
     # strip unwanted tags tags (e.g. ['code', 'script', 'style'])
-    for element in soup(strip_tags):
-        element.extract()
+    # <style> & <script> by default
+    if strip_tags:
+        for script in soup(strip_tags):
+            script.extract()
 
     inner_text = ' '.join(soup.findAll(text=True))
 
@@ -116,7 +118,11 @@ def get_streamfield_text(
 
     if strip_punctuation:
         import string
-        punctuation = f'{string.punctuation}“”‘’–«»‹›¿¡'
+        punctuation = '!"#$%&\'()*+,-:;<=>?@[\\]^_`{|}~“”‘’–«»‹›¿¡'
+        # replace xx/yy with xx yy
+        inner_text = re.sub(r'(?<=\S)/(?=\S)', ' ', inner_text)
+        # strip full stops, leave decimal points and point separators
+        inner_text = re.sub(r'\.(?=\s)', '', inner_text)
         inner_text = inner_text.translate(str.maketrans('', '', punctuation))
 
     if lowercase:
@@ -126,3 +132,11 @@ def get_streamfield_text(
     inner_text = re.sub(r' +', ' ', inner_text).strip()
 
     return inner_text
+
+def count_words(text):
+    try:
+        word_break_chars='[\n|\r|\t|\f| ]'
+        ignore_words = ['', '-', '−', '–', '/']
+        return len([x for x in re.split(word_break_chars, text) if not x in ignore_words])
+    except:
+        return -1
