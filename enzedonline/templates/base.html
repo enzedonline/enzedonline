@@ -8,13 +8,12 @@
 
     <head>
         {% include 'head.html' %}
+        {% include 'scripts.html' %}
         {% block extra_head %}{% endblock extra_head %}
+        {% block extra_scripts %}{% endblock extra_scripts %}
     </head>
     
     <body>
-
-        {% include 'scripts.html' %}
-        {% block extra_scripts %}{% endblock extra_scripts %}
 
         <div class="sticky-top">
             {% include 'menus/menu_bar.html' %}
