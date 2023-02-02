@@ -1,7 +1,10 @@
-from wagtail import hooks
-from taggit.models import Tag
+from django.contrib import messages
 from django.db.models import Count
+from taggit.models import Tag
+from wagtail import hooks
+
 from .models import PersonalBlogDetailPage, TechBlogDetailPage
+
 
 def purge_unused_tags():
     tags = Tag.objects.annotate(ntech=Count('blog_techblogpagetag_items')).filter(ntech=0)
@@ -19,3 +22,15 @@ def do_after_publish_page(request, page):
     if(index_type== PersonalBlogDetailPage or index_type== TechBlogDetailPage):
         purge_unused_tags()
 
+@hooks.register("after_edit_page")
+def get_wordcount(request, page):
+    if page.specific.__class__.__name__ in ['TechBlogDetailPage', 'PersonalBlogDetailPage']:
+        try:
+            page.wordcount = page.get_wordcount()
+            if page.has_unpublished_changes:
+                page.save_revision()
+            else:
+                page.save()
+        except Exception as e:
+            print(f"{type(e).__name__} at line {e.__traceback__.tb_lineno} of {__file__}: {e}")       
+            messages.error(request, _('There was a problem generating the word count'))
