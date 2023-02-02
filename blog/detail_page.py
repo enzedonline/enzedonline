@@ -1,12 +1,16 @@
 from allauth.account.forms import LoginForm
-from core.blocks import GridStreamBlock
-from core.models import SEOPage
-from core.utils import purge_blog_list_cache_fragments
+from django.db import models
 from django.utils.translation import gettext_lazy as _
 from wagtail.admin.panels import FieldPanel, InlinePanel
 from wagtail.fields import StreamField
 from wagtail.search import index
 from wagtail_localize.synctree import Locale
+
+from core.blocks import GridStreamBlock
+from core.models import SEOPage
+from core.panels import RichHelpPanel
+from core.utils import (count_words, get_streamfield_text,
+                        purge_blog_list_cache_fragments)
 
 from .categories import PersonalBlogCategory, TechBlogCategory
 
@@ -15,14 +19,20 @@ class BlogDetailPage(SEOPage):
     subpage_types = []
     parent_page_types = []
 
+    wordcount = models.IntegerField(null=True, blank=True, verbose_name="Word Count")
     body = StreamField(
         GridStreamBlock(), verbose_name=_("Page body"), blank=True, use_json_field=True
     )
 
-    content_panels = SEOPage.content_panels + [
+    content_panels = [
+        RichHelpPanel(
+            '<b>Word Count:</b> {{wordcount}}', {'wordcount': 'wordcount'},
+            style = 'margin-bottom: 2em;display: block;background-color: antiquewhite;padding: 1em;border-radius: 1em;'
+        )
+        ] + SEOPage.content_panels + [
         FieldPanel('body'),
         # InlinePanel('customcomments', label=_("Comments")),    
-    ]
+        ]
 
     search_fields = SEOPage.search_fields + [
         index.SearchField('body'),
@@ -103,3 +113,12 @@ class BlogDetailPage(SEOPage):
     def blog_type(self):
         return self.__class__.__name__
 
+    def corpus(self):
+        return get_streamfield_text(
+            self.body, strip_tags=["style", "script", "code"]
+        )
+
+    def get_wordcount(self, corpus=None):
+        if not corpus:
+            corpus = self.corpus()
+        return count_words(corpus)
