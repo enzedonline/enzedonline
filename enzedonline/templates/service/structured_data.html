@@ -8,7 +8,7 @@
   {
     "@context": "https://schema.org",
     "@type": "{% if self.slug == 'about' %}AboutPage{% else %}WebPage{% endif %}",
-    "headline": "{{ self.seo_title|replace_doublequotes }}",
+    "headline": "{{ self.get_meta_title|replace_doublequotes }}",
     "name": "{{ self.title|replace_doublequotes }}",
     "description": "{{ self.summary|strip_newlines|replace_doublequotes }}",
     "image": ["{{ thumbnails.tn1x1.full_url }}","{{ thumbnails.tn4x3.full_url }}","{{ thumbnails.tn16x9.full_url }}"],
