@@ -24,7 +24,7 @@ def do_after_publish_page(request, page):
 
 @hooks.register("after_edit_page")
 def get_wordcount(request, page):
-    if page.specific.__class__.__name__ in ['TechBlogDetailPage', 'PersonalBlogDetailPage']:
+    if page.specific_class in [TechBlogDetailPage, PersonalBlogDetailPage]:
         try:
             page.wordcount = page.get_wordcount()
             if page.has_unpublished_changes:
@@ -33,4 +33,4 @@ def get_wordcount(request, page):
                 page.save()
         except Exception as e:
             print(f"{type(e).__name__} at line {e.__traceback__.tb_lineno} of {__file__}: {e}")       
-            messages.error(request, _('There was a problem generating the word count'))
+            messages.error(request, 'There was a problem generating the word count')
