@@ -45,8 +45,11 @@ let listContents = (
         title.classList.add("toc", "toc-title");
       }
 
-      // add ToC list DIV, add css classes
-      const list = toc.appendChild(document.createElement("UL"));
+      // nest ToC inside nav element 
+      const nav = toc.appendChild(document.createElement("NAV"));
+
+      // add ToC list to nav, add css classes
+      const list = nav.appendChild(document.createElement("UL"));
       list.classList.add("toc", "toc-list");
       list.setAttribute('role', 'list')
 
