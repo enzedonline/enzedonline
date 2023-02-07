@@ -103,13 +103,10 @@ let slugify = (str) => {
     str = str.replace(new RegExp(from.charAt(i), "g"), to.charAt(i));
   }
 
-  // Remove invalid chars
   str = str
-    .replace(/[^a-z0-9 -]/g, "")
-    // Collapse whitespace and replace by -
-    .replace(/\s+/g, "-")
-    // Collapse dashes
-    .replace(/-+/g, "-");
+    .replace(/[^a-z0-9 -]/g, "")   // Remove invalid chars
+    .replace(/\s+/g, "-")          // Collapse whitespace and replace with -
+    .replace(/-+/g, "-");          // Collapse dashes
 
   return str;
 }
