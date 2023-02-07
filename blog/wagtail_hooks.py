@@ -22,6 +22,7 @@ def do_after_publish_page(request, page):
     if(index_type== PersonalBlogDetailPage or index_type== TechBlogDetailPage):
         purge_unused_tags()
 
+@hooks.register("after_create_page")
 @hooks.register("after_edit_page")
 def get_wordcount(request, page):
     if page.specific_class in [TechBlogDetailPage, PersonalBlogDetailPage]:
