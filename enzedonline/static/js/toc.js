@@ -111,7 +111,7 @@ let slugify = (str) => {
   return str;
 }
 
-$(document).ready(function () {
+document.addEventListener('DOMContentLoaded', function () {
   const tocElement = JSON.parse(document.getElementById("tocElement").textContent);
   const scopeElement = JSON.parse(document.getElementById("scopeElement").textContent);
   const levels = JSON.parse(document.getElementById("levels").textContent);
