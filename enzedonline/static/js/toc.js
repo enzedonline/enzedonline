@@ -55,6 +55,7 @@ let listContents = (
 
       // loop through headings in order
       for (let i = 0; i < headings.length; i++) {
+        
         // determine nesting level (h2->1, h3->2 etc)
         const level = Number(headings[i].nodeName[1]) - 1;
 
@@ -72,6 +73,14 @@ let listContents = (
         const link = linkLine.appendChild(document.createElement("A"));
         link.appendChild(document.createTextNode(headings[i].innerText));
         link.href = `#${headings[i].id}`;
+
+        // add permalink to header
+        const permaLink = document.createElement("A");
+        permaLink.className="toc-link";
+        permaLink.href = `#${headings[i].id}`;
+        permaLink.innerHTML = headings[i].innerHTML;
+        headings[i].innerHTML = "";
+        headings[i].appendChild(permaLink);
       }
     }
   } else {

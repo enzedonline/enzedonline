@@ -163,6 +163,26 @@ a {
   margin-bottom: 0;
   padding-top: 0.1rem;
 }
+.toc-link {
+  text-decoration: none;
+  color: inherit;
+}
+.toc-link::after {
+  display: inline-flex;
+  content: '';
+  background-image: url("/static/svg/link-solid.svg");
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  height: 0.8em;
+  width: 0.8em;
+  margin-left: 0.3em;
+}
+
+.toc-link:hover::after {
+  opacity: 1;
+}
+
 .text-white a {
   font-weight: bolder;
   color: inherit;
