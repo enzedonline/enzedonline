@@ -13,7 +13,7 @@
             {% if field.is_hidden %}<div>{{ field }}</div>{% endif %}
         {% endfor %}
 
-        <div style="display:none">{{ form.honeypot }}</div>
+        <div class="d-none">{{ form.honeypot }}</div>
 
         <div class="form-group mb-1">
             {% with field=form.comment %}{% include "userauth/account/form_field.html" %}{% endwith %}

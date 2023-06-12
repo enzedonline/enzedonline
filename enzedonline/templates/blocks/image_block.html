@@ -9,8 +9,8 @@
 
 <div class="block-container">
   <div class="{{ self.background }} p-1 mx-auto rounded-3"
-    {% if self.max_width %} style="max-width: calc({{self.max_width}}px + 0.5rem);"{% endif %}>
-    <figure class="m-0"{% if self.max_width %} style="max-width: {{self.max_width}}px;"{% endif %}>
+    {% if self.max_width %} style="max-width: calc({{ self.max_width }}px + 0.5rem);"{% endif %}>
+    <figure class="m-0"{% if self.max_width %} style="max-width: {{ self.max_width }}px;"{% endif %}>
       <picture>
         <source media="(max-width: 500px)" sizes="(max-width: 500px) 500px" srcset="{{ webp_img_w_500.url }} 500w" type="image/webp">
         <source media="(max-width: 750px)" sizes="(max-width: 750px) 750px" srcset="{{ webp_img_w_750.url }} 750w" type="image/webp">
@@ -20,7 +20,7 @@
         <img 
           src="{{ fallback.url }}" 
           alt="{{ self.image.seo_title }}" 
-          style='width: 100%; height: auto;'
+          class="image-w-100-auto"
         >
       </picture>
       {% if self.caption or self.attribution %}

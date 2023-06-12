@@ -1,15 +1,15 @@
 <div class="card bg-light mb-3">
-    <div class="row" style="min-height: 80px;">
+    <div class="row comment-card">
         <div class="col-auto ms-3 mt-2">
-            {% include 'comments/avatar.html' %}   
+            {% include "comments/avatar.html" %}   
         </div>
         <div class="col ps-0">
         <div class="card-body ps-0 py-1">
             <p class="card-text">{{ comment.comment }}</p>
                 <h6 class="card-text pb-0">
-                    <span id='date_{{comment.pk}}'></span>&nbsp;-
+                    <span id="date_{{ comment.pk }}"></span>&nbsp;-
                     {% if comment.user_url %}<a href="{{ comment.user_url }}" target="_new" rel="nofollow">{% endif %}
-                    {% include 'comments/display_name.html' %}
+                    {% include "comments/display_name.html" %}
                     {% if comment.user_url %}</a>{% endif %}
                 </h6>
         </div>
@@ -17,5 +17,5 @@
     </div>
 </div>
 <script>
-    document.getElementById("date_{{comment.pk}}").innerHTML = convertUTCDateToLocalDate(new Date('{{ comment.submit_date|date:"Y-m-d H:i:s" }}'));
+    document.getElementById("date_{{comment.pk}}").innerHTML = convertUTCDateToLocalDate(new Date("{{ comment.submit_date|date:"Y-m-d H:i:s" }}"));
 </script>

@@ -1,38 +1,55 @@
-{% extends 'account/base_card.html' %}
-
+{% extends "account/base_card.html" %}
 {% load core_tags socialaccount social_accounts %}
-
 {% block card-header %}
-    {% get_template_set 'accounts' as trans %}
+    {% get_template_set "accounts" as trans %}
     <title>Enzed Online - {{ trans.update_account }}</title>
     <h3>{{ trans.update_account }}</h3>
-{% endblock %}
-
+{% endblock card-header %}
 {% block card-body %}
-    {% get_template_set 'accounts' as trans %}
-
+    {% get_template_set "accounts" as trans %}
     {% get_providers as socialaccount_providers %}
     <div class="row">
         <div class="col-md-8">
-            <form method="POST" action="{% url 'account_update' request.user.url %}" enctype="multipart/form-data" class="needs-validation" novalidate>
+            <form method="POST"
+                  action="{% url "account_update" request.user.url %}"
+                  enctype="multipart/form-data"
+                  class="needs-validation"
+                  novalidate>
                 {% csrf_token %}
                 <div class="form-group">
-                    {% with field=form.display_name %}{% include "account/form_field.html" %}{% endwith %}
+                    {% with field=form.display_name %}
+                        {% include "account/form_field.html" %}
+                    {% endwith %}
                 </div>
                 <div class="row">
                     <div class="form-group col-sm">
-                        {% with field=form.first_name %}{% include "account/form_field.html" %}{% endwith %}
+                        {% with field=form.first_name %}
+                            {% include "account/form_field.html" %}
+                        {% endwith %}
                     </div>
                     <div class="form-group col-sm">
-                        {% with field=form.last_name %}{% include "account/form_field.html" %}{% endwith %}
+                        {% with field=form.last_name %}
+                            {% include "account/form_field.html" %}
+                        {% endwith %}
                     </div>
                 </div>
                 <div class="row">
                     <div class="form-group col-sm">
-                        {% with field=form.city %}{% include "account/form_field.html" %}{% endwith %}
+                        {% with field=form.city %}
+                            {% include "account/form_field.html" %}
+                        {% endwith %}
                     </div>
                     <div class="form-group col-sm">
-                        {% with field=form.country %}{% include "account/form_field.html" %}{% endwith %}
+                        {% with field=form.country %}
+                            {% include "account/form_field.html" %}
+                        {% endwith %}
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-12">
+                        {% with field=form.website %}
+                            {% include "account/form_field.html" %}
+                        {% endwith %}
                     </div>
                 </div>
                 <button type="submit" class="btn btn-primary">{{ trans.update }}</button>
@@ -41,51 +58,51 @@
         <div class="col-md-4 pt-3 pt-md-2 ps-md-5">
             {% if socialaccount_providers %}
                 {% include "socialaccount/provider_list.html" with process="connect" %}
-
                 {% social_accounts request as accounts %}
                 {% if accounts %}
-                <p>{{ trans.connected_social }}</p>
-
-                    <form method="POST" action="{% url 'socialaccount_connections' %}" class="needs-validation" novalidate>
+                    <p>{{ trans.connected_social }}</p>
+                    <form method="POST"
+                          action="{% url "socialaccount_connections" %}"
+                          class="needs-validation"
+                          novalidate>
                         {% csrf_token %}
                         <fieldset>
-                            {% if form.non_field_errors %}
-                                <div id="errorMsg">{{ form.non_field_errors }}</div>
-                            {% endif %}
+                            {% if form.non_field_errors %}<div id="errorMsg">{{ form.non_field_errors }}</div>{% endif %}
                             {% for base_account in accounts %}
                                 {% with base_account.get_provider_account as account %}
                                     <div class="form-check">
                                         <label for="id_account_{{ base_account.id }}" class="form-check-label">
-                                            <input id="id_account_{{ base_account.id }}" type="radio" name="account" value="{{ base_account.id }}" class="form-check-input"/>
-                                            <span class="socialaccount_provider {{ base_account }} {{ account.get_brand.id }}">{{account.get_brand.name}}</span>
+                                            <input id="id_account_{{ base_account.id }}"
+                                                   type="radio"
+                                                   name="account"
+                                                   value="{{ base_account.id }}"
+                                                   class="form-check-input" />
+                                            <span class="socialaccount_provider {{ base_account }} {{ account.get_brand.id }}">{{ account.get_brand.name }}</span>
                                             {{ account }}
                                         </label>
                                     </div>
                                 {% endwith %}
                             {% endfor %}
-
                             <br>
                             <div>
                                 <button type="submit" class="btn btn-outline-danger">{{ trans.remove }}</button>
                             </div>
                         </fieldset>
                     </form>
-
                 {% else %}
                     <p>{{ trans.noconnected_social }}</p>
                 {% endif %}
-
             {% endif %}
         </div>
     </div>
     &nbsp;
-{% endblock %}
-
+{% endblock card-body %}
 {% block card-footer %}
-    {% get_template_set 'accounts' as trans %}
+    {% get_template_set "accounts" as trans %}
     <div class="text-center">
         <small>
-            <a href="{% url 'account_delete' request.user.url %}" class="btn btn-sm btn-outline-danger">{{ trans.delete_account }}</a>
+            <a href="{% url "account_delete" request.user.url %}"
+               class="btn btn-sm btn-outline-danger">{{ trans.delete_account }}</a>
         </small>
     </div>
-{% endblock %}
+{% endblock card-footer %}

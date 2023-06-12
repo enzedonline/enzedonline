@@ -1,15 +1,15 @@
-{% extends 'account/base_card.html' %}
+{% extends "account/base_card.html" %}
 
 {% load static core_tags %}
 
 {% block card-header %}
-  {% get_template_set 'allauth social' as trans %}
+  {% get_template_set "allauth social" as trans %}
   <title>EnzedOnline - {{ trans.signup_title }}</title>    
   <h3>{{ trans.signup_title }}</h3>
-{% endblock %}
+{% endblock card-header %}
 
 {% block card-body %}
-  {% get_template_set 'allauth social' as trans %}
+  {% get_template_set "allauth social" as trans %}
   <div class="row">
     <div class="col-10 text-start">
       {% if process == "connect" %}
@@ -24,8 +24,7 @@
       <img 
         alt="{{ provider.name }}" 
         class="avatar mb-3" 
-        style="min-width: 40px;max-width: 80px;width: 80%" 
-        src="{% static 'images/' %}{{ provider.name }}logo.png"
+        src="{% static "images/" %}{{ provider.name }}logo.png"
       >
     </div>
   </div>
@@ -36,6 +35,5 @@
     <button type="submit" class="btn btn-primary">{{ trans.continue }}</button>
     </div>
   </form>
-
 
 {% endblock card-body %}

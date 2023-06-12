@@ -9,9 +9,9 @@
 {% padding self.border self.background as pad %}
 
 <div class="block-container">
-  <div class="card {{ self.background }}{% if not self.border %} border-0{% endif %} p-{{pad}} {% if full_height %} h-100{% endif %}">
+  <div class="card {{ self.background }}{% if not self.border %} border-0{% endif %} rounded-3 p-{{ pad }} {% if full_height %} h-100{% endif %}">
     <div class="card-body p-0 lh-sm">
-      <div style="text-align: center;">  
+      <div class="mx-auto">  
         <picture>
           <source media="(max-width: 500px)" sizes="(max-width: 500px) 500px" srcset="{{ webp_img_w_500.url }} 500w" type="image/webp">
           <source media="(max-width: 750px)" sizes="(max-width: 750px) 750px" srcset="{{ webp_img_w_750.url }} 750w" type="image/webp">
@@ -20,7 +20,7 @@
           <img
             src="{{ fallback.url }}"
             alt="{{ self.image.seo_title }}"
-            style="width: 100%; height: auto;"
+            class="image-w-100-auto"
           >
         </picture>
       </div>

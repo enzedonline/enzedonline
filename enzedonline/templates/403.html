@@ -3,7 +3,7 @@
 {% block content %}
     {% get_template_set 'page-error' as trans %}
     <title>{{ trans.403_title }}</title>
-    <div class="container-fluid text-center" style="position: absolute; top: 50%;-ms-transform: translateY(-50%); transform: translateY(-50%);" >
+    <div class="container-fluid text-center centre-screen">
         <div class="px-3">
             <p><i class="far fa-hand-paper fa-3x text-danger"></i></p>
             <h1>{{ trans.403_heading }}</h1>
@@ -11,4 +11,4 @@
             <h5>{{ trans.bug_part_1 }} <a href='{{ contact.url }}'> {{ trans.bug_part_2 }}</a>.</h5>
         </div>
     </div>
-{% endblock %}
+{% endblock content %}

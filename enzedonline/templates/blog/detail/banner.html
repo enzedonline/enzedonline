@@ -18,7 +18,7 @@
       <img
         src="{{ fallback.url }}"
         alt="{{ self.title }}"
-        style="width: 100%; height: auto;"
+        class="banner-image"
       >
     </picture>
     {% if blog_index.banner_headline or blog_index.banner_small_text %}
@@ -30,13 +30,13 @@
         {% endif %} 
         {% if blog_index.banner_small_text %}
           <div class="banner-subheading">
-            <a href="{{ blog_index.url }}" class="text-light" style="text-decoration: none;">{{ blog_index.banner_small_text }}</a>
+            <a href="{{ blog_index.url }}" class="text-light text-decoration-none">{{ blog_index.banner_small_text }}</a>
           </div>
         {% endif %}
       </div>
     {% endif %}
   </div>
 
-{% endwith%}
+{% endwith %}
 
 {% endcache %}

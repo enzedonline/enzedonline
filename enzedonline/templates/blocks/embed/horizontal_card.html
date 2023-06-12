@@ -5,15 +5,15 @@
 {% endif %}
 <div class="{% card_layout self %}">
   <div class="{{ layout.row_class }}">
-    <div class="{{ layout.image_column }} size-{{block.id}}">
-      {% include 'blocks/embed/image.html' %}
+    <div class="{{ layout.image_column }} size-{{ block.id }}">
+      {% include "blocks/embed/image.html" %}
     </div>      
     <div class="col">
       <div class="{{ layout.text_column }}">
         <h5 class="card-title fw-bolder pt-3">{{ self.title }}</h5>
         <p class="lh-sm">{{ self.description|linebreaksbr }}</p>
       </div>
-      {% include 'blocks/embed/button.html' %}
+      {% include "blocks/embed/button.html" %}
     </div>
   </div>
 </div>

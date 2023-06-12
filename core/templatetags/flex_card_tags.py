@@ -15,7 +15,7 @@ def card_layout(value):
         padding = 'p-0'
     else:
         padding = f"p-4{'' if value['format'] == 'vertical' else ' pt-0'}"
-    border = f"border{'' if value['border'] else '-0'}"
+    border = f"rounded-3 border{'' if value['border'] else '-0'}"
     return f"{value['background']} {padding} h-100 {border}"
 
 @register.simple_tag()

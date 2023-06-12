@@ -68,10 +68,9 @@
                         <source media="(max-width: 1500px)" sizes="(max-width: 1500px) 1500px" srcset="{{ webp_img_w_1500.url }} 1500w" type="image/webp">
                         <source media="(min-width: 1501px)" sizes="(min-width: 1501px) 1501px" srcset="{{ webp_img_w_1800.url }} 1800w" type="image/webp">
                         <img
-                            class="d-block w-100"
+                            class="d-block w-100 image-w-100-auto"
                             src="{{ fallback.url }}"
                             alt="{{ slide.value.image.seo_title }}"
-                            style="width: 100%; height: auto"
                         >
                     </picture>
                     {% if slide.value.title or slide.value.caption %}

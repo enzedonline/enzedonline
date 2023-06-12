@@ -4,7 +4,7 @@
 
 <div class="block-container enzed-blockquote {{ self.background }}">
   <div class="row">
-    <div class="col-1 mb-auto" style="min-width: 4rem;">
+    <div class="col-1 mb-auto enzed-blockquote-marks-container">
       <svg height="40" width="40">
         <use 
         href="{% static quotes.open %}#svg"
@@ -14,7 +14,7 @@
     <div class="col my-auto">
       {{ self.text | linebreaksbr }}
     </div>
-    <div class="col-1 mt-auto" style="min-width: 4rem;">
+    <div class="col-1 mt-auto enzed-blockquote-marks-container">
       <svg height="40" width="40">
         <use 
         href="{% static quotes.close %}#svg"
@@ -24,11 +24,11 @@
   </div>
   {% if self.attribute_name %}
     <div class="row">
-      <div class="col-1" style="min-width: 4rem;"></div>
+      <div class="col-1 enzed-blockquote-marks-container"></div>
         <div class="col">
           <div class="attribution">{{ self.attribute_name }}</div>
         </div>
-      <div class="col-1" style="min-width: 4rem;"></div>
+      <div class="col-1 enzed-blockquote-marks-container"></div>
     </div>
   {% endif %}
 </div>

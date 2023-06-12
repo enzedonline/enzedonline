@@ -9,7 +9,7 @@
     Assumes image for each language uploaded to Wagtail with title 'flag-lang_code' (eg flag-en, flag-fr etc)  
 {% endcomment %}
 
-<div class="collapse navbar-collapse order-2 dual-collapse2" style="max-width: 50px;" id="language-switcher">
+<div class="collapse navbar-collapse order-2 dual-collapse2 language-switcher" id="language-switcher">
     <ul class="navbar-nav ms-auto bd-example-container-sidebar">   
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
@@ -23,7 +23,7 @@
                         {% image lang.flag fill-16x11 class="image-menu" %}&nbsp;
                         {{ lang.language }}
                     </a>
-                    {{ lang.alternate | safe}}
+                    {{ lang.alternate | safe }}
                 {% endfor %}
                 {{ switcher.default_link | safe }}
             </div>

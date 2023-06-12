@@ -4,7 +4,7 @@
 {% block content %}
     {% get_template_set 'accounts' as trans %}
     <title>Enzed Online - {{ trans.account_deleted_title }}</title>
-    <div class="text-center w-100" style="position: absolute; top: 50%;-ms-transform: translateY(-50%); transform: translateY(-50%);" >
+    <div class="text-center w-100 centre-screen" >
         <p><i class="fas fa-check fa-3x text-success"></i></p>
         <h2>{{ trans.account_deleted_message }}</h2>
     </div>
@@ -14,4 +14,4 @@
             window.location.href = "/";
         }, 2000);
     </script>
-{% endblock %}
+{% endblock content %}

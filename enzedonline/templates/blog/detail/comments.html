@@ -31,7 +31,7 @@
           <div class="row align-items-end">
             <div class="col-sm-6 col-md-5 form-group">
               {% with field=login_form.login %}
-                {% include "account/form_field.html"%}
+                {% include "account/form_field.html" %}
               {% endwith %}
             </div>
             <div class="col-sm-6 col-md-5 form-group">
@@ -40,7 +40,7 @@
               {% endwith %}
             </div>
             <div class="col-md-2 form-group">
-              <button id="id_submit_login_form" class="btn btn-outline-primary" style="font-size: var(--font-size-body);">
+              <button id="id_submit_login_form" class="btn btn-outline-primary">
                 {{ trans.sign_in }}
               </button>
             </div>
@@ -48,11 +48,11 @@
           {# Social Connections #}
           {% get_providers as socialaccount_providers %}
           {% if socialaccount_providers %}
-              {{ trans.connect_with_social}}
+              {{ trans.connect_with_social }}
               <div class="py-2">
               {% for provider in socialaccount_providers %}
                   <a title="{{ provider.name }}" class="socialaccount_provider {{ provider.id }} social-login-link" 
-                      href="{% provider_login_url provider.id process="login" next=request.path  scope=scope auth_params=auth_params %}" rel="nofollow">
+                      href="{% provider_login_url provider.id process="login" next=request.path scope=scope auth_params=auth_params %}" rel="nofollow">
                       <img alt="{{ provider.name }}" class="social-login-icon" src="{% static 'images/' %}{{ provider.name }}logo.png" width="40" height="40">
                   </a>
               {% endfor %}

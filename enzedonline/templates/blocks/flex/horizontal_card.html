@@ -5,15 +5,15 @@
 {% endif %}
 <div class="{% card_layout self %}">
   <div class="{{ layout.row_class }}">
-    <div class="{{ layout.image_column }} size-{{block.id}}">
-      {% include 'blocks/flex/image.html' %}
+    <div class="{{ layout.image_column }} size-{{ block.id }}">
+      {% include "blocks/flex/image.html" %}
     </div>      
     <div class="col">
       <div class="d-flex flex-column h-100">
         <div class="{{ layout.text_column }}">
           {% include_block self.text %}
         </div>
-        {% include 'blocks/flex/button.html' %}
+        {% include "blocks/flex/button.html" %}
       </div>
     </div>
   </div>

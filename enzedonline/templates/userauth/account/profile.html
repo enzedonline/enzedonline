@@ -1,16 +1,12 @@
-{% extends 'account/base_card.html' %}
-
+{% extends "account/base_card.html" %}
 {% load core_tags %}
-
 {% block card-header %}
-    {% get_template_set 'accounts' as trans %}
+    {% get_template_set "accounts" as trans %}
     <title>Enzed Online - {{ trans.profile_title }}</title>
     <h3>{{ trans.profile_title }}</h3>
-{% endblock %}
-
+{% endblock card-header %}
 {% block card-body %}
-    {% get_template_set 'accounts' as trans %}
-
+    {% get_template_set "accounts" as trans %}
     <div class="container">
         <div class="row">
             <div class="col-md-6 pb-2">
@@ -25,28 +21,32 @@
         <div class="row pb-2">
             <div class="col-sm-6 pb-2">
                 <p class="alert alert-light p-2 mb-2">{{ trans.first_name }}</p>
-                <span class="ps-2">{{ request.user.first_name|default:'-' }}</span>
+                <span class="ps-2">{{ request.user.first_name|default:"-" }}</span>
             </div>
             <div class="col-sm-6 pb-2">
                 <p class="alert alert-light p-2 mb-2">{{ trans.last_name }}</p>
-                <span class="ps-2">{{ request.user.last_name|default:'-' }}</span>
+                <span class="ps-2">{{ request.user.last_name|default:"-" }}</span>
             </div>
         </div>
         <div class="row pb-2">
             <div class="col-sm-6 pb-2">
                 <p class="alert alert-light p-2 mb-2">{{ trans.city }}</p>
-                <span class="ps-2">{{ request.user.city|default:'-' }}</span>
+                <span class="ps-2">{{ request.user.city|default:"-" }}</span>
             </div>
             <div class="col-sm-6 pb-2">
                 <p class="alert alert-light p-2 mb-2">{{ trans.country }}</p>
-                <span class="ps-2">{{ request.user.country|default:'-' }}</span>
+                <span class="ps-2">{{ request.user.country|default:"-" }}</span>
+            </div>
+        </div>
+        <div class="row pb-2">
+            <div class="col-12 pb-2">
+                <p class="alert alert-light p-2 mb-2">{{ trans.website }}</p>
+                <span class="ps-2">{{ request.user.website|default:"-" }}</span>
             </div>
         </div>
     </div>
-
-{% endblock %}
-
+{% endblock card-body %}
 {% block card-footer %}
-    {% get_template_set 'accounts' as trans %}
-    <a href="{% url 'account_update' request.user.url %}">{{ trans.update_profile }}</a>
-{% endblock %}
+    {% get_template_set "accounts" as trans %}
+    <a href="{% url "account_update" request.user.url %}">{{ trans.update_profile }}</a>
+{% endblock card-footer %}

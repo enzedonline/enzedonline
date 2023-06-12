@@ -1,15 +1,15 @@
-{% load static wagtailimages_tags  %}
+{% load static wagtailimages_tags %}
 {% image post.localized.search_image thumbnail-500x250 format-webp as webp_img_w_500 %} 
 {% image post.localized.search_image thumbnail-500x250 as fallback %}
 
-<div class="card p-2" style="max-width: 500px;">
+<div class="card p-2 page-card">
     <div class="px-1 py-2">
         <picture>
             <source media="(min-width: 1px)" sizes="(min-width: 1px) 1px" srcset="{{ webp_img_w_500.url }} 500w" type="image/webp">
             <img
                 src="{{ fallback.url }}"
                 alt="{{ post.localized.title }}"
-                style="width: 100%; height: auto"
+                class="image-w-100-auto"
             >
         </picture>
     </div>
@@ -18,13 +18,13 @@
         <div class="blog-summary">
             {{ post.summary|linebreaksbr }}
         </div>
-        <div class="blog-date" id="post_{{post.localized.pk}}"></div>
+        <div class="blog-date" id="post_{{ post.localized.pk }}"></div>
     </div>
-    <a href="{{post.localized.url}}{{filter.qstring}}" class="stretched-link" aria-label="Read {{ post.localized.title }}"></a>
+    <a href="{{ post.localized.url }}{{ filter.qstring }}" class="stretched-link" aria-label="Read {{ post.localized.title }}"></a>
 </div>
 <script>
     localDateTime(
         document.getElementById("post_{{post.localized.pk}}"),
-        new Date('{{ post.localized.first_published_at|date:"Y-m-d H:i:s" }}')
+        new Date("{{ post.localized.first_published_at|date:"Y-m-d H:i:s" }}")
         );
 </script>

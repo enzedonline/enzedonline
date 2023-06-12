@@ -1,13 +1,13 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 {% load static wagtailcore_tags latest_blog_posts_block_tags %}
 
 {% block extra_head %}
-    <link rel="stylesheet" href="{% static 'css/flexmasonry.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static "css/flexmasonry.css" %}" type="text/css">
 {% endblock extra_head %}
 
 {% block extra_scripts %}
-    <script src="{% static 'js/flexmasonry.js' %}"></script>
-    <script src="{% static 'js/flexmasonry.extra.js'%}"></script>
+    <script src="{% static "js/flexmasonry.js" %}"></script>
+    <script src="{% static "js/flexmasonry.extra.js"%}"></script>
 {% endblock extra_scripts %}
 
 {% block content %}
@@ -23,11 +23,11 @@
     {% endif %}
 </div>
 
-<div class="container-fluid w-100" style="gap: 1.5rem;">
+<div class="container-fluid w-100 gap-1.5">
     {% get_latest_posts 12 as posts %}
     {% if posts %}
-        {% include 'core/blog_posts.html' %}
+        {% include "core/blog_posts.html" %}
     {% endif %}
 </div>
 
-{% endblock %}
+{% endblock content %}

@@ -1,20 +1,20 @@
-{% extends 'account/base_card.html' %}
+{% extends "account/base_card.html" %}
 
 {% load core_tags socialaccount redirect %}
 
 {% block card-header %}
-    {% get_template_set 'accounts' as trans %}
+    {% get_template_set "accounts" as trans %}
     <title>Enzed Online - {{ trans.sign_up }}</title>
     <h3>{{ trans.sign_up }}</h3>
-{% endblock %}
+{% endblock card-header %}
 
 {% block card-body %}
-    {% get_template_set 'accounts' as trans %}
+    {% get_template_set "accounts" as trans %}
 
     {% get_providers as socialaccount_providers %}
     {% get_next_url request as next_url %}
 
-    <form method="POST" action="{% url 'account_signup' %}" class="needs-validation" novalidate>
+    <form method="POST" action="{% url "account_signup" %}" class="needs-validation" novalidate>
         {% csrf_token %}
         <div class="form-row">
             <div class="form-group col-md-6">
@@ -40,6 +40,11 @@
                 {% with field=form.last_name %}{% include "account/form_field.html" %}{% endwith %}
             </div>
         </div>
+        <div class="form-row">
+            <div class="form-group col-12">
+                {% with field=form.website %}{% include "account/form_field.html" %}{% endwith %}
+            </div>
+        </div>
         <button type="submit" class="btn btn-primary">{{ trans.sign_up }}</button>
     </form>
     {% if socialaccount_providers %}
@@ -48,9 +53,9 @@
         {% include "socialaccount/provider_list.html" with process="login" next=next_url %}
     {% endif %}
 
-{% endblock %}
+{% endblock card-body %}
 
 {% block card-footer %}
-    {% get_template_set 'accounts' as trans %}
-    <p>{{ trans.existing_account_question }} <a href="{% url 'account_login' %}" rel="nofollow">{{ trans.sign_in }}</a></p>
-{% endblock %}
+    {% get_template_set "accounts" as trans %}
+    <p>{{ trans.existing_account_question }} <a href="{% url "account_login" %}" rel="nofollow">{{ trans.sign_in }}</a></p>
+{% endblock card-footer %}

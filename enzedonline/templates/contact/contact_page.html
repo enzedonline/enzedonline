@@ -1,9 +1,9 @@
-{% extends 'base.html' %} 
+{% extends "base.html" %} 
 {% load adv_cache wagtailcore_tags widget_tweaks contact_page_tags wagtailimages_tags %} 
 
 {% block extra_head %}
   {% cache None cache_name "structure" cache_date %}
-    {% include 'contact/structured_data.html' %}
+    {% include "contact/structured_data.html" %}
   {% endcache %} 
 {% endblock extra_head %}
 
@@ -39,7 +39,7 @@
               <img
                 src="{{ fallback.url }}"
                 alt="{{ self.intro_image.title }}"
-                style="width: 100%; height: auto;"
+                class="image-w-100-auto"
               >
             </picture>
           </div>
@@ -49,7 +49,7 @@
         </div>
 
       </div>
-      <div class ="col-md-auto ps-5 me-5 divider-md"></div>
+      <div class="col-md-auto ps-5 me-5 divider-md"></div>
     {% endcache %}
 
     {# Column break at md, hide border below this width #}
@@ -82,7 +82,7 @@
             {% for field in form.visible_fields %} 
               {% field_class field as field_class %}
               {# Check box not displaying correctly by default, use case here #}
-              {% if field_class == 'checkbox' %}
+              {% if field_class == "checkbox" %}
                 <div class="form-check mt-4 ml-1">
                   {% if form.is_bound %} 
                     {% if field.errors %} 
@@ -99,7 +99,7 @@
                 </div>
               {% else %}
                 <div class="font-label pt-2 pb-1">
-                  {% if field.name != 'wagtailcaptcha' %}{{ field.label_tag }}{% endif %}
+                  {% if field.name != "wagtailcaptcha" %}{{ field.label_tag }}{% endif %}
                 </div>
                 {% if form.is_bound %} 
                   {% if field.errors %} 
@@ -108,10 +108,10 @@
                     {% render_field field class="form-control is-valid form-control-sm" %} 
                   {% endif %} 
                 {% else %} 
-                  {% if field.name == 'wagtailcaptcha' %}
+                  {% if field.name == "wagtailcaptcha" %}
                     {% render_field field %} 
                   {% else %}
-                    {% if field.name == 'wagtailcaptcha' %}
+                    {% if field.name == "wagtailcaptcha" %}
                       {% render_field field %} 
                     {% else %}
                       {% render_field field class="form-control form-control-sm" %} 
@@ -119,9 +119,9 @@
                   {% endif %}
                 {% endif %} 
               {% endif %}
-              {% if field.errors or field.help_text%}
+              {% if field.errors or field.help_text %}
               <div class="row">
-                {% if field.name == 'wagtailcaptcha' %}
+                {% if field.name == "wagtailcaptcha" %}
                   {% if field.errors %}
                     <ul class="list-unstyled pl-3">
                       {% for error in field.errors %}
@@ -132,7 +132,7 @@
                     </ul>
                   {% endif %}
                 {% else %}
-                  <div {% if field.errors %}class="col"{% else %}class="col-auto"{% endif%}>
+                  <div {% if field.errors %}class="col"{% else %}class="col-auto"{% endif %}>
                     {% if field.help_text %}
                       <small class="form-text text-muted">{{ field.help_text|linebreaksbr }}<br>&nbsp;</small>
                     {% else %}
@@ -163,5 +163,5 @@
   </div>
 </div>
 
-{% endblock %}
+{% endblock content %}
 

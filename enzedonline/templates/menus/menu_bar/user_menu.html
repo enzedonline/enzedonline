@@ -17,31 +17,36 @@
                    data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                     {% if request.user.is_authenticated %}
                         <span class="text-white">
-                            <svg style="width:1.25em; height:1.3em; margin-right: -0.15em;">
+                            <svg class="navbar-user-icon">
                                 <use href="{% static 'svg/user-logged-in.svg' %}#user" fill="currentColor" />
                             </svg>                  
                         </span>
-                        <span style="margin-right: -0.15em;">{{ trans.profile }}</span>
+                        <span class="navbar-user-icon-caption">{{ trans.profile }}</span>
                     {% else %}
                         <span class="text-white">
-                            <svg style="width:1.25em; height:1.3em; margin-right: -0.15em;">
+                            <svg class="navbar-user-icon">
                                 <use href="{% static 'svg/user-logged-out.svg' %}#user" fill="currentColor" />
                             </svg>                                              
                         </span>
-                        <span style="margin-right: -0.15em;">{{ trans.login }}</span>
+                        <span class="navbar-user-icon-caption">{{ trans.login }}</span>
                     {% endif %}
                 </a>
                 <div class="dropdown-menu dropdown-menu-end">
                     {% if request.user.is_authenticated %}
                             <span class="dropdown-label">
                                 {{ trans.logged_in_as }}<br>
-                                {{ request.user.display_name }}
+                                {% if request.user.display_name %}
+                                    {{ request.user.display_name }}
+                                {% else %}
+                                    {{ request.user.first_name }} {{ request.user.last_name }}
+                                {% endif %}
+                                
                             </span>
                         <hr class="dropdown-divider">
                     {% endif %}
                     {% for subitem in user_menu_items %}
                         {% if not subitem.is_submenu %}
-                            <a class="dropdown-item{% if request.path == subitem.url %} active{% endif %}" href="{{subitem.url}}" rel="nofollow">
+                            <a class="dropdown-item{% if request.path == subitem.url %} active{% endif %}" href="{{ subitem.url }}" rel="nofollow">
                                 {% if subitem.icon %}
                                     {% image subitem.icon fill-25x25 class="image-menu" %}
                                 {% endif %}
@@ -57,7 +62,7 @@
                             <p class="dropdown-row">
                                 {% for provider in socialaccount_providers %}
                                     <a title="{{ provider.name }}" class="socialaccount_provider {{ provider.id }} social-login-link" 
-                                        href="{% provider_login_url provider.id process="login" next=request.path  scope=scope auth_params=auth_params %}" rel="nofollow">
+                                        href="{% provider_login_url provider.id process="login" next=request.path scope=scope auth_params=auth_params %}" rel="nofollow">
                                         <img alt="{{ provider.name }}" class="social-login-icon" src="{% static 'images/' %}{{ provider.name }}logo.png">
                                     </a>
                                 {% endfor %}
