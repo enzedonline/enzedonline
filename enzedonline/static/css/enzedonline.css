@@ -898,6 +898,32 @@ code,
   border-radius: 0.3rem;
 }
 
+.callout-block pre[class*="language-"] {
+  padding: 0.7em 1em 0.9em 1em;
+  margin: 0 0 -0.5em 0;
+  line-height: 1!important;
+  font-size: var(--font-size-body);
+}
+
+.callout-block .toolbar-item {
+  vertical-align: 1em;
+  font-size: 0.9em;
+  font-family: var(--font-family-body);
+}
+
+.callout-block-heading {
+  padding-top: 0.5rem;
+  margin-bottom: -0.5rem;
+  font-family: var(--font-family-headings);
+  font-size: var(--font-size-5);
+  font-weight: bold;
+}
+
+.blockquote.callout-block {
+  padding: 0.5rem 1.8rem 0.5rem 1.8rem;
+  font-weight: normal;
+}
+
 .bg-info .inline-code {
   color: floralwhite;
   background-color: #272822f0;

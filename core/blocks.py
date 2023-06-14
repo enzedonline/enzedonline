@@ -656,6 +656,26 @@ class BlogCodeBlock(StructBlock):
         icon = "code"
         label = _("Code Block")
 
+class CalloutHeadingStructBlock(StructBlock):
+    icon = CharBlock(label=_("Font Awesome Icon Class"), required=False)
+    text = CharBlock(label=_("Heading Text"), required=False)
+
+    class Meta:
+        label = _("Optional Heading")
+
+class CalloutStreamBlock(StreamBlock):
+    text = SimpleRichTextBlock()
+    code = BlogCodeBlock()
+
+class CalloutBlock(StructBlock):
+    heading = CalloutHeadingStructBlock(required=False)
+    content = CalloutStreamBlock()
+
+    class Meta:
+        template = "blocks/callout_block.html"
+        icon = "warning"
+        label = _("Callout Block")
+
 class DocumentBlock(StructBlock):
     document = DocumentChooserBlock(
         label=_("Document")
@@ -840,8 +860,9 @@ class CSVTableBlock(StructBlock):
 class BaseStreamBlock(StreamBlock):
     richtext_block = SimpleRichTextBlock()
     code_block = BlogCodeBlock()
-    image_block = ImageBlock()
+    callout_block = CalloutBlock()
     heading_block = HeadingBlock()
+    image_block = ImageBlock()
     table_of_contents = TableOfContentsBlock()
     link_button = Link()
     flex_card = FlexCard()
