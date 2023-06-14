@@ -25,11 +25,15 @@ class SignupForm(forms.Form):
         user.save()
 
 class WagtailUserCreationForm(UserCreationForm):
+    display_name = forms.CharField(max_length=30, label=_("Display name"), help_text=_("Will be shown e.g. when commenting."))
+    website = forms.CharField(max_length=30, label=_("Website"))
+
     class Meta(UserCreationForm.Meta):
         model = CustomUser
-        # widgets = {'date_of_birth': forms.DateInput(attrs={'type':'date'})}
 
 class WagtailUserEditForm(UserEditForm):
+    display_name = forms.CharField(max_length=30, label=_("Display name"), help_text=_("Will be shown e.g. when commenting."))
+    website = forms.CharField(max_length=30, label=_("Website"))
+
     class Meta(UserEditForm.Meta):
         model = CustomUser
-        # widgets = {'date_of_birth': forms.DateInput(attrs={'type':'date'})}

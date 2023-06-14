@@ -1,0 +1,5 @@
+{% extends "wagtailusers/users/edit.html" %}
+{% block extra_fields %}
+    <li>{% include "wagtailadmin/shared/field.html" with field=form.display_name %}</li>
+    <li>{% include "wagtailadmin/shared/field.html" with field=form.website %}</li>
+{% endblock extra_fields %}
