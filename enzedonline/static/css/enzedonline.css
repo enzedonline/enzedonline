@@ -898,6 +898,10 @@ code,
   border-radius: 0.3rem;
 }
 
+code.prism-block {
+  padding-left: unset;
+}
+
 .callout-block pre[class*="language-"] {
   padding: 0.7em 1em 0.9em 1em;
   margin: 0 0 -0.5em 0;
