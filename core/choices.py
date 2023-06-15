@@ -119,18 +119,17 @@ class CodeChoiceBlock(DefaultChoiceBlock):
         ('python', 'Python'),
         ('css', 'CSS'),
         ('html', 'HTML'),
-        ('sql', 'SQL'),
         ('javascript', 'Javascript'),
+        ('bash', 'Bash/Shell'),
+        ('django', 'Django Template'),
         ('json', 'JSON'),
+        ('sql', 'SQL'),
         ('xml', 'XML'),
         ('git', 'Git'),
-        ('graphql', 'GraphQL'),
         ('powershell', 'PowerShell'),
         ('r', 'R'),
-        ('vb', 'VB6'),
         ('vba', 'VBA'),
         ('vbnet', 'VB.NET'),
-        ('bash', 'Bash/Shell'),
     ]
 
 class VerticalAlignmentChoiceBlock(DefaultChoiceBlock):
