@@ -305,3 +305,8 @@ header {
 .tab {
   white-space: pre;
 }
+
+.tab::after {
+  content: "    ";
+  white-space: pre;
+}
