@@ -301,3 +301,7 @@ header {
 .page-explorer .listing .index .privacy-indicator {
   right: 0.8em;
 }
+
+.tab {
+  white-space: pre;
+}
