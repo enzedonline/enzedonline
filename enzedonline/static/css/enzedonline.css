@@ -904,7 +904,6 @@ code.prism-block {
 
 .callout-block pre[class*="language-"] {
   padding: 0.7em 1em 0.9em 1em;
-  margin: 0 0 -0.5em 0;
   line-height: 1!important;
   font-size: var(--font-size-body);
 }
@@ -917,7 +916,6 @@ code.prism-block {
 
 .callout-block-heading {
   padding-top: 0.5rem;
-  margin-bottom: -0.5rem;
   font-family: var(--font-family-headings);
   font-size: var(--font-size-5);
   font-weight: bold;
@@ -925,7 +923,11 @@ code.prism-block {
 
 .blockquote.callout-block {
   padding: 0.5rem 1.8rem 0.5rem 1.8rem;
-  font-weight: normal;
+}
+
+.callout-block p[data-block-key] {
+  font-family: var(--font-family-headings);
+  font-weight: 500;
 }
 
 .bg-info .inline-code {
