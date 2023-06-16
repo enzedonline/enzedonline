@@ -648,8 +648,12 @@ class MapBlock(StructBlock):
 class BlogCodeBlock(StructBlock):
     language = CodeChoiceBlock(default='python')
     code = TextBlock()
-    bottom_padding = BooleanBlock(label=_("Include extra space beneath code block?"))
-    
+    bottom_padding = BooleanBlock(
+        label=_("Include extra space beneath code block?"),
+        required=False,
+        default=True
+        )
+
     translatable_fields = []
 
     class Meta:
@@ -658,7 +662,15 @@ class BlogCodeBlock(StructBlock):
         label = _("Code Block")
 
 class CalloutHeadingStructBlock(StructBlock):
-    icon = CharBlock(label=_("Font Awesome Icon Class"), required=False)
+    icon = CharBlock(
+        label=_("Font Awesome Icon Class"), 
+        required=False,
+        help_text='<p style="font-size: smaller !important;line-height: 1.4;margin: 0 0 -1em 0;">\
+            fa-solid fa-triangle-exclamation fa-xl<span class="tab"></span>Warning<br>\
+            fa-regular fa-pen-to-square fa-xl<span class="tab"></span>Note<br>\
+            fa-solid fa-circle-info fa-xl<span class="tab"></span>Info\
+            </p>'
+        )
     text = CharBlock(label=_("Heading Text"), required=False)
 
     class Meta:
