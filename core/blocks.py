@@ -648,7 +648,8 @@ class MapBlock(StructBlock):
 class BlogCodeBlock(StructBlock):
     language = CodeChoiceBlock(default='python')
     code = TextBlock()
-
+    bottom_padding = BooleanBlock(label=_("Include extra space beneath code block?"))
+    
     translatable_fields = []
 
     class Meta:
