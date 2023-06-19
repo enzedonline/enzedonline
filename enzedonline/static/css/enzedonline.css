@@ -250,8 +250,13 @@ a {
   font-weight: 500;
 }
 
+.site-menu {
+  height: 4rem;
+}
+
 .banner-overlay-container {
   position: relative;
+  padding-top: 3.5rem;
 }
 
 .banner-overlay-text-block {
