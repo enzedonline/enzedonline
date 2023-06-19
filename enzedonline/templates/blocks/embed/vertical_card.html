@@ -7,7 +7,7 @@
 <div class="{% card_layout self %} size-{{ block.id }} mx-auto">
     {% include "blocks/embed/image.html" %}
     <div class="py-0 text-break">
-        <h5 class="card-title fw-bolder pt-3">{{ self.title }}</h5>
+        <p class="h5 card-title fw-bolder pt-3">{{ self.title }}</p>
         <p class="lh-sm">{{ self.description|linebreaksbr }}</p>
     </div>
     {% include "blocks/embed/button.html" %}
