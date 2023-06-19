@@ -1,6 +1,10 @@
 {% extends "django_comments_xtd/base.html" %}
 {% load comments comments_xtd core_tags %}
 
+{% block header %}
+    {# Menu Spacer #}
+    <div class="menu-spacer">&nbsp;</div>
+{% endblock header %}
 
 {% block content %}
 {% get_template_set 'comments' as trans %}

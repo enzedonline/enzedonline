@@ -10,6 +10,11 @@
     <script src="{% static 'js/flexmasonry.extra.js'%}"></script>
 {% endblock extra_scripts %}
 
+{% block header %}
+    {# Menu Spacer #}
+    <div class="menu-spacer">&nbsp;</div>
+{% endblock header %}
+
 {% block content %}
 {% get_template_set 'search' as trans %}
 <title>Enzed Online - {{ trans.title }}</title>

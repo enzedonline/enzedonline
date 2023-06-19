@@ -251,7 +251,11 @@ a {
 }
 
 .site-menu {
-  height: 4rem;
+  height: 3.5rem;
+}
+
+.menu-spacer {
+  height: 3.5rem;
 }
 
 .banner-overlay-container {

@@ -5,7 +5,7 @@
 {% get_cache_key_settings as cache_settings %}
 {% cache None cache_settings.cache_name "menu" cache_settings.cache_date %}
 
-    <nav class="navbar navbar-expand-md navbar-dark bg-primary p-2 pe-md-1">
+    <nav class="navbar navbar-expand-md navbar-dark bg-primary p-2 pe-md-1 site-menu">
 
         {# Logo top left #}
         {% include "menus/menu_bar/logo.html" %}
