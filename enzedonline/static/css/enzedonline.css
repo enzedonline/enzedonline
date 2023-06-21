@@ -487,6 +487,11 @@ a {
   width: clamp(25px, 21.5000px + 0.8750vw, 32px);
 }
 
+.website-by {
+  font-weight: 300;
+  font-size: var(--font-size-6);
+}
+
 .dropdown-item {
   font-family: var(--font-family-headings);
 }
@@ -560,7 +565,6 @@ a {
   padding: 0 1em;
   min-width: 30rem;
   background: var(--bs-light);
-  margin-top: .7em !important;
 }
 
 .privacy-notice {
