@@ -190,12 +190,13 @@ class SEOPage(SEOPageMixin, Page):
 
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
-        context['cache_name'] = self.slug
-        context['cache_date'] = self.last_published_at
         try: # WSGI request has no is_preview - thrown on contact page
-            if request.is_preview:
+            if request.is_preview or settings.DEBUG:
                 context['cache_name'] = 'preview'
                 context['cache_date'] = datetime.now()
+            else:
+                context['cache_name'] = self.slug
+                context['cache_date'] = self.last_published_at
         except:
             pass
 
