@@ -638,6 +638,7 @@ a {
 
 .footer {
   width: 100% !important;
+  overflow: hidden;
 }
 
 .privacy-notice {
