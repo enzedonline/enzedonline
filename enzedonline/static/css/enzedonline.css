@@ -64,6 +64,7 @@ body {
   text-align: justify;
   max-width: 130rem;
   margin: auto;
+  overflow-x: hidden;
 }
 
 .h1,
