@@ -639,6 +639,11 @@ a {
 .footer {
   width: 100% !important;
   overflow: hidden;
+  background-color: rgb(2, 184, 117, 0.8) !important;
+}
+
+.footer .navbar {
+  width: 99% !important;
 }
 
 .privacy-notice {

@@ -4,7 +4,7 @@
 {% get_menu "privacy" as privacy_menu %}
 {% get_social_media_icons as social_media_icons %}
 <div class="footer">
-  <nav class="navbar navbar-dark bg-dark py-1">
+  <nav class="navbar navbar-transparent py-1">
     <div>
       <ul class="nav bg-transparent px-2">
         {% for icon in social_media_icons %}
@@ -26,8 +26,8 @@
         </span>
       {% endfor %}
     {% endif %}
-    <div class="py-0 mb-n3 d-none d-sm-block justify-content-end content-align-middle text-muted">
-      <a class="footer-nav-link" href="{% slugurl 'about' %}">
+    <div class="py-0 mb-n3 d-none d-sm-block justify-content-end text-end text-muted">
+      <a class="footer-nav-link pe-0" href="{% slugurl 'about' %}">
         <span class="website-by">Website by Enzed Online</span>
       </a>
     </div>
