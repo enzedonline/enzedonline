@@ -1,46 +1,32 @@
 {% load static i18n core_tags %}
 {% get_current_language as LANGUAGE_CODE %}
-
 <!DOCTYPE html>
 <html lang={{ LANGUAGE_CODE }}>
-
     {% if not request.path == "/" %}
-
-    <head>
-        {% include "head.html" %}
-        {% include "scripts.html" %}
-        {% block extra_head %}{% endblock extra_head %}
-        {% block extra_scripts %}{% endblock extra_scripts %}
-    </head>
-    
-    <body>
-
-        <header>
-            <div class="fixed-top">
-                {% include "menus/menu_bar.html" %}
-            </div>
-            {% block header %}{% endblock header %}
-        </header>
-
-        <main>
-            <div class="mt-1 mx-auto">
-                {% block content %}{% endblock content %}                
-                {% block extra_js %}{% endblock extra_js %}
-            </div>
-        </main>
-
-        <footer>
-            <div class="mx-auto mb-5">
-                {% block comments %}{% endblock comments %}
-                {% block next_prev %}{% endblock next_prev %}
-            </div>
-            <div class="fixed-bottom">
-                {% include "menus/footer.html" %}
-            </div>
-        </footer>
-
-    </body>
-
+        <head>
+            {% include "head.html" %}
+            {% include "scripts.html" %}
+            {% block extra_head %}{% endblock extra_head %}
+            {% block extra_scripts %}{% endblock extra_scripts %}
+        </head>
+        <body>
+            <header>
+                <div class="fixed-top">{% include "menus/menu_bar.html" %}</div>
+                {% block header %}{% endblock header %}
+            </header>
+            <main>
+                <div class="mt-1 mx-auto">
+                    {% block content %}{% endblock content %}
+                    {% block extra_js %}{% endblock extra_js %}
+                </div>
+            </main>
+            <footer>
+                <div class="mx-auto mb-5">
+                    {% block comments %}{% endblock comments %}
+                    {% block next_prev %}{% endblock next_prev %}
+                </div>
+                <div class="fixed-bottom">{% include "menus/footer.html" %}</div>
+            </footer>
+        </body>
     {% endif %}
-
 </html>

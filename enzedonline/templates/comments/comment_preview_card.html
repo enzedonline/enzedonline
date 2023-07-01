@@ -1,26 +1,26 @@
 <div class="row">
     <div class="col-md-12">
-    <div class="card bg-light mb-3">
-        <div class="row vw-80 comment-card">
-        <div class="col-auto ms-3 mt-2">
-            {% if request.user.display_name %}
-                <span class="text-primary text-center"><i class="fas fa-user fa-4x"></i></span>
-            {% else %}
-                <span class="text-secondary text-center"><i class="far fa-user fa-4x"></i></span>
-            {% endif %}
-        </div>
-        <div class="col ps-0">
-            <div class="card-body ps-0 py-1">
-            <p class="card-text">{{ comment|linebreaksbr }}</p>
-                <h6 class="card-text pb-0">
-                    -&nbsp;
-                    {% if form.cleaned_data.url %}
-                    <a href="{{ comment.user_url }}" target="_new" rel="nofollow">{% endif %}
-                    {{ form.cleaned_data.name }}{% if form.cleaned_data.url %}</a>{% endif %}
-                </h6>
+        <div class="card bg-light mb-3">
+            <div class="row vw-80 comment-card">
+                <div class="col-auto ms-3 mt-2">
+                    {% if request.user.display_name %}
+                        <span class="text-primary text-center"><i class="fas fa-user fa-4x"></i></span>
+                    {% else %}
+                        <span class="text-secondary text-center"><i class="far fa-user fa-4x"></i></span>
+                    {% endif %}
+                </div>
+                <div class="col ps-0">
+                    <div class="card-body ps-0 py-1">
+                        <p class="card-text">{{ comment|linebreaksbr }}</p>
+                        <p class="card-text h6 pb-0">
+                            <span class="pe-1">-</span>
+                            {% if form.cleaned_data.url %}<a href="{{ comment.user_url }}" target="_new" rel="nofollow">{% endif %}
+                                {{ form.cleaned_data.name }}
+                            {% if form.cleaned_data.url %}</a>{% endif %}
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
-        </div>
-    </div>
     </div>
 </div>

@@ -1,13 +1,10 @@
 {% extends "account/base_card.html" %}
-
 {% load static core_tags %}
-
 {% block card-header %}
   {% get_template_set "allauth social" as trans %}
-  <title>EnzedOnline - {{ trans.signup_title }}</title>    
+  <title>EnzedOnline - {{ trans.signup_title }}</title>
   <h3>{{ trans.signup_title }}</h3>
 {% endblock card-header %}
-
 {% block card-body %}
   {% get_template_set "allauth social" as trans %}
   <div class="row">
@@ -21,19 +18,13 @@
       {% endif %}
     </div>
     <div class="col-2 text-end">
-      <img 
-        alt="{{ provider.name }}" 
-        class="avatar mb-3" 
-        src="{% static "images/" %}{{ provider.name }}logo.png"
-      >
+      <img alt="{{ provider.name }}" class="avatar mb-3" src="{% static 'images/'|add:provider.name|add:'logo.png' %}">
     </div>
   </div>
-
   <form method="post">
     {% csrf_token %}
     <div class="text-end">
-    <button type="submit" class="btn btn-primary">{{ trans.continue }}</button>
+      <button type="submit" class="btn btn-primary">{{ trans.continue }}</button>
     </div>
   </form>
-
 {% endblock card-body %}

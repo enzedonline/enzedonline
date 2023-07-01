@@ -1,43 +1,53 @@
-{% extends 'account/base_card.html' %}
-
+{% extends "account/base_card.html" %}
 {% load core_tags %}
-
 {% block card-header %}
-    {% get_template_set 'allauth social' as trans %}
-    <title>EnzedOnline - {{ trans.signup_title }}</title>    
-    <h3>{{ trans.signup_title }}</h3>
-{% endblock %}
-
+    {% get_template_set "allauth social" as trans %}
+    <title>EnzedOnline - {{ trans.signup_title }}</title>
+    <p class="h3">{{ trans.signup_title }}</p>
+{% endblock card-header %}
 {% block card-body %}
-    {% get_template_set 'allauth social' as trans %}
-
-    <p>{{ trans.signup_warning1 }} {{ account.get_provider.name }} {{ trans.signup_warning2 }}
-    {{ site.name }}. {{ trans.signup_warning3 }}</p>
-
-    <form method="POST" action="{% url 'socialaccount_signup' %}" class="needs-validation" novalidate>
+    {% get_template_set "allauth social" as trans %}
+    <p>
+        {{ trans.signup_warning1 }} {{ account.get_provider.name }} {{ trans.signup_warning2 }}
+        {{ site.name }}. {{ trans.signup_warning3 }}
+    </p>
+    <form method="POST"
+          action="{% url 'socialaccount_signup' %}"
+          class="needs-validation"
+          novalidate>
         {% csrf_token %}
         <div class="form-row">
             <div class="form-group col-md-6">
-                {% with field=form.email %}{% include "account/form_field.html" %}{% endwith %}
+                {% with field=form.email %}
+                    {% include "account/form_field.html" %}
+                {% endwith %}
             </div>
             <div class="form-group col-md-6">
-                {% with field=form.display_name %}{% include "account/form_field.html" %}{% endwith %}
+                {% with field=form.display_name %}
+                    {% include "account/form_field.html" %}
+                {% endwith %}
             </div>
         </div>
         <div class="form-row">
             <div class="form-group col-md-6">
-                {% with field=form.first_name %}{% include "account/form_field.html" %}{% endwith %}
+                {% with field=form.first_name %}
+                    {% include "account/form_field.html" %}
+                {% endwith %}
             </div>
             <div class="form-group col-md-6">
-                {% with field=form.last_name %}{% include "account/form_field.html" %}{% endwith %}
+                {% with field=form.last_name %}
+                    {% include "account/form_field.html" %}
+                {% endwith %}
             </div>
         </div>
         <button type="submit" class="btn btn-outline-primary">{{ trans.signup_title }}</button>
     </form>
-
-{% endblock %}
-
+{% endblock card-body %}
 {% block card-footer %}
-    <p>{{ trans.signup_email }} <a href="{% url 'account_signup' %}">{{ trans.signup_title }}</a></p>
-    <p>{{ trans.account_already }} <a href="{% url 'account_login' %}">{{ sign_in_first }}</a>{{ trans.connect_existing_account }}</p>
-{% endblock %}
+    <p>
+        {{ trans.signup_email }} <a href="{% url 'account_signup' %}">{{ trans.signup_title }}</a>
+    </p>
+    <p>
+        {{ trans.account_already }} <a href="{% url 'account_login' %}">{{ sign_in_first }}</a>{{ trans.connect_existing_account }}
+    </p>
+{% endblock card-footer %}

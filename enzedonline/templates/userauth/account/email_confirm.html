@@ -1,32 +1,24 @@
-{% extends 'account/base_card.html' %}
-
+{% extends "account/base_card.html" %}
 {% load account core_tags %}
-
 {% block card-header %}
-    {% get_template_set 'accounts' as trans %}
+    {% get_template_set "accounts" as trans %}
     <title>Enzed Online - {{ trans.email_confirm_title }}</title>
     <h3>{{ trans.email_confirm_title }}</h3>
-{% endblock %}
-
+{% endblock card-header %}
 {% block card-body %}
-    {% get_template_set 'accounts' as trans %}
-
+    {% get_template_set "accounts" as trans %}
     {% if confirmation %}
-
-        <p>{{ trans.confirm_msg1 }} <a href="mailto:{{ confirmation.email_address.email }}">{{ confirmation.email_address.email }}</a> {{ trans.confirm_msg2 }}</p>
-
-        <form method="post" action="{% url 'account_confirm_email' confirmation.key %}">
+        <p>
+            {{ trans.confirm_msg1 }} <a href="mailto:{{ confirmation.email_address.email }}">{{ confirmation.email_address.email }}</a> {{ trans.confirm_msg2 }}
+        </p>
+        <form method="post"
+              action="{% url 'account_confirm_email' confirmation.key %}">
             {% csrf_token %}
             <button class="btn btn-success" type="submit">{{ trans.confirm }}</button>
         </form>
-
     {% else %}
-
         {% url 'account_email' as email_url %}
-
-        <p>{{ trans.email_link_expired }}</p> 
+        <p>{{ trans.email_link_expired }}</p>
         <a href="{{ email_url }}" class="btn btn-danger" role="button">{{ trans.email_expired_resend_button }}</a>
-
     {% endif %}
-
-{% endblock %}
+{% endblock card-body %}

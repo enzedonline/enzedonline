@@ -1,35 +1,27 @@
 {% load adv_cache core_tags %}
-
 {# Page top menu bar loaded on all pages #}
-
 {% get_cache_key_settings as cache_settings %}
 {% cache None cache_settings.cache_name "menu" cache_settings.cache_date %}
-
-    <nav class="navbar navbar-expand-md navbar-dark bg-primary p-2 pe-md-1 site-menu">
-
-        {# Logo top left #}
-        {% include "menus/menu_bar/logo.html" %}
-
-        {# Always visible menu - leave visible after collapse #}
-        {% include "menus/menu_bar/always_visible.html" %}
-
-        {# Search Menu #}
-        {% include "menus/menu_bar/search.html" %}
-
-        {# User Menu #}
-        {% include "menus/menu_bar/user_menu.html" %}
-
-        {# Main menu #}
-        {% include "menus/menu_bar/menu.html" %}
-
-        {# Collapse button #}
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".enzed-menu-collapse" 
-                aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-    </nav>
-
+<nav class="navbar navbar-expand-md navbar-dark bg-primary pe-md-1 site-menu">
+    {# Logo top left #}
+    {% include "menus/menu_bar/logo.html" %}
+    {# Always visible menu - leave visible after collapse #}
+    {% include "menus/menu_bar/always_visible.html" %}
+    {# Search Menu #}
+    {% include "menus/menu_bar/search.html" %}
+    {# User Menu #}
+    {% include "menus/menu_bar/user_menu.html" %}
+    {# Main menu #}
+    {% include "menus/menu_bar/menu.html" %}
+    {# Collapse button #}
+    <button class="navbar-toggler me-2"
+            type="button"
+            onmouseup="this.blur()"
+            data-bs-toggle="collapse"
+            data-bs-target=".enzed-menu-collapse"
+            aria-expanded="false"
+            aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+</nav>
 {% endcache %}
-
-  

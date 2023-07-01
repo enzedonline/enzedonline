@@ -1,7 +1,8 @@
 {% load flex_card_tags %}
-
 {% if self.link %}
-<div class="{% button_layout self %}">
-  <a class="btn {{ self.link.appearance }} {{ self.link.size }}" href="{{ self.link.url }}" role="button">{{ self.link.button_text }}</a>
-</div>
+  <div class="{% button_layout self %}">
+    <a class="btn {{ self.link.appearance }} {{ self.link.size }}"
+       href="{{ self.link.url }}"
+       role="button">{{ self.link.button_text }}</a>
+  </div>
 {% endif %}

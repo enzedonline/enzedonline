@@ -1,48 +1,45 @@
 {% extends "django_comments_xtd/base.html" %}
 {% load comments comments_xtd core_tags %}
-
 {% block header %}
-    {# Menu Spacer #}
-    <div class="menu-spacer">&nbsp;</div>
+  {# Menu Spacer #}
+  <div class="menu-spacer">&nbsp;</div>
 {% endblock header %}
-
 {% block content %}
-{% get_template_set 'comments' as trans %}
-<title>EnzedOnline - {{ trans.reply_header }}</title>
-<div class="container">
-  <div class="my-4">
-    <h3 class="text-center">{{ trans.reply_header }}</h3>
-    <hr>
-  </div>
-  <div class="row">
-    <div class="offset-md-1 col-md-10">
-      {% include 'comments/comment_card.html' %}
-      <div class="card mb-5">
-        <div class="card-body">
-          {% include "comments/form.html" %}
+  {% get_template_set "comments" as trans %}
+  <title>EnzedOnline - {{ trans.reply_header }}</title>
+  <div class="container">
+    <div class="my-4">
+      <h3 class="text-center">{{ trans.reply_header }}</h3>
+      <hr>
+    </div>
+    <div class="row">
+      <div class="offset-md-1 col-md-10">
+        {% include "comments/comment_card.html" %}
+        <div class="card mb-5">
+          <div class="card-body">{% include "comments/form.html" %}</div>
         </div>
       </div>
     </div>
   </div>
-</div>
-<script>
-respondToVisibility = function (element, callback) {
-  var options = {
-    root: document.documentElement,
-  };
-
-  var observer = new IntersectionObserver((entries, observer) => {
-    entries.forEach((entry) => {
-      callback(entry.intersectionRatio > 0);
-    });
-  }, options);
-
-  observer.observe(element);
-};
-respondToVisibility(document.getElementById("id_comment"), (visible) => {
-  if (visible) {
-    document.getElementById("id_comment").focus();
-  }
-});
-</script>
-{% endblock %}
+  <script>
+    const respondToVisibility = (element, callback) => {
+      const options = {
+        root: document.documentElement,
+      };
+    
+      const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach((entry) => {
+          callback(entry.intersectionRatio > 0);
+        });
+      }, options);
+    
+      observer.observe(element);
+    };
+    
+    respondToVisibility(document.getElementById("id_comment"), (visible) => {
+      if (visible) {
+        document.getElementById("id_comment").focus();
+      }
+    });    
+  </script>
+{% endblock content %}

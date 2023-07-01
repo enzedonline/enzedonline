@@ -1,13 +1,10 @@
 {% load static wagtailimages_tags latest_blog_posts_block_tags %}
-
 {% get_latest_posts value.post_count as posts %}
 {% if posts %}
     <div class="block-container">
         {% if value.group_label.content %}
-            <div class="container-fluid w-100 pt-4 px-0 mb-n2 justify-content-center">
-            {{ value.group_label.content }}
-            </div>
+            <div class="container-fluid w-100 pt-4 px-0 mb-n2 justify-content-center">{{ value.group_label.content }}</div>
         {% endif %}
-        {% include 'core/blog_posts.html' %}
+        {% include "core/blog_posts.html" %}
     </div>
 {% endif %}

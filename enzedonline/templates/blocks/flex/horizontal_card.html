@@ -1,18 +1,12 @@
 {% load wagtailcore_tags flex_card_tags %}
 {% row_layout self block.id as layout %}
-{% if layout.image_style %}
-<script>document.styleSheets[0].insertRule("{{ layout.image_style }}")</script>
-{% endif %}
+{% if layout.image_style %}<script>document.styleSheets[0].insertRule("{{ layout.image_style }}")</script>{% endif %}
 <div class="{% card_layout self %}">
   <div class="{{ layout.row_class }}">
-    <div class="{{ layout.image_column }} size-{{ block.id }}">
-      {% include "blocks/flex/image.html" %}
-    </div>      
+    <div class="{{ layout.image_column }} size-{{ block.id }}">{% include "blocks/flex/image.html" %}</div>
     <div class="col">
-      <div class="d-flex flex-column h-100">
-        <div class="{{ layout.text_column }}">
-          {% include_block self.text %}
-        </div>
+      <div class="d-flex flex-column h-100 pt-4">
+        <div class="{{ layout.text_column }}">{% include_block self.text %}</div>
         {% include "blocks/flex/button.html" %}
       </div>
     </div>

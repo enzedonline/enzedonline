@@ -1,8 +1,7 @@
 {% extends "base.html" %}
 {% load core_tags %}
-
 {% block content %}
-    {% get_template_set 'accounts' as trans %}
+    {% get_template_set "accounts" as trans %}
     <title>Enzed Online - {{ trans.account_deleted_title }}</title>
     <div class="text-center w-100 centre-screen" >
         <p><i class="fas fa-check fa-3x text-success"></i></p>
@@ -10,8 +9,6 @@
     </div>
     <script>
         {# Redirect to home page after 2 seconds #}
-        window.setTimeout(function(){
-            window.location.href = "/";
-        }, 2000);
+        setTimeout(() => {window.location.href = "/";}, 2000);          
     </script>
 {% endblock content %}

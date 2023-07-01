@@ -1,47 +1,52 @@
 {% load i18n comments core_tags %}
-{% get_template_set 'comments' as trans %}
-
-<form method="POST" action="{% comment_form_target %}" class="needs-validation" novalidate>
+{% get_template_set "comments" as trans %}
+<form method="POST"
+      action="{% comment_form_target %}"
+      class="needs-validation"
+      novalidate>
     {% csrf_token %}
     <fieldset>
-        <input type="hidden" name="next" value="{% url 'comments-xtd-sent' %}"/>
-
-        <div class="alert alert-danger" data-comment-element="errors" hidden>
-        </div>
-
+        <input type="hidden" name="next" value="{% url 'comments-xtd-sent' %}" />
+        <div class="alert alert-danger" data-comment-element="errors" hidden></div>
         {% for field in form %}
             {% if field.is_hidden %}<div>{{ field }}</div>{% endif %}
         {% endfor %}
-
         <div class="d-none">{{ form.honeypot }}</div>
-
         <div class="form-group mb-1">
-            {% with field=form.comment %}{% include "userauth/account/form_field.html" %}{% endwith %}
+            {% with field=form.comment %}
+                {% include "userauth/account/form_field.html" %}
+            {% endwith %}
         </div>
-
         {% if not request.user.is_authenticated %}
             <div class="form-group">
-                {% with field=form.name %}{% include "userauth/account/form_field.html" %}{% endwith %}
+                {% with field=form.name %}
+                    {% include "userauth/account/form_field.html" %}
+                {% endwith %}
             </div>
         {% endif %}
-
         {% if not request.user.is_authenticated or not request.user.email %}
             <div class="form-group">
-                {% with field=form.email %}{% include "userauth/account/form_field.html" %}{% endwith %}
+                {% with field=form.email %}
+                    {% include "userauth/account/form_field.html" %}
+                {% endwith %}
             </div>
         {% endif %}
-
         <div class="form-group custom-control custom-checkbox ms-1">
             <small>
                 {{ form.followup }}
-                <label for="id_followup{% if cid %}_{{ cid }}{% endif %}" class="custom-control-label">&nbsp;{{ form.followup.label }}</label>
+                <label for="id_followup{% if cid %}_{{ cid }}{% endif %}"
+                       class="custom-control-label ps-1">{{ form.followup.label }}</label>
             </small>
         </div>
-
     </fieldset>
-
     <div class="form-group">
-        <input type="submit" name="post" value="{{ trans.send }}" class="btn btn-primary me-3" />
-        <input type="submit" name="preview" value="{{ trans.preview }}" class="btn btn-secondary" />
+        <input type="submit"
+               name="post"
+               value="{{ trans.send }}"
+               class="btn btn-primary me-3" />
+        <input type="submit"
+               name="preview"
+               value="{{ trans.preview }}"
+               class="btn btn-secondary" />
     </div>
 </form>

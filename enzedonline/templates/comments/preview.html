@@ -1,44 +1,39 @@
 {% extends "django_comments_xtd/base.html" %}
 {% load comments_xtd core_tags %}
-
 {% block header %}
-    {# Menu Spacer #}
-    <div class="menu-spacer">&nbsp;</div>
+  {# Menu Spacer #}
+  <div class="menu-spacer">&nbsp;</div>
 {% endblock header %}
-
 {% block content %}
-{% get_template_set 'comments' as trans %}
-<title>EnzedOnline - {{ trans.preview_title }}</title>
-<div class="container">
-  <div class="my-4">
-    <h3 class="text-center">{{ trans.preview_header}}</h3>
-    <hr>
-  </div>
-  <p class="lead text-center">
-    {{ trans.previewing }}:<br>
-    <a href="{{ form.target_object.get_absolute_url }}">{{ form.target_object }}</a>
-  </p>
-  <div class="row">
-    <div class="col-md-12">
+  {% get_template_set "comments" as trans %}
+  <title>EnzedOnline - {{ trans.preview_title }}</title>
+  <div class="container">
+    <div class="my-4">
+      <h3 class="text-center">{{ trans.preview_header }}</h3>
       <hr>
-      {% if not comment %}
-        <div class="alert alert-warning" role="alert">
-          {{ trans.empty }}
-        </div>
-      {% else %}
-        <div class="row">
-          <div class="col-md-12">
-          {% include 'comments/comment_preview_card.html' %}
+    </div>
+    <p class="lead text-center">
+      {{ trans.previewing }}:
+      <br>
+      <a href="{{ form.target_object.get_absolute_url }}">{{ form.target_object }}</a>
+    </p>
+    <div class="row">
+      <div class="col-md-12">
+        <hr>
+        {% if not comment %}
+          <div class="alert alert-warning" role="alert">{{ trans.empty }}</div>
+        {% else %}
+          <div class="row">
+            <div class="col-md-12">{% include "comments/comment_preview_card.html" %}</div>
           </div>
-        </div>
-      {% endif %}
-      <div class="card mt-4 mb-5">
-        <div class="card-body">
-          <h4 class="card-title text-center pb-3">{{ trans.post_prompt }}</h4>
-          {% include "comments/form.html" %}
+        {% endif %}
+        <div class="card mt-4 mb-5">
+          <div class="card-body">
+            <h4 class="card-title text-center pb-3">{{ trans.post_prompt }}</h4>
+            {% include "comments/form.html" %}
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
-{% endblock %}
+{% endblock content %}

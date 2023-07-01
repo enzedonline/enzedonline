@@ -35,7 +35,7 @@
             </div>
             <div class="col-sm-6 pb-2">
                 <p class="alert alert-light p-2 mb-2">{{ trans.country }}</p>
-                <span class="ps-2">{{ request.user.country|default:"-" }}</span>
+                <span class="ps-2">{{ request.user.country.name|default:"-" }}</span>
             </div>
         </div>
         <div class="row pb-2">
@@ -48,5 +48,5 @@
 {% endblock card-body %}
 {% block card-footer %}
     {% get_template_set "accounts" as trans %}
-    <a href="{% url "account_update" request.user.url %}">{{ trans.update_profile }}</a>
+    <a href="{% url 'account_update' request.user.url %}">{{ trans.update_profile }}</a>
 {% endblock card-footer %}

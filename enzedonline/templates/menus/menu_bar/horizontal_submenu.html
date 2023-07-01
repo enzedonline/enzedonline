@@ -1,28 +1,28 @@
 {% load wagtailimages_tags menu_tags %}
-
 {% get_menu menu as submenu %}
 {% if submenu %}
     {% get_menu_items submenu request as sub_menu_items %}
     {% if sub_menu_items %}
-        <div class="d-grid gap-2 dropright"> 
+        <div class="d-grid gap-2 dropright">
             <button class="btn h-submenu" data-bs-toggle="dropdown">
-                {% if subitem.display_option != 'text' and submenu.icon %}
+                {% if subitem.display_option != "text" and submenu.icon %}
                     {% image submenu.icon fill-25x25 %}
                 {% endif %}
-                {% if subitem.display_option != 'icon'%}
-                    {{ submenu.title }}
-                {% endif %}
+                {% if subitem.display_option != "icon" %}{{ submenu.title }}{% endif %}
                 &nbsp;&nbsp;&nbsp;<i class="fa-solid fa-caret-right"></i>
             </button>
             <ul class="dropdown-menu dropdown-menu-left">
                 {% for subitem in sub_menu_items %}
                     {% if not subitem.is_submenu %}
-                        </li><a class="dropdown-item{% if request.path == subitem.url %} active{% endif %}" href="{{subitem.url}}">
-                            {% if subitem.icon %}
-                                {% image subitem.icon fill-25x25 class="image-menu" %}
-                            {% endif %}
-                            {{ subitem.title|truncatewords:6 }}
-                        </a></li>
+                        <li>
+                            <a class="dropdown-item{% if request.path == subitem.url %} active{% endif %}"
+                               href="{{ subitem.url }}">
+                                {% if subitem.icon %}
+                                    {% image subitem.icon fill-25x25 class="image-menu" %}
+                                {% endif %}
+                                {{ subitem.title|truncatewords:6 }}
+                            </a>
+                        </li>
                     {% endif %}
                 {% endfor %}
             </ul>

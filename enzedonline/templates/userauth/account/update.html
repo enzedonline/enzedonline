@@ -11,7 +11,7 @@
     <div class="row">
         <div class="col-md-8">
             <form method="POST"
-                  action="{% url "account_update" request.user.url %}"
+                  action="{% url 'account_update' request.user.url %}"
                   enctype="multipart/form-data"
                   class="needs-validation"
                   novalidate>
@@ -62,7 +62,7 @@
                 {% if accounts %}
                     <p>{{ trans.connected_social }}</p>
                     <form method="POST"
-                          action="{% url "socialaccount_connections" %}"
+                          action="{% url 'socialaccount_connections' %}"
                           class="needs-validation"
                           novalidate>
                         {% csrf_token %}
@@ -101,7 +101,7 @@
     {% get_template_set "accounts" as trans %}
     <div class="text-center">
         <small>
-            <a href="{% url "account_delete" request.user.url %}"
+            <a href="{% url 'account_delete' request.user.url %}"
                class="btn btn-sm btn-outline-danger">{{ trans.delete_account }}</a>
         </small>
     </div>

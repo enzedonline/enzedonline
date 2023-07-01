@@ -1,6 +1,5 @@
 {% load static adv_cache core_tags %}
 {% get_cache_key_settings as cache_settings %}
-
 {# Global javascript #}
 {% cache None cache_settings.cache_name 'scripts' cache_settings.cache_date %}
   <script src="{% static 'js/jquery-3.6.0.min.js'%}"></script>  
@@ -10,7 +9,6 @@
   <script defer src="{% static 'js/navbar.js'%}"></script>
   <script defer src="{% static 'js/facebook_sdk.js'%}"></script>
 {% endcache %}
-
 {# Analytics #}
 {% if debug is None and not request.is_preview and not request.user|is_in_group:"Editors" %}
   <script defer src="https://www.googletagmanager.com/gtag/js?id={{ settings.site_settings.Tokens.google_analytics }}"></script>

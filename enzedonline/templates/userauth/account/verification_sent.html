@@ -1,16 +1,11 @@
-{% extends 'account/base_card.html' %}
-
+{% extends "account/base_card.html" %}
 {% load core_tags %}
-
 {% block card-header %}
-    {% get_template_set 'accounts' as trans %}
+    {% get_template_set "accounts" as trans %}
     <title>Enzed Online - {{ trans.verification_sent_title }}</title>
     <h3>{{ trans.verification_sent_header }}</h3>
-{% endblock %}
-
+{% endblock card-header %}
 {% block card-body %}
-    {% get_template_set 'accounts' as trans %}
-
+    {% get_template_set "accounts" as trans %}
     <p>{{ trans.verficiation_sent_msg|linebreaksbr }}</p>
-
-{% endblock %}
+{% endblock card-body %}

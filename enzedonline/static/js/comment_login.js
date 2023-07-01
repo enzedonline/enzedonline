@@ -1,28 +1,29 @@
-$(document).ready(function () {
+document.addEventListener("DOMContentLoaded", () => {
+  const login_url = JSON.parse(document.getElementById("login_url").textContent);
 
-    const login_url = JSON.parse(document.getElementById("login_url").textContent);
-
-
-    $("#id_login_first_link").click(function (event) {
+  document.querySelector("#id_login_first_link").addEventListener("click", (event) => {
     event.preventDefault();
-    $("#id_login_form").show();
+    document.querySelector("#id_login_form").style.display = "block";
   });
 
-  $("#id_submit_login_form").click(function (event) {
+  document.querySelector("#id_submit_login_form").addEventListener("click", (event) => {
     event.preventDefault();
 
-    $.ajax({
-      type: "POST",
-      url: `"${login_url}"`,
-      data: $("#id_login_form").serialize(),
-      success: function (response, status) {
-        $("#id_login_form").hide();
-        $("#id_login_first_link").hide();
-        location.reload();
-      },
-      error: function (xhr, status, error) {
-        $("#id_login_form").submit();
-      },
-    });
+    fetch(login_url, {
+      method: "POST",
+      body: new FormData(document.querySelector("#id_login_form"))
+    })
+      .then((response) => {
+        if (response.ok) {
+          document.querySelector("#id_login_form").style.display = "none";
+          document.querySelector("#id_login_first_link").style.display = "none";
+          location.reload();
+        } else {
+          document.querySelector("#id_login_form").submit();
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   });
 });

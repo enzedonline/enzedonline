@@ -1,14 +1,14 @@
 {% load wagtailimages_tags menu_tags %}
 
 {# Load contact menu as always visible #}
-{% get_menu 'contact' as contact_menu %}
+{% get_menu "contact" as contact_menu %}
 {% if contact_menu %}
     {% get_menu_items contact_menu request as contact_menu_items %}
     {% for item in contact_menu_items %}
         <div class="order-0 order-md-1 pe-2 pe-md-0 ms-auto me-0">
             <ul class="navbar-nav flex-row flex-nowrap ms-auto me-0">
                 <li class="nav-item">
-                    <a class="nav-link {% if request.path == item.url %} active{% endif %}" href="{{item.url}}">                            
+                    <a class="nav-link {% if request.path == item.url %} active{% endif %}" href="{{ item.url }}">                            
                         {% if item.icon %}
                             {% image item.icon fill-25x25 class="image-menu" %}
                         {% endif %}

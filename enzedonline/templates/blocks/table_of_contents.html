@@ -1,12 +1,7 @@
-{% load static adv_cache %}
-{% nocache %}
-  <div id="autoToC"></div>
-{% endnocache %}
-
+{% load static %}
+<div id="autoToC"></div>
 {{ "autoToC"|json_script:"tocElement" }}
 {{ "main"|json_script:"scopeElement" }}
 {{ value.levels |json_script:"levels" }}
-{{ value.toc_title |json_script:"tocTitle" }} 
-
-<script src="{% static 'js/toc-min.js'%}"></script>
-
+{{ value.toc_title |json_script:"tocTitle" }}
+<script>include_js("{% static 'js/toc-min.js'%}", "js-toc-min");</script>

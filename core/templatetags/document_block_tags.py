@@ -10,6 +10,15 @@ def button_appearance(style, outline):
     return style
 
 @register.simple_tag()
+def text_appearance(text_size, outline):
+    style = ["font-headings", text_size.replace("h", "fs-")]
+    if outline:
+        style.append("p-0")
+    else:
+        style.append("mb-2")
+    return " ".join(style)
+
+@register.simple_tag()
 def document_list(sort_by, tag_list=None):
     docs = Document.objects.all()
     if tag_list:

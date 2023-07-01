@@ -1,45 +1,47 @@
-  
-{% extends 'account/base_card.html' %}
-
-{{% load core_tags %}
-
+{% extends "account/base_card.html" %}
+{% load core_tags %}
 {% block card-header %}
-    {% get_template_set 'allauth social' as trans %}
+    {% get_template_set "allauth social" as trans %}
     <title>Enzed Online - {{ trans.social_login_cancelled_title }}</title>
     <div class="row text-start">
         <div class="col-auto">
-            <i class="fas fa-exclamation-triangle fa-2x text-warning"></i> 
+            <i class="fas fa-exclamation-triangle fa-2x text-warning"></i>
         </div>
         <div class="col ps-0">
             <h4>{{ trans.social_login_cancelled_title }}</h4>
         </div>
     </div>
-{% endblock %}
-
+{% endblock card-header %}
 {% block card-body %}
-    {% get_template_set 'allauth social' as trans %}
+    {% get_template_set "allauth social" as trans %}
     <div class="ps-1 ps-sm-2 ps-md-3">
         <h4>{{ trans.connect_cancelled_options }}</h4>
         <h5>{{ trans.connect_cancelled_reconnect }}</h5>
         <p>{% include "socialaccount/provider_list.html" with process="connect" %}</p>
     </div>
     <hr>
-
     <div class="row text-center">
         <div class="col-4">
             <button class="btn btn-primary" onclick="goBack()">{{ trans.go_back_button }}</button>
         </div>
         <div class="col-4">
-            <a class="btn btn-primary" role="button" title="{{ trans.login_title }}" href="{% url 'account_login' %}" rel="nofollow">{{ trans.login_button }}</a>
+            <a class="btn btn-primary"
+               role="button"
+               title="{{ trans.login_title }}"
+               href="{% url 'account_login' %}"
+               rel="nofollow">{{ trans.login_button }}</a>
         </div>
         <div class="col-4">
-            <a class="btn btn-primary" role="button" title="{{ trans.sign_up_title }}" href="{% url 'account_signup' %}" rel="nofollow">{{ trans.sign_up_button }}</a>
+            <a class="btn btn-primary"
+               role="button"
+               title="{{ trans.sign_up_title }}"
+               href="{% url 'account_signup' %}"
+               rel="nofollow">{{ trans.sign_up_button }}</a>
         </div>
     </div>
-
     <script>
-    function goBack() {
-    window.history.back();
-    }
+        function goBack() {
+            window.history.back();
+        }
     </script>
-{% endblock %}
+{% endblock card-body %}

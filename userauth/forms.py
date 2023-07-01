@@ -14,7 +14,7 @@ class SignupForm(forms.Form):
     first_name = forms.CharField(max_length=30, label=_("First name"))
     last_name = forms.CharField(max_length=30, label=_("Last name"))
     display_name = forms.CharField(max_length=30, label=_("Display name"), help_text=_("Will be shown e.g. when commenting."))
-    website = forms.CharField(max_length=30, label=_("Website"))
+    website = forms.CharField(max_length=30, label=_("Website"), required=False)
 
     def signup(self, request, user):
         display_name = self.cleaned_data['display_name']
@@ -26,14 +26,14 @@ class SignupForm(forms.Form):
 
 class WagtailUserCreationForm(UserCreationForm):
     display_name = forms.CharField(max_length=30, label=_("Display name"), help_text=_("Will be shown e.g. when commenting."))
-    website = forms.CharField(max_length=30, label=_("Website"))
+    website = forms.CharField(max_length=30, label=_("Website"), required=False)
 
     class Meta(UserCreationForm.Meta):
         model = CustomUser
 
 class WagtailUserEditForm(UserEditForm):
     display_name = forms.CharField(max_length=30, label=_("Display name"), help_text=_("Will be shown e.g. when commenting."))
-    website = forms.CharField(max_length=30, label=_("Website"))
+    website = forms.CharField(max_length=30, label=_("Website"), required=False)
 
     class Meta(UserEditForm.Meta):
         model = CustomUser

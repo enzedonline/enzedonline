@@ -6,12 +6,12 @@
         <div class="col ps-0">
         <div class="card-body ps-0 py-1">
             <p class="card-text">{{ comment.comment }}</p>
-                <h6 class="card-text pb-0">
-                    <span id="date_{{ comment.pk }}"></span>&nbsp;-
+                <p class="h6 card-text pb-0">
+                    <span id="date_{{ comment.pk }}"></span><span class="ps-1">-</span>
                     {% if comment.user_url %}<a href="{{ comment.user_url }}" target="_new" rel="nofollow">{% endif %}
                     {% include "comments/display_name.html" %}
                     {% if comment.user_url %}</a>{% endif %}
-                </h6>
+                    </p>
         </div>
         </div>
     </div>

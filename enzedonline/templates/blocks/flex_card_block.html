@@ -1,9 +1,9 @@
 {% load wagtailcore_tags %}
 
-<div class="block-container">
-  {% if self.format == 'vertical' %}
-    {% include 'blocks/flex/vertical_card.html' %}
+<div class="block-container flex-card-block">
+  {% if self.format == "vertical" %}
+    {% include "blocks/flex/vertical_card.html" %}
   {% else %}
-    {% include 'blocks/flex/horizontal_card.html' %}
+    {% include "blocks/flex/horizontal_card.html" %}
   {% endif %}
 </div>

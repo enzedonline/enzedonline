@@ -5,8 +5,7 @@
     {% if not item.comment.is_removed %}
         <div class="card bg-light border-0 pt-1 mb-1">
             <div class="row">
-                <div class="col-auto ms-3 mt-2 w-5">
-                    <a name="c{{ item.comment.id }}"></a>
+                <div class="col-auto ms-3 mt-2 w-5" id="c{{ item.comment.id }}">
                     {% if item.comment.user.display_name %}
                         <span class="text-primary text-center"><i class="fas fa-user fa-4x"></i></span>
                     {% else %}
@@ -61,12 +60,12 @@
                                 {% if allow_flagging and item.flagged %}
                                     <i class="fas fa-flag text-danger" title="{{ trans.comment_flagged }}"></i>
                                 {% elif allow_flagging %}
-                                    <a class="mutedlink" href="{% url "comments-flag" item.comment.pk %}" rel="nofollow">
+                                    <a class="mutedlink" href="{% url 'comments-flag' item.comment.pk %}" rel="nofollow">
                                         <i class="fas fa-flag" title="{{ trans.flag_comment }}"></i>
                                     </a>
                                 {% endif %}
                                 {% if perms.comments.can_moderate %}
-                                    <a class="mutedlink" href="{% url "comments-delete" item.comment.pk %}" rel="nofollow">
+                                    <a class="mutedlink" href="{% url 'comments-delete' item.comment.pk %}" rel="nofollow">
                                         <i class="fas fa-trash-alt" title="{{ trans.remove_comment }}"></i>
                                     </a>
                                 {% endif %}

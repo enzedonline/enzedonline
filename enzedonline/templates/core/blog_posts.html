@@ -1,10 +1,7 @@
 {% load static %}
-
 <div class="grid">
     {% for post in posts %}
-        <div class="p-2">
-            {% include 'core/blog_card.html' %}
-        </div>
+        <div class="p-2">{% include "core/blog_card.html" %}</div>
     {% endfor %}
 </div>
-<script>flexMasonryInit()</script>
+<script>flexMasonryInit();</script>

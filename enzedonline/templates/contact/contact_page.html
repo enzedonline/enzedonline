@@ -125,28 +125,10 @@
                 {% endif %} 
               {% endif %}
               {% if field.errors or field.help_text %}
-              <div class="row">
-                {% if field.name == "wagtailcaptcha" %}
-                  {% if field.errors %}
-                    <ul class="list-unstyled pl-3">
-                      {% for error in field.errors %}
-                        <small class="text-danger">
-                          <li>{{ error }}</li>
-                        </small>
-                      {% endfor %}
-                    </ul>
-                  {% endif %}
-                {% else %}
-                  <div {% if field.errors %}class="col"{% else %}class="col-auto"{% endif %}>
-                    {% if field.help_text %}
-                      <small class="form-text text-muted">{{ field.help_text|linebreaksbr }}<br>&nbsp;</small>
-                    {% else %}
-                      <small>&nbsp;</small>
-                    {% endif %}
-                  </div>
-                  <div {% if field.errors %}class="col-auto text-right"{% else %}class="col"{% endif %}>
+                <div class="row">
+                  {% if field.name == "wagtailcaptcha" %}
                     {% if field.errors %}
-                      <ul class="list-unstyled">
+                      <ul class="list-unstyled pl-3">
                         {% for error in field.errors %}
                           <small class="text-danger">
                             <li>{{ error }}</li>
@@ -154,10 +136,28 @@
                         {% endfor %}
                       </ul>
                     {% endif %}
-                  </div>
-                {% endif %}
-              </div>
-            {% endif %} 
+                  {% else %}
+                    <div {% if field.errors %}class="col"{% else %}class="col-auto"{% endif %}>
+                      {% if field.help_text %}
+                        <small class="form-text text-muted">{{ field.help_text|linebreaksbr }}<br>&nbsp;</small>
+                      {% else %}
+                        <small>&nbsp;</small>
+                      {% endif %}
+                    </div>
+                    <div {% if field.errors %}class="col-auto text-right"{% else %}class="col"{% endif %}>
+                      {% if field.errors %}
+                        <ul class="list-unstyled">
+                          {% for error in field.errors %}
+                            <small class="text-danger">
+                              <li>{{ error }}</li>
+                            </small>
+                          {% endfor %}
+                        </ul>
+                      {% endif %}
+                    </div>
+                  {% endif %}
+                </div>
+              {% endif %} 
             {% endfor %}
           </div>
           <button class="btn btn-primary btn-lg" type="submit">{{ page.submit_button_text }}</button>

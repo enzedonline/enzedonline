@@ -1,8 +1,8 @@
 {% load static wagtailcore_tags simple_grid_tags %}
 {% get_masonry_id block.id as id %}
 <div class="block-container">
-    {% if self.format == 'masonry' %}
-        <div class="{{id.grid}}">
+    {% if self.format == "masonry" %}
+        <div class="{{ id.grid }}">
             {% for block in self.cards %}
                 <div class="px-2">
                         {% include_block block %}

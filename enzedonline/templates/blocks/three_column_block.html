@@ -1,23 +1,20 @@
 {% load static wagtailcore_tags grid_block_tags %}
 {% three_column_layout value block.id as layout %}
-{% if layout.size %}
-<script>document.styleSheets[0].insertRule("{{ layout.size }}")</script>
-{% endif %}
-
-  <div class="row">
-    <div {{ layout.l_class }}>
-      {% for block in value.left_column %}
-        {% include_block block %}
-      {% endfor %}
-    </div>
-    <div {{ layout.m_class }}>
-      {% for block in value.centre_column %}
-        {% include_block block %}
-      {% endfor %}
-    </div>
-    <div {{ layout.r_class }}>
-      {% for block in value.right_column %}
-        {% include_block block %}
-      {% endfor %}
-    </div>
+{% if layout.size %}<script>document.styleSheets[0].insertRule("{{ layout.size }}")</script>{% endif %}
+<div class="row">
+  <div {{ layout.l_class }}>
+    {% for block in value.left_column %}
+      {% include_block block %}
+    {% endfor %}
   </div>
+  <div {{ layout.m_class }}>
+    {% for block in value.centre_column %}
+      {% include_block block %}
+    {% endfor %}
+  </div>
+  <div {{ layout.r_class }}>
+    {% for block in value.right_column %}
+      {% include_block block %}
+    {% endfor %}
+  </div>
+</div>

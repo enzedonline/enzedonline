@@ -7,7 +7,7 @@
 {% endblock header %}
 
 {% block content %}
-  {% get_template_set 'comments' as trans %}
+  {% get_template_set "comments" as trans %}
   <title>EnzedOnline - {{ trans.comment_thread_muted }}</title>
   <div class="container">
     <div class="my-4">
@@ -20,4 +20,4 @@
       </h5>
     </div>
   </div>
-{% endblock %}
+{% endblock content %}

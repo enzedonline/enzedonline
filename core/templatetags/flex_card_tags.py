@@ -41,14 +41,13 @@ def row_layout(value, block_id):
 
     if value['format'].find('right') != -1:
         layout['row_class'] = 'row flex-row-reverse'
-        text_padding = 'pe'
     else:
         layout['row_class'] = 'row'
-        text_padding = 'ps'
         
     if value['format'].find('responsive') != -1:
         layout['image_column'] = f"col-{value['breakpoint']}-4 pt-4"
-        layout['text_column'] = f"p-0 {text_padding}-{value['breakpoint']}-3 pt-{value['breakpoint']}-1 text-break"
+        layout['text_column'] = "px-2 text-break"
+        layout['heading_align'] = f"text-center text-{value['breakpoint']}-start"
         if value['breakpoint'] == 'md':
             breakpoint = '768px'
         else:
@@ -57,8 +56,8 @@ def row_layout(value, block_id):
 
     else:
         layout['image_column'] = 'col-4 pt-4'
-        layout['text_column'] = f"p-0 {text_padding}-3 pt-1 text-break"
         layout['breakpoint'] = '0px'
         layout['image_style'] = f".size-{block_id} {{{minmax_style}}}"
-  
+        layout['heading_align'] = f"text-start"
+
     return layout

@@ -1,7 +1,8 @@
 {% load flex_card_tags %}
-
 {% if self.external_link %}
-<div class="{% embed_button_layout self %}">
-  <a class="btn {{ self.button_appearance }} {{ self.button_size }}" href="{{ self.external_link }}" role="button">{{ self.button_text }}</a>
-</div>
+  <div class="{% embed_button_layout self %}">
+    <a class="btn {{ self.button_appearance }} {{ self.button_size }}"
+       href="{{ self.external_link }}"
+       role="button">{{ self.button_text }}</a>
+  </div>
 {% endif %}

@@ -1,4 +1,4 @@
-let localDateTime = (element, date) => {
+const localDateTime = (element, date) => {
   // Only run if element exists and date is valid
   if (element != null && date instanceof Date && !isNaN(date)) {
     const date_options = {
@@ -7,10 +7,10 @@ let localDateTime = (element, date) => {
       month: "long",
       day: "numeric",
     };
-    const time_options = { 
-      hour: "2-digit", 
-      minute: "2-digit", 
-      hour12: false 
+    const time_options = {
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false
     };
     element.innerText = convertUTCDateToLocalDate(date, date_options, time_options);
   }
@@ -26,7 +26,7 @@ let localDateTime = (element, date) => {
 
 // Usage: document.getElementById("id").innerText = convertUTCDateToLocalDate(new Date('2021-08-12 09:58:22'));
 // Non-numeric month format will cause errors in multi-lingual setting
-let convertUTCDateToLocalDate = (date, date_options, time_options) => {
+const convertUTCDateToLocalDate = (date, date_options, time_options) => {
   local_date = new Date(date.getTime() + date.getTimezoneOffset() * 60000);
   return (
     local_date.toLocaleDateString(undefined, date_options) +
@@ -39,7 +39,7 @@ let convertUTCDateToLocalDate = (date, date_options, time_options) => {
 $(document).ready(function () {
 
   // set all external links and documents to open in new tab
-  $('a[href^="http"], a[href^="/documents/"]').attr({'target': '_blank', 'rel': 'nofollow noopener'});
+  $('a[href^="http"], a[href^="/documents/"]').attr({ 'target': '_blank', 'rel': 'nofollow noopener' });
 
   // change rich text <span class="fa-icon"> font awesome tags: 
   // <span class="fa-icon">something</span> -> <span class="something">&nbsp;&nbsp;&nbsp;&nbsp;</span>
@@ -51,14 +51,20 @@ $(document).ready(function () {
       faIcon.className = faClass;
     }
   });
-  
+
   // load mathjax if equation found on page
-  let body = document.body.textContent;
+  loadMathJax();
+});
+// end on document ready code
+
+// load mathjax if equation found on page
+const loadMathJax = () => {
+  const body = document.body.innerText;
   if (body.match(/(?:\$|\\\(|\\\[|\\begin\{.*?})/)) {
-    if (!window.MathJax) {
+    if (typeof window.MathJax === 'undefined') {
       window.MathJax = {
         tex: {
-          inlineMath: {'[+]': [['$', '$']]}
+          inlineMath: { '[+]': [['$', '$']] }
         }
       };
     }
@@ -73,48 +79,38 @@ $(document).ready(function () {
     script.async = true;
     document.head.appendChild(script);
   }
-});
-// end on document ready code
+};
 
 // include js script only if not already included
-let include_js = (js, id) => {
-  let script_tag = document.getElementById(`${id}`)
+const include_js = (js, id) => {
+  const script_tag = document.getElementById(id);
   if (!script_tag) {
-    let script = document.createElement('script');
-    script.type = 'text/javascript';
-    script.src = `${js}`;
-    script.id = `${id}`;
-    document.head.appendChild(script);
-    if (document.getElementById(`${id}`)) {
-      return script;
+    const new_script = document.createElement('script');
+    new_script.type = 'text/javascript';
+    new_script.src = js;
+    new_script.id = id;
+    document.head.appendChild(new_script);
+    if (document.getElementById(id)) {
+      return new_script;
     }
-    else {
-      return null;
-    } 
-  }
-  else {
+  } else {
     return script_tag;
   }
-}
+};
 
 // include css only if not already included
-let include_css = (css, id) => {
-  let link_tag = document.getElementById(`${id}`)
+const include_css = (css, id) => {
+  const link_tag = document.getElementById(id);
   if (!link_tag) {
-    let link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.href = `${css}`;
-    link.id = `${id}`;
-    document.head.appendChild(link);
-    if (document.getElementById(`${id}`)) {
-      return link;
+    const new_link = document.createElement('link');
+    new_link.rel = 'stylesheet';
+    new_link.href = css;
+    new_link.id = id;
+    document.head.appendChild(new_link);
+    if (document.getElementById(id)) {
+      return new_link;
     }
-    else {
-      return null;
-    } 
-  }
-  else {
+  } else {
     return link_tag;
   }
-}
-
+};

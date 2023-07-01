@@ -1,17 +1,14 @@
 {% load wagtailimages_tags wagtailcore_tags flex_card_tags core_tags %}
-
 {% get_picture_rendition self.image 1800 as webp_img_w_1800 %}
 {% get_picture_rendition self.image 1000 as webp_img_w_1000 %}
 {% get_picture_rendition self.image 750 as webp_img_w_750 %}
 {% get_picture_rendition self.image 500 as webp_img_w_500 %}
 {% image self.image.file width-1800 as fallback %}
-
 {% padding self.border self.background as pad %}
-
 <div class="block-container">
-  <div class="card {{ self.background }}{% if not self.border %} border-0{% endif %} rounded-3 p-{{ pad }} {% if full_height %} h-100{% endif %}">
+  <div class="card {{ self.background }}{% if not self.border %} border-0{% endif %} rounded-3 p-{{ pad }}{% if full_height %} h-100{% endif %}">
     <div class="card-body p-0 lh-sm">
-      <div class="mx-auto">  
+      <div class="mx-auto">
         <picture>
           <source media="(max-width: 500px)" sizes="(max-width: 500px) 500px" srcset="{{ webp_img_w_500.url }} 500w" type="image/webp">
           <source media="(max-width: 750px)" sizes="(max-width: 750px) 750px" srcset="{{ webp_img_w_750.url }} 750w" type="image/webp">

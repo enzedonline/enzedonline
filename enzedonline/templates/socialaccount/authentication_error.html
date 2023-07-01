@@ -1,16 +1,9 @@
 {% extends "userauth/account/base.html" %}
-
 {% load core_tags %}
-
 {% block content %}
-{% get_template_set 'allauth social' as trans %}
-<title>EnzedOnline - {{ trans.login_error_title }}</title>
-<h1>{{ trans.login_error_title }}</h1>
-
-<p>{{ trans.login_error_message }}.</p>
-
-<p>
-Code: {{ auth_error.code }}, Error: {{ auth_error.exception }}
-</p>
-
-{% endblock %}
+    {% get_template_set "allauth social" as trans %}
+    <title>EnzedOnline - {{ trans.login_error_title }}</title>
+    <h1>{{ trans.login_error_title }}</h1>
+    <p>{{ trans.login_error_message }}.</p>
+    <p>Code: {{ auth_error.code }}, Error: {{ auth_error.exception }}</p>
+{% endblock content %}
