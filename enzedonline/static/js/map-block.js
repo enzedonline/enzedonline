@@ -2,9 +2,7 @@
 
 // get the map block settings
 const draw_mapblock = (uid) => {
-  const map_settings = JSON.parse(
-    document.getElementById(uid).textContent
-  );
+  const map_settings = JSON.parse(document.getElementById(uid).textContent);
   add_mapbox(map_settings);
 };
 
@@ -135,6 +133,7 @@ const add_mapbox = (map_settings) => {
     });
   };
 
+  // add layers and markers after base map loads
   map.on("load", () => {
     if (map_settings.method !== "no-route") {
       getRoute(map_settings.waypoints);
@@ -197,16 +196,16 @@ const add_mapbox = (map_settings) => {
     }
 
     // add markers with Google Maps links
-    map_settings.waypoints.forEach(function (waypoint) {
+    map_settings.waypoints.forEach((waypoint) => {
       if (waypoint.show_pin) {
         const marker = new mapboxgl.Marker()
           .setLngLat([waypoint.longitude, waypoint.latitude])
           .setPopup(
             new mapboxgl.Popup().setHTML(
               "<b>" +
-              waypoint.pin_label +
-              "</b><br>" +
-              `<a href="https://www.google.com/maps?q=${waypoint.latitude},${waypoint.longitude}" 
+                waypoint.pin_label +
+                "</b><br>" +
+                `<a href="https://www.google.com/maps?q=${waypoint.latitude},${waypoint.longitude}" 
                        target="_blank">${waypoint.latitude}, ${waypoint.longitude}</a>`
             )
           ) // add popup
