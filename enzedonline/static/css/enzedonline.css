@@ -636,6 +636,10 @@ a {
   min-width: 8rem;
 }
 
+.footer {
+  width: 100% !important;
+}
+
 .privacy-notice {
   font-size: var(--font-size-body);
   line-height: 120%;
