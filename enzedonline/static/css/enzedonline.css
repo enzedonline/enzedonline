@@ -219,6 +219,7 @@ a {
   pointer-events: none;
   height: 0.8em;
   width: 0.8em;
+  margin-left: 0.3em;
 }
 
 .toc-link:hover::after {
