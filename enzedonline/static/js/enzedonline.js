@@ -36,7 +36,7 @@ const convertUTCDateToLocalDate = (date, date_options, time_options) => {
 };
 
 // global on document ready code
-$(document).ready(function () {
+$(document).ready(() => {
 
   // set all external links and documents to open in new tab
   $('a[href^="http"], a[href^="/documents/"]').attr({ 'target': '_blank', 'rel': 'nofollow noopener' });
