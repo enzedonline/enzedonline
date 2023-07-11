@@ -3,10 +3,8 @@
 </div>
 {% if self.language == "django" %}
     <script>
-    document.addEventListener("DOMContentLoaded", () => {
-        setTimeout(() => {
+        document.addEventListener("DOMContentLoaded", () => {
             processDjangoCodeBlock(document.getElementById("code-block-{{ block.id }}"));
-        }, 0);
-    });
+        });
     </script>
 {% endif %}
