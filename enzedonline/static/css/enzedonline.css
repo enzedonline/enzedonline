@@ -9,6 +9,7 @@
   --font-size-5: clamp(1.2rem, 1.1331rem + 0.2817vw, 1.45rem);
   --font-size-6: clamp(0.9rem, 0.8732rem + 0.1127vw, 1rem);
   --font-size-body: clamp(1rem, 0.9599rem + 0.169vw, 1.15rem);
+  --max-display-width: 130rem;
 }
 
 /* ======= Scrolling ======= */
@@ -55,6 +56,13 @@ html {
   font-family: var(--font-family-monospace);
 }
 
+.enzed-fixed {
+  left: unset;
+  right: unset;
+  width: 100%;
+  max-width: var(--max-display-width);
+}
+
 body {
   margin: 0;
   font-family: var(--font-family-body);
@@ -62,7 +70,7 @@ body {
   font-weight: 400;
   line-height: 1.5;
   text-align: justify;
-  max-width: 130rem;
+  max-width: var(--max-display-width);
   margin: auto;
   overflow-x: hidden;
 }

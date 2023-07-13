@@ -11,7 +11,7 @@
         </head>
         <body>
             <header>
-                <div class="fixed-top">{% include "menus/menu_bar.html" %}</div>
+                <div class="fixed-top enzed-fixed">{% include "menus/menu_bar.html" %}</div>
                 {% block header %}{% endblock header %}
             </header>
             <main>
@@ -25,7 +25,7 @@
                     {% block comments %}{% endblock comments %}
                     {% block next_prev %}{% endblock next_prev %}
                 </div>
-                <div class="fixed-bottom">{% include "menus/footer.html" %}</div>
+                <div class="fixed-bottom enzed-fixed">{% include "menus/footer.html" %}</div>
             </footer>
         </body>
     {% endif %}
