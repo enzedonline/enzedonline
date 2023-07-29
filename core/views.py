@@ -87,10 +87,9 @@ def sitemap(request):
     root_page = Page.objects.defer_streamfields().get(id=site.root_page_id)
 
     urlset = []
-    for locale_home in root_page.get_translations(inclusive=True).defer_streamfields().live().public().specific():
-        urlset.append(locale_home.get_sitemap_urls(request))
-        for child_page in locale_home.get_descendants().defer_streamfields().live().public().specific():
-            urlset.append(child_page.get_sitemap_urls(request))
+    for locale_home in root_page.get_translations(inclusive=True).defer_streamfields():
+        for child_page in locale_home.get_descendants(inclusive=True).defer_streamfields().live().public().specific():
+            urlset.append(child_page.get_sitemap_urls())
     try:
         urlset.remove([])
     except:

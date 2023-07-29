@@ -132,7 +132,7 @@ class SEOPageMixin(index.Indexed, WagtailImageMetadataMixin, models.Model):
     def lastmod(self):
         return self.last_published_at or self.latest_revision_created_at
 
-    def get_sitemap_urls(self, request):
+    def get_sitemap_urls(self):
         if self.search_engine_index:
             url_item = {
                 "location": self.full_url,
