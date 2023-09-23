@@ -481,10 +481,6 @@ a {
   margin: -0.1rem 0;
 }
 
-.dropdown-menu-end {
-  margin-right: 0.5rem;
-}
-
 .nav-link {
   font-family: var(--font-family-headings);
   font-size: clamp(1.05rem, 0.7441rem + 0.6275vw, 1.45rem);
