@@ -3,8 +3,13 @@
 </div>
 {% if self.language == "django" %}
     <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            processDjangoCodeBlock(document.getElementById("code-block-{{ block.id }}"));
-        });
+    // Insert whitespace after "{%" and "{{" if the next character is not whitespace
+    // Insert whitespace before "%}" and "}}" if the previous character is not whitespace
+    element = document.getElementById("code-block-{{ block.id }}");
+        element.innerHTML = element.innerHTML
+            .replace(/({%)(?!\s)/g, "$1 ")
+            .replace(/({{)(?!\s)/g, "$1 ")
+            .replace(/(?<!\s)(%})/g, " $1")
+            .replace(/(?<!\s)(}})/g , " $1"); 
     </script>
 {% endif %}
