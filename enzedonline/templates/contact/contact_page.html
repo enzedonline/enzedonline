@@ -116,11 +116,7 @@
                   {% if field.name == "wagtailcaptcha" %}
                     {% render_field field %} 
                   {% else %}
-                    {% if field.name == "wagtailcaptcha" %}
-                      {% render_field field %} 
-                    {% else %}
-                      {% render_field field class="form-control form-control-sm" %} 
-                    {% endif %}
+                    {% render_field field class="form-control form-control-sm" %} 
                   {% endif %}
                 {% endif %} 
               {% endif %}
