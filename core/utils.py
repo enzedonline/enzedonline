@@ -1,4 +1,5 @@
 import re
+from collections import OrderedDict
 from html import unescape
 from urllib.parse import urlencode
 from urllib.request import urlopen
@@ -7,26 +8,33 @@ from bs4 import BeautifulSoup
 from django.core.cache import caches
 from django.db import connection
 from django.urls import reverse
+# from wagtail.blocks.stream_block import StreamValue
+from wagtail.blocks import StreamBlock, StreamValue
 
 PING_URL = "https://www.google.com/webmasters/tools/ping"
 
 
 def ping_google(request, ping_url=PING_URL):
     try:
-        sitemap = request.build_absolute_uri(reverse('sitemap'))
+        sitemap = request.build_absolute_uri(reverse("sitemap"))
         params = urlencode({"sitemap": sitemap})
         urlopen(f"{ping_url}?{params}")
     except Exception as e:
-        print(f"{type(e).__name__} at line {e.__traceback__.tb_lineno} of {__file__}: {e}")       
-          
+        print(
+            f"{type(e).__name__} at line {e.__traceback__.tb_lineno} of {__file__}: {e}"
+        )
+
+
 def clear_page_cache():
-    caches['default'].clear()    
-    caches['renditions'].clear()
+    caches["default"].clear()
+    caches["renditions"].clear()
+
 
 def purge_page_cache_fragments(slug):
     sql = f"DELETE FROM public.cache_table WHERE cache_key LIKE '%template.cache.{slug}.%';"
     with connection.cursor() as cursor:
         cursor.execute(sql)
+
 
 def purge_menu_cache_fragments():
     sql = f"DELETE FROM public.cache_table WHERE cache_key LIKE '%.menu.%';"
@@ -36,6 +44,7 @@ def purge_menu_cache_fragments():
     with connection.cursor() as cursor:
         cursor.execute(sql)
 
+
 def purge_blog_list_cache_fragments():
     sql = f"DELETE FROM public.cache_table WHERE cache_key LIKE '%next_prev%';"
     with connection.cursor() as cursor:
@@ -44,13 +53,14 @@ def purge_blog_list_cache_fragments():
     with connection.cursor() as cursor:
         cursor.execute(sql)
 
+
 def paginator_range(requested_page, last_page_num, wing_size=5):
-    """ Given a 'wing size', return a range for pagination. 
-        Wing size is the number of pages that flank either side of the selected page
-        Presuming missing pages will be denoted by an elipse '...', 
-        the minimum width is 2xelipse + 2x wing size + selcted page
-        if the elipse is one off the outer limit, replace it with the outer limit
-        The range returned will always return a fixed number of boxes to the properly configured pagination nav"""
+    """Given a 'wing size', return a range for pagination.
+    Wing size is the number of pages that flank either side of the selected page
+    Presuming missing pages will be denoted by an elipse '...',
+    the minimum width is 2xelipse + 2x wing size + selcted page
+    if the elipse is one off the outer limit, replace it with the outer limit
+    The range returned will always return a fixed number of boxes to the properly configured pagination nav"""
 
     # If last page number is within minimum size, just return entire range
     if last_page_num <= ((2 * (wing_size + 1)) + 1):
@@ -60,23 +70,24 @@ def paginator_range(requested_page, last_page_num, wing_size=5):
     start_page = max([requested_page - wing_size, 1])
 
     if start_page == 1:
-        # first elipse is 1, add one to the end and also one for the selected page (also 1 in this case) 
+        # first elipse is 1, add one to the end and also one for the selected page (also 1 in this case)
         end_page = (2 * wing_size) + 2
     else:
         # return range end or last page if over that
         end_page = min([requested_page + wing_size, last_page_num])
         if end_page == last_page_num:
-            # last elipse is taken by last page number, start is twice the wing plus 1 for the selected page 
+            # last elipse is taken by last page number, start is twice the wing plus 1 for the selected page
             # and 1 for the replaced elipse
             start_page = last_page_num - ((2 * wing_size) + 1)
 
     # if the ends are within one place of the end points, replace with the actual end point
     # otherwise it's just an elipse where the endpoint would be ... pointless
     if start_page == 2:
-        start_page = 1 
+        start_page = 1
     if end_page == last_page_num - 1:
         end_page = last_page_num
     return range(start_page, end_page + 1)
+
 
 def isfloat(element: str) -> bool:
     try:
@@ -85,14 +96,15 @@ def isfloat(element: str) -> bool:
     except ValueError:
         return False
 
+
 def get_streamfield_text(
-    streamfield, 
-    strip_newlines=True, 
-    strip_punctuation=True, 
+    streamfield,
+    strip_newlines=True,
+    strip_punctuation=True,
     lowercase=False,
-    strip_tags=['style', 'script']
-    ):
-    
+    strip_tags=["style", "script"],
+):
+
     html = streamfield.render_as_block()
     soup = BeautifulSoup(unescape(html), "html.parser")
 
@@ -102,41 +114,102 @@ def get_streamfield_text(
         for script in soup(strip_tags):
             script.extract()
 
-    inner_text = ' '.join(soup.findAll(text=True))
+    inner_text = " ".join(soup.findAll(text=True))
 
     # replace &nbsp; with space
-    inner_text = inner_text.replace('\xa0',' ')
+    inner_text = inner_text.replace("\xa0", " ")
 
     # replace & with and
-    inner_text = inner_text.replace(' & ',' and ')
+    inner_text = inner_text.replace(" & ", " and ")
 
     # strip font awesome text
-    inner_text = re.sub(r'\bfa-[^ ]*', '', inner_text)
+    inner_text = re.sub(r"\bfa-[^ ]*", "", inner_text)
 
     if strip_newlines:
-        inner_text = re.sub(r'([\n]+.?)+', ' ', inner_text)
+        inner_text = re.sub(r"([\n]+.?)+", " ", inner_text)
 
     if strip_punctuation:
         import string
-        punctuation = '!"#$%&\'()*+,-:;<=>?@[\\]^_`{|}~“”‘’–«»‹›¿¡'
+
+        punctuation = "!\"#$%&'()*+,-:;<=>?@[\\]^_`{|}~“”‘’–«»‹›¿¡"
         # replace xx/yy with xx yy
-        inner_text = re.sub(r'(?<=\S)/(?=\S)', ' ', inner_text)
+        inner_text = re.sub(r"(?<=\S)/(?=\S)", " ", inner_text)
         # strip full stops, leave decimal points and point separators
-        inner_text = re.sub(r'\.(?=\s)', '', inner_text)
-        inner_text = inner_text.translate(str.maketrans('', '', punctuation))
+        inner_text = re.sub(r"\.(?=\s)", "", inner_text)
+        inner_text = inner_text.translate(str.maketrans("", "", punctuation))
 
     if lowercase:
         inner_text = inner_text.lower()
 
     # strip excess whitespace
-    inner_text = re.sub(r' +', ' ', inner_text).strip()
+    inner_text = re.sub(r" +", " ", inner_text).strip()
 
     return inner_text
 
+
 def count_words(text):
     try:
-        word_break_chars='[\n|\r|\t|\f| ]'
-        ignore_words = ['', '-', '−', '–', '/']
-        return len([x for x in re.split(word_break_chars, text) if not x in ignore_words])
+        word_break_chars = "[\n|\r|\t|\f| ]"
+        ignore_words = ["", "-", "−", "–", "/"]
+        return len(
+            [x for x in re.split(word_break_chars, text) if not x in ignore_words]
+        )
     except:
         return -1
+
+
+def list_block_instances(data):
+    list = []
+    bound_blocks = None
+
+    if isinstance(data, StreamValue):
+        if data.is_lazy: p = data.get_prep_value() # force lazy object to load
+        bound_blocks = data._bound_blocks
+    else:
+        value = getattr(data, "value", None)
+        if value:
+            bound_blocks = getattr(value, "bound_blocks", getattr(value, "_bound_blocks", None))
+
+    if not bound_blocks:
+        return None
+
+    if isinstance(bound_blocks, OrderedDict):
+        for key, value in bound_blocks.items():
+            child_blocks = list_blocks(value)
+            item = {
+                "type": key,
+                "class": f"{value.block.__class__.__module__}.{value.block.__class__.__name__}",
+            }
+            if child_blocks:
+                item["child_blocks"] = child_blocks
+            list += [item]
+    else:
+        for bound_block in bound_blocks:
+            item = {
+                "type": bound_block.block.name,
+                "class": f"{bound_block.block.__class__.__module__}.{bound_block.block.__class__.__name__}",
+            }
+            child_blocks = list_blocks(bound_block)
+            if child_blocks:
+                item["child_blocks"] = child_blocks
+            list += [item]
+
+    return list
+
+from wagtail.blocks import ListBlock
+def list_streamfield_blocks(streamfield):
+    def list_child_blocks(child_blocks):
+        list = []
+        for key, value in child_blocks.items():
+            item = {
+                "type": key,
+                "class": f"{value.__class__.__module__}.{value.__class__.__name__}",
+            }
+            if getattr(value, 'child_blocks', False):
+                item["child_blocks"] = list_child_blocks(value.child_blocks)
+            elif isinstance(value, ListBlock):
+                item["child_blocks"] = list_child_blocks({value.child_block.name: value.child_block})
+            list += [item]
+        return list
+    
+    return list_child_blocks(streamfield.stream_block.child_blocks)
