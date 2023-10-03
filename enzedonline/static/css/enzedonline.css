@@ -935,6 +935,7 @@ blockquote,
   background-color: var(--bs-light);
   font-style: normal;
   font-family: var(--font-family-headings);
+  font-size: var(--font-family-body);
   font-weight: 500;
   padding: 1.2rem 2rem;
   margin: 1.6rem 0;
