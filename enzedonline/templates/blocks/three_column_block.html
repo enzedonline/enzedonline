@@ -1,7 +1,7 @@
 {% load static wagtailcore_tags grid_block_tags %}
 {% three_column_layout value block.id as layout %}
 {% if layout.size %}<script>document.styleSheets[0].insertRule("{{ layout.size }}")</script>{% endif %}
-<div class="row">
+<div class="row px-0 px-sm-1 px-md-2 px-lg-3">
   <div {{ layout.l_class }}>
     {% for block in value.left_column %}
       {% include_block block %}
