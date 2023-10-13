@@ -180,8 +180,7 @@ class RichHelpPanel(Panel):
                 return input
             return ''
 
-        # def render_html(self, parent_context): <- wagtail 4+
-        def render_html(self):
+        def render_html(self, parent_context):
             return format_html(
                 '<div{}>{}</div>', 
                 self.get_style(), 
