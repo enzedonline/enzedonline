@@ -7,7 +7,7 @@ from modelcluster.fields import ParentalKey
 from modelcluster.models import ClusterableModel
 from wagtail.admin.panels import (FieldPanel, FieldRowPanel, InlinePanel,
                                   MultiFieldPanel)
-from wagtail.contrib.settings.models import BaseSetting, register_setting
+from wagtail.contrib.settings.models import BaseSiteSetting, register_setting
 from wagtail.models import Orderable, TranslatableMixin, Locale
 from wagtail.snippets.models import register_snippet
 from wagtail_localize.fields import SynchronizedField, TranslatableField
@@ -28,7 +28,7 @@ class PasswordModelField(models.CharField):
 ###------------------------------------------------------------
 
 @register_setting(icon='mail')
-class EmailSettings(BaseSetting):
+class EmailSettings(BaseSiteSetting):
     default_from_email = models.CharField(
         max_length=80,
         null=True,
@@ -64,7 +64,7 @@ class EmailSettings(BaseSetting):
     )
 
 @register_setting(icon='fa-facebook')
-class Facebook_Script_Src(BaseSetting):
+class Facebook_Script_Src(BaseSiteSetting):
     javascript_sdk = models.CharField(
         max_length=300,
         null=True,
@@ -76,7 +76,7 @@ class Facebook_Script_Src(BaseSetting):
         verbose_name = 'Facebook Javascript SDK'
 
 @register_setting(icon='password')
-class Tokens(BaseSetting):
+class Tokens(BaseSiteSetting):
     mapbox = models.CharField(
         max_length=100,
         null=True,
