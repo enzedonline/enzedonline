@@ -12,8 +12,8 @@ from wagtail.snippets.models import register_snippet
 from wagtail_localize.fields import SynchronizedField
 from wagtail_localize.synctree import Page as LocalizePage
 
-from .edit_handlers import ReadOnlyPanel, RichHelpPanel, SubMenuFieldPanel
-
+from .edit_handlers import SubMenuFieldPanel
+from core.panels import ReadOnlyPanel, RichHelpPanel
 
 class MenuListQuerySet(object):
     # Call as class()() to act as a function call, passes all menus to SubMenuPanel dropdown
