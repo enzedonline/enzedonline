@@ -49,7 +49,7 @@ def homepage_url(request):
 @register.simple_tag(takes_context=True)
 def robots(context):
     page = get_context_var_or_none(context, 'self')
-    if not page:
+    if not (page and page.search_engine_index):
         return mark_safe('<meta name="robots" content="noindex">')
     return mark_safe('<meta name="robots" content="index, follow, archive, imageindex, noodp, noydir, snippet, translate, max-snippet:-1, max-image-preview:large, max-video-preview:-1">')
 
