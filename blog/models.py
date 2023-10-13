@@ -1,6 +1,3 @@
-from core.blocks import GridStreamBlock
-from core.models import SEOPage
-from core.utils import paginator_range
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.db import models
 from django.forms.widgets import CheckboxSelectMultiple
@@ -10,7 +7,11 @@ from modelcluster.fields import ParentalManyToManyField
 from taggit.models import Tag
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.fields import StreamField
-from wagtail_localize.synctree import Locale
+from wagtail.models import Locale
+
+from core.blocks import GridStreamBlock
+from core.models import SEOPage
+from core.utils import paginator_range
 
 from .categories import PersonalBlogCategory, TechBlogCategory
 from .detail_page import BlogDetailPage

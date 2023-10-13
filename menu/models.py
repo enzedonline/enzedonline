@@ -1,4 +1,3 @@
-from core.utils import purge_menu_cache_fragments
 from django.db import models
 from django.utils.datastructures import MultiValueDictKeyError
 from django.utils.translation import gettext_lazy as _
@@ -7,13 +6,15 @@ from modelcluster.models import ClusterableModel
 from wagtail.admin.forms import WagtailAdminPageForm
 from wagtail.admin.panels import (FieldPanel, HelpPanel, InlinePanel,
                                   MultiFieldPanel)
-from wagtail.models import Orderable, TranslatableMixin
+from wagtail.models import Orderable, Page, TranslatableMixin
 from wagtail.snippets.models import register_snippet
 from wagtail_localize.fields import SynchronizedField
-from wagtail_localize.synctree import Page as LocalizePage
+
+from core.panels import ReadOnlyPanel, RichHelpPanel
+from core.utils import purge_menu_cache_fragments
 
 from .edit_handlers import SubMenuFieldPanel
-from core.panels import ReadOnlyPanel, RichHelpPanel
+
 
 class MenuListQuerySet(object):
     # Call as class()() to act as a function call, passes all menus to SubMenuPanel dropdown
@@ -268,7 +269,7 @@ class LinkMenuItem(MenuItem):
     # useful for routable pages
     # could also to POST arguments to a page (eg link_url = ?cat=news -> /blog/categories/?cat=news)
     link_page = models.ForeignKey(
-        LocalizePage,
+        Page,
         blank=True,
         null=True,
         related_name="+",
@@ -326,7 +327,7 @@ class AutofillMenuItem(MenuItem):
     # useful for routable pages
     # could also to POST arguments to a page (eg link_url = ?cat=news -> /blog/categories/?cat=news)
     link_page = models.ForeignKey(
-        LocalizePage, 
+        Page, 
         blank=True,
         null=True,
         related_name="+",

@@ -1,9 +1,11 @@
+from urllib.parse import urlparse
+
 from django import urls
 from django.conf import settings
 from django.http import HttpResponseRedirect
 from django.utils import translation
-from urllib.parse import urlparse
-from wagtail_localize.synctree import Page as LocalizePage, Locale
+from wagtail.models import Locale, Page
+
 
 def set_language_from_url(request, language_code):
     # call url with ?next=<<translated url>> to redirect to translated page
@@ -31,7 +33,7 @@ def set_language_from_url(request, language_code):
                 # wagtail-localize uses a different root in the actual path for each language in wagtailcore_page
                 # (lang1 -> home, lang2 -> home-1, lang3 -> home-3 etc)
                 # Matching the slug to lang code means lang1->lang1 etc, the path is valid url_path
-                prev_page = LocalizePage.objects.get(url_path=prev_path)
+                prev_page = Page.objects.get(url_path=prev_path)
 
                 # Get the url of page in requested language
                 # If that doesn't exist, get url of page in default language
@@ -44,8 +46,8 @@ def set_language_from_url(request, language_code):
                 else:
                     next_url = '/'
 
-            except (LocalizePage.DoesNotExist, Locale.DoesNotExist):
-                # previous page is not a LocalizePage, try if previous path can be translated by 
+            except (Page.DoesNotExist, Locale.DoesNotExist):
+                # previous page is not a Page, try if previous path can be translated by 
                 # changing the language code
                 next_url = urls.translate_url(previous, language_code)
 

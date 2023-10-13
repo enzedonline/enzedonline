@@ -3,8 +3,8 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from wagtail.admin.panels import FieldPanel, InlinePanel
 from wagtail.fields import StreamField
+from wagtail.models import Locale
 from wagtail.search import index
-from wagtail_localize.synctree import Locale
 
 from core.blocks import GridStreamBlock
 from core.models import SEOPage

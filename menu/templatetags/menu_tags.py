@@ -1,8 +1,9 @@
 from django import template
+from wagtail.images.models import Image
+from wagtail.models import Locale, Page
+
 from menu.models import Menu
 from site_settings.models import SocialMedia
-from wagtail.images.models import Image
-from wagtail_localize.synctree import Locale, Page
 
 
 def sub_menu_items(menu, logged_in):

@@ -1,7 +1,8 @@
 from django.forms.widgets import Select
-from wagtail_localize.synctree import Locale
 from django.utils.html import format_html
 from wagtail.admin.panels import FieldPanel
+from wagtail.models import Locale
+
 
 class SubMenuFieldPanel(FieldPanel):
     # Usage: field_name - database field to bind to

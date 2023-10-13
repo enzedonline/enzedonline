@@ -12,7 +12,7 @@ from wagtail.blocks.struct_block import StructBlockValidationError
 from wagtail.documents.blocks import DocumentChooserBlock
 from wagtail.embeds.blocks import EmbedBlock
 from wagtail.images.blocks import ImageChooserBlock
-from wagtail_localize.synctree import Locale
+from wagtail.models import Locale
 
 import core.metadata
 from core.choices import *

@@ -1,5 +1,5 @@
 from django import template
-from wagtail_localize.synctree import Locale
+from wagtail.models import Locale
 
 register = template.Library()
 
