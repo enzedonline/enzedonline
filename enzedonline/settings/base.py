@@ -18,7 +18,6 @@ INSTALLED_APPS = [
     'adv_cache_tag',
     'rest_framework',
     'wagtailmetadata',
-    'wagtailfontawesome',
     'widget_tweaks',
     'django_comments_xtd',
     'django_comments',
