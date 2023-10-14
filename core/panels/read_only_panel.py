@@ -107,13 +107,6 @@ class ReadOnlyPanel(Panel):
                 )
             return format_html('<div style="padding-top: 1em;">{}</div>', self.value)
 
-        def render_as_object(self):
-            return format_html(
-                '<fieldset>{}'
-                '<ul class="fields"><li><div class="field">{}</div></li></ul>'
-                '</fieldset>',
-                self.panel.heading('legend'), self.render())
-
         def hidden_input(self):
             # add a hidden input field if selected, field value can be retrieved in form_clean with self.data['field']
             if self.panel.add_hidden_input:
