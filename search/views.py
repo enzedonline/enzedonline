@@ -3,7 +3,7 @@ from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.template.response import TemplateResponse
 from wagtail.models import Locale, Page
 from wagtail.search.backends import get_search_backend
-from wagtail.search.models import Query
+from wagtail.contrib.search_promotions.models import Query
 
 
 def enzed_search(request):
