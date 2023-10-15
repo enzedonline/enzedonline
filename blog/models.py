@@ -15,7 +15,6 @@ from core.utils import paginator_range
 
 from .categories import PersonalBlogCategory, TechBlogCategory
 from .detail_page import BlogDetailPage
-from .edit_handlers import LocalizedSelectPanel
 from .tags import PersonalBlogPageTag, TechBlogPageTag
 
 
@@ -32,9 +31,9 @@ class TechBlogDetailPage(BlogDetailPage):
     content_panels = BlogDetailPage.content_panels + [
         MultiFieldPanel(
             [
-                LocalizedSelectPanel(
+                FieldPanel(
                     'categories', 
-                    widget_class=CheckboxSelectMultiple, 
+                    widget=CheckboxSelectMultiple, 
                     ),
             ],
             heading = _("Blog Categories"),
@@ -58,9 +57,9 @@ class PersonalBlogDetailPage(BlogDetailPage):
     content_panels = BlogDetailPage.content_panels + [
         MultiFieldPanel(
             [
-                LocalizedSelectPanel(
+                FieldPanel(
                     'categories', 
-                    widget_class=CheckboxSelectMultiple, 
+                    widget=CheckboxSelectMultiple, 
                     ),
             ],
             heading = _("Blog Categories"),
@@ -212,7 +211,6 @@ class BlogListingPage(SEOPage):
 
     @property
     def lastmod(self):
-        # blogs = self.get_children().defer_streamfields().live().public().specific().filter(search_engine_index=True)
         blogs = self.get_children().defer_streamfields().live().public()
         return blogs.order_by('latest_revision_created_at').last().latest_revision_created_at
 
