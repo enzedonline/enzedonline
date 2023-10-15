@@ -32,12 +32,8 @@
   --bs-dark: #343a40;
 }
 body {
-  margin: 0;
   font-family: var(--font-family-body);
   font-size: var(--font-size-body);
-  font-weight: 400;
-  line-height: 1.5;
-  color: var(--bs-dark);
 }
 .h1,.h2,.h3,.h4,.h5,.h6,h1,h2,h3,h4,h5,h6 {
   font-family: var(--font-family-headings) !important;
@@ -96,7 +92,7 @@ a {
 }
 .Draftail-ToolbarGroup {
   /* allow toolbar button groups to wrap */
-  display: contents;
+  display: contents !important;
 }
 .Draftail-Editor .public-DraftEditor-content {
   /* prevent v-scroll loading unnecessarily */
@@ -122,27 +118,22 @@ a {
 }
 .Draftail-block--header-two {
   font-size: var(--font-size-2) !important;
-  color: var(--bs-dark) !important;
 }
 .Draftail-block--header-three {
   font-size: var(--font-size-3) !important;
-  color: var(--bs-dark) !important;
 }
 .Draftail-block--header-four {
   font-size: var(--font-size-4) !important;
-  color: var(--bs-dark) !important;
 }
 .Draftail-block--header-five {
   font-size: var(--font-size-5) !important;
-  color: var(--bs-dark) !important;
 }
 .Draftail-block--header-six {
   font-size: var(--font-size-6) !important;
 }
 .Draftail-block--unstyled  {
-  font-size: var(--font-family-body) !important;
+  font-size: var(--font-size-body) !important;
   font-family: var(--font-family-body) !important;
-  color: var(--bs-dark) !important;
 
 }
 /* --------------------------------------------------------------------- */
@@ -276,7 +267,7 @@ header {
     margin-inline-start: -1.9em;
     height: 1rem;
 }
-@media screen and (min-width: 800px) {
+/* @media screen and (min-width: 800px) {
   .object .fields .multiple {
     width: auto;
   }
@@ -286,7 +277,7 @@ header {
     border: 0;
     border-bottom: 1px solid #ededed;
   }
-}
+} */
 .page-explorer .listing .index .privacy-indicator {
   right: 0.8em;
 }
@@ -298,4 +289,11 @@ header {
 .tab::after {
   content: "    ";
   white-space: pre;
+}
+
+.wordcount-banner {
+    background-color: var(--w-color-surface-field-inactive);
+    padding: 0.5em 1em;
+    border-radius: 1em;
+    margin-bottom: -2em;
 }
