@@ -1,6 +1,7 @@
-{% load static core_tags comments comments_xtd socialaccount %}
+{% load static core_tags comments comments_xtd socialaccount userauth_login %}
 {% get_template_set "comments" as trans %}
 {% get_comment_count for page as comment_count %}
+{% get_login_form as login_form %}
 <div class="container-fluid pt-3 px-2 px-sm-5 pb-1">
   <div class="card">
     <div class="comments-header bg-info">{{ trans.comments }}</div>
