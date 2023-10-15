@@ -1,4 +1,3 @@
-from allauth.account.forms import LoginForm
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from wagtail.admin.panels import FieldPanel, InlinePanel
@@ -31,7 +30,6 @@ class BlogDetailPage(SEOPage):
         )
         ] + SEOPage.content_panels + [
         FieldPanel('body'),
-        # InlinePanel('customcomments', label=_("Comments")),    
         ]
 
     search_fields = SEOPage.search_fields + [
@@ -70,7 +68,6 @@ class BlogDetailPage(SEOPage):
                     cat_def_lang = category_object.first().get_translation(locale=default_lang)
                     siblings = siblings.filter(categories__slug__exact=cat_def_lang.slug)
 
-            # siblings = siblings.filter(categories__slug__in=category_filter.split(','))
             filter['qstring'] = '?category=' + category_filter
             
         elif tag_filter:
@@ -104,11 +101,6 @@ class BlogDetailPage(SEOPage):
     def delete(self, *args, **kwargs):
         purge_blog_list_cache_fragments()
         super().delete(*args, **kwargs)
-
-    def serve(self, request, *args, **kwargs):
-        response = super().serve(request, 'blog/blog_page.html')
-        response.context_data['login_form'] = LoginForm()
-        return response
 
     def blog_type(self):
         return self.__class__.__name__
