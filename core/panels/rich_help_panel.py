@@ -26,10 +26,11 @@ class RichHelpPanel(Panel):
                     supply as list with first element = 'fn', second element = full path to function, optional third is kwarg dict
                     e.g. value_dict={'rnd': ['fn', 'random.randint', {'a': 1,'b': 9999}]} 
                     this will swap the token {{rnd}} with the result of random.randint(a=1, b=9999)
+        classlist:  optional, any valid string of css classes to apply
         style:      optional, any valid style string      
         datetime_format: optional, any valid strftime() formatting string, applied to any datetime objects returned
         """
-    def __init__(self, text, value_dict={}, style=None, datetime_format='%c', add_hidden_fields=False, *args, **kwargs):
+    def __init__(self, text, value_dict={}, classlist=None, style=None, datetime_format='%c', add_hidden_fields=False, *args, **kwargs):
         # make sure text is a string
         if type(text)=='str':
             self.text = text
@@ -40,6 +41,7 @@ class RichHelpPanel(Panel):
                 pass
         self.value_dict = value_dict
         self.text = text
+        self.classlist = classlist
         self.style = style
         self.datetime_format = datetime_format
         self.add_hidden_fields = add_hidden_fields
@@ -49,6 +51,7 @@ class RichHelpPanel(Panel):
         return self.__class__(
             text=self.text,
             value_dict = self.value_dict,
+            classlist=self.classlist,
             style=self.style,
             datetime_format=self.datetime_format,
             add_hidden_fields=self.add_hidden_fields
@@ -182,7 +185,8 @@ class RichHelpPanel(Panel):
 
         def render_html(self, parent_context):
             return format_html(
-                '<div{}>{}</div>', 
+                '<div{}{}>{}</div>', 
+                self.get_classlist(), 
                 self.get_style(), 
                 self.parse_text()
             )
@@ -211,6 +215,12 @@ class RichHelpPanel(Panel):
             )
             # except TypeError:
             #     return format_html(self.panel.text)
+
+        def get_classlist(self):
+            # add style if supplied
+            if self.panel.classlist:
+                return format_html(' class="{}"', self.panel.classlist)
+            return ''
 
         def get_style(self):
             # add style if supplied

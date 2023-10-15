@@ -26,7 +26,7 @@ class BlogDetailPage(SEOPage):
     content_panels = [
         RichHelpPanel(
             '<b>Word Count:</b> {{wordcount}}', {'wordcount': 'wordcount'},
-            style = 'margin-bottom: 2em;display: block;background-color: antiquewhite;padding: 1em;border-radius: 1em;'
+            classlist = 'wordcount-banner'
         )
         ] + SEOPage.content_panels + [
         FieldPanel('body'),
