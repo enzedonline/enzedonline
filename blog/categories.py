@@ -1,18 +1,10 @@
-from core.edit_handlers import RegexPanel
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from wagtail.admin.forms import WagtailAdminModelForm
-from wagtail.admin.panels import FieldPanel
+from wagtail.admin.panels import FieldPanel, TitleFieldPanel
 from wagtail.models import TranslatableMixin
 from wagtail.snippets.models import register_snippet
 
-
-class CategoryForm(WagtailAdminModelForm):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['name'].widget.attrs['id'] = 'id_title'
-        
 class CategorySlugField(models.SlugField):
     def validate(self, value, instance, *args, **kwargs):
         super().validate(self, value)
@@ -30,11 +22,9 @@ class BlogCategory(TranslatableMixin, models.Model):
         allow_unicode=True,
     )
 
-    base_form_class = CategoryForm
-
     panels = [
-        FieldPanel("name"),
-        RegexPanel(field_name="slug", pattern='^[-\w]+$'),
+        TitleFieldPanel("name"),
+        FieldPanel("slug"),
     ]
 
     class Meta:
