@@ -16,7 +16,6 @@ INSTALLED_APPS = [
     'userauth',
 
     'adv_cache_tag',
-    'rest_framework',
     'wagtailmetadata',
     'widget_tweaks',
     'django_comments_xtd',
@@ -27,8 +26,6 @@ INSTALLED_APPS = [
 
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
-    'wagtail.contrib.routable_page',
-    'wagtail.contrib.modeladmin',
     'wagtail.contrib.settings',
     'wagtail.embeds',
     'wagtail.sites',
@@ -71,8 +68,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.middleware.locale.LocaleMiddleware',
-    'wagtail.contrib.redirects.middleware.RedirectMiddleware',
     "allauth.account.middleware.AccountMiddleware",
+    'wagtail.contrib.redirects.middleware.RedirectMiddleware',
 ]
 
 ROOT_URLCONF = 'enzedonline.urls'
