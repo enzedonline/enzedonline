@@ -219,7 +219,7 @@ class FlexCard(StructBlock):
     class Meta:
         template = 'blocks/flex_card_block.html'
         label = _("Image & Text Card")
-        icon = 'image'
+        icon = 'image-text-card'
 
     def clean(self, value):
         errors = {}
@@ -243,7 +243,7 @@ class CallToActionCard(FlexCard):
     class Meta:
         template = 'blocks/flex_card_block.html'
         label = _("Call-To-Action Card (Image/Text/Button)")
-        icon = 'form'
+        icon = 'call-to-action'
 
 class SimpleCard(StructBlock):
     background = ColourThemeChoiceBlock(
@@ -263,8 +263,8 @@ class SimpleCard(StructBlock):
 
     class Meta:
         template = 'blocks/simple_card_block.html'
-        label = _("Simple Card (Text Only)")
-        icon = 'form'
+        label = _("Text Card")
+        icon = 'text-card'
 
 class SimpleCardStreamBlock(StreamBlock):
     simple_card = SimpleCard()
@@ -293,8 +293,8 @@ class SimpleCardGridBlock(StructBlock):
 
     class Meta:
         template = "blocks/simple_card_grid_block.html"
-        icon = 'duplicate'
-        label = _("Grid of Simple Cards")
+        icon = 'text-card-grid'
+        label = _("Grid of Text Cards")
 
     def clean(self, value):
         errors = {}
@@ -332,7 +332,7 @@ class SimpleImageCard(StructBlock):
     class Meta:
         template = 'blocks/simple_image_card_block.html'
         label = _("Simple Image & Text Card")
-        icon = 'image'
+        icon = 'image-text-card'
 
 class SimpleImageCardStreamBlock(StreamBlock):
     simple_image_card = SimpleImageCard()
@@ -361,7 +361,7 @@ class SimpleImageCardGridBlock(StructBlock):
 
     class Meta:
         template = "blocks/simple_card_grid_block.html"
-        icon = 'duplicate'
+        icon = 'image-card-grid'
         label = _("Grid of Simple Image & Text Cards")
 
 class InlineVideoBlock(StructBlock):
@@ -376,9 +376,9 @@ class InlineVideoBlock(StructBlock):
     )
 
     class Meta:
-        icon = 'media'
+        icon = 'video'
         template = 'blocks/inline_video_block.html'
-        label = _("Embed external video")    
+        label = _("Embed External Video")    
 
 class SocialMediaEmbedBlock(StructBlock):
     embed_code = RawHTMLBlock(
@@ -387,7 +387,7 @@ class SocialMediaEmbedBlock(StructBlock):
     )
     class Meta:
         template='blocks/social_media_embed.html'
-        icon = 'media'
+        icon = 'social-media'
         label = _("Embed Social Media Post")
 
 class HtmlBlock(StructBlock):
@@ -405,7 +405,7 @@ class DjangoTemplateFragmentBlock(StructBlock):
     )
     class Meta:
         template='blocks/django_code_block.html'
-        icon = 'code'
+        icon = 'laptop-code'
         label = _("Embed Django Template Code")
 
 class ExternalLinkEmbedBlock(StructBlock):
@@ -481,7 +481,7 @@ class ExternalLinkEmbedBlock(StructBlock):
     class Meta:
         template='blocks/external_link_embed.html',
         icon = 'link-external'
-        label = _("Embed External Article")
+        label = _("Link to External Article")
     
     def clean(self, value):
         errors = {}
@@ -550,7 +550,7 @@ class ImageCarouselBlock(StructBlock):
 
     class Meta:
         template='blocks/image_carousel.html'
-        icon="image"
+        icon="image-carousel"
         label = _("Image Carousel")
 
 class CollapsableCard(StructBlock):
@@ -642,7 +642,7 @@ class MapBlock(StructBlock):
 
     class Meta:
         template='blocks/map_block.html'
-        icon="site"
+        icon="map-marker"
         label = _("Interactive Map")
         
 class BlogCodeBlock(StructBlock):
@@ -780,19 +780,19 @@ class DocumentListBlock(StructBlock):
 
     class Meta:
         template = "blocks/document_list_block.html"
-        icon = "doc-full-inverse"
+        icon = "document-list"
         label = "Document List"
 
 class EmptyStaticBlock(StaticBlock):
     class Meta:
         template = 'blocks/empty_block.html'
-        icon = 'placeholder'
+        icon = 'block-empty'
         label = 'Empty Block'
 
 class SpacerStaticBlock(StaticBlock):
     class Meta:
         template = 'blocks/spacer_block.html'
-        icon = 'placeholder'
+        icon = 'block-solid'
         label = 'Add Blank Space'
 
 class LatestBlogPostGrid(StructBlock):
@@ -815,8 +815,8 @@ class LatestBlogPostGrid(StructBlock):
     )
     class Meta:
         template = 'blocks/latest_blog_posts_block.html'
-        label = _("Latest Blog Post(s)")
-        icon = 'list-ul'
+        label = _("Latest Blog Posts")
+        icon = 'blog'
 
 class TableOfContentsBlock(StructBlock):
     toc_title = CharBlock(
@@ -867,7 +867,7 @@ class CSVTableBlock(StructBlock):
         )
     class Meta:
         template = 'blocks/csv_table_block.html'
-        icon = 'table'
+        icon = 'csv-table'
         label = 'CSV Table'
 
 class BaseStreamBlock(StreamBlock):
@@ -908,7 +908,7 @@ class FullWidthBaseBlock(StructBlock):
 
     class Meta:
         template = 'blocks/full_width_block.html'
-        # icon = 'arrows-alt-h'
+        icon = 'block-empty'
         label = "Page Wide Block"
 
 class TwoColumnBaseBlock(StructBlock):
@@ -966,7 +966,7 @@ class TwoColumnBaseBlock(StructBlock):
 
     class Meta:
         template = 'blocks/two_column_block.html'
-        # icon = 'fa-columns'
+        icon = 'columns-two'
         label = "Two Column Block"
 
     def clean(self, value):
@@ -1038,7 +1038,7 @@ class ThreeColumnBaseBlock(StructBlock):
 
     class Meta:
         template = 'blocks/three_column_block.html'
-        # icon = 'fa-columns'
+        icon = 'columns-three'
         label = "Three Column Block"
 
     def clean(self, value):
