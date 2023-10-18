@@ -8,7 +8,7 @@ from wagtail.admin.menu import MenuItem
 from .draftail_extensions import (DRAFTAIL_ICONS, register_block_feature,
                                   register_inline_styling)
 from .thumbnails import ThumbnailOperation
-from .utils import ping_google, purge_page_cache_fragments
+from .utils import ping_google, purge_page_cache_fragments, get_custom_icons
 
 
 @hooks.register('register_image_operations')
@@ -26,7 +26,7 @@ def register_align_left_feature(features):
         description=_('Left align text'),
         css_class='text-start',
         element='p',
-        icon=DRAFTAIL_ICONS.left_align
+        icon='left-align'
     )
     
 @hooks.register('register_rich_text_features')
@@ -38,7 +38,7 @@ def register_align_centre_feature(features):
         description=_('Centre align text'),
         css_class='text-center',
         element='p',
-        icon=DRAFTAIL_ICONS.centre_align
+        icon='centre-align'
     )
     
 @hooks.register('register_rich_text_features')
@@ -50,7 +50,7 @@ def register_align_right_feature(features):
         description=_('Right align text'),
         css_class='text-end',
         element='p',
-        icon=DRAFTAIL_ICONS.right_align
+        icon='right-align'
     )
 
 @hooks.register('register_rich_text_features')
@@ -63,7 +63,7 @@ def register_code_block_feature(features):
         wrapper='ul class="code-block-wrapper"',
         description='Code Block',
         css_class='code-block',
-        icon=DRAFTAIL_ICONS.code_block
+        icon='code-block'
     )
 
 @hooks.register('register_rich_text_features')
@@ -97,7 +97,7 @@ def register_fa_styling(features):
             'padding': '0 0.4rem',
             'border-radius': '0.6rem'
         },
-        icon=DRAFTAIL_ICONS.font_awesome
+        icon='font-awesome'
     )
 
 @hooks.register("register_rich_text_features")
@@ -110,7 +110,7 @@ def register_smaller_styling(features):
         format='style="font-size:smaller;"',
         editor_style={'font-size':'smaller'},
         description='Decrease Font',
-        icon=DRAFTAIL_ICONS.decrease_font
+        icon='decrease-font'
     )
 
 @hooks.register("register_rich_text_features")
@@ -123,7 +123,7 @@ def register_larger_styling(features):
         format='style="font-size:larger;"',
         editor_style={'font-size':'larger'},
         description='Increase Font',
-        icon=DRAFTAIL_ICONS.increase_font
+        icon='increase-font'
     )
 
 @hooks.register("register_rich_text_features")
@@ -134,7 +134,7 @@ def register_underline_styling(features):
         type_='UNDERLINE',
         tag='u',
         description='Underline',
-        icon=DRAFTAIL_ICONS.underline
+        icon='underline'
     )
 
 @hooks.register('register_rich_text_features')
@@ -146,7 +146,7 @@ def register_highlighted_text_feature(features):
         format='style="background-color: yellow;padding-left: 0.15rem;padding-right: 0.15rem;"',
         editor_style={'background-color': 'yellow', 'padding-left': '0.15rem', 'padding-right': '0.15rem'},
         description='Highlighted Text',
-        icon=DRAFTAIL_ICONS.highlighter,
+        icon='highlighter'
     )
 
 @hooks.register('register_rich_text_features')
@@ -159,7 +159,7 @@ def register_code_text_feature(features):
         format='class="inline-code"',
         editor_style={'font-size': '.9em', 'font-family': 'var(--font-family-monospace)', 'color': 'darkslateblue', 'background-color': 'oldlace', 'padding': '0.02em 0.3em', 'border-radius': '0.3rem'},
         description='Inline Code',
-        icon=DRAFTAIL_ICONS.code,
+        icon='code',
     )
 
 @hooks.register('before_serve_document')
@@ -186,3 +186,7 @@ def do_after_delete_page(request, page):
 def register_ping_google_after_publish(request, page):
     if not settings.DEBUG:
         ping_google(request)
+
+@hooks.register("register_icons")
+def register_icons(icons):
+    return icons + get_custom_icons()
