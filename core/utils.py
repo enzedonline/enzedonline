@@ -1,3 +1,6 @@
+import fnmatch
+import importlib
+import os
 import re
 from collections import OrderedDict
 from html import unescape
@@ -8,8 +11,7 @@ from bs4 import BeautifulSoup
 from django.core.cache import caches
 from django.db import connection
 from django.urls import reverse
-# from wagtail.blocks.stream_block import StreamValue
-from wagtail.blocks import StreamBlock, StreamValue
+from wagtail.blocks import ListBlock, StreamBlock, StreamValue
 
 PING_URL = "https://www.google.com/webmasters/tools/ping"
 
@@ -158,45 +160,104 @@ def count_words(text):
         return -1
 
 
-def list_block_instances(data):
-    list = []
-    bound_blocks = None
+def get_custom_icons():
+    # Specify the root folder
+    root_folder = 'enzedonline/templates'
+    icons_folder = 'icons'
 
-    if isinstance(data, StreamValue):
-        if data.is_lazy: p = data.get_prep_value() # force lazy object to load
-        bound_blocks = data._bound_blocks
-    else:
-        value = getattr(data, "value", None)
-        if value:
-            bound_blocks = getattr(value, "bound_blocks", getattr(value, "_bound_blocks", None))
+    # Specify the file extension you're looking for
+    file_extension = '*.svg'
 
-    if not bound_blocks:
-        return None
+    # Initialize an empty list to store relative file paths
+    icons = []
 
-    if isinstance(bound_blocks, OrderedDict):
-        for key, value in bound_blocks.items():
-            child_blocks = list_blocks(value)
-            item = {
-                "type": key,
-                "class": f"{value.block.__class__.__module__}.{value.block.__class__.__name__}",
-            }
-            if child_blocks:
-                item["child_blocks"] = child_blocks
-            list += [item]
-    else:
+    # Construct the path to the 'enzedonline/templates/icons' folder
+    icons_path = os.path.join(root_folder, icons_folder)
+
+    # Walk through the directory and find .svg files in the 'enzedonline/templates/icons' folder
+    for foldername, subfolders, filenames in os.walk(icons_path):
+        for filename in fnmatch.filter(filenames, file_extension):
+            file_path = os.path.join(foldername, filename)
+            relative_path = os.path.relpath(file_path, root_folder)
+            icons.append(relative_path)
+
+    return icons
+
+def list_block_instances(streamfield):
+    def list_bound_blocks(data):
+        list = []
+        bound_blocks = None
+
+        if isinstance(data, StreamValue):
+            bound_blocks = data._bound_blocks
+        else:
+            value = getattr(data, "value", None)
+            if value:
+                bound_blocks = getattr(value, "bound_blocks", getattr(value, "_bound_blocks", None))
+
+        if not bound_blocks:
+            return None
+
+        if isinstance(bound_blocks, OrderedDict):
+            for key, value in bound_blocks.items():
+                child_blocks = list_bound_blocks(value)
+                item = {
+                    "type": key,
+                    "class": f"{value.block.__class__.__module__}.{value.block.__class__.__name__}",
+                }
+                if child_blocks:
+                    item["child_blocks"] = child_blocks
+                list += [item]
+        else:
+            for bound_block in bound_blocks:
+                if bound_block:
+                    item = {
+                        "type": bound_block.block.name,
+                        "class": f"{bound_block.block.__class__.__module__}.{bound_block.block.__class__.__name__}",
+                    }
+                    child_blocks = list_bound_blocks(bound_block)
+                    if child_blocks:
+                        item["child_blocks"] = child_blocks
+                    list += [item]
+        return list
+    
+    if streamfield.is_lazy: r = streamfield.render_as_block() # force lazy object to load
+    return list_bound_blocks(streamfield)
+
+def block_instances_by_class(streamfield, block_class):
+    def find_blocks(data, block_class):
+        list = []
+        bound_blocks = None
+
+        if isinstance(data, StreamValue):
+            bound_blocks = data._bound_blocks
+        else:
+            value = getattr(data, "value", None)
+            if value:
+                bound_blocks = getattr(value, "bound_blocks", getattr(value, "_bound_blocks", None))
+
+        if not bound_blocks:
+            return []
+
+        if isinstance(bound_blocks, OrderedDict):
+            bound_blocks = bound_blocks.values()
+    
         for bound_block in bound_blocks:
-            item = {
-                "type": bound_block.block.name,
-                "class": f"{bound_block.block.__class__.__module__}.{bound_block.block.__class__.__name__}",
-            }
-            child_blocks = list_blocks(bound_block)
-            if child_blocks:
-                item["child_blocks"] = child_blocks
-            list += [item]
+            if type(bound_block.block) is block_class: list += [bound_block]
+            list += find_blocks(bound_block, block_class)
+        return list
 
-    return list
+    if type(block_class)==str:
+        try:
+            module_name, class_name = block_class.rsplit('.', 1)
+            module = importlib.import_module(module_name)
+            block_class = getattr(module, class_name)().__class__
+        except:
+            return ['Unable to parse class path. Try passing the class object instead.']    
+    if streamfield.is_lazy: r = streamfield.render_as_block() # force lazy object to load
 
-from wagtail.blocks import ListBlock
+    return find_blocks(streamfield, block_class)
+
 def list_streamfield_blocks(streamfield):
     def list_child_blocks(child_blocks):
         list = []
@@ -213,3 +274,4 @@ def list_streamfield_blocks(streamfield):
         return list
     
     return list_child_blocks(streamfield.stream_block.child_blocks)
+    
