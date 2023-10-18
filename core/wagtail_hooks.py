@@ -5,7 +5,7 @@ from django.utils.translation import gettext_lazy as _
 from wagtail import hooks
 from wagtail.admin.menu import MenuItem
 
-from .draftail_extensions import (DRAFTAIL_ICONS, register_block_feature,
+from .draftail_extensions import (register_block_feature,
                                   register_inline_styling)
 from .thumbnails import ThumbnailOperation
 from .utils import ping_google, purge_page_cache_fragments, get_custom_icons
