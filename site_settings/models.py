@@ -63,7 +63,7 @@ class EmailSettings(BaseSiteSetting):
         verbose_name=_("Use SSL")
     )
 
-@register_setting(icon='fa-facebook')
+@register_setting(icon='facebook')
 class Facebook_Script_Src(BaseSiteSetting):
     javascript_sdk = models.CharField(
         max_length=300,
