@@ -1,0 +1,13 @@
+<svg
+   viewBox="0 0 1024 1024"
+   id="icon-columns-three"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+   <path 
+      d="m359.33 53.979v916.04m305.35-916.04v916.04m-559.8 0h814.26c55.417-3.5424 51.695-63.359 50.891-103.59v-755.2c2.0124-57.436-56.386-59.822-97.232-57.253h-767.92c-55.417 3.5424-51.695 63.359-50.891 103.59v755.2c-0.93528 27.96 21.121 57.589 50.891 57.253z" 
+      fill="none"
+      stroke="currentColor"
+      stroke-linejoin="round" 
+      stroke-width="107.96"
+   />
+</svg>

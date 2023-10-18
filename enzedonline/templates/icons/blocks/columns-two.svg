@@ -1,0 +1,13 @@
+<svg
+   viewBox="0 0 1024 1024"
+   id="icon-columns-two"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+   <path 
+      d="m512 53.979v916.04m-407.13 0h814.26a50.891 57.253 0 0 0 50.891-57.253v-801.54a50.891 57.253 0 0 0-50.891-57.253h-814.26a50.891 57.253 0 0 0-50.891 57.253v801.54a50.891 57.253 0 0 0 50.891 57.253z" 
+      fill="none" 
+      stroke="currentColor"
+      stroke-linejoin="round" 
+      stroke-width="107.96"
+   />
+</svg>
