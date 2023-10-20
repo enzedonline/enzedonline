@@ -144,7 +144,7 @@ def register_highlighted_text_feature(features):
         feature_name='highlight',
         type_='HIGHLIGHT',
         format='style="background-color: yellow;padding-left: 0.15rem;padding-right: 0.15rem;"',
-        editor_style={'background-color': 'yellow', 'padding-left': '0.15rem', 'padding-right': '0.15rem'},
+        editor_style={'background-color': 'yellow', 'padding-left': '0.15rem', 'padding-right': '0.15rem', 'color': 'var(--bs-dark)'},
         description='Highlighted Text',
         icon='highlighter'
     )
