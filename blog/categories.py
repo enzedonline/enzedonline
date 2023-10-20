@@ -2,8 +2,10 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from wagtail.admin.panels import FieldPanel, TitleFieldPanel
+from wagtail.admin.widgets.slug import SlugInput
 from wagtail.models import TranslatableMixin
 from wagtail.snippets.models import register_snippet
+
 
 class CategorySlugField(models.SlugField):
     def validate(self, value, instance, *args, **kwargs):
@@ -24,7 +26,7 @@ class BlogCategory(TranslatableMixin, models.Model):
 
     panels = [
         TitleFieldPanel("name"),
-        FieldPanel("slug"),
+        FieldPanel("slug", widget=SlugInput),
     ]
 
     class Meta:
