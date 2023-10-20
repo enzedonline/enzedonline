@@ -118,7 +118,7 @@ a {
   border-inline-start: 0.5rem solid var(--bs-info) !important;
   border-radius: 0.25rem;
   background-color: var(--bs-light);
-  color: var(--bs-dark);
+  color: var(--bs-dark) !important;
   font-style: normal;
   font-family: var(--font-family-headings);
   font-weight: 500;
