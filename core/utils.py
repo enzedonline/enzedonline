@@ -258,6 +258,35 @@ def block_instances_by_class(streamfield, block_class):
 
     return find_blocks(streamfield, block_class)
 
+def block_prepvalues_by_class(streamfield, block_class):
+    def find_blocks(data, block_class):
+        list = []
+        bound_blocks = None
+        if isinstance(data, StreamValue):
+            bound_blocks = data._bound_blocks
+        else:
+            value = getattr(data, "value", None)
+            if value:
+                bound_blocks = getattr(value, "bound_blocks", getattr(value, "_bound_blocks", None))
+        if not bound_blocks:
+            return []
+        if isinstance(bound_blocks, OrderedDict):
+            bound_blocks = bound_blocks.values()
+        for bound_block in bound_blocks:
+            if type(bound_block.block) is block_class: list += [bound_block.get_prep_value()]
+            list += find_blocks(bound_block, block_class)
+        return list
+    if type(block_class)==str:
+        try:
+            module_name, class_name = block_class.rsplit('.', 1)
+            module = importlib.import_module(module_name)
+            block_class = getattr(module, class_name)().__class__
+        except:
+            return ['Unable to parse class path. Try passing the class object instead.']    
+    if streamfield.is_lazy: r = streamfield.render_as_block() # force lazy object to load
+    return find_blocks(streamfield, block_class)
+
+
 def list_streamfield_blocks(streamfield):
     def list_child_blocks(child_blocks):
         list = []
