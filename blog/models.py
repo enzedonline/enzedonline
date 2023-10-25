@@ -15,6 +15,7 @@ from core.utils import paginator_range
 
 from .categories import PersonalBlogCategory, TechBlogCategory
 from .detail_page import BlogDetailPage
+from .panels import LocalizedSelectPanel
 from .tags import PersonalBlogPageTag, TechBlogPageTag
 
 
@@ -31,7 +32,7 @@ class TechBlogDetailPage(BlogDetailPage):
     content_panels = BlogDetailPage.content_panels + [
         MultiFieldPanel(
             [
-                FieldPanel(
+                LocalizedSelectPanel(
                     'categories', 
                     widget=CheckboxSelectMultiple, 
                     ),
