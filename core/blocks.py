@@ -390,15 +390,6 @@ class SocialMediaEmbedBlock(StructBlock):
         icon = 'social-media'
         label = _("Embed Social Media Post")
 
-class HtmlBlock(StructBlock):
-    code = RawHTMLBlock(
-        label=_("Enter HTML Code")
-    )
-    class Meta:
-        template='blocks/html_code_block.html'
-        icon = 'media'
-        label = _("Embed HTML Code")
-
 class DjangoTemplateFragmentBlock(StructBlock):
     code = RawHTMLBlock(
         label=_("Enter Django Template Fragment Code")
