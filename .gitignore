@@ -169,3 +169,4 @@ dmypy.json
 
 
 enzedonline.code-workspace
+purge_migrations.sh
