@@ -26,6 +26,9 @@ enzedonline/static/json/wagalytics.json
 restart.sh
 manage.py 
 dev.py
+enzedonline.code-workspace
+purge_migrations.sh
+stopweb.sh
 
 # If your build process includes running collectstatic, then you probably don't need or want to include staticfiles/
 # in your Git repository. Update and uncomment the following line accordingly.
@@ -166,7 +169,3 @@ dmypy.json
 
 # End of https://www.toptal.com/developers/gitignore/api/django
 .vscode/
-
-
-enzedonline.code-workspace
-purge_migrations.sh
