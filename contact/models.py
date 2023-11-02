@@ -29,6 +29,13 @@ FORM_FIELD_CHOICES = (
     ('checkbox', _('Checkbox')),
 )
 
+BLOCKED_DOMAINS = [
+    'mail.ru',
+    'inbox.ru',
+    'bk.ru',
+    'list.ru',
+]
+
 class CustomAbstractFormField(AbstractFormField):
     field_type = models.CharField(
         verbose_name="Field Type",
@@ -187,6 +194,18 @@ class ContactPage(SEOWagtailCaptchaEmailForm):
             'tls_setting' : not use_ssl
         }
 
+    def is_spam(self, form):
+        from site_settings.models import SpamSettings
+        check = SpamSettings.objects.first()
+        banned_domains = check.banned_domains.lower().splitlines()
+        if any(email.split('@')[1] in banned_domains for email in form.cleaned_data['email_address'].lower().split(',')):
+            return True
+        banned_phrases = check.banned_phrases.lower().splitlines()
+        if any(phrase in form.cleaned_data['message'].lower() for phrase in banned_phrases):
+            return True
+        return False
+
+
     def get_notification_email(self, form):
         email={}
         email['addresses'] = [x.strip() for x in self.to_address.split(',')]
@@ -244,3 +263,7 @@ class ContactPage(SEOWagtailCaptchaEmailForm):
             connection.close()        
         except:
             self.send_error = True
+
+    def process_form_submission(self, form):
+        if not self.is_spam(form):
+            return super().process_form_submission(form)

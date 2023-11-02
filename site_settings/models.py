@@ -27,7 +27,7 @@ class PasswordModelField(models.CharField):
 ### Site settings
 ###------------------------------------------------------------
 
-@register_setting(icon='mail')
+@register_setting(icon='mail-settings')
 class EmailSettings(BaseSiteSetting):
     default_from_email = models.CharField(
         max_length=80,
@@ -62,6 +62,19 @@ class EmailSettings(BaseSiteSetting):
         default=True,
         verbose_name=_("Use SSL")
     )
+
+@register_setting(icon='spam')
+class SpamSettings(BaseSiteSetting):
+    banned_domains = models.TextField(
+        null=True,
+        blank=False,
+        help_text=_("Enter each banned domain on a new line without the @ character")
+    )
+    banned_phrases=models.TextField(
+        null=True,
+        blank=False,
+        help_text=_("Enter word or phrase to block. Each should be on a new line")
+    ) 
 
 @register_setting(icon='facebook')
 class Facebook_Script_Src(BaseSiteSetting):
