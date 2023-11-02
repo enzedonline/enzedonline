@@ -211,8 +211,7 @@ class CaptchaV3FormBuilder(WagtailCaptchaFormBuilder):
         return fields
 
 class SEOWagtailCaptchaEmailForm(WagtailCaptchaEmailForm, SEOPage):
-    # form_builder = CaptchaV3FormBuilder
-    pass
+    form_builder = CaptchaV3FormBuilder
 
     class Meta:
         abstract = True
