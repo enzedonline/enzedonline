@@ -21,22 +21,15 @@ from wagtail.blocks import StreamBlock
 from wagtail.fields import RichTextField, StreamField
 from wagtail.models import TranslatableMixin
 
-FORM_FIELD_CHOICES = (
-    ('singleline', _('Single line text')),
-    ('multiline', _('Multi-line text')),
-    ('email', _('Email')),
-    ('url', _('URL')),
-    ('checkbox', _('Checkbox')),
-)
-
-BLOCKED_DOMAINS = [
-    'mail.ru',
-    'inbox.ru',
-    'bk.ru',
-    'list.ru',
-]
-
 class CustomAbstractFormField(AbstractFormField):
+    FORM_FIELD_CHOICES = (
+        ('singleline', _('Single line text')),
+        ('multiline', _('Multi-line text')),
+        ('email', _('Email')),
+        ('url', _('URL')),
+        ('checkbox', _('Checkbox')),
+    )
+
     field_type = models.CharField(
         verbose_name="Field Type",
         max_length=16,
