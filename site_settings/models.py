@@ -27,7 +27,7 @@ class PasswordModelField(models.CharField):
 ### Site settings
 ###------------------------------------------------------------
 
-@register_setting(icon='mail-settings')
+@register_setting(icon='mail')
 class EmailSettings(BaseSiteSetting):
     default_from_email = models.CharField(
         max_length=80,
@@ -63,7 +63,7 @@ class EmailSettings(BaseSiteSetting):
         verbose_name=_("Use SSL")
     )
 
-@register_setting(icon='spam')
+@register_setting(icon='ban')
 class SpamSettings(BaseSiteSetting):
     banned_domains = models.TextField(
         null=True,
