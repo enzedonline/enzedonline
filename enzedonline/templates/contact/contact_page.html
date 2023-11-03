@@ -1,124 +1,112 @@
-{% extends "base.html" %} 
-{% load adv_cache wagtailcore_tags widget_tweaks contact_page_tags wagtailimages_tags %} 
-
+{% extends "base.html" %}
+{% load adv_cache wagtailcore_tags widget_tweaks contact_page_tags wagtailimages_tags %}
 {% block extra_head %}
   {% cache None cache_name "structure" cache_date %}
-    {% include "contact/structured_data.html" %}
-  {% endcache %} 
+  {% include "contact/structured_data.html" %}
+{% endcache %}
 {% endblock extra_head %}
-
 {% block header %}
-    {# Menu Spacer #}
-    <div class="menu-spacer">&nbsp;</div>
+  {# Menu Spacer #}
+  <div class="menu-spacer">&nbsp;</div>
 {% endblock header %}
-
-{% block content %} 
-
-<div class="container-fluid px-2 px-sm-5 pb-4">
-  <div class="row pt-md-4">
-
-    {# Column break at md #}
-    {% cache None cache_name "body" cache_date %}
-
+{% block content %}
+  <div class="container-fluid px-2 px-sm-5 pb-4">
+    <div class="row pt-md-4">
+      {# Column break at md #}
+      {% cache None cache_name "body" cache_date %}
       <div class="col-md-5 px-sm-0 pt-2 contact-intro">
         <h1>{{ self.title }}</h1>
         <hr>
         {# Intro text stream block #}
         <div class="pb-1 pb-md-3 pt-md-1">
           {% for block in page.intro_text %}
-              {% include_block block %}
+            {% include_block block %}
           {% endfor %}
         </div>
-
         {# Optional image only visible md & above, <hr> for widths below this only #}
         {% if self.intro_image %}
           <div class="d-none d-md-block">
-            {% image self.intro_image width-700 format-webp as webp_img_w_700 %} 
+            {% image self.intro_image width-700 format-webp as webp_img_w_700 %}
             {% image self.intro_image width-550 format-webp as webp_img_w_550 %}
             {% image self.intro_image width-300 format-webp as webp_img_w_300 %}
             {% image self.intro_image width-700 as fallback %}
             <picture>
-              <source media="(max-width: 900px)" sizes="(max-width: 900px) 900px" srcset="{{ webp_img_w_300.url }} 600w" type="image/webp">
-              <source media="(max-width: 1500px)" sizes="(max-width: 1500px) 1200px" srcset="{{ webp_img_w_550.url }} 600w" type="image/webp">
-              <source media="(min-width: 1501px)" sizes="(min-width: 1501px) 1501px" srcset="{{ webp_img_w_700.url }} 2100w" type="image/webp">
-              <img
-                src="{{ fallback.url }}"
-                alt="{{ self.intro_image.title }}"
-                class="image-w-100-auto"
-              >
+              <source media="(max-width: 900px)"
+                      sizes="(max-width: 900px) 900px"
+                      srcset="{{ webp_img_w_300.url }} 600w"
+                      type="image/webp">
+              <source media="(max-width: 1500px)"
+                      sizes="(max-width: 1500px) 1200px"
+                      srcset="{{ webp_img_w_550.url }} 600w"
+                      type="image/webp">
+              <source media="(min-width: 1501px)"
+                      sizes="(min-width: 1501px) 1501px"
+                      srcset="{{ webp_img_w_700.url }} 2100w"
+                      type="image/webp">
+              <img src="{{ fallback.url }}"
+                   alt="{{ self.intro_image.title }}"
+                   class="image-w-100-auto">
             </picture>
           </div>
         {% endif %}
         <div class="d-block d-md-none">
           <hr>
         </div>
-
       </div>
       <div class="col-md-auto ps-5 me-5 divider-md"></div>
     {% endcache %}
-
     {# Column break at md, hide border below this width #}
     <div class="col-md px-sm-0 pt-1 pt-md-3">
       <div class="card bg-warning p-1 lh-sm">
-        <div class="card-body pb-md-0 privacy-notice">
-          {{ self.privacy_notice|richtext }}
-        </div>
-      </div>       
-      <div class="mt-3"> 
+        <div class="card-body pb-md-0 privacy-notice">{{ self.privacy_notice|richtext }}</div>
+      </div>
+      <div class="mt-3">
         {# Contact Form #}
-        <form action="{% pageurl page %}" enctype="multipart/form-data" method="POST">
-          {% csrf_token %} 
-          
-          {% for hidden_field in form.hidden_fields %} 
-            {{ hidden_field }} 
-          {% endfor %} 
+        <form action="{% pageurl page %}"
+              enctype="multipart/form-data"
+              method="post">
+          {% csrf_token %}
+          {% for hidden_field in form.hidden_fields %}{{ hidden_field }}{% endfor %}
           {% if form.errors or form.non_field_errors %}
-            <div class="alert alert-danger" role="alert">
-              {{ self.form_error_warning }}
-            </div>            
+            <div class="alert alert-danger" role="alert">{{ self.form_error_warning }}</div>
           {% endif %}
           {% if form.non_field_errors %}
             <div class="alert alert-danger" role="alert">
-              {% for error in form.non_field_errors %} {{ error }} {% endfor %}
+              {% for error in form.non_field_errors %}{{ error }}{% endfor %}
             </div>
           {% endif %}
-
-          <div class="form-group">
-            {% for field in form.visible_fields %} 
+          <div class="form-group mb-0">
+            {% for field in form.visible_fields %}
               {% field_class field as field_class %}
               {# Check box not displaying correctly by default, use case here #}
               {% if field_class == "checkbox" %}
                 <div class="form-check mt-4 ml-1">
-                  {% if form.is_bound %} 
-                    {% if field.errors %} 
-                      {% render_field field class="form-check-input is-invalid form-check-input-sm" %} 
-                    {% else %} 
-                      {% render_field field class="form-check-input is-valid form-check-input-sm" %} 
-                    {% endif %} 
-                  {% else %} 
-                    {% render_field field class="form-check-input form-check-input-sm" %} 
-                  {% endif %} 
-                  <div class="font-label pt-0 pb-1">
-                    {{ field.label_tag }}
-                  </div>
+                  {% if form.is_bound %}
+                    {% if field.errors %}
+                      {% render_field field class="form-check-input is-invalid form-check-input-sm" %}
+                    {% else %}
+                      {% render_field field class="form-check-input is-valid form-check-input-sm" %}
+                    {% endif %}
+                  {% else %}
+                    {% render_field field class="form-check-input form-check-input-sm" %}
+                  {% endif %}
+                  <div class="font-label pt-0 pb-1">{{ field.label_tag }}</div>
                 </div>
               {% else %}
-                <div class="font-label pt-2 pb-1">
-                  {% if field.name != "wagtailcaptcha" %}{{ field.label_tag }}{% endif %}
-                </div>
-                {% if form.is_bound %} 
-                  {% if field.errors %} 
-                    {% render_field field class="form-control is-invalid form-control-sm" %} 
-                  {% else %} 
-                    {% render_field field class="form-control is-valid form-control-sm" %} 
-                  {% endif %} 
-                {% else %} 
-                  {% if field.name == "wagtailcaptcha" %}
-                    {% render_field field %} 
+                {% if field.name != "wagtailcaptcha" %}<div class="font-label pt-2 pb-1">{{ field.label_tag }}</div>{% endif %}
+                {% if form.is_bound %}
+                  {% if field.errors %}
+                    {% render_field field class="form-control is-invalid form-control-sm" %}
                   {% else %}
-                    {% render_field field class="form-control form-control-sm" %} 
+                    {% render_field field class="form-control is-valid form-control-sm" %}
                   {% endif %}
-                {% endif %} 
+                {% else %}
+                  {% if field.name == "wagtailcaptcha" %}
+                    {% render_field field %}
+                  {% else %}
+                    {% render_field field class="form-control form-control-sm" %}
+                  {% endif %}
+                {% endif %}
               {% endif %}
               {% if field.errors or field.help_text %}
                 <div class="row">
@@ -135,7 +123,9 @@
                   {% else %}
                     <div {% if field.errors %}class="col"{% else %}class="col-auto"{% endif %}>
                       {% if field.help_text %}
-                        <small class="form-text text-muted">{{ field.help_text|linebreaksbr }}<br>&nbsp;</small>
+                        <small class="form-text text-muted">{{ field.help_text|linebreaksbr }}
+                          <br>
+                        &nbsp;</small>
                       {% else %}
                         <small>&nbsp;</small>
                       {% endif %}
@@ -153,16 +143,13 @@
                     </div>
                   {% endif %}
                 </div>
-              {% endif %} 
+              {% endif %}
             {% endfor %}
           </div>
           <button class="btn btn-primary btn-lg" type="submit">{{ page.submit_button_text }}</button>
         </form>
       </div>
     </div>
-
   </div>
 </div>
-
 {% endblock content %}
-
