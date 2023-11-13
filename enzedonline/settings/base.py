@@ -10,6 +10,7 @@ INSTALLED_APPS = [
     'service',
     'blog',
     'menu',
+    'menustream',
     'core',
     'site_settings',
     'contact',
