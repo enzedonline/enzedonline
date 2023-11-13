@@ -1,0 +1,10 @@
+<svg 
+    viewBox="0 0 1024 1024"
+    id="icon-search"
+    xmlns="http://www.w3.org/2000/svg"
+    xmlns:svg="http://www.w3.org/2000/svg">
+    <path 
+        style="fill:none;stroke:currentColor;stroke-width:132.292;stroke-linejoin:round;" 
+        d="M 417.80602 66.145833 A 351.65997 351.65997 0 0 0 66.145833 417.80602 A 351.65997 351.65997 0 0 0 417.80602 769.46569 A 351.65997 351.65997 0 0 0 769.46569 417.80602 A 351.65997 351.65997 0 0 0 417.80602 66.145833 z M 727.37369 726.14224 L 955.92098 954.68901 L 727.37369 726.14224 z " 
+    />
+</svg>

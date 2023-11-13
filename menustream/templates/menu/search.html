@@ -1,0 +1,46 @@
+{% load static wagtailadmin_tags %}
+<div class="d-none">
+    {% include "menu/icons/search.svg" %}
+</div>
+<li class="nav-item menustream menustream{{ menu.breakpoint }} menustream-{{ menu.slug }}">
+    <a class="nav-link dropdown-toggle menustream menustream{{ menu.breakpoint }} menustream-{{ menu.slug }}"
+       title="{{ self.title }}"
+       data-bs-toggle="dropdown"
+       role="button"
+       rel="nofollow"
+       aria-haspopup="true"
+       aria-expanded="false"
+       aria-label="{{ self.title }}"
+       onclick="$('#menu-searchbox').focus();">
+        <svg class="menustream-icon">
+            <use href="#icon-search" />
+        </svg>
+    </a>
+    <ul class="dropdown-menu search-menu menustream menustream{{ menu.breakpoint }} menustream-{{ menu.slug }}">
+        <li class="menustream menustream{{ menu.breakpoint }} menustream-{{ menu.slug }}">
+            <form role="search" action="{% url 'search' %}" method="get">
+                <div class="form-group row g-1 my-1 pb-1">
+                    <div class="col">
+                        <input type="search" 
+                            placeholder="Search" 
+                            onfocus="this.select();" 
+                            onmouseup="return false;" 
+                            name="query" 
+                            id="menu-searchbox" 
+                            class="form-control py-1 ps-2" 
+                            aria-label="Desktop search form" 
+                            value={{ request.GET.query }}
+                        >
+                    </div>
+                    <div class="col-auto">
+                        <input role="button"
+                            type="submit"
+                            value="Search"
+                            class="btn-primary form-control py-1"
+                        >
+                    </div>
+                </div>
+            </form>
+        </li>
+    </ul>
+</li>

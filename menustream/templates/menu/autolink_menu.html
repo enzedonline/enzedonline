@@ -1,0 +1,19 @@
+{% load wagtailcore_tags wagtailimages_tags menu_tags %}
+{% get_autofill_pages as links %}
+<li class="nav-item dropdown menustream menustream{{ menu.breakpoint }} menustream-{{ menu.slug }}">
+    <a class="nav-link dropdown-toggle menustream menustream{{ menu.breakpoint }} menustream-{{ menu.slug }}"
+       title="{{ self.title }}"
+       role="button"
+       data-bs-toggle="dropdown"
+       aria-expanded="false">
+        {% if self.icon %}
+            {% image self.icon fill-25x25 %}
+        {% endif %}
+        {% if self.title %}
+            <div{% if self.icon %} class="ps-2"{% endif %}>{{ self.title }}</div>
+        {% endif %}
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-w20 menustream menustream{{ menu.breakpoint }} menustream-{{ menu.slug }}{% if self.sticky %} position-absolute{% endif %}">
+        {% include "menu/autolink_block.html" %}
+    </ul>
+</li>

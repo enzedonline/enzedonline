@@ -1,0 +1,16 @@
+<svg 
+   viewBox="0 0 1024 1024" 
+   fill="#ffffff" 
+   id="icon-linkedin"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+   <rect width="100%" height="100%" rx="30.000002%" fill="#0077b5" x="0" y="0" style="stroke-width:2" />
+   <circle cx="284" cy="276" r="74" style="stroke-width:2" />
+   <path 
+      stroke="#ffffff" 
+      stroke-width="132" 
+      d="M 488,388 V 784 M 284,388 v 396" />
+   <path 
+      d="m 552,564 c 0,-40 26,-80 72,-80 48,0 66,36 66,90 V 784 H 822 V 558 c 0,-122 -64,-178 -152,-178 -68,0 -102,38 -118,64" 
+      style="stroke-width:2" />
+</svg>

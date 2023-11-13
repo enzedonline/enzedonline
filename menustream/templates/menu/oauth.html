@@ -1,0 +1,28 @@
+{% load socialaccount %}
+{% get_providers as socialaccount_providers %}
+{% if socialaccount_providers %}
+    <li class="dropdown-item nav-label menustream menustream{{ menu.breakpoint }} menustream-{{ menu.slug }}">
+        <span class="nav-link menustream menustream-md menustream-{{ menu.slug }}" onclick="event.stopPropagation();">
+            {{ self.login_in_social_label }}
+        </span>
+    </li>
+    <li class="dropdown-item menustream menustream{{ menu.breakpoint }} menustream-{{ menu.slug }}">
+        <div class="nav-link social-icon-list">
+            {% for provider in socialaccount_providers %}
+                <div class="d-none">
+                    {% with icon_path="menu/oauth/"|add:provider.name|lower|add:".svg" %}
+                        {% include icon_path %}
+                    {% endwith %}
+                </div>
+                    <a title="{{ provider.name }}"
+                       class="socialaccount_provider {{ provider.id }}"
+                       href="{% provider_login_url provider.id process='login' next=request.path scope=scope auth_params=auth_params %}"
+                       rel="nofollow">
+                        <svg class="oauth-icon" title="{{ provider.name }}">
+                            <use href="#icon-{{ provider.name|lower }}" />
+                        </svg>
+                    </a>
+            {% endfor %}
+        </div>
+    </li>
+{% endif %}

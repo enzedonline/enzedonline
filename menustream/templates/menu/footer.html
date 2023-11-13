@@ -1,0 +1,30 @@
+{% load adv_cache wagtailcore_tags wagtailimages_tags menu_tags core_tags %}
+{% get_cache_key_settings as cache_settings %}
+{% cache None cache_settings.cache_name "footer" cache_settings.cache_date %}
+{% get_social_media_icons as social_media_icons %}
+<div class="footer">
+  <nav class="navbar navbar-transparent py-1">
+    <div>
+      <ul class="nav bg-transparent px-2">
+        {% for icon in social_media_icons %}
+          <li class="nav-item px-2">
+            <a href="{{ icon.link }}"
+               title="{{ icon.alt }}"
+               aria-label="{{ icon.alt }}">
+              <img src="{{ icon.image }}" alt="{{ icon.alt }}" class="footer-sm-icon">
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+       <span class="mx-lg-auto">
+          <a class="footer-nav-link" href="{% slugurl 'privacy' %}">Privacy Policy</a>
+        </span>
+    <div class="py-0 mb-n3 d-none d-sm-block justify-content-end text-end text-muted">
+      <a class="footer-nav-link pe-0" href="{% slugurl 'about' %}">
+        <span class="website-by">Website by Enzed Online</span>
+      </a>
+    </div>
+  </nav>
+</div>
+{% endcache %}

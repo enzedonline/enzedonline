@@ -1,0 +1,49 @@
+{% load adv_cache wagtailcore_tags menu_tags %}
+{# User menu - Add social logins after loaded menu #}
+<div class="d-none">
+    {% include "menu/icons/user-logged-in.svg" %}
+    {% include "menu/icons/user-logged-out.svg" %}
+</div>
+<li class="nav-item dropdown menustream menustream{{ menu.breakpoint }} menustream-{{ menu.slug }}">
+    <a class="nav-link dropdown-toggle menustream menustream{{ menu.breakpoint }} menustream-{{ menu.slug }}"
+       title="{{ self.title }}"
+       role="button"
+       data-bs-toggle="dropdown"
+       aria-expanded="false"
+       aria-label="{{ self.title }}"
+       >
+        {% if request.user.is_authenticated %}
+            <svg class="menustream-icon">
+                <use href="#icon-user-logged-in" />
+            </svg>
+            <div class="ps-1">{{ self.logged_in_title }}</div>
+        {% else %}
+            <svg class="menustream-icon">
+                <use href="#icon-user-logged-out" />
+            </svg>
+            <div class="ps-1">{{ self.logged_out_title }}</div>
+        {% endif %}
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-w20 menustream menustream{{ menu.breakpoint }} menustream-{{ menu.slug }}{% if self.sticky %} position-absolute{% endif %}">
+        {% if request.user.is_authenticated and self.logged_in_text %}
+        <li class="dropdown-item nav-label menustream menustream{{ menu.breakpoint }} menustream-{{ menu.slug }}">
+            <span class="nav-link menustream menustream-md menustream-{{ menu.slug }}" onclick="event.stopPropagation();">
+               {% render_user_info self.logged_in_text %}
+            </span>
+        </li>
+        <li>
+            <hr class="dropdown-divider">
+        </li>
+        {% endif %}
+        {% for item in self.items %}
+            {% show_on_menu item.value as show %}
+            {% if show %}
+                {% include_block item with link_type="dropdown-item" link_colour="link-dark" %}
+            {% endif %}
+        {% endfor %}
+        {% if not request.user.is_authenticated %}
+            <hr class="dropdown-divider">
+            {% include "menu/oauth.html" %}
+        {% endif %}
+    </ul>
+</li>

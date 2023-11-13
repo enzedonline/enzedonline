@@ -1,0 +1,13 @@
+{% load wagtailimages_tags %}
+{% if menu.brand_logo or menu.brand_title %}
+<a class="navbar-brand menustream menustream-{{ menu.slug }} me-auto"
+   href="{{ self.get_site.root_page.url }}">
+  {% if menu.brand_logo %}
+    {% image menu.brand_logo original as logo %}
+    <img src="{{ logo.url }}"
+         alt="{{ logo.alt }}"
+         class="navbar-brand-icon">
+  {% endif %}
+  {% if menu.brand_title %}<span>{{ menu.brand_title }}</span>{% endif %}
+</a>
+{% endif %}
