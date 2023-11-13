@@ -9,10 +9,6 @@
     <script src="{% static 'js/flexmasonry.js' %}"></script>
     <script src="{% static 'js/flexmasonry.extra.js'%}"></script>
 {% endblock extra_scripts %}
-{% block header %}
-    {# Menu Spacer #}
-    <div class="menu-spacer">&nbsp;</div>
-{% endblock header %}
 {% block content %}
     {% get_template_set "search" as trans %}
     <title>Enzed Online - {{ trans.title }}</title>
@@ -27,7 +23,7 @@
                                onmouseup="return false;"
                                name="query"
                                class="form-control px-3"
-                               value="{% get_search_or_none %}">
+                               value="{{ request.GET.query }}">
                     </div>
                     <div class="col-auto">
                         <input type="submit" value="Search" class="btn-primary form-control">
