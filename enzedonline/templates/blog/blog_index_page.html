@@ -6,7 +6,7 @@
           type="text/css">
     {% cache None cache_name "structure" cache_date %}
     {% include "blog/index/structured_data.html" %}
-{% endcache %}
+    {% endcache %}
 {% endblock extra_head %}
 {% block extra_scripts %}
     <script src="{% static 'js/flexmasonry.js' %}"></script>
@@ -19,78 +19,78 @@
 {% block content %}
     {% get_template_set "common" as trans %}
     {% cache None cache_name "body" cache_date %}
-    {# Top Content Section #}
-    <div class="container-fluid pt-0 pt-md-2 px-2 px-sm-5 pb-4">
-        {# Title #}
-        <div class="row mt-4">
-            <h1 class="text-center">{{ self.title }}</h1>
-        </div>
-        {% for block in page.top_section %}
-            {% include_block block %}
-        {% endfor %}
-        {# Filter #}
-        <div class="container-fluid py-2 ps-2 rounded bg-info border-primary border-1">
-            <a href=".#filter"
-               class="btn btn-sm btn-close btn-close-white float-end"
-               role="button"
-               title="{{ trans.clear_filter }}"></a>
-            <div class="row">
-                <div class="col-auto text-white order-0">
-                    <span class="category-link" id="filter">{{ trans.filter }}</span>
+        {# Top Content Section #}
+        <div class="container-fluid pt-0 pt-md-2 px-2 px-sm-5 pb-4">
+            {# Title #}
+            <div class="row mt-4">
+                <h1 class="text-center">{{ self.title }}</h1>
+            </div>
+            {% for block in page.top_section %}
+                {% include_block block %}
+            {% endfor %}
+            {# Filter #}
+            <div class="container-fluid py-2 ps-2 rounded bg-info border-primary border-1">
+                <a href=".#filter"
+                class="btn btn-sm btn-close btn-close-white float-end"
+                role="button"
+                title="{{ trans.clear_filter }}"></a>
+                <div class="row">
+                    <div class="col-auto text-white order-0">
+                        <span class="category-link" id="filter">{{ trans.filter }}</span>
+                    </div>
+                    <div class="col-sm-auto text-light order-3 order-sm-1">
+                        {% nocache %}
+                        <div class="row pt-0">
+                            {% for item in categories %}
+                                <div class="col-auto">
+                                    <a class="category-link{% if item.slug == filter.name and filter.type == 'category' %} active{% endif %}"
+                                    href="?category={{ item.slug }}#filter">{{ item.name }}</a>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <div class="row">
+                            {% for item in tags %}
+                                <div class="col-auto">
+                                    <a class="tag-link{% if item.slug == filter.name and filter.type == "tag" %} active{% endif %}"
+                                    href="?tag={{ item.slug }}#filter">#{{ item.name }}</a>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        {% endnocache %}
+                    </div>
                 </div>
-                <div class="col-sm-auto text-light order-3 order-sm-1">
-                    {% nocache %}
-                    <div class="row pt-0">
-                        {% for item in categories %}
-                            <div class="col-auto">
-                                <a class="category-link{% if item.slug == filter.name and filter.type == 'category' %} active{% endif %}"
-                                   href="?category={{ item.slug }}#filter">{{ item.name }}</a>
-                            </div>
-                        {% endfor %}
-                    </div>
-                    <div class="row">
-                        {% for item in tags %}
-                            <div class="col-auto">
-                                <a class="tag-link{% if item.slug == filter.name and filter.type == "tag" %} active{% endif %}"
-                                   href="?tag={{ item.slug }}#filter">#{{ item.name }}</a>
-                            </div>
-                        {% endfor %}
-                    </div>
-                {% endnocache %}
             </div>
         </div>
-    </div>
-    {# Blog List #}
-    <div class="p-1 p-sm-2 p-md-3 mt-2 mt-sm-3 mt-md-4 bg-light rounded">
+        {# Blog List #}
+        <div class="mt-0 mt-md-2 mx-2 mx-sm-5 mb-4 bg-light rounded">
+            {% nocache %}
+            <span id="list"></span>
+            {% if filter.type == "category" %}
+                <p class="filter-message">
+                    {{ trans.showing_blog_category }} <span class="fw-bolder">{{ filter.verbose }}</span> {{ trans.category }}
+                </p>
+            {% elif filter.type == "tag" %}
+                <p class="filter-message">
+                    {{ trans.showing_blog_tag }} <span class="fw-bolder">#{{ filter.verbose }}</span>
+                </p>
+            {% endif %}
+            {% include "core/blog_posts.html" %}
+            {% endnocache %}
+        </div>
+        {# Bottom Content Section #}
+        {% for block in page.bottom_section %}
+            {% include_block block %}
+        {% endfor %}
+        {# Paginator #}
         {% nocache %}
-        <span id="list"></span>
-        {% if filter.type == "category" %}
-            <p class="filter-message">
-                {{ trans.showing_blog_category }} <span class="fw-bolder">{{ filter.verbose }}</span> {{ trans.category }}
-            </p>
-        {% elif filter.type == "tag" %}
-            <p class="filter-message">
-                {{ trans.showing_blog_tag }} <span class="fw-bolder">#{{ filter.verbose }}</span>
-            </p>
-        {% endif %}
-        {% include "core/blog_posts.html" %}
-    {% endnocache %}
-</div>
-{# Bottom Content Section #}
-{% for block in page.bottom_section %}
-    {% include_block block %}
-{% endfor %}
-{# Paginator #}
-{% nocache %}
-<div>
-    {% if posts.paginator.num_pages > 1 %}
-        {% paginator_filter filter.qstring as pgn_filter %}
-        {% include "core/paginator.html" with pages=posts %}
-    {% endif %}
-</div>
-{% endnocache %}
-</div>
-{% endcache %}
+        <div>
+            {% if posts.paginator.num_pages > 1 %}
+                {% paginator_filter filter.qstring as pgn_filter %}
+                {% include "core/paginator.html" with pages=posts %}
+            {% endif %}
+        </div>
+        {% endnocache %}
+    {% endcache %}
 {% endblock content %}
 {% block extra_js %}
 {% endblock extra_js %}
