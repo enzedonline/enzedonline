@@ -136,96 +136,78 @@ def is_valid_href(
                         )
                     )
 
-        match parsed_uri.scheme:
-            case scheme if scheme in ["http", "https", "ftp", "ftps"]:
-                result = validators.url(uri)
-                if not result:
-                    raise ParsedError(_("Invalid URL"))
-                
-            case "mailto":
-                # mailto:<address>[?<header1>=<value1>[&<header2>=<value2>]]
-                # each header is one of "to", "cc", "bcc", "subject", "body"
-                result = validate_email_uri(uri)
-                if not result:
-                    error = result
-                    raise ValueError()
-                
-            case "tel":
-                # tel://+19995551234
+        if parsed_uri.scheme in ["http", "https", "ftp", "ftps"]:
+            result = validators.url(uri)
+            if not result:
+                raise ValidationError(_("Invalid URL"))
+
+        elif parsed_uri.scheme == "mailto":
+            result = validate_email(uri)
+            if not result:
+                error = result
+                raise ValueError()
+
+        elif parsed_uri.scheme == "tel":
+            parsed_uri.path = re.sub(r"[ ()-]", "", parsed_uri.path)
+            result = validate_tel_value(parsed_uri.path)
+            if not result:
+                error = result
+                raise ValueError()
+
+        elif parsed_uri.scheme == "facetime":
+            parsed_uri.netloc = re.sub(r"[ ()-]", "", parsed_uri.netloc)
+            result = validate_tel_value(parsed_uri.netloc)
+            if not result:
+                error = result
+                raise ValueError()
+
+        elif parsed_uri.scheme in ["callto", "skype"]:
+            if re.match(r"^[+\[\] \(\)\-\d,]*$", parsed_uri.path):
                 parsed_uri.path = re.sub(r"[ ()-]", "", parsed_uri.path)
                 result = validate_tel_value(parsed_uri.path)
                 if not result:
                     error = result
                     raise ValueError()
-                
-            case "facetime":
-                # facetime://+19995551234
-                # strip unwanted punctuation
-                parsed_uri.netloc = re.sub(r"[ ()-]", "", parsed_uri.netloc)
-                result = validate_tel_value(parsed_uri.netloc)
-                if not result:
-                    error = result
-                    raise ValueError()
-                
-            case url if url in ["callto", "skype"]:
-                # skype:<username|phonenumber>[?[add|call|chat|sendfile|userinfo]]
-                # callto:<username|phonenumber>
-                if re.match(r"^[+\[\] \(\)\-\d,]*$", parsed_uri.path):
-                    # link is a phone number
-                    parsed_uri.path = re.sub(r"[ ()-]", "", parsed_uri.path)
-                    result = validate_tel_value(parsed_uri.path)
-                    if not result:
-                        error = result
-                        raise ValueError()
-                else:
-                    # link uses username, just check it's alphanumeric
-                    if not parsed_uri.path.isalnum():
-                        raise ParsedError(f'{parsed_uri.scheme}:username must be alphanumeric.')
+            else:
+                if not parsed_uri.path.isalnum():
+                    raise ValidationError(f'{parsed_uri.scheme}:username must be alphanumeric.')
+
                 if parsed_uri.scheme == "skype":
-                    result = parsed_uri.query in [
-                        "",
-                        "add",
-                        "call",
-                        "chat",
-                        "sendfile",
-                        "userinfo",
-                    ]
+                    result = parsed_uri.query in ["", "add", "call", "chat", "sendfile", "userinfo"]
                     if not result:
-                        raise ParsedError('skype link format must be skype:<username|phonenumber>[?[add|call|chat|sendfile|userinfo]]')
+                        raise ValidationError('skype link format must be skype:<username|phonenumber>[?[add|call|chat|sendfile|userinfo]]')
                 else:
                     result = (parsed_uri.query == "")
                     if not result:
-                        raise ParsedError('callto: links do not accept parameters, use skype: instead.')
+                        raise ValidationError('callto: links do not accept parameters, use skype: instead.')
 
-            case "chrome-extension":
-                # chrome-extension://<extensionID>/<pageName>.html
-                if not parsed_uri.netloc.isalnum():
-                    raise ParsedError(_(f'{parsed_uri.netloc}: chrome extension ID must be alphanumeric'))
-                if not len(parsed_uri.netloc) == 32:
-                    raise ParsedError(_(f'{parsed_uri.netloc}: chrome extension ID should be 32 characters'))
-                match = re.search(r'/([^/]+)\.html', parsed_uri.path)
-                if match:
-                    match = validators.slug(match.group(1).lower())
-                if not match or parsed_uri.path.count('/') != 1:
-                    raise ParsedError(_('Incorrect format, use chrome-extension://<extensionID>/<pageName>.html'))
-                result = True
+        elif parsed_uri.scheme == "chrome-extension":
+            if not parsed_uri.netloc.isalnum():
+                raise ValidationError(_(f'{parsed_uri.netloc}: chrome extension ID must be alphanumeric'))
+            if not len(parsed_uri.netloc) == 32:
+                raise ValidationError(_(f'{parsed_uri.netloc}: chrome extension ID should be 32 characters'))
+            match = re.search(r'/([^/]+)\.html', parsed_uri.path)
+            if match:
+                match = validators.slug(match.group(1).lower())
+            if not match or parsed_uri.path.count('/') != 1:
+                raise ValidationError(_('Incorrect format, use chrome-extension://<extensionID>/<pageName>.html'))
+            result = True
 
-            case "gtalk":
-                # gtalk:chat?jid=example@gmail.com
-                result = (
-                    all(
-                        item == ""
-                        for item in (
-                            parsed_uri.netloc,
-                            parsed_uri.params,
-                            parsed_uri.fragment,
-                        )
+        elif parsed_uri.scheme == "gtalk":
+            result = (
+                all(
+                    item == ""
+                    for item in (
+                        parsed_uri.netloc,
+                        parsed_uri.params,
+                        parsed_uri.fragment,
                     )
-                    and parsed_uri.query.startswith("jid=")
-                    and validators.email(unquote(parsed_uri.query[4:]))
                 )
-                if not result:
-                    raise ParsedError('gtalk links require the forma gtalk:chat?jid=example@gmail.com')
+                and parsed_uri.query.startswith("jid=")
+                and validate_email(unquote(parsed_uri.query[4:]))
+            )
+            if not result:
+                raise ValidationError('gtalk links require the format gtalk:chat?jid=example@gmail.com')
 
     except ParsedError as e:
         error = e
