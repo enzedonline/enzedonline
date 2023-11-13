@@ -7,10 +7,6 @@
 {% block header %}
     <a href="{{ comment.content_object.get_absolute_url }}" rel="nofollow">{{ comment.content_object }}</a>
 {% endblock header %}
-{% block header %}
-    {# Menu Spacer #}
-    <div class="menu-spacer">&nbsp;</div>
-{% endblock header %}
 {% block content %}
     <h4 class="text-center">{{ trans.comment_removed_verbose }}</h4>
     <p class="text-center">{{ trans.comment_removed_thanks }}</p>
