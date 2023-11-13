@@ -6,7 +6,7 @@
     {% image blog_index.banner_image fill-900x225-c100 format-webp as webp_img_w_900 %}
     {% image blog_index.banner_image fill-600x150-c100 format-webp as webp_img_w_600 %}
     {% image blog_index.banner_image fill-2100x525-c100 as fallback %}
-    <div class="banner-overlay-container">
+    <div class="position-relative">
       <picture>
         <source media="(max-width: 600px)" sizes="(max-width: 600px) 600px" srcset="{{ webp_img_w_600.url }} 600w" type="image/webp">
         <source media="(max-width: 900px)" sizes="(max-width: 900px) 900px" srcset="{{ webp_img_w_900.url }} 900w" type="image/webp">
