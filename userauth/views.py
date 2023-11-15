@@ -1,14 +1,24 @@
+from allauth.account.views import (PasswordChangeView, PasswordSetView,
+                                   SignupView)
+from django import forms
+from django.conf import settings
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from allauth.account.views import PasswordChangeView, PasswordSetView
+from django.core.exceptions import PermissionDenied
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic.edit import DeleteView, UpdateView
-from django.contrib.auth.decorators import login_required
-from django.core.exceptions import PermissionDenied
 from wagtail.models import Locale
 
 from .forms import CustomUserUpdateForm
 from .models import CustomUser
+
+
+class CustomUserSignupView(SignupView):
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['recaptcha_key'] = settings.RECAPTCHA_PUBLIC_KEY
+        return context
 
 class CustomUserUpdateView(UpdateView):
     model = CustomUser

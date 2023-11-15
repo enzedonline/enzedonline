@@ -1,5 +1,32 @@
 {% extends "account/base_card.html" %}
 {% load core_tags socialaccount redirect %}
+{% block extra_css %}
+    <style>
+        .recaptcha {
+            margin: 0;
+        }
+        .recaptcha > p,
+        .recaptcha > input {
+            display:none;
+        }
+    </style>
+{% endblock extra_css %}
+{% block extra_scripts %}
+    <script src='https://www.google.com/recaptcha/api.js?render={{ recaptcha_key }}'></script>
+    <script>
+        $(document).ready(() => {
+            $('#btnSubmit').on('click', (e) => {
+                e.preventDefault();       
+                grecaptcha.ready(() => {
+                    grecaptcha.execute('{{ recaptcha_key }}', { action: "signup" }).then((token) => {
+                        $('#id_recaptcha').val(token);
+                        $('#signUpForm').submit();
+                    });
+                });
+            });
+        });
+    </script>
+{% endblock extra_scripts %}
 {% block card-header %}
     {% get_template_set "accounts" as trans %}
     <title>Enzed Online - {{ trans.sign_up }}</title>
@@ -7,11 +34,11 @@
 {% endblock card-header %}
 {% block card-body %}
     {% get_template_set "accounts" as trans %}
-    {% get_providers as socialaccount_providers %}
     {% get_next_url request as next_url %}
     <form method="POST"
           action="{% url 'account_signup' %}"
           class="needs-validation"
+          id="signUpForm"
           novalidate>
         {% csrf_token %}
         <div class="form-row">
@@ -57,8 +84,16 @@
                 {% endwith %}
             </div>
         </div>
-        <button type="submit" class="btn btn-primary">{{ trans.sign_up }}</button>
+        <div class="form-row">
+            <div class="recaptcha col-12">
+                {% with field=form.recaptcha %}
+                    {% include "account/form_field.html" %}
+                {% endwith %}
+            </div>
+        </div>
+        <button type="submit" id="btnSubmit" class="btn btn-primary">{{ trans.sign_up }}</button>
     </form>
+    {% get_providers as socialaccount_providers %}
     {% if socialaccount_providers %}
         <br>
         <p>{{ trans.login_with_social_suggest }}</p>

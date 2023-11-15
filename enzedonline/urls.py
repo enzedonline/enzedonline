@@ -11,7 +11,10 @@ from wagtail.documents import urls as wagtaildocs_urls
 
 from core.views import RobotsView, refresh_page_cache, sitemap
 from search.views import enzed_search
-from userauth.views import *
+from userauth.views import (CustomPasswordChangeView, CustomPasswordSetView,
+                            CustomUserDeleteView, CustomUserSignupView,
+                            CustomUserUpdateView, delete_success,
+                            password_change_success, profile_view)
 
 
 def trigger_error(request):
@@ -47,6 +50,7 @@ urlpatterns = urlpatterns + i18n_patterns(
     re_path(r'^accounts/password/change/', CustomPasswordChangeView.as_view(), name="account_change_password"),
     re_path(r'^accounts/password/set/', CustomPasswordSetView.as_view(), name="account_set_password"),
     re_path(r'^accounts/profile/', profile_view, name='account_profile'),
+    path('accounts/signup/', CustomUserSignupView.as_view(template_name='account/signup.html'), name='account_signup'),
     path('search/', enzed_search, name='search'),
     re_path(r'^403/$', default_views.permission_denied, kwargs={'exception': Exception("Permission Denied")}),
     re_path(r'^404/$', default_views.page_not_found, kwargs={'exception': Exception("Page not Found")}),
