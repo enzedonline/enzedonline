@@ -603,6 +603,10 @@ a {
   min-width: 4rem;
 }
 
+.grecaptcha-badge {
+  bottom: 3rem !important;
+}
+
 .form-group {
   margin-bottom: 1rem;
 }
