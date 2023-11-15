@@ -1,5 +1,7 @@
 {% load widget_tweaks %}
-<p class="h5">{{ field.label_tag }}</p>
+{% if field.label %}
+    <p class="h5">{{ field.label_tag }}</p>
+{% endif %}
 {% if form.is_bound %}
     {% if field.errors or form.non_field_errors %}
         {% render_field field class="form-control is-invalid" %}
