@@ -10,37 +10,37 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6 pb-2">
-                <p class="alert alert-light p-2 mb-2">{{ trans.email }}</p>
+                <label class="d-block bg-light text-dark rounded p-2 mb-2">{{ trans.email }}</label>
                 <span class="ps-2">{{ request.user.email }}</span>
             </div>
             <div class="col-md-6 pb-2">
-                <p class="alert alert-light p-2 mb-2">{{ trans.display_name }}</p>
+                <label class="d-block bg-light text-dark rounded p-2 mb-2">{{ trans.display_name }}</label>
                 <span class="ps-2">{{ request.user.display_name }}</span>
             </div>
         </div>
         <div class="row pb-2">
             <div class="col-sm-6 pb-2">
-                <p class="alert alert-light p-2 mb-2">{{ trans.first_name }}</p>
+                <label class="d-block bg-light text-dark rounded p-2 mb-2">{{ trans.first_name }}</label>
                 <span class="ps-2">{{ request.user.first_name|default:"-" }}</span>
             </div>
             <div class="col-sm-6 pb-2">
-                <p class="alert alert-light p-2 mb-2">{{ trans.last_name }}</p>
+                <label class="d-block bg-light text-dark rounded p-2 mb-2">{{ trans.last_name }}</label>
                 <span class="ps-2">{{ request.user.last_name|default:"-" }}</span>
             </div>
         </div>
         <div class="row pb-2">
             <div class="col-sm-6 pb-2">
-                <p class="alert alert-light p-2 mb-2">{{ trans.city }}</p>
+                <label class="d-block bg-light text-dark rounded p-2 mb-2">{{ trans.city }}</label>
                 <span class="ps-2">{{ request.user.city|default:"-" }}</span>
             </div>
             <div class="col-sm-6 pb-2">
-                <p class="alert alert-light p-2 mb-2">{{ trans.country }}</p>
+                <label class="d-block bg-light text-dark rounded p-2 mb-2">{{ trans.country }}</label>
                 <span class="ps-2">{{ request.user.country.name|default:"-" }}</span>
             </div>
         </div>
         <div class="row pb-2">
             <div class="col-12 pb-2">
-                <p class="alert alert-light p-2 mb-2">{{ trans.website }}</p>
+                <label class="d-block bg-light text-dark rounded p-2 mb-2">{{ trans.website }}</label>
                 <span class="ps-2">{{ request.user.website|default:"-" }}</span>
             </div>
         </div>
