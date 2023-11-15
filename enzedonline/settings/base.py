@@ -9,7 +9,6 @@ INSTALLED_APPS = [
     'search',
     'service',
     'blog',
-    'menu',
     'menustream',
     'core',
     'site_settings',
