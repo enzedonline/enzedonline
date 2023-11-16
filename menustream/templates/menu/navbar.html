@@ -1,7 +1,7 @@
 {% load adv_cache wagtailcore_tags core_tags menu_tags %}
 {# pass menu object variable in context #}
-{% get_cache_key_settings as cache_settings %}
-{% cache None cache_settings.cache_name menu.slug cache_settings.cache_date %}
+{% comment %} {% get_cache_key_settings as cache_settings %} {% endcomment %}
+{% comment %} {% cache None cache_settings.cache_name menu.slug cache_settings.cache_date %} {% endcomment %}
 <nav class="navbar navbar-expand{{ menu.breakpoint }} p-1 menustream menustream-{{ menu.slug }}">
   <div class="container-fluid justify-content-end menustream-container menustream-container-{{ menu.slug }}">
     {% include "menu/brand.html" %}
@@ -28,4 +28,4 @@
     </button>
   </div>
 </nav>
-{% endcache %}
+{% comment %} {% endcache %} {% endcomment %}
