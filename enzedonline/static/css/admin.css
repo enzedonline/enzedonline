@@ -318,11 +318,22 @@ div[data-tippy-root] div.tippy-box {
   max-width: unset !important;
 }
 div.tippy-content div.w-combobox {
-  width:unset;
+  width: 110%;
 }
 div.tippy-content div.w-combobox div.w-combobox__menu div.w-combobox__optgroup {
   width: unset;
+  gap: unset;
+  grid-auto-flow: unset;
+  grid-template-columns: unset;
+  display: flex;
+  flex-wrap: wrap;
 }
+
+div.tippy-content div.w-combobox__option {
+  width: 13.7rem;
+  align-items: stretch;
+}
+
 .w-combobox__option-icon .icon {
   height: 1.2rem;
   width: 1.2rem;
