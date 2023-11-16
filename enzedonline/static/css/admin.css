@@ -327,10 +327,11 @@ div.tippy-content div.w-combobox div.w-combobox__menu div.w-combobox__optgroup {
   grid-template-columns: unset;
   display: flex;
   flex-wrap: wrap;
+  column-gap: 10px;
 }
 
 div.tippy-content div.w-combobox__option {
-  width: 13.7rem;
+  width: 24%;
   align-items: stretch;
 }
 
