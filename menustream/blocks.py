@@ -54,7 +54,7 @@ class PageLinkBlock(MenuStructBlock):
 class PageLinkMenuBlock(PageLinkBlock):
     sticky = BooleanBlock(
         required=False,
-        help_text=_("Item remains on menu after collapse in mobile view")
+        help_text=_("Item remains on menu bar in mobile view")
     )
 
 class PageLinkSubMenuBlock(PageLinkBlock):
@@ -70,10 +70,10 @@ class URLLinkValue(StructValue):
         return self.get("title")
 
 class URLLinkBlock(MenuStructBlock):
-    url = URLBlock()
+    url = URLBlock(label="URL")
     title = CharBlock(
         max_length=255, 
-        label="Text to Display on Menu"
+        label=_("Text to Display on Menu")
     )
 
     class Meta:
@@ -86,7 +86,7 @@ class URLLinkBlock(MenuStructBlock):
 class URLLinkMenuBlock(URLLinkBlock):
     sticky = BooleanBlock(
         required=False,
-        help_text=_("Item remains on menu after collapse in mobile view")
+        help_text=_("Item remains on menu bar in mobile view")
     )
 
 class URLLinkSubMenuBlock(URLLinkBlock):
@@ -137,7 +137,7 @@ class AutoFillBlock(MenuStructBlock):
 class AutoFillMenuBlock(AutoFillBlock):
     sticky = BooleanBlock(
         required=False,
-        help_text=_("Item remains on menu after collapse in mobile view")
+        help_text=_("Item remains on menu bar in mobile view")
     )
 
 class AutoFillSubMenuBlock(AutoFillBlock):
@@ -168,7 +168,7 @@ class SubMenuBlock(MenuStructBlock):
     )
     sticky = BooleanBlock(
         required=False,
-        help_text=_("Item remains on menu after collapse in mobile view")
+        help_text=_("Item remains on menu bar in mobile view")
     )
     items = SubMenuStreamBlock()
 
@@ -190,6 +190,7 @@ class SearchMenuBlock(StructBlock):
         icon = 'search'
         template = "menu/search.html"
         label = _("Search Form")
+        label_format = label
         value_class = StickyValue
 
 class DisplayAlwaysValue(StructValue):
@@ -218,13 +219,14 @@ class UserMenuBlock(StructBlock):
     items = SubMenuLinkBlock()
     sticky = BooleanBlock(
         required=False,
-        help_text=_("Item remains on menu after collapse in mobile view")
+        help_text=_("Item remains on menu bar in mobile view")
     )
 
     class Meta:
         icon = 'user'
         template = "menu/user.html"
         label = _("User Menu")
+        label_format = label
         value_class = DisplayAlwaysValue
 
 class MenuStreamBlock(StreamBlock):
@@ -234,3 +236,9 @@ class MenuStreamBlock(StreamBlock):
     sub_menu = SubMenuBlock()
     search_form = SearchMenuBlock(max_num=1)
     user_menu = UserMenuBlock(max_num=1)
+
+    class Meta:
+        block_counts = {
+            'search_form': {'min_num': 0, 'max_num': 1},
+            'user_menu': {'min_num': 0, 'max_num': 1},
+        }
