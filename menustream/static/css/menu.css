@@ -345,6 +345,12 @@ li.menustream.submenu.dropinline ul.dropdown-menu[data-bs-popper] li:hover {
   background-color: var(--bs-primary);
 }
 
+.navbar-toggler-icon.menustream-main-menu {
+  width: 1em;
+  height: 1em;
+  vertical-align: bottom;
+}
+
 .navbar.menustream-main-menu {
   background-color: var(--bs-primary) !important;
   color: var(--menustream-main-menu-link-inactive);
