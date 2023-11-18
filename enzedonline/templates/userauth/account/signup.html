@@ -41,6 +41,9 @@
           id="signUpForm"
           novalidate>
         {% csrf_token %}
+        {% if form.errors or form.non_field_errors %}
+            <div class="alert alert-danger" role="alert">{{ trans.form_error }}</div>
+        {% endif %}
         <div class="form-row">
             <div class="form-group col-md-6">
                 {% with field=form.email %}
