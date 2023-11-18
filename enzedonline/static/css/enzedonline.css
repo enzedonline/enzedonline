@@ -140,8 +140,13 @@ a {
   color: inherit;
 }
 
+.alert {
+  font-family: var(--font-family-headings);
+  font-size: var(--font-size-body);  
+}
+
 .banner-underlay-container {
-  height: clamp(50px,calc(50px + (70 - 50) * ((100vw - 475px) / (1700 - 475))),70px);
+  height: clamp(44px,calc(44px + (70 - 44) * ((100vw - 475px) / (1700 - 475))),70px);
 }
 
 .fill-available {
@@ -664,6 +669,11 @@ a {
 
 .invalid-feedback {
   font-size: var(--font-size-6);
+}
+
+ul.errorlist {
+  list-style: none;
+  padding-left: 1em;
 }
 
 .bg-black {
