@@ -29,6 +29,8 @@
   font-family: var(--font-family-headings);
   font-size: var(--font-size-4);
   font-weight: 600;
+  display: flex;
+  align-items: center;
 }
 
 .menustream .navbar-brand-icon {
