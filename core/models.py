@@ -1,17 +1,13 @@
 from datetime import datetime
 
-from captcha.fields import ReCaptchaField
-from captcha.widgets import ReCaptchaV3
 from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.forms.utils import ErrorList
 from django.utils.translation import gettext_lazy as _
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
-from wagtail.models import Page, Locale
+from wagtail.models import Locale, Page
 from wagtail.search import index
-from wagtailcaptcha.forms import WagtailCaptchaFormBuilder
-from wagtailcaptcha.models import WagtailCaptchaEmailForm
 from wagtailmetadata.models import WagtailImageMetadataMixin
 
 
@@ -202,16 +198,3 @@ class SEOPage(SEOPageMixin, Page):
             context['cache_name'] = self.slug
             context['cache_date'] = self.last_published_at
         return context
-
-class CaptchaV3FormBuilder(WagtailCaptchaFormBuilder):
-    @property
-    def formfields(self):
-        fields = super(WagtailCaptchaFormBuilder, self).formfields
-        fields[self.CAPTCHA_FIELD_NAME] = ReCaptchaField(label="", widget=ReCaptchaV3())
-        return fields
-
-class SEOWagtailCaptchaEmailForm(WagtailCaptchaEmailForm, SEOPage):
-    form_builder = CaptchaV3FormBuilder
-
-    class Meta:
-        abstract = True
