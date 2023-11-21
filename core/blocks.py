@@ -47,6 +47,7 @@ class ImageBlock(StructBlock):
         icon = 'image'
         template = "blocks/image_block.html"
         label = _("Image Block")
+        label_format = _("Image") + ": {image}"
 
 class BlockQuote(StructBlock):
     """
@@ -64,6 +65,7 @@ class BlockQuote(StructBlock):
         icon = "openquote"
         template = "blocks/blockquote.html"
         label = _("Quote Block")
+        label_format = _("Quote") + ": {text}"
 
 class Link_Value(StructValue):
     """ Additional logic for the Link class """
@@ -111,6 +113,8 @@ class Link(StructBlock):
         value_class = Link_Value
         icon = "link"
         template = "blocks/link_button.html"
+        label = _("Link")
+        label_format = label + ": {button_text}"
 
     def clean(self, value):
         errors = {}
@@ -136,6 +140,7 @@ class RichTextStructBlock(StructBlock):
     class Meta:
         template = 'blocks/simple_richtext_block.html'
         label = _("Rich Text Block")
+        label_format = "RTB: {content}"
         icon = 'pilcrow'
         abstract = True
 
@@ -161,6 +166,7 @@ class HeadingBlock(StructBlock):
     class Meta:
         template = 'blocks/heading_block.html'
         label = _("Heading Block")
+        label_format = _("Heading") + ": {title}"
         icon = 'title'
 
     def clean(self, value):
@@ -219,6 +225,7 @@ class FlexCard(StructBlock):
     class Meta:
         template = 'blocks/flex_card_block.html'
         label = _("Image & Text Card")
+        label_format = label
         icon = 'image-text-card'
 
     def clean(self, value):
@@ -243,6 +250,7 @@ class CallToActionCard(FlexCard):
     class Meta:
         template = 'blocks/flex_card_block.html'
         label = _("Call-To-Action Card (Image/Text/Button)")
+        label_format = label
         icon = 'call-to-action'
 
 class SimpleCard(StructBlock):
@@ -264,6 +272,7 @@ class SimpleCard(StructBlock):
     class Meta:
         template = 'blocks/simple_card_block.html'
         label = _("Text Card")
+        label_format = label + ": {text}"
         icon = 'text-card'
 
 class SimpleCardStreamBlock(StreamBlock):
@@ -295,6 +304,7 @@ class SimpleCardGridBlock(StructBlock):
         template = "blocks/simple_card_grid_block.html"
         icon = 'text-card-grid'
         label = _("Grid of Text Cards")
+        label_format = label
 
     def clean(self, value):
         errors = {}
@@ -332,6 +342,7 @@ class SimpleImageCard(StructBlock):
     class Meta:
         template = 'blocks/simple_image_card_block.html'
         label = _("Simple Image & Text Card")
+        label_format = label
         icon = 'image-text-card'
 
 class SimpleImageCardStreamBlock(StreamBlock):
@@ -363,6 +374,7 @@ class SimpleImageCardGridBlock(StructBlock):
         template = "blocks/simple_card_grid_block.html"
         icon = 'image-card-grid'
         label = _("Grid of Simple Image & Text Cards")
+        label_format = label
 
 class InlineVideoBlock(StructBlock):
     video = EmbedBlock(
@@ -378,7 +390,8 @@ class InlineVideoBlock(StructBlock):
     class Meta:
         icon = 'video'
         template = 'blocks/inline_video_block.html'
-        label = _("Embed External Video")    
+        label = _("External Video")    
+        label_format = label
 
 class SocialMediaEmbedBlock(StructBlock):
     embed_code = RawHTMLBlock(
@@ -388,7 +401,8 @@ class SocialMediaEmbedBlock(StructBlock):
     class Meta:
         template='blocks/social_media_embed.html'
         icon = 'social-media'
-        label = _("Embed Social Media Post")
+        label = _("Social Media Post")
+        label_format = label
 
 class DjangoTemplateFragmentBlock(StructBlock):
     code = RawHTMLBlock(
@@ -397,7 +411,8 @@ class DjangoTemplateFragmentBlock(StructBlock):
     class Meta:
         template='blocks/django_code_block.html'
         icon = 'laptop-code'
-        label = _("Embed Django Template Code")
+        label = _("Raw Django HTML")
+        label_format = label
 
 class ExternalLinkEmbedBlock(StructBlock):
     external_link = URLBlock(
@@ -472,7 +487,8 @@ class ExternalLinkEmbedBlock(StructBlock):
     class Meta:
         template='blocks/external_link_embed.html',
         icon = 'link-external'
-        label = _("Link to External Article")
+        label = _("External Article Meta Link")
+        label_format = _("Meta Link") +": {external_link}"
     
     def clean(self, value):
         errors = {}
@@ -543,6 +559,7 @@ class ImageCarouselBlock(StructBlock):
         template='blocks/image_carousel.html'
         icon="image-carousel"
         label = _("Image Carousel")
+        label_format = label
 
 class CollapsableCard(StructBlock):
     header = CharBlock(
@@ -571,6 +588,7 @@ class CollapsableCardBlock(StructBlock):
         template='blocks/collapsable_card_block.html'
         icon="collapse-down"
         label = _("Collapsable Text Block")
+        label_format = label
 
 class MapWaypointBlock(StructBlock):
     gps_coord = TextBlock(
@@ -635,7 +653,8 @@ class MapBlock(StructBlock):
         template='blocks/map_block.html'
         icon="map-marker"
         label = _("Interactive Map")
-        
+        label_format = label
+
 class BlogCodeBlock(StructBlock):
     language = CodeChoiceBlock(default='python')
     code = TextBlock()
@@ -651,6 +670,7 @@ class BlogCodeBlock(StructBlock):
         template = "blocks/code_block.html"
         icon = "code"
         label = _("Code Block")
+        label_format = _("Code") + ": {language}"
 
 class CalloutHeadingStructBlock(StructBlock):
     icon = CharBlock(
@@ -679,6 +699,7 @@ class CalloutBlock(StructBlock):
         template = "blocks/callout_block.html"
         icon = "warning"
         label = _("Callout Block")
+        label_format = _("Callout")
 
 class DocumentBlock(StructBlock):
     document = DocumentChooserBlock(
@@ -729,6 +750,7 @@ class DocumentBlock(StructBlock):
         template = "blocks/document_block.html"
         icon = "doc-full"
         label = _("Document Block")
+        label_format = _("Document") +": {link_label}"
 
 class DocumentListBlock(StructBlock):
     tag_list = CharBlock(
@@ -773,18 +795,21 @@ class DocumentListBlock(StructBlock):
         template = "blocks/document_list_block.html"
         icon = "document-list"
         label = "Document List"
+        label_format = label
 
 class EmptyStaticBlock(StaticBlock):
     class Meta:
         template = 'blocks/empty_block.html'
         icon = 'block-empty'
         label = 'Empty Block'
+        label_format = label
 
 class SpacerStaticBlock(StaticBlock):
     class Meta:
         template = 'blocks/spacer_block.html'
         icon = 'block-solid'
-        label = 'Add Blank Space'
+        label = 'Blank Space'
+        label_format = label
 
 class LatestBlogPostGrid(StructBlock):
     group_label = SimpleRichTextBlock(
@@ -807,6 +832,7 @@ class LatestBlogPostGrid(StructBlock):
     class Meta:
         template = 'blocks/latest_blog_posts_block.html'
         label = _("Latest Blog Posts")
+        label_format = label
         icon = 'blog'
 
 class TableOfContentsBlock(StructBlock):
@@ -831,6 +857,7 @@ class TableOfContentsBlock(StructBlock):
         template = 'blocks/table_of_contents.html'
         icon = 'list-ol'
         label = 'Table of Contents'
+        label_format = label
         
 class CSVTableBlock(StructBlock):
     title = HeadingBlock(required=False, label=_("Table Title"))
@@ -860,6 +887,7 @@ class CSVTableBlock(StructBlock):
         template = 'blocks/csv_table_block.html'
         icon = 'csv-table'
         label = 'CSV Table'
+        label_format = label
 
 class BaseStreamBlock(StreamBlock):
     richtext_block = SimpleRichTextBlock()
@@ -901,6 +929,7 @@ class FullWidthBaseBlock(StructBlock):
         template = 'blocks/full_width_block.html'
         icon = 'block-empty'
         label = "Page Wide Block"
+        label_format = label
 
 class TwoColumnBaseBlock(StructBlock):
     column_layout = TwoColumnLayoutChoiceBlock()
@@ -959,6 +988,7 @@ class TwoColumnBaseBlock(StructBlock):
         template = 'blocks/two_column_block.html'
         icon = 'columns-two'
         label = "Two Column Block"
+        label_format = label
 
     def clean(self, value):
         errors = {}
@@ -1030,7 +1060,8 @@ class ThreeColumnBaseBlock(StructBlock):
     class Meta:
         template = 'blocks/three_column_block.html'
         icon = 'columns-three'
-        label = "Three Column Block"
+        label = _("Three Column Block")
+        label_format = label
 
     def clean(self, value):
         errors = {}
