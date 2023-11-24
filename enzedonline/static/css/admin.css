@@ -313,6 +313,11 @@ header {
     margin-bottom: -2em;
 }
 
+/* remove root level warning box */
+form#page-reorder-form>div.nice-padding {
+  display: none;
+}
+
 /* block menu */
 div[data-tippy-root] div.tippy-box {
   max-width: unset !important;
