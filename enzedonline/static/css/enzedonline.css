@@ -709,7 +709,8 @@ ul.errorlist {
 .blog-date {
   color: var(--bs-gray);
   text-align: center;
-  font-size: smaller;
+  font-size: small;
+  font-family: var(--font-family-headings);
 }
 
 .page-card {

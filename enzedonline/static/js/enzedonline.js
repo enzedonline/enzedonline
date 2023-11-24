@@ -41,10 +41,10 @@ const localiseDates = (
 const convertUTCDateToLocalDate = (dateString, date_options, time_options) => {
   const date = new Date(Date.parse(dateString + " UTC"));
   if (date instanceof Date && !isNaN(date)) {
-    console.log(date);
     const formattedDate = date.toLocaleDateString(undefined, date_options);
     const formattedTime = date.toLocaleTimeString(undefined, time_options);
-    return `${formattedDate} ${formattedTime}`;
+    const localTimezone = date.toLocaleDateString(navigator.language, { timeZoneName:'short' }).split(/\s+/).pop();
+    return `${formattedDate} ${formattedTime} (${localTimezone})`;
   } else {
     console.warn('Date string could not be parsed, check a valid ISO formatted datetime string is being passed.')
   }
