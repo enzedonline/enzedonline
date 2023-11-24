@@ -1,8 +1,13 @@
-const localDateTime = (element, date) => {
+// Usage: localDateTime('someElementID', '2023-12-31 23:59:59');
+// Amend date/time options to suit:
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat
+
+const localDateTime = (elementID, dateString) => {
+  const element = document.getElementById(elementID);
   // Only run if element exists and date is valid
-  if (element != null && date instanceof Date && !isNaN(date)) {
+  if (element != null) {
     const date_options = {
-      weekday: "short",
+      // weekday: "short",
       year: "numeric",
       month: "long",
       day: "numeric",
@@ -12,28 +17,39 @@ const localDateTime = (element, date) => {
       minute: "2-digit",
       hour12: false
     };
-    element.innerText = convertUTCDateToLocalDate(date, date_options, time_options);
+    element.innerText = convertUTCDateToLocalDate(dateString, date_options, time_options);
   }
   else {
-    if (element == null) {
-      console.warn('An null element was passed to localDate, check the element exists on the current page.')
-    }
-    if (!(date instanceof Date) || isNaN(date)) {
-      console.warn('A non-date value was passed to localDate, check a valid datetime object is being passed.')
-    }
+    console.warn('An null element was passed to localDate, check the element exists on the current page.')
   }
 }
 
-// Usage: document.getElementById("id").innerText = convertUTCDateToLocalDate(new Date('2021-08-12 09:58:22'));
+const localiseDates = (
+    className, 
+    date_options = {weekday: "short", year: "numeric", month: "long", day: "numeric"}, 
+    time_options = {hour: "2-digit", minute: "2-digit", hour12: false}
+  ) => {
+    document.querySelectorAll(`.${className}`).forEach((element) => {
+      const utcDateString = element.innerText;
+      const localDateString = convertUTCDateToLocalDate(utcDateString, date_options, time_options);
+      element.innerText = localDateString;
+    });
+
+}
+
 // Non-numeric month format will cause errors in multi-lingual setting
-const convertUTCDateToLocalDate = (date, date_options, time_options) => {
-  local_date = new Date(date.getTime() + date.getTimezoneOffset() * 60000);
-  return (
-    local_date.toLocaleDateString(undefined, date_options) +
-    " " +
-    local_date.toLocaleTimeString(undefined, time_options)
-  );
+const convertUTCDateToLocalDate = (dateString, date_options, time_options) => {
+  const date = new Date(Date.parse(dateString + " UTC"));
+  if (date instanceof Date && !isNaN(date)) {
+    console.log(date);
+    const formattedDate = date.toLocaleDateString(undefined, date_options);
+    const formattedTime = date.toLocaleTimeString(undefined, time_options);
+    return `${formattedDate} ${formattedTime}`;
+  } else {
+    console.warn('Date string could not be parsed, check a valid ISO formatted datetime string is being passed.')
+  }
 };
+
 
 // global on document ready code
 $(document).ready(() => {

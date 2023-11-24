@@ -11,15 +11,9 @@
     <div class="card-body py-1">
         <h3 class="h4 card-title fw-bolder text-center">{{ post.localized.title }}</h3>
         <div class="blog-summary">{{ post.summary|linebreaksbr }}</div>
-        <div class="blog-date" id="post_{{ post.localized.pk }}"></div>
+        <div class="blog-date localise-date">{{ post.localized.first_published_at|date:'Y-m-d H:i:s' }} UTC</div>
     </div>
     <a href="{{ post.localized.url }}{{ filter.qstring }}"
        class="stretched-link"
        aria-label="Read {{ post.localized.title }}"></a>
 </div>
-<script>
-    localDateTime(
-        document.getElementById("post_{{post.localized.pk}}"),
-        new Date('{{ post.localized.first_published_at|date:"Y-m-d H:i:s" }}')
-        );
-</script>

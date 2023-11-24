@@ -17,5 +17,8 @@
     </div>
 </div>
 <script>
-    document.getElementById("date_{{comment.pk}}").innerHTML = convertUTCDateToLocalDate(new Date("{{ comment.submit_date|date:"Y-m-d H:i:s" }}"));
+    localDateTime(
+        "date_{{ comment.pk }}",
+        "{{ comment.submit_date|date:'Y-m-d H:i:s' }}"
+    );
 </script>
