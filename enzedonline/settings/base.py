@@ -253,19 +253,19 @@ SOCIALACCOUNT_PROVIDERS = {
         'SCOPE': ['email', 'public_profile'],
         'VERIFIED_EMAIL': True,
     },
-    'linkedin': {
-        'SCOPE': [
-            'profile',
-            'email'
-        ],
-        'PROFILE_FIELDS': [
-            'id',
-            'first-name',
-            'last-name',
-            'email-address',
-        ],
-        'VERIFIED_EMAIL': True,
-    }
+    # 'linkedin': {
+    #     'SCOPE': [
+    #         'profile',
+    #         'email'
+    #     ],
+    #     'PROFILE_FIELDS': [
+    #         'id',
+    #         'first-name',
+    #         'last-name',
+    #         'email-address',
+    #     ],
+    #     'VERIFIED_EMAIL': True,
+    # }
 
 }
 
