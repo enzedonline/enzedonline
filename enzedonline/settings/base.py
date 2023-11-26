@@ -58,6 +58,7 @@ INSTALLED_APPS = [
 
     'django_recaptcha',
     'wagtailcaptcha',
+    # "wagtail_analytics",
 ]
 
 MIDDLEWARE = [
@@ -254,16 +255,14 @@ SOCIALACCOUNT_PROVIDERS = {
     },
     'linkedin': {
         'SCOPE': [
-            'r_basicprofile',
-            'r_emailaddress'
+            'profile',
+            'email'
         ],
         'PROFILE_FIELDS': [
             'id',
             'first-name',
             'last-name',
             'email-address',
-            'picture-url',
-            'public-profile-url',
         ],
         'VERIFIED_EMAIL': True,
     }
