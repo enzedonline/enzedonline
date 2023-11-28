@@ -1,6 +1,6 @@
 {% load wagtailcore_tags wagtailimages_tags menu_tags %}
-<li class="nav-item dropdown menustream menustream{{ menu.breakpoint }} menustream-{{ menu.slug }}">
-    <a class="nav-link dropdown-toggle menustream menustream{{ menu.breakpoint }} menustream-{{ menu.slug }}"
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle"
        title="{{ self.title }}"
        role="button"
        data-bs-toggle="dropdown"
@@ -12,7 +12,7 @@
             <div{% if self.icon %} class="ps-2"{% endif %}>{{ self.title }}</div>
         {% endif %}
     </a>
-    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-w20 menustream menustream{{ menu.breakpoint }} menustream-{{ menu.slug }}{% if self.sticky %} position-absolute{% endif %}">
+    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-w20{% if self.sticky %} position-absolute{% endif %}">
         {% for item in self.items %}
             {% show_on_menu item.value as show %}
             {% if show %}

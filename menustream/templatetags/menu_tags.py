@@ -17,7 +17,7 @@ def show_on_menu(context, item):
 
 @register.simple_tag(takes_context=True)
 def link_active(context, link):
-    return 'active' if (getattr(link, 'url', None) == context['request'].path) else ''
+    return ' active' if (getattr(link, 'url', None) == context['request'].path) else ''
 
 @register.simple_tag(takes_context=True)
 def get_autofill_pages(context):

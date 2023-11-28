@@ -2,8 +2,8 @@
 <div class="d-none">
     {% include "menu/icons/search.svg" %}
 </div>
-<li class="nav-item menustream menustream{{ menu.breakpoint }} menustream-{{ menu.slug }}">
-    <a class="nav-link dropdown-toggle menustream menustream{{ menu.breakpoint }} menustream-{{ menu.slug }}"
+<li class="nav-item">
+    <a class="nav-link dropdown-toggle"
        title="{{ self.title }}"
        data-bs-toggle="dropdown"
        role="button"
@@ -16,8 +16,8 @@
             <use href="#icon-search" />
         </svg>
     </a>
-    <ul class="dropdown-menu search-menu menustream menustream{{ menu.breakpoint }} menustream-{{ menu.slug }}">
-        <li class="menustream menustream{{ menu.breakpoint }} menustream-{{ menu.slug }}">
+    <ul class="dropdown-menu search-menu">
+        <li>
             <form role="search" action="{% url 'search' %}" method="get">
                 <div class="form-group row g-1 my-1 pb-1">
                     <div class="col">

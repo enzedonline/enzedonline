@@ -1,6 +1,6 @@
 {% for link in links %}
-    <li class="dropdown-item menustream menustream{{ menu.breakpoint }} menustream-{{ menu.slug }} {{ link.active }}">
-        <a class="nav-link menustream menustream{{ menu.breakpoint }} menustream-{{ menu.slug }} {{ link.active }}"
+    <li class="dropdown-item {{ link.active }}">
+        <a class="nav-link {{ link.active }}"
            href="{{ link.url }}"
            title="{{ link.title }}">
            <span>{{ link.title }}</span>

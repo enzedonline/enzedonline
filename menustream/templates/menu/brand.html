@@ -1,7 +1,6 @@
 {% load wagtailimages_tags %}
 {% if menu.brand_logo or menu.brand_title %}
-<a class="navbar-brand menustream menustream-{{ menu.slug }} me-auto"
-   href="/">
+<a class="navbar-brand me-auto" href="/">
   {% if menu.brand_logo %}
     {% image menu.brand_logo original as logo %}
     <img src="{{ logo.url }}"

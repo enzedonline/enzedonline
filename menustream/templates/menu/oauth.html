@@ -1,12 +1,12 @@
 {% load socialaccount %}
 {% get_providers as socialaccount_providers %}
 {% if socialaccount_providers %}
-    <li class="dropdown-item nav-label menustream menustream{{ menu.breakpoint }} menustream-{{ menu.slug }}">
-        <span class="nav-link menustream menustream-md menustream-{{ menu.slug }}" onclick="event.stopPropagation();">
+    <li class="dropdown-item nav-label">
+        <span class="nav-link" onclick="event.stopPropagation();">
             {{ self.login_in_social_label }}
         </span>
     </li>
-    <li class="dropdown-item menustream menustream{{ menu.breakpoint }} menustream-{{ menu.slug }}">
+    <li class="dropdown-item">
         <div class="nav-link social-icon-list">
             {% for provider in socialaccount_providers %}
                 <div class="d-none">
