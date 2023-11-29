@@ -148,6 +148,11 @@ a {
 /* Admin Styles */
 /* --------------------------------------------------------------------- */
 
+.w-summary {
+  --w-summary-item-font-size: 4rem;
+  margin-bottom: .5rem;
+  padding-top: 1rem;
+}
 .sidebar--slim .sidebar-custom-branding,
 .sidebar__inner .sidebar-custom-branding {
   padding: 10px 0;
@@ -167,15 +172,15 @@ a {
   margin-bottom: 0;
   padding-top: 0;
 }
-.listing .title {
-  padding-bottom: 0;
-  padding-top: 0.7rem;
+.listing td.title {
+  padding: 0.5rem 1rem 0.1rem 1rem;
 }
 .listing td, .listing th {
   padding: 0.5rem 1rem 0.1rem 1rem;
 }
 .listing .title .title-wrapper {
   font-weight: 500;
+  vertical-align: top;
 }
 .c-page-explorer__item__link h3 {
   font-size: var(--font-size-5);
