@@ -6,6 +6,7 @@ from django.db import models
 from django.forms.utils import ErrorList
 from django.utils.translation import gettext_lazy as _
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
+from wagtail.admin.widgets.slug import SlugInput
 from wagtail.models import Locale, Page
 from wagtail.search import index
 from wagtailmetadata.models import WagtailImageMetadataMixin
@@ -75,7 +76,7 @@ class SEOPageMixin(index.Indexed, WagtailImageMetadataMixin, models.Model):
     
     promote_panels = [
         MultiFieldPanel([
-            FieldPanel('slug'),
+            FieldPanel('slug', widget=SlugInput),
             FieldPanel('search_image'),
             FieldPanel('seo_title'),
             FieldPanel('search_description'),
