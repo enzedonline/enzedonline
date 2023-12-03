@@ -61,7 +61,7 @@
                 {% include "socialaccount/provider_list.html" with process="connect" %}
                 {% social_accounts request as accounts %}
                 {% if accounts %}
-                    <p><label>{{ trans.connected_social }}</label></p>
+                    <p class="text-start"><label>{{ trans.connected_social }}</label></p>
                     <form method="POST"
                           action="{% url 'socialaccount_connections' %}"
                           class="needs-validation"
