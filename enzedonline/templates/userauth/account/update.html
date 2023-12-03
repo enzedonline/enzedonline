@@ -55,12 +55,13 @@
                 <button type="submit" class="btn btn-primary">{{ trans.update }}</button>
             </form>
         </div>
-        <div class="col-md-4 pt-3 pt-md-2 ps-md-5">
+        <div class="col-md-4 pt-3 pt-md-0 ps-md-3">
             {% if socialaccount_providers %}
+                <p class="h5 text-end"><label>{{ trans.connect_your_social_account }}</label></p>
                 {% include "socialaccount/provider_list.html" with process="connect" %}
                 {% social_accounts request as accounts %}
                 {% if accounts %}
-                    <p>{{ trans.connected_social }}</p>
+                    <p><label>{{ trans.connected_social }}</label></p>
                     <form method="POST"
                           action="{% url 'socialaccount_connections' %}"
                           class="needs-validation"
