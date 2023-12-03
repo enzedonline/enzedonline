@@ -44,3 +44,7 @@
         <p>{{ trans.no_connections }}</p>
     {% endif %}
 {% endblock card-body %}
+{% block card-footer %}
+    {% get_template_set "accounts" as trans %}
+    <a href="{% url 'account_update' request.user.url %}">{{ trans.update_profile }}</a>
+{% endblock card-footer %}
