@@ -54,7 +54,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.facebook',
     'allauth.socialaccount.providers.google',
-    'allauth.socialaccount.providers.openid_connect',
+    # 'allauth.socialaccount.providers.openid_connect',
 
     'django_recaptcha',
     'wagtailcaptcha',
@@ -253,20 +253,6 @@ SOCIALACCOUNT_PROVIDERS = {
         'SCOPE': ['email', 'public_profile'],
         'VERIFIED_EMAIL': True,
     },
-    # 'linkedin': {
-    #     'SCOPE': [
-    #         'profile',
-    #         'email'
-    #     ],
-    #     'PROFILE_FIELDS': [
-    #         'id',
-    #         'first-name',
-    #         'last-name',
-    #         'email-address',
-    #     ],
-    #     'VERIFIED_EMAIL': True,
-    # }
-
 }
 
 WAGTAILADMIN_RICH_TEXT_EDITORS = {
