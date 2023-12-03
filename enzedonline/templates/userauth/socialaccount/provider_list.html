@@ -16,7 +16,7 @@
         <div class="col-auto">
             <a title="{{ provider.name }}"
                href="{% provider_login_url provider.id process=process scope=scope auth_params=auth_params next=next %}">
-                <img alt="{{ provider.name }}" class="avatar mb-3 me-3 w-2.5 h-2.5" src="{% static 'images/'|add:provider.name|add:'logo.png' %}">
+                <img alt="{{ provider.name }}" class="avatar mb-3 ms-3 w-2.5 h-2.5" src="{% static 'images/'|add:provider.name|add:'logo.png' %}">
             </a>
         </div>
     {% endfor %}
