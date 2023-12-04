@@ -101,11 +101,12 @@
         <br>
         <p>{{ trans.login_with_social_suggest }}</p>
         {% include "socialaccount/provider_list.html" with process="login" next=next_url %}
+        &nbsp;
     {% endif %}
 {% endblock card-body %}
 {% block card-footer %}
     {% get_template_set "accounts" as trans %}
-    <p>
+    <p class="h5 mb-0 text-center">
         {{ trans.existing_account_question }} <a href="{% url 'account_login' %}" rel="nofollow">{{ trans.sign_in }}</a>
     </p>
 {% endblock card-footer %}
