@@ -54,7 +54,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.facebook',
     'allauth.socialaccount.providers.google',
-    # 'allauth.socialaccount.providers.openid_connect',
+    'allauth.socialaccount.providers.openid_connect',
 
     'django_recaptcha',
     'wagtailcaptcha',
@@ -227,12 +227,22 @@ ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 ACCOUNT_USERNAME_REQUIRED = False
-ACCOUNT_SIGNUP_FORM_CLASS = 'userauth.forms.SignupForm'
+ACCOUNT_FORMS = {
+    'add_email': 'allauth.account.forms.AddEmailForm',
+    'change_password': 'allauth.account.forms.ChangePasswordForm',
+    'login': 'userauth.forms.LoginForm',
+    'reset_password': 'allauth.account.forms.ResetPasswordForm',
+    'reset_password_from_key': 'allauth.account.forms.ResetPasswordKeyForm',
+    'set_password': 'allauth.account.forms.SetPasswordForm',
+    'signup': 'userauth.forms.SignupForm',
+    'user_token': 'allauth.account.forms.UserTokenForm',
+}
+# ACCOUNT_SIGNUP_FORM_CLASS = 'userauth.forms.SignupForm'
 ACCOUNT_LOGIN_ON_PASSWORD_RESET = True
 ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
 ACCOUNT_SESSION_REMEMBER = True
 # ACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS = False
-LOGIN_URL = reverse_lazy('account_login')
+# LOGIN_URL = reverse_lazy('account_login')
 # LOGIN_REDIRECT_URL = reverse_lazy('account_profile')
 
 SOCIALACCOUNT_AUTO_SIGNUP = True
