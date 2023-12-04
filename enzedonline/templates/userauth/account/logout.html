@@ -14,5 +14,5 @@
     </form>
     <br>
     <p>{{ trans.stay_logged_in }}</p>
-    <a href="/" class="btn btn-success">{{ trans.return_to_site }}</a>
+    <a href="{% get_referrer_or_none %}" class="btn btn-success mb-4">{{ trans.return_to_site }}</a>
 {% endblock card-body %}
