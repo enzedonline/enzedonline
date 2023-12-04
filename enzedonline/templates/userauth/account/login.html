@@ -1,5 +1,32 @@
 {% extends "account/base_card.html" %}
 {% load socialaccount redirect core_tags %}
+{% block extra_css %}
+    <style>
+        .recaptcha {
+            margin: 0;
+        }
+        .recaptcha > p,
+        .recaptcha > input {
+            display:none;
+        }
+    </style>
+{% endblock extra_css %}
+{% block extra_scripts %}
+    <script src='https://www.google.com/recaptcha/api.js?render={{ recaptcha_key }}'></script>
+    <script>
+        $(document).ready(() => {
+            $('#btnSubmit').on('click', (e) => {
+                e.preventDefault();       
+                grecaptcha.ready(() => {
+                    grecaptcha.execute('{{ recaptcha_key }}', { action: "login" }).then((token) => {
+                        $('#id_recaptcha').val(token);
+                        $('#loginForm').submit();
+                    });
+                });
+            });
+        });
+    </script>
+{% endblock extra_scripts %}
 {% block card-header %}
     {% get_template_set "accounts" as trans %}
     <title>Enzed Online - {{ trans.login_title }}</title>
@@ -12,6 +39,7 @@
     <form method="POST"
           action="{% url 'account_login' %}"
           class="needs-validation"
+          id="loginForm"
           novalidate>
         {% csrf_token %}
         <div class="form-group">
@@ -24,23 +52,29 @@
                 {% include "account/form_field.html" %}
             {% endwith %}
         </div>
+        <div class="form-row">
+            <div class="recaptcha col-12">
+                {% with field=form.recaptcha %}
+                    {% include "account/form_field.html" %}
+                {% endwith %}
+            </div>
+        </div>
         <input type="hidden" name="next" value="{{ next_url }}" />
-        <button type="submit" class="btn btn-primary">{{ trans.login_title }}</button>
+        <button type="submit" id="btnSubmit" class="btn btn-primary me-4">{{ trans.login_title }}</button>
+        <a class="h6 text-muted"
+           href="{% url 'account_reset_password' %}"
+           rel="nofollow">{{ trans.forgot_password }}</a>
     </form>
     {% if socialaccount_providers %}
         <br>
         <p>{{ trans.login_with_social_suggest }}</p>
         {% include "socialaccount/provider_list.html" with process="login" next=next_url %}
+        &nbsp;
     {% endif %}
 {% endblock card-body %}
 {% block card-footer %}
     {% get_template_set "accounts" as trans %}
-    <p>
+    <p class="h5 mb-0 text-center">
         {{ trans.no_account_question }} <a href="{{ signup_url }}" rel="nofollow">{{ trans.sign_up }}</a>
     </p>
-    <small>
-        <a class="text-muted"
-           href="{% url 'account_reset_password' %}"
-           rel="nofollow">{{ trans.forgot_password }}</a>
-    </small>
 {% endblock card-footer %}
