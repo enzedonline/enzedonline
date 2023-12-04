@@ -1,12 +1,14 @@
 import re
 from datetime import datetime
+from urllib.parse import urlparse
 
 from django import template
 from django.utils.safestring import mark_safe
 from django.utils.text import normalize_newlines
-from site_settings.models import CompanyLogo, EmailSignature, TemplateText
 from wagtail.admin.templatetags.wagtailadmin_tags import render_with_errors
 from wagtail.models import Page
+
+from site_settings.models import CompanyLogo, EmailSignature, TemplateText
 
 register = template.Library()
 
@@ -180,4 +182,11 @@ def get_logo(logo):
                 
     except (AttributeError, CompanyLogo.DoesNotExist):
         return CompanyLogo.objects.none()    
-    
+
+@register.simple_tag(takes_context=True)
+def get_referrer_or_none(context):
+    try:
+        referer = context['request'].META.get('HTTP_REFERER', False)
+        return urlparse(referer).path
+    except:
+        return '/'
