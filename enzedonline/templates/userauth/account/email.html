@@ -1,0 +1,86 @@
+{% extends "account/base_card.html" %}
+{% load allauth core_tags %}
+{% block card-header %}
+    {% get_template_set "accounts" as trans %}
+    <title>Enzed Online - {{ trans.email_addresses }}</title>
+    <h3>{{ trans.email_addresses }}</h3>
+{% endblock card-header %}
+{% block card-body %}
+    {% get_template_set "accounts" as trans %}
+    {% if emailaddresses %}
+        <p>{{ trans.associated_emails }}</p>
+        {% url 'account_email' as email_url %}
+        {% element form form=form action=email_url method="post" %}
+            {% slot body %}
+                {% csrf_token %}
+                {% for radio in emailaddress_radios %}
+                    {% with emailaddress=radio.emailaddress %}
+                        {% element field type="radio" checked=radio.checked name="email" value=emailaddress.email id=radio.id %}
+                            {% slot label %}
+                                {{ emailaddress.email }}
+                                {% if emailaddress.verified %}
+                                    {% element badge tags="success,email,verified" %}
+                                        {{ trans.verified }}
+                                    {% endelement %}
+                                {% else %}
+                                    {% element badge tags="warning,email,unverified" %}
+                                        {{ trans.unverified }}
+                                    {% endelement %}
+                                {% endif %}
+                                {% if emailaddress.primary %}
+                                    {% element badge tags="email,primary" %}
+                                        {{ trans.primary }}
+                                    {% endelement %}
+                                {% endif %}
+                            {% endslot %}
+                        {% endelement %}
+                    {% endwith %}
+                {% endfor %}
+            {% endslot %}
+            {% slot actions %}
+                <button name="action_primary" type="submit" class="btn btn-primary">
+                    {{ trans.make_primary }}
+                </button>
+                <button name="action_send" type="submit" class="btn btn-primary">
+                    {{ trans.resend_verification }}
+                </button>
+                <button name="action_remove" type="submit" class="btn btn-danger">
+                    {{ trans.remove }}
+                </button>
+            {% endslot %}
+        {% endelement %}
+    {% else %}
+        {% include "account/snippets/warn_no_email.html" %}
+    {% endif %}
+    {% if can_add_email %}
+        <p class="h4 mt-4">{{ trans.add_email }}</p>
+        {% url 'account_email' as action_url %}
+        {% element form form=form method="post" action=action_url %}
+                {% csrf_token %}
+                {% slot body %}
+                <p class="h5">
+                    <label for="id_email">Email:</label>
+               </p>
+                <input type="email" name="email" placeholder="{{ trans.email_address }}" maxlength="320" required="" id="id_email" class="form-control">
+               {% endslot %}
+               {% slot actions %}
+               <button name="action_add" type="submit" class="btn btn-primary mt-3">{{ trans.add_email }}</button>
+               {% endslot %}
+        {% endelement %}
+    {% endif %}
+{% endblock card-body %}
+{% block extra_js %}
+    <script type="text/javascript">
+        (function() {
+        var message = "{{ trans.confirm_remove_email }}";
+        var actions = document.getElementsByName('action_remove');
+        if (actions.length) {
+            actions[0].addEventListener("click", function(e) {
+            if (! confirm(message)) {
+                e.preventDefault();
+            }
+            });
+        }
+        })();
+    </script>
+{% endblock extra_js %}
