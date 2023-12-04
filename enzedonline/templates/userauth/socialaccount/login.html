@@ -8,7 +8,7 @@
 {% block card-body %}
   {% get_template_set "allauth social" as trans %}
   <div class="row">
-    <div class="col-10 text-start">
+    <div class="col text-start">
       {% if process == "connect" %}
         <h1>{{ trans.connect_with }} {{ provider.name }}</h1>
         <p>{{ trans.about_to_connect }} {{ provider.name }}.</p>
@@ -17,8 +17,15 @@
         <p>{{ trans.about_to_sign_in_with }} {{ provider.name }}.</p>
       {% endif %}
     </div>
-    <div class="col-2 text-end">
-      <img alt="{{ provider.name }}" class="avatar mb-3" src="{% static 'images/'|add:provider.name|add:'logo.png' %}">
+    <div class="d-none">
+      {% with icon_path="menu/oauth/"|add:provider.name|lower|add:".svg" %}
+          {% include icon_path %}
+      {% endwith %}
+  </div>
+    <div class="col-auto text-end">
+      <svg class="oauth-icon" title="{{ provider.name }}" width="5rem" height="5rem">
+        <use href="#icon-{{ provider.name|lower }}" />
+    </svg>
     </div>
   </div>
   <form method="post">
