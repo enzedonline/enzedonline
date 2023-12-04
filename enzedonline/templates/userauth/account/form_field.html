@@ -1,6 +1,6 @@
 {% load widget_tweaks %}
 {% if field.label %}
-    <p class="h5">{{ field.label_tag }}</p>
+    <p class="h5{% if field.field.required %} required-field{% endif %}">{{ field.label_tag }}</p>
 {% endif %}
 {% if form.is_bound %}
     {% if field.errors or form.non_field_errors %}
