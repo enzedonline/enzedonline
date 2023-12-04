@@ -1,4 +1,5 @@
 import requests
+from allauth.account.forms import LoginForm as BaseLoginForm, SignupForm as BaseSignupForm
 from django import forms
 from django.conf import settings
 from django.forms import ModelForm
@@ -7,13 +8,27 @@ from wagtail.users.forms import UserCreationForm, UserEditForm
 
 from .models import CustomUser
 
+class LoginForm(BaseLoginForm):
+    recaptcha = forms.CharField(label="", widget=forms.HiddenInput())
 
-class CustomUserUpdateForm(ModelForm):
-    class Meta:
-        model = CustomUser
-        fields = ['first_name', 'last_name', 'display_name', 'city', 'country', 'website']
-
-class SignupForm(forms.Form):
+    def clean(self):
+        cleaned_data = super().clean()
+        if not self.recaptcha_is_valid():
+            self.add_error('recaptcha', "Invalid recaptcha. Please try again.")
+        return cleaned_data
+    
+    def recaptcha_is_valid(self):
+        r = requests.post(
+            'https://www.google.com/recaptcha/api/siteverify', 
+            data={
+                'secret': settings.RECAPTCHA_PRIVATE_KEY,
+                'response': self.data.get('recaptcha')
+                }
+        )
+        result = r.json()
+        return (result['success'] and result['score'] >= settings.RECAPTCHA_REQUIRED_SCORE)
+    
+class SignupForm(BaseSignupForm):
     first_name = forms.CharField(max_length=30, label=_("First name"))
     last_name = forms.CharField(max_length=30, label=_("Last name"))
     display_name = forms.CharField(max_length=30, label=_("Display name"), help_text=_("Will be shown e.g. when commenting."))
@@ -44,6 +59,11 @@ class SignupForm(forms.Form):
         user.display_name = display_name or f'{user.first_name} {user.last_name}'
         user.website = self.cleaned_data['website']
         user.save()
+
+class CustomUserUpdateForm(ModelForm):
+    class Meta:
+        model = CustomUser
+        fields = ['first_name', 'last_name', 'display_name', 'city', 'country', 'website']
 
 class WagtailUserCreationForm(UserCreationForm):
     display_name = forms.CharField(max_length=30, label=_("Display name"), help_text=_("Will be shown e.g. when commenting."))
