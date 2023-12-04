@@ -1,4 +1,4 @@
-from allauth.account.views import (PasswordChangeView, PasswordSetView,
+from allauth.account.views import (LoginView, PasswordChangeView, PasswordSetView,
                                    SignupView)
 from django import forms
 from django.conf import settings
@@ -15,6 +15,12 @@ from .models import CustomUser
 
 
 class CustomUserSignupView(SignupView):
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['recaptcha_key'] = settings.RECAPTCHA_PUBLIC_KEY
+        return context
+    
+class CustomUserLoginView(LoginView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['recaptcha_key'] = settings.RECAPTCHA_PUBLIC_KEY
