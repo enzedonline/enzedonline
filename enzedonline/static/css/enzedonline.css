@@ -501,6 +501,7 @@ a {
 .footer-sm-icon {
   height: clamp(25px, 21.5000px + 0.8750vw, 32px);
   width: clamp(25px, 21.5000px + 0.8750vw, 32px);
+  margin-left: clamp(0.5rem, 0.1029rem + 1.1765vw, 1rem);
 }
 
 .website-by {
