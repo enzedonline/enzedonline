@@ -35,6 +35,13 @@
 {% block card-body %}
     {% get_template_set "accounts" as trans %}
     {% get_next_url request as next_url %}
+    {% get_providers as socialaccount_providers %}
+    {% if socialaccount_providers %}
+        <p class="h4 pb-2 mb-4 border-bottom"><label>{{ trans.signup_with_social }}</label></p>
+        {% include "socialaccount/provider_list.html" with process="login" next=next_url %}
+        <hr class="border border-secondary border-2 opacity-50 my-4">
+    {% endif %}
+    <p class="h4 pb-2 mb-4 border-bottom"><label>{{ trans.signup_with_email }}</label></p>
     <form method="POST"
           action="{% url 'account_signup' %}"
           class="needs-validation"
@@ -96,13 +103,6 @@
         </div>
         <button type="submit" id="btnSubmit" class="btn btn-primary">{{ trans.sign_up }}</button>
     </form>
-    {% get_providers as socialaccount_providers %}
-    {% if socialaccount_providers %}
-        <br>
-        <p>{{ trans.login_with_social_suggest }}</p>
-        {% include "socialaccount/provider_list.html" with process="login" next=next_url %}
-        &nbsp;
-    {% endif %}
 {% endblock card-body %}
 {% block card-footer %}
     {% get_template_set "accounts" as trans %}
