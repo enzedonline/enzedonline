@@ -68,7 +68,7 @@ def render_user_info(context, msg):
     if user and "@username" in msg:
         msg = msg.replace("@username", user.username)
     elif user and "@display_name" in msg:
-        msg = msg.replace("@display_name", getattr(user, 'display_name', user.get_full_name()))
+        msg = msg.replace("@display_name", user.display_name or user.get_full_name())
     return msg
 
 @register.simple_tag()
