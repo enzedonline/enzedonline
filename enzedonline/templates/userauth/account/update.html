@@ -84,10 +84,10 @@
                                         </label>
                                         <div class="d-inline">
                                             <svg class="ms-2 me-1"
-                                                 title="{{ account.get_brand.id }}"
+                                                 title="{{ base_account.provider }}"
                                                  height="1em"
                                                  width="1em">
-                                                <use href="#icon-{{ account.get_brand.id|lower }}" />
+                                                <use href="#icon-{{ base_account.provider|lower }}" />
                                             </svg>
                                         </div>
                                         <div class="d-inline">{{ account.get_brand.name }} ({{ account }})</div>
