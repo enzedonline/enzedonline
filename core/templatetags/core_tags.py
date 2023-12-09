@@ -23,6 +23,13 @@ def is_in_group(user, group_name):
 def strip_newlines(text):
     return re.sub(" +", " ", normalize_newlines(text).replace('\n', ' '))
 
+@register.filter(name='remove')
+def remove(value, arg):
+    """
+    Replace all occurrences of arg with an empty string.
+    """
+    return value.replace(arg, '')
+
 @register.filter()
 def replace_doublequotes(text):
     return text.replace('"', '\'')
