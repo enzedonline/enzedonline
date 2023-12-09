@@ -30,10 +30,10 @@
                         </label>
                         <div class="d-inline">
                             <svg class="ms-2 me-1"
-                                 title="{{ base_account.provider }}"
+                                 title="{{ base_account.provider.name }}"
                                  height="1em"
                                  width="1em">
-                                <use href="#icon-{{ base_account.provider|lower }}" />
+                                <use href="#icon-{{ base_account.provider.name|lower }}" />
                             </svg>
                         </div>
                         <div class="d-inline">{{ account.get_brand.name }} ({{ account }})</div>
