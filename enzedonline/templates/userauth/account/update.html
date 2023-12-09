@@ -83,12 +83,14 @@
                                                    value="{{ base_account.id }}" />
                                         </label>
                                         <div class="d-inline">
+                                            {% with provider=base_account.provider|remove:"oidc-" %}
                                             <svg class="ms-2 me-1"
-                                                 title="{{ base_account.provider.name }}"
+                                                 title="{{ provider }}"
                                                  height="1em"
                                                  width="1em">
-                                                <use href="#icon-{{ base_account.provider.name|lower }}" />
+                                                <use href="#icon-{{ provider|lower }}" />
                                             </svg>
+                                            {% endwith %}
                                         </div>
                                         <div class="d-inline">{{ account.get_brand.name }} ({{ account }})</div>
                                     </div>
