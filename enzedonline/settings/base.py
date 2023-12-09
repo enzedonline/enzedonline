@@ -55,7 +55,8 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.facebook',
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.openid_connect',
-
+    "allauth.socialaccount.providers.github",
+    
     'django_recaptcha',
     'wagtailcaptcha',
     # "wagtail_analytics",
@@ -263,6 +264,13 @@ SOCIALACCOUNT_PROVIDERS = {
         'SCOPE': ['email', 'public_profile'],
         'VERIFIED_EMAIL': True,
     },
+    'github': {
+        'SCOPE': [
+            'user',
+            # 'repo',
+            # 'read:org',
+        ],
+    }
 }
 
 WAGTAILADMIN_RICH_TEXT_EDITORS = {
