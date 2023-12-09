@@ -83,7 +83,7 @@
                                                    value="{{ base_account.id }}" />
                                         </label>
                                         <div class="d-inline">
-                                            {% with provider=base_account.provider|remove:"oidc-" %}
+                                            {% with provider=base_account.provider|remove:"oidc_" %}
                                             <svg class="ms-2 me-1"
                                                  title="{{ provider }}"
                                                  height="1em"
