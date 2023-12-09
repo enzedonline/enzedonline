@@ -1,6 +1,6 @@
 {% load socialaccount static %}
 {% get_providers as socialaccount_providers %}
-<div class="row g-2">
+<div class="row g-2 justify-content-{{ alignment }}">
     {% for provider in socialaccount_providers %}
         <div class="d-none">
             {% with icon_path="menu/oauth/"|add:provider.name|lower|add:".svg" %}

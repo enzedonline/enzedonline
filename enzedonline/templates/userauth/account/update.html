@@ -55,14 +55,15 @@
                 <button type="submit" class="btn btn-primary">{{ trans.update }}</button>
             </form>
         </div>
-        <div class="col-md-4 pt-3 pt-md-0 ps-md-3">
+        <div class="border-start col-md-4 pt-3 pt-md-0 ps-md-3">
             {% if socialaccount_providers %}
                 <p class="h5 text-start">
                     <label>{{ trans.connect_your_social_account }}</label>
                 </p>
-                {% include "socialaccount/provider_list.html" with process="connect" %}
+                {% include "socialaccount/provider_list.html" with process="connect" alignment="center" %}
                 {% social_accounts request as accounts %}
                 {% if accounts %}
+                    <hr>
                     <p class="text-start mt-3">
                         <label>{{ trans.connected_social }}</label>
                     </p>
@@ -96,9 +97,8 @@
                                     </div>
                                 {% endwith %}
                             {% endfor %}
-                            <br>
-                            <div>
-                                <button type="submit" class="btn btn-outline-danger">{{ trans.remove }}</button>
+                            <div class="d-flex">
+                                <button type="submit" class="btn btn-outline-danger mt-4 ms-auto">{{ trans.remove }}</button>
                             </div>
                         </fieldset>
                     </form>

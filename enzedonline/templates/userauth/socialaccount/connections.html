@@ -8,8 +8,8 @@
 {% block card-body %}
     {% get_template_set "allauth social" as trans %}
     <h5>{{ trans.add_prompt }}</h5>
-    <p>{% include "socialaccount/provider_list.html" with process="connect" %}</p>
-    <br>
+    {% include "socialaccount/provider_list.html" with process="connect" alignment="start" %}
+    <hr class="mt-4">
     {% if form.accounts %}
         <h5>{{ trans.connected_accounts }}</h5>
         <form method="POST"
@@ -42,9 +42,8 @@
                     </div>
                     {% endwith %}
                 {% endfor %}
-                <br>
                 <div>
-                    <button type="submit" class="btn btn-outline-danger">{{ trans.remove }}</button>
+                    <button type="submit" class="btn btn-outline-danger mt-4">{{ trans.remove }}</button>
                 </div>
             </fieldset>
         </form>
