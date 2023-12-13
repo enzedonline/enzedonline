@@ -246,9 +246,6 @@ header {
   padding: .6em 0 .9em 4em !important;
   font-size: 0.95em !important;
 } 
-/* .object>.title-wrapper label {
-  padding: 0.9em 0 0.9em 5em;
-} */
 .title input:not([type=submit]) {
     font-size: var(--font-size-4) !important;
     font-family: var(--font-family-headings) !important;
@@ -287,21 +284,12 @@ header {
     margin-inline-start: -1.9em;
     height: 1rem;
 }
-/* @media screen and (min-width: 800px) {
-  .object .fields .multiple {
-    width: auto;
-  }
-}
-@media screen and (max-width: 800px) {
-  .multiple>li {
-    border: 0;
-    border-bottom: 1px solid #ededed;
-  }
-} */
 .page-explorer .listing .index .privacy-indicator {
   right: 0.8em;
 }
-
+nav.pagination>p {
+  text-align: center;
+}
 .tab {
   white-space: pre;
 }
