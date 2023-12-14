@@ -24,7 +24,7 @@
         >
       </picture>
       {% if self.caption or self.attribution %}
-        <figcaption class="image-block-caption text-end px-1 pt-1 pb-2 lh-sm">
+        <figcaption class="image-block-caption text-end px-1 py-2 lh-sm">
           {% if self.caption %}{{ self.caption }}{% endif %}
           {% if self.caption and self.attribution %}<br>{% endif %}
           {% if self.attribution %}<small class="fw-lighter">{{ self.attribution }}</small>{% endif %}
