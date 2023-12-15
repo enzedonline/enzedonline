@@ -163,6 +163,11 @@
   border-right: 0.4em solid;
 }
 
+/* sticky dropdown */
+.menustream .sticky-menu-item .dropdown-menu {
+  position: absolute;
+}
+
 /* dropinline styles */
 .menustream li.submenu.dropinline ul.dropdown-menu[data-bs-popper] {
   background-color: transparent;

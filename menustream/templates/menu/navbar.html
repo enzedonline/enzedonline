@@ -9,7 +9,7 @@
     {% for item in menu.items %}
       {% show_on_menu item.value as show %}
       {% if show %}
-        <div class="{% if item.value.sticky %}d-flex{% if menu.breakpoint %} order-0{% endif %}{% else %} collapse navbar-collapse collapse-{{ menu.slug }} flex{{ menu.breakpoint }}-grow-0{% if menu.breakpoint %} order-1 order{{ menu.breakpoint }}-0{% endif %}{% endif %}">
+        <div class="{% if item.value.sticky %}sticky-menu-item d-flex{% if menu.breakpoint %} order-0{% endif %}{% else %} collapse navbar-collapse collapse-{{ menu.slug }} flex{{ menu.breakpoint }}-grow-0{% if menu.breakpoint %} order-1 order{{ menu.breakpoint }}-0{% endif %}{% endif %}">
           <ul class="navbar-nav">
             {% include_block item with link_type='nav-item' %}
           </ul>
@@ -19,15 +19,28 @@
     <div class="sub-menu-spacer collapse collapse-{{ menu.slug }} d{{ menu.breakpoint }}-none order-1 py-1"></div>
     <button class="navbar-toggler navbar-dark"
             type="button"
+            id="navbar-toggler-{{ menu.slug }}"
             data-bs-toggle="collapse"
             data-bs-target=".collapse-{{ menu.slug }}"
             aria-controls="navbar-{{ menu.slug }}"
             aria-expanded="false"
             aria-label="Toggle navigation"
-            onclick="document.activeElement.blur();">
+            onclick="this.blur();">
       <span class="navbar-toggler-icon"></span>
     </button>
   </div>
 </nav>
+<script>
+  const navbarToggler = document.getElementById("navbar-toggler-{{ menu.slug }}");
+  document.querySelectorAll(".sticky-menu-item .nav-item.dropdown").forEach(item => {
+      item.addEventListener("show.bs.dropdown", handleDropdownShow);
+  });
+
+  function handleDropdownShow() {
+      if (navbarToggler.getAttribute("aria-expanded") === "true") {
+          navbarToggler.click();
+      }
+  }
+</script>
 {% endcache %}
 {% endwith %}
