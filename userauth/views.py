@@ -13,19 +13,6 @@ from wagtail.models import Locale
 from .forms import CustomUserUpdateForm
 from .models import CustomUser
 
-
-class CustomUserSignupView(SignupView):
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['recaptcha_key'] = settings.RECAPTCHA_PUBLIC_KEY
-        return context
-    
-class CustomUserLoginView(LoginView):
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['recaptcha_key'] = settings.RECAPTCHA_PUBLIC_KEY
-        return context
-
 class CustomUserUpdateView(UpdateView):
     model = CustomUser
     form_class = CustomUserUpdateForm

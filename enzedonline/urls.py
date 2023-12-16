@@ -12,8 +12,7 @@ from wagtail.documents import urls as wagtaildocs_urls
 from core.views import RobotsView, refresh_page_cache, sitemap
 from search.views import enzed_search
 from userauth.views import (CustomPasswordChangeView, CustomPasswordSetView,
-                            CustomUserDeleteView, CustomUserLoginView,
-                            CustomUserSignupView, CustomUserUpdateView,
+                            CustomUserDeleteView, CustomUserUpdateView,
                             delete_success, password_change_success,
                             profile_view)
 
@@ -52,8 +51,6 @@ urlpatterns = urlpatterns + i18n_patterns(
     re_path(r'^accounts/password/change/', CustomPasswordChangeView.as_view(), name="account_change_password"),
     re_path(r'^accounts/password/set/', CustomPasswordSetView.as_view(), name="account_set_password"),
     re_path(r'^accounts/profile/', profile_view, name='account_profile'),
-    path('accounts/login/', CustomUserLoginView.as_view(template_name='account/login.html'), name='account_login'),
-    path('accounts/signup/', CustomUserSignupView.as_view(template_name='account/signup.html'), name='account_signup'),
     path('accounts/<slug:url>/update/', CustomUserUpdateView.as_view(template_name='account/update.html'), name='account_update'),
     path('accounts/<slug:url>/delete/', CustomUserDeleteView.as_view(template_name='account/delete.html'), name='account_delete'),
     path('accounts/deleted/', delete_success, name='delete_success'),
