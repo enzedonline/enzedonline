@@ -3,6 +3,7 @@ from datetime import datetime
 from urllib.parse import urlparse
 
 from django import template
+from django.conf import settings
 from django.utils.safestring import mark_safe
 from django.utils.text import normalize_newlines
 from wagtail.admin.templatetags.wagtailadmin_tags import render_with_errors
@@ -37,6 +38,10 @@ def replace_doublequotes(text):
 @register.simple_tag()
 def trans_url(link):
     return link.localized.url
+
+@register.simple_tag()
+def get_setting(key):
+    return getattr(settings, key, '')
 
 @register.simple_tag()
 def trans_page_from_slug(slug, specific=False):
