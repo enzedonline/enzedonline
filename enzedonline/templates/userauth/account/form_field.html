@@ -3,14 +3,17 @@
     <p class="h5{% if field.field.required %} required-field{% endif %}">{{ field.label_tag }}</p>
 {% endif %}
 {% if form.is_bound %}
-    {% if field.errors or form.non_field_errors %}
+    {% if field.errors %}
         {% render_field field class="form-control is-invalid" %}
         <div class="invalid-feedback">
-            {{ form.non_field_errors }}
             {{ field.errors }}
         </div>
     {% else %}
-        {% render_field field class="form-control is-valid" %}
+        {% if form.non_field_errors %}
+            {% render_field field class="form-control" %}
+        {% else %}
+            {% render_field field class="form-control is-valid" %}
+        {% endif %}
     {% endif %}
 {% else %}
     {% render_field field class="form-control" %}

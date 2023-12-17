@@ -694,6 +694,11 @@ form .required-field::after {
 ul.errorlist {
   list-style: none;
   padding-left: 1em;
+  margin-bottom: 0;
+}
+
+ul.errorlist.nonfield {
+  padding-left: 0;
 }
 
 .bg-black {

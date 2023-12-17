@@ -43,6 +43,11 @@
           id="loginForm"
           novalidate>
         {% csrf_token %}
+        {% if form.non_field_errors %}
+            <div class="alert alert-danger">
+                {{ form.non_field_errors }}
+            </div>
+        {% endif %}
         <div class="form-group">
             {% with field=form.login %}
                 {% include "account/form_field.html" %}
