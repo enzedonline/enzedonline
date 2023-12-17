@@ -1,7 +1,7 @@
 /* common */
 
 .menustream {
-  --menustream-brand-height: clamp(26px, calc(26px + (55 - 26) * ((100vw - 375px) / (1500 - 375))), 55px);
+  --menustream-brand-height: clamp(26px, calc(26px + (55 - 26) * ((100vw - 375px) / (1800 - 375))), 55px);
 }
 
 .menustream-icon {
