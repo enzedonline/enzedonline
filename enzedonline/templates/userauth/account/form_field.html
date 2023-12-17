@@ -13,7 +13,5 @@
         {% render_field field class="form-control is-valid" %}
     {% endif %}
 {% else %}
-    {% with "form-control input-field-"|add:field.name as field_class %}
-        {% render_field field class=field_class %}
-    {% endwith %}
+    {% render_field field class="form-control" %}
 {% endif %}
