@@ -8,25 +8,26 @@ from wagtail.users.forms import UserCreationForm, UserEditForm
 
 from .models import CustomUser
 
+def recaptcha_is_valid(token):
+    request = requests.post(
+        'https://www.google.com/recaptcha/api/siteverify', 
+        data={
+            'secret': settings.RECAPTCHA_PRIVATE_KEY,
+            'response': token
+        }
+    )
+    result = request.json()
+    return (result['success'] and result['score'] >= settings.RECAPTCHA_REQUIRED_SCORE)
+
 class LoginForm(BaseLoginForm):
     recaptcha = forms.CharField(label="", widget=forms.HiddenInput())
 
     def clean(self):
-        cleaned_data = super().clean()
-        if not self.recaptcha_is_valid():
-            self.add_error('recaptcha', "Invalid recaptcha. Please try again.")
-        return cleaned_data
-    
-    def recaptcha_is_valid(self):
-        r = requests.post(
-            'https://www.google.com/recaptcha/api/siteverify', 
-            data={
-                'secret': settings.RECAPTCHA_PRIVATE_KEY,
-                'response': self.data.get('recaptcha')
-                }
-        )
-        result = r.json()
-        return (result['success'] and result['score'] >= settings.RECAPTCHA_REQUIRED_SCORE)
+        if recaptcha_is_valid(self.data.get('recaptcha')):
+            cleaned_data = super().clean()
+            return cleaned_data
+        else:
+            self.add_error('', _("Invalid recaptcha. Please try again."))
     
 class SignupForm(BaseSignupForm):
     first_name = forms.CharField(max_length=30, label=_("First name"))
@@ -36,21 +37,11 @@ class SignupForm(BaseSignupForm):
     recaptcha = forms.CharField(label="", widget=forms.HiddenInput())
 
     def clean(self):
-        cleaned_data = super().clean()
-        if not self.recaptcha_is_valid():
-            self.add_error('recaptcha', "Invalid recaptcha. Please try again.")
-        return cleaned_data
-    
-    def recaptcha_is_valid(self):
-        r = requests.post(
-            'https://www.google.com/recaptcha/api/siteverify', 
-            data={
-                'secret': settings.RECAPTCHA_PRIVATE_KEY,
-                'response': self.data.get('recaptcha')
-                }
-        )
-        result = r.json()
-        return (result['success'] and result['score'] >= settings.RECAPTCHA_REQUIRED_SCORE)
+        if recaptcha_is_valid(self.data.get('recaptcha')):
+            cleaned_data = super().clean()
+            return cleaned_data
+        else:
+            self.add_error('', _("Invalid recaptcha. Please try again."))
         
     def signup(self, request, user):
         display_name = self.cleaned_data['display_name']
