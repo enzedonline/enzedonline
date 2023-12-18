@@ -97,12 +97,8 @@
                 {% endwith %}
             </div>
         </div>
-        <div class="form-row">
-            <div class="recaptcha col-12">
-                {% with field=form.recaptcha %}
-                    {% include "account/form_field.html" %}
-                {% endwith %}
-            </div>
+        <div class="d-none">
+            {{ form.recaptcha }}
         </div>
         <button type="submit" id="btnSubmit" class="btn btn-primary">{{ trans.sign_up }}</button>
     </form>
