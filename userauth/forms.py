@@ -10,7 +10,7 @@ from .models import CustomUser
 
 def recaptcha_is_valid(token):
     request = requests.post(
-        'https://www.google.com/recaptcha/api/siteverify', 
+        'https://www.recaptcha.net/recaptcha/api/siteverify', 
         data={
             'secret': settings.RECAPTCHA_PRIVATE_KEY,
             'response': token

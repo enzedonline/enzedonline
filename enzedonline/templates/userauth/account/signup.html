@@ -13,7 +13,7 @@
 {% endblock extra_css %}
 {% block extra_scripts %}
     {% get_setting 'RECAPTCHA_PUBLIC_KEY' as recaptcha_key %}
-    <script src='https://www.google.com/recaptcha/api.js?render={{ recaptcha_key }}'></script>
+    <script src='https://www.recaptcha.net/recaptcha/api.js?render={{ recaptcha_key }}'></script>
     <script>
         $(document).ready(() => {
             $('#btnSubmit').on('click', (e) => {
