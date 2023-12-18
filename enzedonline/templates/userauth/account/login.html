@@ -68,7 +68,7 @@
            rel="nofollow">{{ trans.forgot_password }}</a>
     </form>
     {% if socialaccount_providers %}
-        <br>
+        <hr>
         <h5>{{ trans.login_with_social_suggest }}</h5>
         {% include "socialaccount/provider_list.html" with process="login" next=next_url %}
         &nbsp;
