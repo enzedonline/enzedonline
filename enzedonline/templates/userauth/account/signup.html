@@ -51,7 +51,9 @@
         {% csrf_token %}
         {% if form.errors or form.non_field_errors %}
             <div class="alert alert-danger" role="alert">
-                {{ trans.form_error }}{% if form.non_field_errors %}{{ form.non_field_errors }}{% endif %}
+                {{ trans.form_error }}
+                {% if form.non_field_errors %}{{ form.non_field_errors }}{% endif %}
+                {% if form.recaptcha.errors %}{{ form.recaptcha.errors }}{% endif %}
             </div>
         {% endif %}
         <div class="form-row">

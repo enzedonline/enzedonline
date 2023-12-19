@@ -1,33 +1,5 @@
 {% extends "account/base_card.html" %}
 {% load socialaccount redirect core_tags %}
-{% block extra_css %}
-    <style>
-        .recaptcha {
-            margin: 0;
-        }
-        .recaptcha > p,
-        .recaptcha > input {
-            display:none;
-        }
-    </style>
-{% endblock extra_css %}
-{% block extra_scripts %}
-    {% get_setting 'RECAPTCHA_PUBLIC_KEY' as recaptcha_key %}
-    <script src='https://www.recaptcha.net/recaptcha/api.js?render={{ recaptcha_key }}'></script>
-    <script>
-        $(document).ready(() => {
-            $('#btnSubmit').on('click', (e) => {
-                e.preventDefault();       
-                grecaptcha.ready(() => {
-                    grecaptcha.execute('{{ recaptcha_key }}', { action: "login" }).then((token) => {
-                        $('#id_recaptcha').val(token);
-                        $('#loginForm').submit();
-                    });
-                });
-            });
-        });
-    </script>
-{% endblock extra_scripts %}
 {% block card-header %}
     {% get_template_set "accounts" as trans %}
     <title>Enzed Online - {{ trans.login_title }}</title>
@@ -46,6 +18,11 @@
         {% if form.non_field_errors %}
             <div class="alert alert-danger">
                 {{ form.non_field_errors }}
+            </div>
+        {% endif %}
+        {% if form.recaptcha.errors %}
+            <div class="alert alert-danger">
+                {{ form.recaptcha.errors }}
             </div>
         {% endif %}
         <div class="form-group">
@@ -71,7 +48,6 @@
         <hr>
         <h5>{{ trans.login_with_social_suggest }}</h5>
         {% include "socialaccount/provider_list.html" with process="login" next=next_url %}
-        &nbsp;
     {% endif %}
 {% endblock card-body %}
 {% block card-footer %}
