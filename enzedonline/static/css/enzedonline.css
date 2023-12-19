@@ -693,7 +693,7 @@ form .required-field::after {
 
 ul.errorlist {
   list-style: none;
-  padding-left: 1em;
+  padding-left: 0;
   margin-bottom: 0;
 }
 
