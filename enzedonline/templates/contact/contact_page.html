@@ -71,6 +71,11 @@
               {% for error in form.non_field_errors %}{{ error }}{% endfor %}
             </div>
           {% endif %}
+          {% if form.wagtailcaptcha.errors %}
+            <div class="alert alert-danger">
+                {{ form.wagtailcaptcha.errors }}
+            </div>
+          {% endif %}
           <div class="form-group mb-0">
             {% for field in form.visible_fields %}
               {% field_class field as field_class %}
@@ -98,7 +103,9 @@
                   {% endif %}
                 {% else %}
                   {% if field.name == "wagtailcaptcha" %}
-                    {% render_field field %}
+                    <div class="d-none">
+                      {{ field }}
+                    </div>
                   {% else %}
                     {% render_field field class="form-control form-control-sm" %}
                   {% endif %}
