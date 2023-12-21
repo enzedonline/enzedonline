@@ -267,8 +267,6 @@ SOCIALACCOUNT_PROVIDERS = {
     'github': {
         'SCOPE': [
             'user',
-            # 'repo',
-            # 'read:org',
         ],
     }
 }
