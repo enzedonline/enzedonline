@@ -1,33 +1,5 @@
 {% extends "account/base_card.html" %}
 {% load core_tags socialaccount redirect %}
-{% block extra_css %}
-    <style>
-        .recaptcha {
-            margin: 0;
-        }
-        .recaptcha > p,
-        .recaptcha > input {
-            display:none;
-        }
-    </style>
-{% endblock extra_css %}
-{% block extra_scripts %}
-    {% get_setting 'RECAPTCHA_PUBLIC_KEY' as recaptcha_key %}
-    <script src='https://www.recaptcha.net/recaptcha/api.js?render={{ recaptcha_key }}'></script>
-    <script>
-        $(document).ready(() => {
-            $('#btnSubmit').on('click', (e) => {
-                e.preventDefault();       
-                grecaptcha.ready(() => {
-                    grecaptcha.execute('{{ recaptcha_key }}', { action: "signup" }).then((token) => {
-                        $('#id_recaptcha').val(token);
-                        $('#signUpForm').submit();
-                    });
-                });
-            });
-        });
-    </script>
-{% endblock extra_scripts %}
 {% block card-header %}
     {% get_template_set "accounts" as trans %}
     <title>Enzed Online - {{ trans.sign_up }}</title>
@@ -102,6 +74,7 @@
         <div class="d-none">
             {{ form.recaptcha }}
         </div>
+        <input type="hidden" name="next" value="{{ request.GET.next|default:next_url }}" />
         <button type="submit" id="btnSubmit" class="btn btn-primary">{{ trans.sign_up }}</button>
     </form>
 {% endblock card-body %}

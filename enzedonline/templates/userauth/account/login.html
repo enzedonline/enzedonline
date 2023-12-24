@@ -38,7 +38,7 @@
         <div class="d-none">
             {{ form.recaptcha }}
         </div>
-        <input type="hidden" name="next" value="{{ next_url }}" />
+        <input type="hidden" name="next" value="{{ request.GET.next|default:next_url }}" />
         <button type="submit" id="btnSubmit" class="btn btn-primary me-4">{{ trans.login_title }}</button>
         <a class="h6 text-muted"
            href="{% url 'account_reset_password' %}"
