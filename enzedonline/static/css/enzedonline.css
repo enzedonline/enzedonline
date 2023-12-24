@@ -834,6 +834,11 @@ ul.errorlist.nonfield {
   margin-right: 0.3rem;
 }
 
+.oauth-icon {
+  height: 2.5em;
+  width: 2.5em;
+}
+
 .social-login-link {
   clear: both;
   font-weight: 400;
