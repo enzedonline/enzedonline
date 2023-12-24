@@ -14,9 +14,6 @@
 {% endcache %}
 {% endblock extra_head %}
 {% block extra_scripts %}
-  {% if not user.is_authenticated %}
-    <script src="{% static 'js/comment_login.js'%}"></script>
-  {% endif %}
   <script src="{% static 'js/flexmasonry.js' %}"></script>
   <script src="{% static 'js/flexmasonry.extra.js'%}"></script>
   {% if self.blog_type == "TechBlogDetailPage" %}
