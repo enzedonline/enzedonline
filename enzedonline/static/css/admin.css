@@ -298,6 +298,11 @@ nav.pagination>p {
   content: "    ";
   white-space: pre;
 }
+/* code block font */
+div[data-contentpath="code"] textarea {
+  font-family: var(--font-family-monospace);
+  font-size: .8em;
+}
 
 .wordcount-banner {
     background-color: var(--w-color-surface-field-inactive);
