@@ -4,9 +4,10 @@ import unidecode
 from django.forms.utils import ErrorList
 from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
-from wagtail.blocks import (BooleanBlock, CharBlock, PageChooserBlock,
-                            RawHTMLBlock, RichTextBlock, StaticBlock,
-                            StreamBlock, StructBlock, StructValue, TextBlock)
+from wagtail.blocks import (BooleanBlock, CharBlock, ListBlock,
+                            PageChooserBlock, RawHTMLBlock, RichTextBlock,
+                            StaticBlock, StreamBlock, StructBlock, StructValue,
+                            TextBlock)
 from wagtail.blocks.field_block import IntegerBlock, URLBlock
 from wagtail.blocks.struct_block import StructBlockValidationError
 from wagtail.documents.blocks import DocumentChooserBlock
@@ -614,27 +615,34 @@ class MapWaypointBlock(StructBlock):
         gps = value.get('gps_coord')
 
         if gps.count(',') != 1:
-            errors['gps_coord'] = ErrorList([_("Please enter latitude followed by longitude, separated by a comma.")])
+            errors['gps_coord'] = ErrorList(
+                [_("Please enter latitude followed by longitude, separated by a comma.")]
+            )
             raise StructBlockValidationError(block_errors=errors)
 
         lat, lng = gps.split(',')
         
         if not(isfloat(lat) and isfloat(lng)):
-            errors['gps_coord'] = ErrorList([_("Please enter latitude and longitude in numeric format (e.g. 42.603552, 1.442655 not 42°36'12.8\"N 1°26'33.6\"E).")])
+            errors['gps_coord'] = ErrorList(
+                [_("Please enter latitude and longitude in numeric format (e.g. 42.603552, 1.442655 not 42°36'12.8\"N 1°26'33.6\"E).")]
+            )
             raise StructBlockValidationError(block_errors=errors)
 
         if (float(lat) < -90 or float(lat) > 90 or float(lng) < -180 or float(lng) > 360):
-            errors['gps_coord'] = ErrorList([_("Please enter latitude between -90 and 90 and longitude between -180 and 360.")])
+            errors['gps_coord'] = ErrorList(
+                [_("Please enter latitude between -90 and 90 and longitude between -180 and 360.")]
+            )
             raise StructBlockValidationError(block_errors=errors)
 
-        return super().clean(value)        
+        return super().clean(value)
         
-class MapWayPointStreamBlock(StreamBlock):
-    waypoint = MapWaypointBlock()
-            
 class MapBlock(StructBlock):
-    waypoints = MapWayPointStreamBlock(min_num=2, max_num=25, 
-                                       label=_("Add Waypoints (minimum 2, maximum 25)"))
+    waypoints = ListBlock(
+        MapWaypointBlock, 
+        min_num=2, 
+        max_num=25, 
+        label=_("Add Waypoints (minimum 2, maximum 25)")
+    )
     route_type = RouteOptionChoiceBlock(default='walking')
     show_route_info = BooleanBlock(
         label=_("Show Route Distance and Duration on Map"),

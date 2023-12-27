@@ -28,12 +28,12 @@ def get_map_settings(block):
     
     waypoints = block.value['waypoints']
     for waypoint in waypoints:
-        latitude, longitude = [round(float(x.strip()),6) for x in waypoint.value['gps_coord'].split(',')]
+        latitude, longitude = [round(float(x.strip()),6) for x in waypoint['gps_coord'].split(',')]
         map_settings['waypoints'].append({
             'longitude' : longitude,
             'latitude' : latitude,
-            'pin_label' : waypoint.value['pin_label'],
-            'show_pin' : waypoint.value['show_pin']
+            'pin_label' : waypoint['pin_label'],
+            'show_pin' : waypoint['show_pin']
         })
 
     return(map_settings)
