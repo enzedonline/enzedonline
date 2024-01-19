@@ -16,6 +16,8 @@ from userauth.views import (CustomPasswordChangeView, CustomPasswordSetView,
                             delete_success, password_change_success,
                             profile_view)
 
+from .views import error_429_view
+
 
 def trigger_error(request):
     division_by_zero = 1 / 0
@@ -39,9 +41,13 @@ if settings.DEBUG:
     # Serve static and media files from development server
     urlpatterns += staticfiles_urlpatterns()
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-    re_path(r'^403/$', default_views.permission_denied, kwargs={'exception': Exception("Permission Denied")}),
-    re_path(r'^404/$', default_views.page_not_found, kwargs={'exception': Exception("Page not Found")}),
-    re_path(r'^500/$', default_views.server_error),    # For anything not caught by a more specific rule above, hand over to
+       
+    urlpatterns += [
+        re_path(r'^403/$', default_views.permission_denied, kwargs={'exception': Exception("Permission Denied")}),
+        re_path(r'^404/$', default_views.page_not_found, kwargs={'exception': Exception("Page not Found")}),
+        re_path(r'^429/$', error_429_view, kwargs={'exception': Exception("Too Many Requests")}),
+        re_path(r'^500/$', default_views.server_error),
+    ]
 
 # These paths are translatable so will be given a language prefix (eg, '/en', '/fr')
 urlpatterns = urlpatterns + i18n_patterns(
