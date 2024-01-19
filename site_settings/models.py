@@ -12,8 +12,6 @@ from wagtail.models import Locale, Orderable, TranslatableMixin
 from wagtail.snippets.models import register_snippet
 from wagtail_localize.fields import SynchronizedField, TranslatableField
 
-from core.panels.regex_panel import RegexPanel
-
 
 # Password masked field for email settings
 class PasswordField(forms.CharField):
