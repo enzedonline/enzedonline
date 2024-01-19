@@ -133,19 +133,6 @@ def get_email_signature(signature):
     except (AttributeError, EmailSignature.DoesNotExist):
         return EmailSignature.objects.none()    
 
-@register.simple_tag()
-def regex_render_with_errors(bound_field):
-    id = bound_field.auto_id
-    rendered_field = render_with_errors(bound_field)
-    if f'id="{id}"' in rendered_field:
-        script = f' onkeydown="return regex_keydownhandler(event)">\
-        <script>function regex_keydownhandler(event) \
-            {{if (!(/{bound_field.field.pattern}/.test(event.key))){{\
-                return false;}} }} \
-        </script>'       
-        return mark_safe(rendered_field.replace('>', script))
-    return rendered_field
-
 @register.simple_tag(takes_context=True)
 def var_exists(context, name):
     dicts = context.dicts  # array of dicts

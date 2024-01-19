@@ -1,6 +1,6 @@
-from core.edit_handlers import RegexPanel
 from django import forms
 from django.core.exceptions import ValidationError
+from django.core.validators import RegexValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from modelcluster.fields import ParentalKey
@@ -8,9 +8,12 @@ from modelcluster.models import ClusterableModel
 from wagtail.admin.panels import (FieldPanel, FieldRowPanel, InlinePanel,
                                   MultiFieldPanel)
 from wagtail.contrib.settings.models import BaseSiteSetting, register_setting
-from wagtail.models import Orderable, TranslatableMixin, Locale
+from wagtail.models import Locale, Orderable, TranslatableMixin
 from wagtail.snippets.models import register_snippet
 from wagtail_localize.fields import SynchronizedField, TranslatableField
+
+from core.panels.regex_panel import RegexPanel
+
 
 # Password masked field for email settings
 class PasswordField(forms.CharField):
@@ -363,10 +366,17 @@ class TemplateTextSetItem(TranslatableMixin, Orderable):
         help_text=_("Template Set to which this item belongs."),
         verbose_name="Set Name",
     )
-    template_tag = models.SlugField(
+    template_tag = models.CharField(
         max_length=50,
-        help_text=_("Enter a tag without spaces, consisting of letters, numbers, underscores or hyphens."),
+        help_text=_("Enter a tag without spaces, consisting of lowercase letters, numbers, and underscores.\nThe first character must be a lowercase letter."),
         verbose_name="Template Tag",
+        validators=[
+            RegexValidator(
+                regex=r'^[a-zA-Z0-9_]*$',
+                message="Enter a valid value that meets the rule set out below ...",
+                code="invalid_template_tag",
+            ),
+        ],
     )    
     text = models.TextField(
         null=True,
@@ -379,7 +389,7 @@ class TemplateTextSetItem(TranslatableMixin, Orderable):
     ]
 
     panels = [
-        RegexPanel(field_name='template_tag', pattern='^[-\w]+$'),
+        FieldPanel('template_tag'),
         FieldPanel('text'),
     ]
 
