@@ -13,11 +13,15 @@ def load_menu(menu_slug):
 @register.simple_tag(takes_context=True)
 def show_on_menu(context, item):
     display_when = item.get('display_when', getattr(item, 'display_when', True)) # If not specified, only show if user is authenticated.
-    return (display_when == 'ALWAYS' or str(context['request'].user.is_authenticated) == display_when)
+    if not context.get('request', None):
+        authenticated = False
+    else:        
+        authenticated = str(context['request'].user.is_authenticated)
+    return (display_when == 'ALWAYS' or authenticated == display_when)
 
 @register.simple_tag(takes_context=True)
 def link_active(context, link):
-    return ' active' if (getattr(link, 'url', None) == context['request'].path) else ''
+    return ' active' if (getattr(link, 'url', None) == getattr(context.get('request', None), 'path', None)) else ''
 
 @register.simple_tag(takes_context=True)
 def get_autofill_pages(context):
@@ -37,7 +41,7 @@ def get_autofill_pages(context):
 
     # include parent page if selected and if matches restriction (just assume exists=private here)
     if autofill_block['include_parent_page']:
-        if parent_page.url == context['request'].path:
+        if parent_page.url == getattr(context.get('request', None), 'path', None):
             parent_page.active = 'active'
         if parent_page.get_view_restrictions().exists():
             if authenticated:
@@ -56,7 +60,7 @@ def get_autofill_pages(context):
         children = children.filter(show_in_menus=True)
 
     for child in children[:autofill_block['max_items']]:
-        if child.url == context['request'].path:
+        if child.url == getattr(context.get('request', None), 'path', None):
             child.active = 'active'
         links.append(child)
 
@@ -64,10 +68,12 @@ def get_autofill_pages(context):
 
 @register.simple_tag(takes_context=True)
 def render_user_info(context, msg):
-    user = context['request'].user
-    if user and "@username" in msg:
+    user = getattr(context.get('request', None), 'user', None)
+    if not user:
+        msg = ''
+    elif "@username" in msg:
         msg = msg.replace("@username", user.username)
-    elif user and "@display_name" in msg:
+    elif "@display_name" in msg:
         msg = msg.replace("@display_name", user.display_name or user.get_full_name())
     return msg
 
@@ -87,3 +93,11 @@ def get_social_media_icons():
         return social_media_icons
     except:
         return None
+
+@register.simple_tag(takes_context=True)
+def get_cache_fragment(context, slug):
+    user = getattr(context.get('request', None), 'user', None)
+    if user and hasattr(user, 'username'):
+        return slug +'-' + user.username
+    else:
+        return slug +'-'

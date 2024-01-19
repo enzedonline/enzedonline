@@ -1,5 +1,6 @@
 {% load wagtailcore_tags menu_tags %}
 {# User menu - Add social logins after loaded menu #}
+{% if request %}
 <div class="d-none">
     {% include "menu/icons/user-logged-in.svg" %}
     {% include "menu/icons/user-logged-out.svg" %}
@@ -47,3 +48,4 @@
         {% endif %}
     </ul>
 </li>
+{% endif %}

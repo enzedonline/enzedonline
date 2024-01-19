@@ -1,7 +1,7 @@
 {% load adv_cache wagtailcore_tags core_tags menu_tags %}
 {# pass menu object variable in context #}
 {% get_cache_key_settings as cache_settings %}
-{% with fragment=menu.slug|add:'-'|add:request.user.username %}
+{% get_cache_fragment menu.slug as fragment %}
 {% cache None cache_settings.cache_name fragment cache_settings.cache_date %}
 <nav class="navbar navbar-expand{{ menu.breakpoint }} p-1 menustream menustream{{ menu.breakpoint }} menustream-{{ menu.slug }}">
   <div class="container-fluid menustream-container">
@@ -43,4 +43,3 @@
   }
 </script>
 {% endcache %}
-{% endwith %}
