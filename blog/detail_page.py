@@ -41,7 +41,7 @@ class BlogDetailPage(SEOPage):
         # abstract = True
 
     def get_absolute_url(self):
-        return self.get_url()
+        return self.full_url
 
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
