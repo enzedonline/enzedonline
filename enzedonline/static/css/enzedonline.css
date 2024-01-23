@@ -432,9 +432,15 @@ a {
 
 .comments-header {
   font-family: var(--font-family-headings);
-  font-size: var(--font-size-5);
+  font-size: var(--font-size-4);
   color: var(--bs-white) !important;
   padding: 0.6rem 0.8rem;
+}
+
+.comments-login-invite {
+  font-family: var(--font-family-headings);
+  font-size: var(--font-size-5);
+  padding-bottom: 0.5rem;
 }
 
 .comments-image-thumbnail {
