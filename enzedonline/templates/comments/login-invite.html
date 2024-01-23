@@ -1,0 +1,34 @@
+{% load socialaccount %}
+<div class="card mt-3">
+  <div class="card-body">
+    {# login existing users #}
+    <div class="comments-login-invite">
+      <a href="{% url 'account_login' %}?next={{ request.path }}{{ '%23comments'|safe }}"
+         rel="nofollow">{{ trans.sign_in }}</a> {{ trans.to_comment }}
+    </div>
+    {# Social Connections #}
+    {% get_providers as socialaccount_providers %}
+    {% if socialaccount_providers %}
+      <div class="comments-login-invite">
+        <div>{{ trans.connect_with_social }}</div>
+        <div class="p">
+          {% for provider in socialaccount_providers %}
+            <a title="{{ provider.name }}"
+               class="text-decoration-none"
+               href="{% provider_login_url provider.id process='login' next=request.path|add:'#comments'|safe scope=scope auth_params=auth_params %}"
+               rel="nofollow">
+              <svg class="oauth-icon me-3" title="{{ provider.name }}">
+                <use href="#icon-{{ provider.name|lower }}" />
+              </svg>
+            </a>
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+    {# Invite to Sign Up #}
+    <div class="comments-login-invite">
+      <a href="{% url 'account_signup' %}?next={{ request.path }}{{ '%23comments'|safe }}"
+         rel="nofollow">{{ trans.sign_up }}</a> {{ trans.with_email }}
+    </div>
+  </div>
+</div>

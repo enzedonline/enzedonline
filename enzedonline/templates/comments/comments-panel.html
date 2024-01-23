@@ -1,0 +1,20 @@
+{% load core_tags comments comments_xtd %}
+{% get_template_set "comments" as trans %}
+{% get_comment_count for page as comment_count %}
+<div class="container-fluid pt-3 px-2 px-sm-5 pb-1">
+  <div class="card">
+    <div class="comments-header bg-info" id="comments">{{ trans.comments }}</div>
+    <div class="ps-4 card-body">
+      {# Show Comments #}
+      {% if comment_count %}
+        {% render_xtdcomment_tree for page allow_feedback show_feedback %}
+      {% endif %}
+      {# Show Comment if Signed In, Show Login Invite If Not #}
+      {% if request.user.is_authenticated %}
+        <div class="mt-3">{% render_comment_form for page %}</div>
+      {% else %}
+        {% include 'comments/login-invite.html' %}
+      {% endif %}
+    </div>
+  </div>
+</div>

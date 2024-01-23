@@ -45,7 +45,7 @@
     {# Leave a comment message #}
     {% get_template_set "comments" as trans %}
     {% trans_page_from_slug "contact" as contact %}
-    <div class="py-4 px-0 px-sm-1 px-md-2 px-lg-3">
+    <div class="py-2 px-0 px-sm-1 px-md-2 px-lg-3">
       <hr>
       <p>
         <svg xmlns="http://www.w3.org/2000/svg"
@@ -64,7 +64,7 @@
 {% endcache %}
 {% endblock content %}
 {% block comments %}
-  {% include "blog/detail/comments.html" %}
+  {% include "comments/comments-panel.html" %}
 {% endblock comments %}
 {% block next_prev %}
   {% include "blog/detail/next_prev.html" %}
