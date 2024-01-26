@@ -7,6 +7,7 @@ from django.conf import settings
 from django.utils.safestring import mark_safe
 from django.utils.text import normalize_newlines
 from wagtail.admin.templatetags.wagtailadmin_tags import render_with_errors
+from wagtail.documents.models import Document
 from wagtail.models import Page
 
 from site_settings.models import CompanyLogo, EmailSignature, TemplateText
@@ -60,6 +61,14 @@ def homepage_url(request):
     except:
         '/'
 
+@register.filter()
+def doc_title_to_url(title):
+    try:
+        document = Document.objects.get(title=title)
+        return document.url
+    except:
+        pass
+    
 @register.simple_tag(takes_context=True)
 def robots(context):
     page = get_context_var_or_none(context, 'self')
