@@ -897,7 +897,7 @@ code,
   font-size: var(--font-size-6);
   font-family: var(--font-family-monospace);
   color: darkslateblue;
-  background-color: beige;
+  background-color: gainsboro;
   padding: 0 .3em 0.01em .3em;
   border-radius: 0.3rem;
 }
