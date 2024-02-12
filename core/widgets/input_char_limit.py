@@ -37,6 +37,7 @@ class CharLimitMixin:
         widget_media = super().media
         return Media(
             js=widget_media._js + ["js/widgets/input-char-limit-widget.js"],
+            css={"all": ("css/widgets/input-char-limit-widget.css",)},
         )
 
 class CharLimitTextInput(CharLimitMixin, TextInput):

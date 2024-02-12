@@ -11,6 +11,8 @@ from wagtail.models import Locale, Page
 from wagtail.search import index
 from wagtailmetadata.models import WagtailImageMetadataMixin
 
+from core.widgets import CharLimitTextArea, CharLimitTextInput
+
 
 def get_image_model_string():
     try:
@@ -78,8 +80,8 @@ class SEOPageMixin(index.Indexed, WagtailImageMetadataMixin, models.Model):
         MultiFieldPanel([
             FieldPanel('slug', widget=SlugInput),
             FieldPanel('search_image'),
-            FieldPanel('seo_title'),
-            FieldPanel('search_description'),
+            FieldPanel('seo_title', widget=CharLimitTextInput(min=15, max=70, enforced=True)),
+            FieldPanel('search_description', widget=CharLimitTextArea(min=50, max=160, enforced=True)),
         ], _('SEO Page Configuration')),
         MultiFieldPanel([
             FieldPanel('search_engine_index'),
