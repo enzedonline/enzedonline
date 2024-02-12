@@ -1,0 +1,10 @@
+div.input-char-limit-feedback {
+    margin-top: 0.625rem;
+}
+div.input-char-limit-feedback div.input-char-limit-requirements {
+    padding-right: 2em;
+}
+div.input-char-limit-feedback svg {
+    color: inherit;
+    margin-left: 2em;
+}

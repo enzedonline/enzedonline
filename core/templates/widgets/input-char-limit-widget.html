@@ -1,0 +1,11 @@
+<div class="w-field__help input-char-limit-feedback">
+    <div class="help" id="{{ id }}-feedback-label">
+        <span class="input-char-limit-requirements">{{ requirements }}</span>
+        <span>{{ used_label }}:</span>
+        <span data-used-chars></span>
+        <svg class="icon icon-warning w-field__errors-icon" aria-hidden="true">
+            <use href="#icon-warning"></use>
+        </svg>
+    </div>
+</div>
+<script>new InputCharLimitWidget('{{ id }}', '{{ min }}', '{{ max }}', {{ enforced|lower }})</script>
