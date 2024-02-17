@@ -1001,3 +1001,23 @@ mjx-container[jax="CHTML"][display="true"] {
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
 }
+
+/* prismjs copy button */
+div.code-toolbar>.toolbar>.toolbar-item>button {
+  padding: 0.2em 0.5em;
+  margin-right: 0.2em;
+}
+div.code-toolbar>.toolbar>.toolbar-item>button:focus {
+  color: silver;
+  visibility: initial;
+}
+div.code-toolbar>.toolbar>.toolbar-item>button:hover {
+  color: white;
+}
+div.code-toolbar>.toolbar>.toolbar-item>button[data-copy-state="copy-success"] {
+  color: white;
+  visibility: visible;
+}
+div.code-toolbar>.toolbar>.toolbar-item>button>span {
+  font-size: var(--font-size-6);
+}
