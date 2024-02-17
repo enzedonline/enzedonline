@@ -936,11 +936,6 @@ code.prism-block {
   font-weight: 500;
 }
 
-.bg-info .inline-code {
-  color: var(--bs-light);
-  background-color: var(--bs-dark);
-}
-
 .check-list-wrapper {
   list-style: none;
 }
