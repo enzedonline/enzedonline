@@ -299,7 +299,7 @@ nav.pagination>p {
   white-space: pre;
 }
 /* code block font */
-div[data-contentpath="code"] textarea {
+div.blog-code-block div[data-contentpath="code"] textarea {
   font-family: var(--font-family-monospace);
   font-size: .8em;
 }

@@ -679,6 +679,7 @@ class BlogCodeBlock(StructBlock):
         icon = "code"
         label = _("Code Block")
         label_format = _("Code") + ": {language}"
+        form_classname = 'blog-code-block struct-block'
 
 class CalloutHeadingStructBlock(StructBlock):
     icon = CharBlock(
