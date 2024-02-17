@@ -1004,20 +1004,21 @@ mjx-container[jax="CHTML"][display="true"] {
 
 /* prismjs copy button */
 div.code-toolbar>.toolbar>.toolbar-item>button {
-  padding: 0.2em 0.5em;
+  padding: 0.2em 0.5em !important;
   margin-right: 0.2em;
 }
 div.code-toolbar>.toolbar>.toolbar-item>button:focus {
-  color: silver;
+  color: silver !important;
   visibility: initial;
 }
 div.code-toolbar>.toolbar>.toolbar-item>button:hover {
-  color: white;
+  color: white !important;
 }
 div.code-toolbar>.toolbar>.toolbar-item>button[data-copy-state="copy-success"] {
-  color: white;
+  color: white !important;
   visibility: visible;
 }
 div.code-toolbar>.toolbar>.toolbar-item>button>span {
   font-size: var(--font-size-6);
+  font-family: var(--font-family-headings);
 }
