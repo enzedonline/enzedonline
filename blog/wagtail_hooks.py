@@ -41,7 +41,6 @@ def get_wordcount(request, page):
             else:
                 page.save()
         except Exception as e:
-            print(f"{type(e).__name__} at line {
-                  e.__traceback__.tb_lineno} of {__file__}: {e}")
+            print(f"{type(e).__name__} at line {e.__traceback__.tb_lineno} of {__file__}: {e}")
             messages.error(
                 request, 'There was a problem generating the word count')
