@@ -70,6 +70,7 @@ body {
   font-family: var(--font-family-body);
   font-size: var(--font-size-body);
   font-weight: 400;
+  font-optical-sizing: auto;
   line-height: 1.5;
   text-align: justify;
   max-width: var(--max-display-width);
