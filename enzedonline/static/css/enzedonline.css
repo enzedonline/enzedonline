@@ -908,6 +908,7 @@ code,
 
 code.prism-block {
   padding-left: unset;
+  font-size: var(--font-size-6);
 }
 
 .callout-block pre[class*="language-"] {
