@@ -46,6 +46,7 @@ class ColourThemeChoiceBlock(DefaultChoiceBlock):
         ('bg-light', _("Light")),
         ('bg-dark', _("Dark")),
         ('bg-black', _("Black")),
+        ('bg-wagtail-dark', _("Wagtail Dark")),
     ]
 
 class ButtonChoiceBlock(DefaultChoiceBlock):

@@ -10,6 +10,7 @@
   --font-size-5: clamp(1.2rem, 1.1331rem + 0.2817vw, 1.45rem);
   --font-size-6: clamp(0.9rem, 0.8732rem + 0.1127vw, 1rem);
   --font-size-body: clamp(1rem, 0.9599rem + 0.169vw, 1.15rem);
+  --wagtail-dark: hsl(0 0 14.9%)
   --rtb-code-block-background-color: #505050;
   --inline-code-background-color: #e5e5e5;
   --max-display-width: 130rem;
@@ -716,6 +717,10 @@ ul.errorlist.nonfield {
   color: white;
 }
 
+.bg-wagtail-dark {
+  border-color: var(--wagtail-dark) !important;
+}
+
 .bg-transparent,
 .bg-light {
   color: black;
@@ -727,7 +732,8 @@ ul.errorlist.nonfield {
 .bg-info,
 .bg-warning,
 .bg-danger,
-.bg-dark {
+.bg-dark,
+.bg-wagtail-dark {
   color: white;
 }
 
