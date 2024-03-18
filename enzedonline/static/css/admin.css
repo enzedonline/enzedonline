@@ -298,8 +298,26 @@ nav.pagination>p {
   content: "    ";
   white-space: pre;
 }
-/* code block font */
-div.blog-code-block div[data-contentpath="code"] textarea {
+/* code block */
+div.blog-code-block {
+  flex-wrap: wrap;
+  display: flex;
+  column-gap: 2rem;
+}
+div.blog-code-block>div[data-contentpath="title"] {
+  flex-basis: 270px;
+  flex-grow: 1;
+}
+div.blog-code-block>div[data-contentpath="type"] {
+  flex-basis: 210px;
+}
+div.blog-code-block>div[data-contentpath="language"] {
+  flex-basis: 210px;
+}
+div.blog-code-block>div[data-contentpath="code"] {
+  flex-basis: 100%;
+}
+div.blog-code-block>div[data-contentpath="code"] textarea {
   font-family: var(--font-family-monospace);
   font-size: .8em;
 }

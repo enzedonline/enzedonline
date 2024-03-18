@@ -664,6 +664,8 @@ class MapBlock(StructBlock):
         label_format = label
 
 class BlogCodeBlock(StructBlock):
+    title = CharBlock(required=False)
+    type = CollapsibleChoiceBlock(required=True, default='simple')
     language = CodeChoiceBlock(default='python')
     code = TextBlock()
     bottom_padding = BooleanBlock(
@@ -675,7 +677,7 @@ class BlogCodeBlock(StructBlock):
     translatable_fields = []
 
     class Meta:
-        template = "blocks/code_block.html"
+        template = "blocks/code_block_wrapper.html"
         icon = "code"
         label = _("Code Block")
         label_format = _("Code") + ": {language}"

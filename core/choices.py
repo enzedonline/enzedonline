@@ -132,6 +132,13 @@ class CodeChoiceBlock(DefaultChoiceBlock):
         ('vbnet', 'VB.NET'),
     ]
 
+class CollapsibleChoiceBlock(ChoiceBlock):
+    choices=[
+        ('simple', 'Not Collapsible'),
+        ('collapsible', 'Collapsible'),
+        ('collapsed', 'Collapsed'),
+    ]    
+
 class VerticalAlignmentChoiceBlock(DefaultChoiceBlock):
     choices = [
         ('align-items-top', _('Top')), 

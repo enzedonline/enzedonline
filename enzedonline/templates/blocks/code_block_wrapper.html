@@ -1,0 +1,26 @@
+<div class="block-container{% if self.bottom_padding %} pb-2{% endif %}">
+    {% if self.type == "simple" %}
+        {% include "blocks/code_block.html" %}
+    {% else %}
+        <div class="highlight-code-wrapper">
+            <div class="accordion" id="code-wrapper-{{ block.id }}" data-bs-theme="dark">
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        <button class="accordion-button{% if self.type == "collapsed" %} collapsed{% endif %}"
+                                type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#code-item-{{ block.id }}"
+                                aria-expanded="{% if self.type == "collapsible" %}true{% else %}false{% endif %}"
+                                aria-controls="code-item-{{ block.id }}"
+                                onclick="this.blur();">{{ self.title }}</button>
+                    </div>
+                    <div id="code-item-{{ block.id }}"
+                         class="accordion-collapse collapse{% if self.type == "collapsible" %} show{% endif %}"
+                         data-bs-parent="#code-wrapper-{{ block.id }}">
+                        <div class="accordion-body">{% include "blocks/code_block.html" %}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+</div>

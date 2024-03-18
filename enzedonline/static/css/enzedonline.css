@@ -289,38 +289,38 @@ a {
   overflow-x: auto;
 }
 
-.accordion-button {
+div.collapsible-card-block button.accordion-button {
   font-size: var(--font-size-3);
   font-weight: 500;
 }
 
-.accordion-button::after {
+div.collapsible-card-block button.accordion-button::after {
   display: none;
 }
 
-.accordion-header > .bg-dark.accordion-button:not(.collapsed) {
+div.collapsible-card-block p.accordion-header > .bg-dark.accordion-button:not(.collapsed) {
   color: white;
 }
 
-.accordion-expander {
+div.collapsible-card-block svg.accordion-expander {
   height: 1em;
   width: 1em;
   margin-left: auto;
   transition: transform 150ms ease-in-out;
 }
 
-.accordion-button:not(.collapsed) > svg.accordion-expander {
+div.collapsible-card-block button.accordion-button:not(.collapsed) > svg.accordion-expander {
   transform: rotate(180deg);
 }
 
-.accordion-header {
+div.collapsible-card-block p.accordion-header {
   font-family: var(--font-family-headings);
   font-size: var(--font-size-2);
   padding: 0;
   margin-bottom: 0;
 }
 
-.accordion-body .block-container {
+div.collapsible-card-block div.accordion-body div.block-container {
   padding-top: 1em;
   margin: 0;
 }
@@ -904,6 +904,24 @@ code,
   background-color: var(--inline-code-background-color);
   padding: 0 .3em 0.01em .3em;
   border-radius: 0.3rem;
+}
+
+div.highlight-code-wrapper>div.accordion>div.accordion-item>div.accordion-header>button.accordion-button {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 1em;
+  color: #e6db74c9;
+  background-color: var(--bs-dark-bg-subtle);
+  padding: 0.5em 1em;
+  box-shadow: none;
+}
+div.highlight-code-wrapper>div.accordion>div.accordion-item>div.accordion-header>button.accordion-button:not(.collapsed) {
+  color: #e6db74;
+}
+div.highlight-code-wrapper>div.accordion>div.accordion-item>div.accordion-collapse>div.accordion-body {
+  padding: 0;
+}
+div.highlight-code-wrapper>div.accordion>div.accordion-item>div.accordion-collapse>div.accordion-body>div.highlight-code-block>div.code-toolbar>pre {
+  margin: 0;
 }
 
 code.prism-block {
