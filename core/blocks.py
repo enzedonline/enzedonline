@@ -680,7 +680,7 @@ class BlogCodeBlock(StructBlock):
         template = "blocks/code_block_wrapper.html"
         icon = "code"
         label = _("Code Block")
-        label_format = _("Code") + ": {language}"
+        label_format = "{language} {title}"
         form_classname = 'blog-code-block struct-block'
 
 class CalloutHeadingStructBlock(StructBlock):
