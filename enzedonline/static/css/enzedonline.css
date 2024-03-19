@@ -1,7 +1,7 @@
 :root {
   --font-family-headings: "Quicksand", sans-serif;
   --font-family-body: "Work Sans", sans-serif;
-  --font-family-monospace: Consolas,Monaco,'Andale Mono','Ubuntu Mono',monospace;
+  --font-family-monospace: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
   --font-family-inline-code: "Red Hat Mono", monospace;
   --font-size-1: clamp(2rem, 1.7993rem + 0.8451vw, 2.75rem);
   --font-size-2: clamp(1.8rem, 1.6261rem + 0.7324vw, 2.45rem);
@@ -147,11 +147,11 @@ a {
 
 .alert {
   font-family: var(--font-family-headings);
-  font-size: var(--font-size-body);  
+  font-size: var(--font-size-body);
 }
 
 .banner-underlay-container {
-  height: clamp(44px,calc(44px + (70 - 44) * ((100vw - 475px) / (1700 - 475))),70px);
+  height: clamp(44px, calc(44px + (70 - 44) * ((100vw - 475px) / (1700 - 475))), 70px);
 }
 
 .fill-available {
@@ -299,7 +299,7 @@ div.collapsible-card-block button.accordion-button::after {
   display: none;
 }
 
-div.collapsible-card-block p.accordion-header > .bg-dark.accordion-button:not(.collapsed) {
+div.collapsible-card-block p.accordion-header>.bg-dark.accordion-button:not(.collapsed) {
   color: white;
 }
 
@@ -310,7 +310,7 @@ div.collapsible-card-block svg.accordion-expander {
   transition: transform 150ms ease-in-out;
 }
 
-div.collapsible-card-block button.accordion-button:not(.collapsed) > svg.accordion-expander {
+div.collapsible-card-block button.accordion-button:not(.collapsed)>svg.accordion-expander {
   transform: rotate(180deg);
 }
 
@@ -521,11 +521,11 @@ div.collapsible-card-block div.accordion-body div.block-container {
 }
 
 .search-no-result-banner {
-  background-color: rgba(var(--bs-secondary-rgb),0.3)!important;
-  border-radius: 0.375rem; 
-  display: flex; 
-  align-items: center; 
-  padding: 0.5rem; 
+  background-color: rgba(var(--bs-secondary-rgb), 0.3) !important;
+  border-radius: 0.375rem;
+  display: flex;
+  align-items: center;
+  padding: 0.5rem;
   margin-top: 0.8em;
 }
 
@@ -915,17 +915,47 @@ code,
 div.highlight-code-wrapper>div.accordion>div.accordion-item>div.accordion-header>button.accordion-button {
   font-family: 'Roboto Mono', monospace;
   font-size: 1em;
+  position: relative;
   color: #e6db74c9;
   background-color: var(--bs-dark-bg-subtle);
   padding: 0.5em 1em;
   box-shadow: none;
 }
+
+div.highlight-code-wrapper>div.accordion>div.accordion-item>div.accordion-header>button.accordion-button::before {
+  content: attr(data-tooltip);
+  position: absolute;
+  top: 0;
+  right: 40px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(7%);
+  background-color: var(--bs-dark-bg-subtle);
+  color: var(--bs-light);
+  padding: 0.5em;
+  z-index: 1;
+  font-size: var(--font-size-6);
+  font-family: var(--font-family-headings);
+  transition-property: visibility, opacity; /* Specify properties to transition */
+  transition-duration: 0.4s, 0.2s; /* Duration for visibility and opacity */
+  transition-timing-function: ease-in-out; /* Optional: Specify timing function */
+}
+div.highlight-code-wrapper>div.accordion>div.accordion-item>div.accordion-header>button.accordion-button.collapsed::before {
+  visibility: visible;
+  opacity: 0.8;
+}
+div.highlight-code-wrapper>div.accordion>div.accordion-item>div.accordion-header>button.accordion-button.collapsed:hover::before {
+  opacity: 1;
+}
+
 div.highlight-code-wrapper>div.accordion>div.accordion-item>div.accordion-header>button.accordion-button:not(.collapsed) {
   color: #e6db74;
 }
+
 div.highlight-code-wrapper>div.accordion>div.accordion-item>div.accordion-collapse>div.accordion-body {
   padding: 0;
 }
+
 div.highlight-code-wrapper>div.accordion>div.accordion-item>div.accordion-collapse>div.accordion-body>div.highlight-code-block>div.code-toolbar>pre {
   margin: 0;
 }
@@ -937,7 +967,7 @@ code.prism-block {
 
 .callout-block pre[class*="language-"] {
   padding: 0.7em 1em 0.9em 1em;
-  line-height: 1!important;
+  line-height: 1 !important;
   font-size: var(--font-size-body);
 }
 
@@ -1032,17 +1062,21 @@ div.code-toolbar>.toolbar>.toolbar-item>button {
   padding: 0.2em 0.5em !important;
   margin-right: 0.2em;
 }
+
 div.code-toolbar>.toolbar>.toolbar-item>button:focus {
   color: silver !important;
   visibility: initial;
 }
+
 div.code-toolbar>.toolbar>.toolbar-item>button:hover {
   color: white !important;
 }
+
 div.code-toolbar>.toolbar>.toolbar-item>button[data-copy-state="copy-success"] {
   color: white !important;
   visibility: visible;
 }
+
 div.code-toolbar>.toolbar>.toolbar-item>button>span {
   font-size: var(--font-size-6);
   font-family: var(--font-family-headings);

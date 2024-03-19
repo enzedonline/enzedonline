@@ -10,6 +10,7 @@
                                 type="button"
                                 data-bs-toggle="collapse"
                                 data-bs-target="#code-item-{{ block.id }}"
+                                data-tooltip="Click to expand"
                                 aria-expanded="{% if self.type == "collapsible" %}true{% else %}false{% endif %}"
                                 aria-controls="code-item-{{ block.id }}"
                                 onclick="this.blur();">{{ self.title }}</button>
