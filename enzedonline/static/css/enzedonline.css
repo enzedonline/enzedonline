@@ -929,11 +929,11 @@ div.highlight-code-wrapper>div.accordion>div.accordion-item>div.accordion-header
 div.highlight-code-wrapper>div.accordion>div.accordion-item>div.accordion-header>button.accordion-button::before {
   content: attr(data-tooltip);
   position: absolute;
-  top: 0;
+  top: 50%;
   right: 1.5rem;
   opacity: 0;
   visibility: hidden;
-  transform: translateY(40%);
+  transform: translateY(-50%);
   background-color: var(--bs-dark-bg-subtle);
   color: var(--bs-light);
   z-index: 1;
