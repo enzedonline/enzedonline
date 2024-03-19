@@ -99,34 +99,32 @@ const loadMathJax = () => {
 
 // include js script only if not already included
 const include_js = (js, id) => {
-  const script_tag = document.getElementById(id);
-  if (!script_tag) {
-    const new_script = document.createElement('script');
-    new_script.type = 'text/javascript';
-    new_script.src = js;
-    new_script.id = id;
-    document.head.appendChild(new_script);
-    if (document.getElementById(id)) {
-      return new_script;
+  return new Promise((resolve, reject) => {
+    let script_tag = document.getElementById(id);
+    if (!script_tag) {
+      const head = document.head || document.getElementsByTagName('head')[0];
+      script_tag = document.createElement('script');
+      script_tag.type = 'text/javascript';
+      script_tag.src = js;
+      script_tag.id = id;
+      script_tag.onload = resolve; // Resolve the promise when script is loaded
+      script_tag.onerror = reject; // Reject the promise on error
+      head.appendChild(script_tag);
+    } else {
+      resolve(); // Resolve the promise if script is already loaded
     }
-  } else {
-    return script_tag;
-  }
+  });
 };
 
 // include css only if not already included
 const include_css = (css, id) => {
-  const link_tag = document.getElementById(id);
+  let link_tag = document.getElementById(id);
   if (!link_tag) {
-    const new_link = document.createElement('link');
-    new_link.rel = 'stylesheet';
-    new_link.href = css;
-    new_link.id = id;
-    document.head.appendChild(new_link);
-    if (document.getElementById(id)) {
-      return new_link;
-    }
-  } else {
-    return link_tag;
+    const head = document.head || document.getElementsByTagName('head')[0];
+    link_tag = document.createElement('link');
+    link_tag.rel = 'stylesheet';
+    link_tag.href = css;
+    link_tag.id = id;
+    head.appendChild(link_tag);
   }
 };
