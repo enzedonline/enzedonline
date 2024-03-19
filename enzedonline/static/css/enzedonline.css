@@ -914,25 +914,28 @@ code,
 
 div.highlight-code-wrapper>div.accordion>div.accordion-item>div.accordion-header>button.accordion-button {
   font-family: 'Roboto Mono', monospace;
-  font-size: 1em;
+  font-size: var(--font-size-6);
   position: relative;
   color: #e6db74c9;
   background-color: var(--bs-dark-bg-subtle);
-  padding: 0.5em 1em;
+  padding: 0.5rem 1rem 0.5rem 3rem;
   box-shadow: none;
 }
-
+div.highlight-code-wrapper>div.accordion>div.accordion-item>div.accordion-header>button.accordion-button::after {
+  position: absolute;
+  left: 1rem;
+  margin-right: unset;
+}
 div.highlight-code-wrapper>div.accordion>div.accordion-item>div.accordion-header>button.accordion-button::before {
   content: attr(data-tooltip);
   position: absolute;
   top: 0;
-  right: 40px;
+  right: 1.5rem;
   opacity: 0;
   visibility: hidden;
-  transform: translateY(7%);
+  transform: translateY(40%);
   background-color: var(--bs-dark-bg-subtle);
   color: var(--bs-light);
-  padding: 0.5em;
   z-index: 1;
   font-size: var(--font-size-6);
   font-family: var(--font-family-headings);
