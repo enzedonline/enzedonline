@@ -15,21 +15,8 @@
   {% endif %}
 </div>
 <script>
-  include_css("https://api.tiles.mapbox.com/mapbox-gl-js/v2.8.1/mapbox-gl.css", "css-mapbox")
-  mapbox_loaded = false;
-  map_script_loaded = false;
-  mapbox = include_js("https://api.tiles.mapbox.com/mapbox-gl-js/v2.8.1/mapbox-gl.js", "js-mapbox");
-  map_script = include_js("{% static 'js/map-block.js'%}", "js-map-block");
-  mapbox.addEventListener("load", () => {
-    mapbox_loaded = true;
-    if (mapbox_loaded && map_script_loaded) {
-      draw_mapblock("{{ map_settings.uid }}");
-    }
-  });
-  map_script.addEventListener("load", () => {
-    map_script_loaded = true;
-    if (mapbox_loaded && map_script_loaded) {
-      draw_mapblock("{{ map_settings.uid }}");
-    }
+  include_js("{% static 'js/map-block.js'%}", "js-map-block")
+  .then(() => {
+    draw_mapblock("{{ map_settings.uid }}");
   });
 </script>

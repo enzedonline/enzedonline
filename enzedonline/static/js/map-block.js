@@ -3,7 +3,11 @@
 // get the map block settings
 const draw_mapblock = (uid) => {
   const map_settings = JSON.parse(document.getElementById(uid).textContent);
-  add_mapbox(map_settings);
+  include_css("https://api.tiles.mapbox.com/mapbox-gl-js/v3.2.0/mapbox-gl.css", "mapbox-gl-css");
+  include_js("https://api.tiles.mapbox.com/mapbox-gl-js/v3.2.0/mapbox-gl.js", "mapbox-gl-js")
+    .then(() => {
+      add_mapbox(map_settings);
+    });
 };
 
 // add the map using supplied settings
@@ -14,25 +18,10 @@ const add_mapbox = (map_settings) => {
   //   "token": "your.mapbox.token",
   //   "route_type": "walking",
   //   "show_route_info": true,
-  //   "padding": [
-  //       50,
-  //       50,
-  //       50,
-  //       50
-  //   ],
+  //   "padding": [50, 50, 50, 50],
   //   "waypoints": [
-  //       {
-  //           "longitude": 11.77624,
-  //           "latitude": 42.1541,
-  //           "pin_label": "a",
-  //           "show_pin": true
-  //       },
-  //       {
-  //           "longitude": 12.128261,
-  //           "latitude": 42.168219,
-  //           "pin_label": "b",
-  //           "show_pin": true
-  //       }
+  //       {"longitude": 11.77624, "latitude": 42.1541, "pin_label": "a", "show_pin": true},
+  //       {"longitude": 12.128261, "latitude": 42.168219, "pin_label": "b", "show_pin": true}
   //   ]
   // }
 
@@ -40,7 +29,7 @@ const add_mapbox = (map_settings) => {
   mapboxgl.accessToken = map_settings.token;
   const map = new mapboxgl.Map({
     container: `map-${map_settings.uid}`,
-    style: "mapbox://styles/mapbox/outdoors-v11",
+    style: "mapbox://styles/mapbox/outdoors-v12",
   });
   map.addControl(new mapboxgl.NavigationControl());
   map.addControl(new mapboxgl.ScaleControl({ position: "bottom-right" }));
@@ -66,72 +55,6 @@ const add_mapbox = (map_settings) => {
       },
     }
   );
-
-  // create a function to make a directions request
-  const getRoute = async (coord_list) => {
-    // build the gps points query string
-    const points = coord_list.map((coord) => [coord.longitude, coord.latitude].join());
-    const gps_list = points.join(";");
-    const query = await fetch(
-      `https://api.mapbox.com/directions/v5/mapbox/${map_settings.route_type}/${gps_list}?steps=false&geometries=geojson&access_token=${mapboxgl.accessToken}`,
-      { method: "GET" }
-    );
-    // request json data
-    const json = await query.json();
-    const data = json.routes[0];
-    const route = data.geometry.coordinates;
-    const geojson = {
-      type: "Feature",
-      properties: {},
-      geometry: {
-        type: "LineString",
-        coordinates: route,
-      },
-    };
-    map.addLayer({
-      id: `route-${map_settings.uid}`,
-      type: "line",
-      source: {
-        type: "geojson",
-        data: geojson,
-      },
-      layout: {
-        "line-join": "round",
-        "line-cap": "round",
-      },
-      paint: {
-        "line-color": "#3887be",
-        "line-width": 5,
-        "line-opacity": 0.75,
-      },
-    });
-
-    // send route length info back to page
-    if (map_settings.show_route_info) {
-      document.getElementById(`distance-${map_settings.uid}`).innerText = (
-        Math.round(data.distance / 100) / 10
-      ).toFixed(1);
-      document.getElementById(`hours-${map_settings.uid}`).innerText = (
-        Math.round(data.duration / 360) / 10
-      ).toFixed(1);
-      document.getElementById(`routesummary-${map_settings.uid}`).style.display =
-        "block";
-    }
-
-    // set map bounds to fit route
-    const bounds = new mapboxgl.LngLatBounds(route[0], route[0]);
-    for (const coord of route) {
-      bounds.extend(coord);
-    }
-    map.fitBounds(bounds, {
-      padding: {
-        top: map_settings.padding[0],
-        right: map_settings.padding[1],
-        bottom: map_settings.padding[2],
-        left: map_settings.padding[3],
-      },
-    });
-  };
 
   // add layers and markers after base map loads
   map.on("load", () => {
@@ -203,9 +126,9 @@ const add_mapbox = (map_settings) => {
           .setPopup(
             new mapboxgl.Popup().setHTML(
               "<b>" +
-                waypoint.pin_label +
-                "</b><br>" +
-                `<a href="https://www.google.com/maps?q=${waypoint.latitude},${waypoint.longitude}" 
+              waypoint.pin_label +
+              "</b><br>" +
+              `<a href="https://www.google.com/maps?q=${waypoint.latitude},${waypoint.longitude}" 
                        target="_blank">${waypoint.latitude}, ${waypoint.longitude}</a>`
             )
           ) // add popup
@@ -213,4 +136,71 @@ const add_mapbox = (map_settings) => {
       }
     });
   });
+
+  // create a function to make a directions request
+  const getRoute = async (coord_list) => {
+    // build the gps points query string
+    const points = coord_list.map((coord) => [coord.longitude, coord.latitude].join());
+    const gps_list = points.join(";");
+    const query = await fetch(
+      `https://api.mapbox.com/directions/v5/mapbox/${map_settings.route_type}/${gps_list}?steps=false&geometries=geojson&access_token=${mapboxgl.accessToken}`,
+      { method: "GET" }
+    );
+    // request json data
+    const json = await query.json();
+    const data = json.routes[0];
+    const route = data.geometry.coordinates;
+    const geojson = {
+      type: "Feature",
+      properties: {},
+      geometry: {
+        type: "LineString",
+        coordinates: route,
+      },
+    };
+    map.addLayer({
+      id: `route-${map_settings.uid}`,
+      type: "line",
+      source: {
+        type: "geojson",
+        data: geojson,
+      },
+      layout: {
+        "line-join": "round",
+        "line-cap": "round",
+      },
+      paint: {
+        "line-color": "#3887be",
+        "line-width": 5,
+        "line-opacity": 0.75,
+      },
+    });
+
+    // send route length info back to page
+    if (map_settings.show_route_info) {
+      document.getElementById(`distance-${map_settings.uid}`).innerText = (
+        Math.round(data.distance / 100) / 10
+      ).toFixed(1);
+      document.getElementById(`hours-${map_settings.uid}`).innerText = (
+        Math.round(data.duration / 360) / 10
+      ).toFixed(1);
+      document.getElementById(`routesummary-${map_settings.uid}`).style.display =
+        "block";
+    }
+
+    // set map bounds to fit route
+    const bounds = new mapboxgl.LngLatBounds(route[0], route[0]);
+    for (const coord of route) {
+      bounds.extend(coord);
+    }
+    map.fitBounds(bounds, {
+      padding: {
+        top: map_settings.padding[0],
+        right: map_settings.padding[1],
+        bottom: map_settings.padding[2],
+        left: map_settings.padding[3],
+      },
+    });
+  };
+
 };
