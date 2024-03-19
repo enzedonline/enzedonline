@@ -914,7 +914,7 @@ code,
 
 div.highlight-code-wrapper>div.accordion>div.accordion-item>div.accordion-header>button.accordion-button {
   font-family: 'Roboto Mono', monospace;
-  font-size: var(--font-size-6);
+  font-size: 1em;
   position: relative;
   color: #e6db74c9;
   background-color: var(--bs-dark-bg-subtle);
