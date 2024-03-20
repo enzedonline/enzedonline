@@ -459,39 +459,31 @@ div.collapsible-card-block div.accordion-body div.block-container {
   margin-bottom: 8px;
 }
 
+.filter-label,
 .category-link {
-  font-family: var(--font-family-headings);
   font-size: var(--font-size-5);
-  font-weight: 500;
+  font-weight: 600;
   line-height: 0.8;
   text-decoration: none;
-  color: rgba(255, 255, 255, 0.9);
-  padding: 0px;
 }
 
-.category-link.active {
-  font-family: var(--font-family-headings);
-  color: antiquewhite !important;
-  font-weight: bolder;
-}
-
-.category-link:hover {
-  color: var(--bs-white) !important;
-}
-
+.filter-label,
+.category-link, 
 .tag-link {
   font-family: var(--font-family-headings);
-  color: rgba(255, 255, 255, 0.9);
+  color: rgba(255, 255, 255, 0.9) !important;
   padding: 0px;
 }
 
+.category-link.active,
 .tag-link.active {
-  color: antiquewhite !important;
+  color: var(--bs-highlight-bg) !important;
   font-weight: bolder;
 }
 
+.category-link:hover,
 .tag-link:hover {
-  color: var(--bs-white) !important;
+  color: var(--bs-highlight-bg) !important;
 }
 
 .filter-message {
