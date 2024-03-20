@@ -137,11 +137,11 @@ class BlogListingPage(SEOPage):
         default_lang = Locale.get_default()
         
         if type(self).__name__ == 'TechBlogListingPage':
-            all_posts = TechBlogDetailPage.objects.filter(locale_id=default_lang.id).live().defer_streamfields().public().order_by('-first_published_at')
+            all_posts = TechBlogDetailPage.objects.filter(locale_id=default_lang.id).live().defer_streamfields().public()
             categories = TechBlogCategory.objects.filter(locale_id=active_lang.id)
             tags = Tag.objects.annotate(ntag=models.Count('blog_techblogpagetag_items')).filter(ntag__gt=0).order_by('name')
         else:
-            all_posts = PersonalBlogDetailPage.objects.filter(locale_id=default_lang.id).live().defer_streamfields().public().order_by('-first_published_at')
+            all_posts = PersonalBlogDetailPage.objects.filter(locale_id=default_lang.id).live().defer_streamfields().public()
             categories = PersonalBlogCategory.objects.filter(locale_id=active_lang.id)
             tags = Tag.objects.annotate(ntag=models.Count('blog_personalblogpagetag_items')).filter(ntag__gt=0).order_by('name')
 
@@ -174,7 +174,9 @@ class BlogListingPage(SEOPage):
                 filter['verbose'] = tags.filter(slug=tag_filter).first().name 
             except AttributeError:
                 filter['verbose'] = tag_filter
-
+        else:
+            all_posts = all_posts.order_by('-first_published_at')
+            
         context['filter'] = filter
         
         paginator = Paginator(all_posts, 12)
@@ -210,10 +212,10 @@ class BlogListingPage(SEOPage):
 
         return context
 
-    @property
-    def lastmod(self):
-        blogs = self.get_children().defer_streamfields().live().public()
-        return blogs.order_by('latest_revision_created_at').last().latest_revision_created_at
+    # @property
+    # def lastmod(self):
+    #     blogs = self.get_children().defer_streamfields().live().public()
+    #     return blogs.order_by('latest_revision_created_at').last().latest_revision_created_at
 
 class TechBlogListingPage(BlogListingPage):
     template = 'blog/blog_index_page.html'
