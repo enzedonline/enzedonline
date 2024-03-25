@@ -3,9 +3,8 @@
 {% if layout.image_style %}<script>document.styleSheets[0].insertRule("{{ layout.image_style }}")</script>{% endif %}
 <div class="{% card_layout self %} size-{{ block.id }} mx-auto">
     {% include "blocks/embed/image.html" %}
-    <div class="pt-3 px-2 text-break">
-        <p class="fs-5 font-headings card-title fw-bolder">{{ self.title }}</p>
-        <p class="lh-sm">{{ self.description|linebreaksbr }}</p>
+    <div class="pt-3 px-2">
+        {{ self.description }}
     </div>
     {% include "blocks/embed/button.html" %}
 </div>

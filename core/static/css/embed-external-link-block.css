@@ -1,0 +1,78 @@
+div.struct-block.external-link-block {
+    flex-wrap: wrap;
+    display: flex;
+    column-gap: 2rem;
+}
+div.struct-block.external-link-block>div[data-contentpath] {
+    flex-grow: 1;
+}
+div.struct-block.external-link-block>div[data-contentpath]>div.w-field__wrapper {
+    padding-bottom: 0;
+    margin-bottom: 1em;
+}
+div.struct-block.external-link-block>div[data-contentpath]>div.w-field__wrapper select {
+    width: -webkit-fill-available;
+}
+
+div.struct-block.external-link-block>div[data-contentpath="external_link"]>div.w-field__wrapper {
+    margin-bottom: 0;
+}
+div.struct-block.external-link-block>div[data-contentpath="external_link"] div.external-link-embed-block-metadata-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0.5rem 0 0 0;
+}
+div.struct-block.external-link-block>div[data-contentpath="external_link"] span.external-link-embed-block-metadata-error {
+    flex: 1;
+    margin: 0;
+    max-width: 80%;
+}
+
+div.struct-block.external-link-block>div[data-contentpath="image"] img.external-link-embed-block-image-preview {
+    max-height: 7rem;
+    margin-top: 1rem;
+    border: 1px solid var(--w-color-border-field-default);
+    border-radius: 0.3125rem;
+}
+
+div.struct-block.external-link-block>div[data-contentpath="image_min"],
+div.struct-block.external-link-block>div[data-contentpath="image_max"],
+div.struct-block.external-link-block>div[data-contentpath="breakpoint"],
+div.struct-block.external-link-block>div[data-contentpath="background"] {
+    flex-basis: calc(50% - 2rem);
+}
+
+div.struct-block.external-link-block>div[data-contentpath="border"],
+div.struct-block.external-link-block>div[data-contentpath="full_height"],
+div.struct-block.external-link-block>div[data-contentpath="button_text"],
+div.struct-block.external-link-block>div[data-contentpath="button_appearance"],
+div.struct-block.external-link-block>div[data-contentpath="button_placement"],
+div.struct-block.external-link-block>div[data-contentpath="button_size"] {
+    flex-basis: calc(33% - 4rem);
+}
+
+
+
+div.struct-block.external-link-block button.metadata-button {
+    position: relative;
+    padding: 0 2em !important;
+}
+
+
+@keyframes spin {0% {transform: rotate(0deg);} 100% {transform: rotate(360deg);}}
+
+div.struct-block.external-link-block button.metadata-button.spinner::before {
+    content: "";
+    position: absolute;
+    top: 0.35em;
+    left: 0.5em;
+    width: 1em;
+    height: 1em;
+    border-radius: 50%;
+    border: 2px solid #3498db;
+    border-top: 2px solid transparent;
+    animation: spin 1s linear infinite;
+}
+
+

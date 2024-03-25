@@ -9,7 +9,8 @@ from wagtail import urls as wagtail_urls
 from wagtail.admin import urls as wagtailadmin_urls
 from wagtail.documents import urls as wagtaildocs_urls
 
-from core.views import RobotsView, refresh_page_cache, sitemap
+from core.views import (ExternalContentProxy, RobotsView, check_image_url,
+                        refresh_page_cache, sitemap)
 from search.views import enzed_search
 from userauth.views import (CustomPasswordChangeView, CustomPasswordSetView,
                             CustomUserDeleteView, CustomUserUpdateView,
@@ -32,6 +33,8 @@ urlpatterns = [
     path('sentry-debug/', trigger_error),
     path(r'jsi18n/', JavaScriptCatalog.as_view(), name='javascript-catalog'),
     re_path(r'^en/accounts/linkedin_oauth2/login/$', lambda x: HttpResponsePermanentRedirect('/accounts/oidc_linkedin/login/')),
+    path('external-content-proxy/', ExternalContentProxy.as_view(), name='external-content-proxy'),
+    path('check-image-url/', check_image_url, name='check_image_url'),
 ]
 
 if settings.DEBUG:

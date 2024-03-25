@@ -6,8 +6,7 @@
     <div class="{{ layout.image_column }} size-{{ block.id }}">{% include "blocks/embed/image.html" %}</div>
     <div class="col">
       <div class="pt-3 px-2 text-break">
-        <p class="fs-5 font-headings card-title fw-bolder {{ layout.heading_align }}">{{ self.title }}</p>
-        <p class="lh-sm">{{ self.description|linebreaksbr }}</p>
+        {{ self.description }}
       </div>
       {% include "blocks/embed/button.html" %}
     </div>

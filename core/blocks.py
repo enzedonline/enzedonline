@@ -14,6 +14,9 @@ from wagtail.documents.blocks import DocumentChooserBlock
 from wagtail.embeds.blocks import EmbedBlock
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.models import Locale
+from wagtail.blocks.struct_block import StructBlockAdapter
+from django.utils.functional import cached_property
+from wagtail.telepath import register
 
 import core.metadata
 from core.choices import *
@@ -418,32 +421,24 @@ class DjangoTemplateFragmentBlock(StructBlock):
 class ExternalLinkEmbedBlock(StructBlock):
     external_link = URLBlock(
         label=_("URL to External Article"),
-        help_text=_("For articles in external websites without embed share option"),
+        help_text=_("Use the 'Get Metadata' button to retrieve information from the external website."),
     )
     image = CharBlock(
         max_length=200, 
         null=True, 
         blank=True,
-        help_text=_("Leave blank to autofill from website. Delete text to refresh from website.")
     )
-    title = CharBlock(
-        max_length=200, 
+    description = RichTextBlock(
         null=True, 
         blank=True,
-        help_text=_("Leave blank to autofill from website. Delete text to refresh from website.")
-    )
-    description = TextBlock(
-        null=True, 
-        blank=True,
-        help_text=_("Leave blank to autofill from website. Delete text to refresh from website.")
     )
     image_min = IntegerBlock(
-        label=_("Minimum width the image can shrink to (pixels)"),
+        label=_("Minimum image width (px)"),
         default=200,
         min_value=100
     )
     image_max = IntegerBlock(
-        label=_("Optional maximum width the image can grow to (pixels)"),
+        label=_("Maximum image width (px)"),
         required=False
     )
     format = FlexCardLayoutChoiceBlock(
@@ -461,17 +456,15 @@ class ExternalLinkEmbedBlock(StructBlock):
     border = BooleanBlock(
         default=True,
         required=False,
-        label=_("Border"),
-        help_text=_("Draw a border around the card?")
+        label=_("Add Border"),
     )
     full_height = BooleanBlock(
         default=True,
         required=False,
         label=_("Full Height"),
-        help_text=_("Card uses all available height")
     )
     button_text = CharBlock(
-        label=_("Text for link to article"),
+        label=_("Button Text"),
         default=_("Read Full Article")
     )
     button_appearance = ButtonChoiceBlock(
@@ -489,40 +482,33 @@ class ExternalLinkEmbedBlock(StructBlock):
         template='blocks/external_link_embed.html',
         icon = 'link-external'
         label = _("External Article Meta Link")
-        label_format = _("Meta Link") +": {external_link}"
+        label_format = _("External Link") +": {external_link}"
+        form_classname = "struct-block external-link-block"
     
     def clean(self, value):
         errors = {}
-
-        if not(value['image'] and value['title'] and value['description']):
-            try:
-                metadata = core.metadata.get_metadata(value.get('external_link'))
-            except:
-                metadata =  None
-                errors['external_link'] = ErrorList([_("No information for the URL was found, please check the URL and ensure the full URL is included and try again.")])
-            
-            try:
-                if metadata:
-                    if metadata['image'] and not value['image']:
-                        value['image'] = metadata['image']
-                    if metadata['title'] and not value['title']:
-                        value['title'] = metadata['title']
-                    if metadata['description'] and not value['description']:
-                        value['description'] = metadata['description']
-            except KeyError:
-                errors['external_link'] = ErrorList([_("No information for the URL was found, please check the URL and ensure the full URL is included and try again.")])
-
-            image_min = value.get('image_min')
-            image_max = value.get('image_max')
-
-            if image_min and image_max and image_min > image_max:
-                errors['image_min'] = ErrorList([_("Please make sure minimum is less than maximum.")])
-                errors['image_max'] = ErrorList([_("Please make sure minimum is less than maximum.")])
-
-            if errors:
-                raise StructBlockValidationError(block_errors=errors)
-
+        image_min = value.get('image_min')
+        image_max = value.get('image_max')
+        if image_min and image_max and image_min > image_max:
+            errors['image_min'] = ErrorList([_("Please make sure minimum is less than maximum.")])
+            errors['image_max'] = ErrorList([_("Please make sure minimum is less than maximum.")])
+        if errors:
+            raise StructBlockValidationError(block_errors=errors)
         return super().clean(value)
+
+class ExternalLinkEmbedBlockAdapter(StructBlockAdapter):
+    js_constructor = "blocks.models.ExternalLinkEmbedBlock"
+
+    @cached_property
+    def media(self):
+        from django import forms
+        structblock_media = super().media
+        return forms.Media(
+            js=structblock_media._js + ["js/embed-external-link-block.js"],
+            css={"all": ("css/embed-external-link-block.css",)},
+        )
+
+register(ExternalLinkEmbedBlockAdapter(), ExternalLinkEmbedBlock)
 
 class CarouselImageBlock(StructBlock):
     image = SEOImageChooserBlock(label=_("Select Image & Enter Details"))
