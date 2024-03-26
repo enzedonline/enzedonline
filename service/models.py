@@ -1,11 +1,40 @@
-from django.utils.translation import gettext_lazy as _
 from django.db import models
-from wagtail.fields import StreamField
+from django.utils.translation import gettext_lazy as _
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
+from wagtail.fields import StreamField
 from wagtail.search import index
 
-from core.blocks import GridStreamBlock
+from core.blocks import (DocumentBlock, FullWidthBaseBlock, HeadingBlock,
+                         SimpleStreamBlock, TableOfContentsBlock,
+                         TwoColumnBaseBlock)
 from core.models import SEOPage
+
+
+class ServiceColumnStreamBlock(SimpleStreamBlock):
+    document = DocumentBlock()
+
+class ServiceStreamBlock(ServiceColumnStreamBlock):
+    heading = HeadingBlock()
+    toc = TableOfContentsBlock()
+
+class FullWidthServiceBlock(FullWidthBaseBlock):
+    column = ServiceStreamBlock(
+        label=_("Single Column Contents"),
+        blank=True,
+        Null=True
+    )
+
+class TwoColumnServiceBlock(TwoColumnBaseBlock):
+    left_column = ServiceColumnStreamBlock(
+        label=_("Left Column Contents"),
+        blank=True,
+        Null=True
+    )
+    right_column = ServiceColumnStreamBlock(
+        label=_("Right Column Contents"),
+        blank=True,
+        Null=True
+    )
 
 class ServicePage(SEOPage):
 
@@ -33,8 +62,11 @@ class ServicePage(SEOPage):
         null=True,
     )
 
-    body = StreamField(
-        GridStreamBlock(), verbose_name="Page body", blank=True, use_json_field=True
+    body = StreamField([
+            ('single_column', FullWidthServiceBlock()),
+            ('two_column', TwoColumnServiceBlock()),
+        ], 
+        verbose_name="Page body", blank=True, use_json_field=True
     )
 
     content_panels = SEOPage.content_panels + [

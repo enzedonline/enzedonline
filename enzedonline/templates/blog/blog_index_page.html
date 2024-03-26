@@ -77,10 +77,6 @@
             {% include "core/blog_posts.html" %}
             {% endnocache %}
         </div>
-        {# Bottom Content Section #}
-        {% for block in page.bottom_section %}
-            {% include_block block %}
-        {% endfor %}
         {# Paginator #}
         {% nocache %}
         <div>
@@ -90,7 +86,6 @@
             {% endif %}
         </div>
         {% endnocache %}
+        <div style="height: 2rem;"></div>
     {% endcache %}
 {% endblock content %}
-{% block extra_js %}
-{% endblock extra_js %}

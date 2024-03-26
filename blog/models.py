@@ -9,7 +9,7 @@ from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.fields import StreamField
 from wagtail.models import Locale
 
-from core.blocks import GridStreamBlock
+from core.blocks import SimpleStreamBlock
 from core.models import SEOPage
 from core.utils import paginator_range
 
@@ -96,14 +96,8 @@ class BlogListingPage(SEOPage):
     )
 
     top_section = StreamField(
-        GridStreamBlock(), 
+        SimpleStreamBlock(), 
         verbose_name=_("Content to go above the index"), 
-        blank=True, 
-        use_json_field=True
-    )
-    bottom_section = StreamField(
-        GridStreamBlock(), 
-        verbose_name=_("Content to go below the index"), 
         blank=True, 
         use_json_field=True
     )
@@ -118,7 +112,6 @@ class BlogListingPage(SEOPage):
             heading=_("Choose banner image and text/button overlay options.")
         ),
         FieldPanel('top_section'),
-        FieldPanel('bottom_section'),
     ]
 
     class Meta:
@@ -211,11 +204,6 @@ class BlogListingPage(SEOPage):
             context['cache_head'] = f'head-page1'
 
         return context
-
-    # @property
-    # def lastmod(self):
-    #     blogs = self.get_children().defer_streamfields().live().public()
-    #     return blogs.order_by('latest_revision_created_at').last().latest_revision_created_at
 
 class TechBlogListingPage(BlogListingPage):
     template = 'blog/blog_index_page.html'

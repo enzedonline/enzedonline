@@ -54,7 +54,7 @@ class ImageBlock(StructBlock):
         label = _("Image Block")
         label_format = _("Image") + ": {image}"
         form_classname= "struct-block image-block"
-        
+
 class BlockQuote(StructBlock):
     """
     Custom `StructBlock` that allows the user to attribute a quote to the author
@@ -174,6 +174,7 @@ class HeadingBlock(StructBlock):
         label = _("Heading Block")
         label_format = _("Heading") + ": {title}"
         icon = 'title'
+        form_classname = "struct-block heading-block"
 
     def clean(self, value):
         errors = {}
@@ -714,7 +715,7 @@ class DocumentBlock(StructBlock):
     )
     icon = CharBlock(
         label = _("Link Icon"),
-        help_text = _("Optional FontAwesome icon to appear left of the link (eg fas fa-file)"),
+        help_text = _("Optional FontAwesome icon to appear left of the link (eg far fa-file)"),
         required = False,
     )
     appearance = ButtonChoiceBlock(
@@ -916,6 +917,14 @@ class BaseStreamBlock(StreamBlock):
     django_template_fragment = DjangoTemplateFragmentBlock()
     spacer_block = SpacerStaticBlock()
     empty_block = EmptyStaticBlock()
+
+class SimpleStreamBlock(StreamBlock):
+    richtext_block = SimpleRichTextBlock()
+    image_block = ImageBlock()
+    simple_card = SimpleCard()
+    call_to_action_card = CallToActionCard()
+    spacer_block = SpacerStaticBlock()
+
     
 class FullWidthBaseBlock(StructBlock):
     column = BaseStreamBlock(

@@ -1,4 +1,4 @@
-from core.blocks import GridStreamBlock
+from core.blocks import SimpleStreamBlock
 from core.models import SEOPage
 from django.db import models
 from django.utils.translation import gettext_lazy as _
@@ -36,7 +36,7 @@ class HomePage(SEOPage):
     )
 
     body = StreamField(
-        GridStreamBlock(), verbose_name="Page body", blank=True, use_json_field=True
+        SimpleStreamBlock(), verbose_name="Page body", blank=True, use_json_field=True
     )
 
     content_panels = SEOPage.content_panels + [
