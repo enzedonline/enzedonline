@@ -46,13 +46,15 @@ class ImageBlock(StructBlock):
         default='bg-transparent',
         label=_("Card Background Colour")
     )
-    max_width = IntegerBlock(required=False, label=_("Optional maximum width the image can grow to (in pixels)"))
+    max_width = IntegerBlock(required=False, label=_("Maximum image width (px)"))
+    animated_gif = BooleanBlock(required=False, label=_("Is Animated GIF"))
     class Meta:
         icon = 'image'
         template = "blocks/image_block.html"
         label = _("Image Block")
         label_format = _("Image") + ": {image}"
-
+        form_classname= "struct-block image-block"
+        
 class BlockQuote(StructBlock):
     """
     Custom `StructBlock` that allows the user to attribute a quote to the author

@@ -328,6 +328,22 @@ div.tippy-content div.w-combobox__option {
   width: 1.2rem;
 }
 
+div.wordcount-banner {
+  background-color: var(--w-color-surface-field-inactive);
+  padding: 0.5em 1em;
+  border-radius: 1em;
+  margin-bottom: -2em;
+}
+
+/* remove root level warning box */
+form#page-reorder-form>div.nice-padding {
+display: none;
+}
+
+/* --------------------------------------------------------------------- */
+/* Block Styles */
+/* --------------------------------------------------------------------- */
+
 /* code block */
 div.blog-code-block {
   flex-wrap: wrap;
@@ -352,15 +368,23 @@ div.blog-code-block>div[data-contentpath="code"] textarea {
   font-size: .8em;
 }
 
-.wordcount-banner {
-    background-color: var(--w-color-surface-field-inactive);
-    padding: 0.5em 1em;
-    border-radius: 1em;
-    margin-bottom: -2em;
+/* image block */
+div.image-block {
+  flex-wrap: wrap;
+  display: flex;
+  column-gap: 2rem;
 }
-
-/* remove root level warning box */
-form#page-reorder-form>div.nice-padding {
-  display: none;
+div.image-block>div[data-contentpath] {
+  flex-grow: 1;
 }
-
+div.image-block>div[data-contentpath="image"] {
+  flex-basis: 100%;
+}
+div.image-block>div[data-contentpath="caption"],
+div.image-block>div[data-contentpath="attribution"] {
+  flex-basis: calc(50% - 2rem);
+}
+div.image-block>div[data-contentpath="background"],
+div.image-block>div[data-contentpath="animated_gif"] {
+  flex-grow: 0;
+}

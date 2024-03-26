@@ -11,6 +11,11 @@
   <div class="{{ self.background }} p-1 mx-auto rounded-3"
     {% if self.max_width %} style="max-width: calc({{ self.max_width }}px + 0.5rem);"{% endif %}>
     <figure class="m-0"{% if self.max_width %} style="max-width: {{ self.max_width }}px;"{% endif %}>
+      {% if self.animated_gif %}
+      <img src="{{ self.image.file.file.url }}"
+      alt="{{ self.image.seo_title }}"
+      class="image-w-100-auto">
+      {% else %}
       <picture>
         <source media="(max-width: 500px)" sizes="(max-width: 500px) 500px" srcset="{{ webp_img_w_500.url }} 500w" type="image/webp">
         <source media="(max-width: 750px)" sizes="(max-width: 750px) 750px" srcset="{{ webp_img_w_750.url }} 750w" type="image/webp">
@@ -23,6 +28,7 @@
           class="image-w-100-auto"
         >
       </picture>
+      {% endif %}
       {% if self.caption or self.attribution %}
         <figcaption class="image-block-caption text-end px-1 py-2 lh-sm">
           {% if self.caption %}{{ self.caption }}{% endif %}
