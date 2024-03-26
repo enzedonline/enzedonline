@@ -388,3 +388,27 @@ div.image-block>div[data-contentpath="background"],
 div.image-block>div[data-contentpath="animated_gif"] {
   flex-grow: 0;
 }
+
+/* heading block */
+div.heading-block {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 1.5rem;
+}
+div.heading-block div[data-contentpath="title"] {
+  flex-basis: 100%;
+}
+div.heading-block div[data-contentpath="heading_size"] {
+  flex-basis: 100px;
+}
+div.heading-block div[data-contentpath="alignment"] {
+  flex-basis: 150px;
+}
+div.heading-block div[data-contentpath="heading_size"] button.w-field__comment-button,
+div.heading-block div[data-contentpath="alignment"] button.w-field__comment-button {
+  inset-inline-end: -1.5rem;
+}
+div.heading-block div[data-contentpath="bookmark"] {
+  flex-basis: 40%;
+  flex-grow: 1;
+}

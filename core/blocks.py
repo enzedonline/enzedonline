@@ -165,8 +165,7 @@ class HeadingBlock(StructBlock):
     alignment = TextAlignmentChoiceBlock(default='start')
     bookmark = CharBlock(
         required=False,
-        label=_("Optional Bookmark"),
-        help_text=_("Bookmark must be a compatible slug format without spaces or special characters")
+        label=_("Optional Anchor ID"),
     )
     
     class Meta:
