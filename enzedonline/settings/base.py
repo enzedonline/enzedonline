@@ -11,6 +11,7 @@ INSTALLED_APPS = [
     'blog',
     'menustream',
     'core',
+    "blocks",
     'site_settings',
     'contact',
     'userauth',
