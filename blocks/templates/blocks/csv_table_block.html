@@ -1,0 +1,13 @@
+{% load wagtailcore_tags csv_table_block_tags %}
+<div class="block-container mx-auto"
+     style="width:{{ self.width }}%;
+            {% if self.max_width %}max-width:{{ self.max_width }}px;{% endif %}">
+    <p class="{{ self.title.heading_size }} text-{{ self.title.alignment }}"
+       {% if self.title.bookmark %}id="{{ self.title.bookmark }}"{% endif %}>{{ self.title.title }}</p>
+    <div class="scroll-x-auto">{{ self|render_html_table }}</div>
+    {% if self.caption %}
+        <div class="table-caption text-{{ self.caption_alignment }}">{{ self.caption }}</div>
+    {% else %}
+        &nbsp;
+    {% endif %}
+</div>

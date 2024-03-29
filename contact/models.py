@@ -1,5 +1,6 @@
 import os
 from datetime import datetime
+from email.policy import default
 
 from bs4 import BeautifulSoup
 from django.conf import settings
@@ -11,12 +12,14 @@ from django.db.models.fields import CharField, EmailField
 from django.template.defaultfilters import linebreaksbr
 from django.template.loader import get_template
 from django.utils.translation import gettext_lazy as _
+
 try:
-    from django_recaptcha.fields import ReCaptchaField
     from django_recaptcha import widgets
+    from django_recaptcha.fields import ReCaptchaField
 except ImportError:
     from captcha.fields import ReCaptchaField
     from captcha import widgets
+
 from modelcluster.models import ParentalKey
 from wagtail.admin.panels import (FieldPanel, FieldRowPanel, InlinePanel,
                                   MultiFieldPanel)
@@ -27,7 +30,7 @@ from wagtail.models import Locale, TranslatableMixin
 from wagtailcaptcha.forms import WagtailCaptchaFormBuilder
 from wagtailcaptcha.models import WagtailCaptchaEmailForm
 
-from core.blocks import BasicRichTextBlock
+from blocks.models import BasicRichTextBlock
 from core.models import SEOPage
 from site_settings.models import EmailSettings
 

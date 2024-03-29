@@ -1,4 +1,4 @@
-from core.blocks import SimpleStreamBlock
+from blocks.streamblocks.simple import SimpleStreamBlock
 from core.models import SEOPage
 from django.db import models
 from django.utils.translation import gettext_lazy as _

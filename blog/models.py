@@ -9,7 +9,7 @@ from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.fields import StreamField
 from wagtail.models import Locale
 
-from core.blocks import SimpleStreamBlock
+from blocks.streamblocks.simple import SimpleStreamBlock
 from core.models import SEOPage
 from core.utils import paginator_range
 

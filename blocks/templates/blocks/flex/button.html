@@ -1,5 +1,5 @@
 {% load flex_card_tags %}
-{% if self.link %}
+{% if self.link.url %}
   <div class="{% button_layout self %}">
     <a class="btn {{ self.link.appearance }} {{ self.link.size }}"
        href="{{ self.link.url }}"

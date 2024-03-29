@@ -4,9 +4,9 @@ from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.fields import StreamField
 from wagtail.search import index
 
-from core.blocks import (DocumentBlock, FullWidthBaseBlock, HeadingBlock,
-                         SimpleStreamBlock, TableOfContentsBlock,
-                         TwoColumnBaseBlock)
+from blocks.models import DocumentBlock, HeadingBlock, TableOfContentsBlock
+from blocks.streamblocks.columns import FullWidthBaseBlock, TwoColumnBaseBlock
+from blocks.streamblocks.simple import SimpleStreamBlock
 from core.models import SEOPage
 
 

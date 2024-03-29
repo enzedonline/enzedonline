@@ -1,11 +1,11 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from wagtail.admin.panels import FieldPanel, InlinePanel
+from wagtail.admin.panels import FieldPanel
 from wagtail.fields import StreamField
 from wagtail.models import Locale
 from wagtail.search import index
 
-from core.blocks import GridStreamBlock
+from blocks.streamblocks.grid import GridStreamBlock
 from core.models import SEOPage
 from core.panels import RichHelpPanel
 from core.utils import (count_words, get_streamfield_text,

@@ -1,1 +1,2 @@
 from .input_char_limit import CharLimitTextArea, CharLimitTextInput
+from .import_textarea import ImportTextAreaWidget
