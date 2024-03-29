@@ -1,0 +1,11 @@
+{## /widgets/import_textarea_widget.html ##}
+<div class="import-textarea-fileinput-container">
+    <input type="file"
+           hidden=""
+           id="{{ id }}-file-input"
+           {% if accept %}accept="{{ accept }}"{% endif %}
+    >
+    <label class="button" for="{{ id }}-file-input">{{ label }}</label>
+    <span class="help">{{ help }}</span>
+    <script>new ImportTextAreaWidget('{{ id }}')</script>
+</div>

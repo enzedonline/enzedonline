@@ -1,0 +1,22 @@
+/* static/css/import_textarea_widget.css */
+
+.import-textarea {
+    overflow: hidden auto !important;
+    max-height: 25em;
+}
+
+.import-textarea-fileinput-container {
+    padding-top: 1em;
+    display: flex;
+    align-items: center;
+}
+
+.import-textarea-fileinput-container > label {
+    cursor: pointer;
+    font-weight: 600;
+    flex-shrink: 0;
+}
+
+.import-textarea-fileinput-container > span {
+    margin-left: 2em;
+}
