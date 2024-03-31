@@ -1,4 +1,7 @@
 from django import template
+from django.utils.safestring import mark_safe
+
+from core.utils import strip_svg_markup
 from menustream.models import Menu
 
 register = template.Library()
@@ -78,6 +81,22 @@ def render_user_info(context, msg):
     return msg
 
 @register.simple_tag()
+@mark_safe
+def menu_icon(image, redition_token='fill-25x25|format-png'):
+    if image:
+        if image.filename[-4:].lower()==".svg":
+            svg_file = image.file.file
+            if svg_file.closed: svg_file.open()
+            svg = svg_file.read().decode('utf-8')
+            svg_file.close()
+            return strip_svg_markup(svg)
+        else:
+            r = image.get_rendition(redition_token)
+            return r.img_tag()
+    return ''
+
+
+@register.simple_tag()
 def get_social_media_icons():
     from site_settings.models import SocialMedia
     try:
@@ -87,7 +106,7 @@ def get_social_media_icons():
             item = {}
             locale_icon = icon.localized
             item['link'] = locale_icon.url
-            item['image'] = locale_icon.photo.get_rendition('fill-50x50').url
+            item['image'] = menu_icon(locale_icon.photo, 'fill-50x50|format-png')
             item['alt'] = locale_icon.site_name
             social_media_icons.append(item)
         return social_media_icons
