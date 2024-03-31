@@ -190,6 +190,7 @@ WAGTAILEMBEDS_RESPONSIVE_HTML = True
 # Wagtail settings
 
 WAGTAIL_SITE_NAME = "enzedonline"
+WAGTAILIMAGES_EXTENSIONS = ["gif", "jpg", "jpeg", "png", "webp", "svg"]
 
 # Embeds
 WAGTAILEMBEDS_FINDERS = [
