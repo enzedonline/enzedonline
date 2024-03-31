@@ -1,4 +1,4 @@
-{% load adv_cache wagtailcore_tags wagtailimages_tags menu_tags core_tags %}
+{% load adv_cache wagtailcore_tags menu_tags core_tags %}
 {% get_cache_key_settings as cache_settings %}
 {% cache None cache_settings.cache_name "footer" cache_settings.cache_date %}
 {% get_social_media_icons as social_media_icons %}
@@ -7,11 +7,12 @@
     <div>
       <ul class="nav bg-transparent pe-2">
         {% for icon in social_media_icons %}
-          <li class="nav-item">
+          <li class="nav-item footer-sm-icon">
             <a href="{{ icon.link }}"
                title="{{ icon.alt }}"
-               aria-label="{{ icon.alt }}">
-              <img src="{{ icon.image }}" alt="{{ icon.alt }}" class="footer-sm-icon">
+               aria-label="{{ icon.alt }}"
+              >
+              {{ icon.image }}
             </a>
           </li>
         {% endfor %}
