@@ -11,7 +11,20 @@ from bs4 import BeautifulSoup
 from django.core.cache import caches
 from django.db import connection
 from django.urls import reverse
+from lxml import etree
 from wagtail.blocks import ListBlock, StreamBlock, StreamValue
+
+
+def strip_svg_markup(svg_markup):
+    """Strip <script> tags, height and width attributes from svg markup"""
+    root = etree.fromstring(svg_markup.encode('utf-8'))
+    for element in root.findall(".//{http://www.w3.org/2000/svg}script"):
+        element.getparent().remove(element)
+    for element in root.iter():
+        element.attrib.pop('height', None)
+        element.attrib.pop('width', None)
+    return etree.tostring(root, encoding='unicode', method='xml', xml_declaration=False)
+    
 
 PING_URL = "https://www.google.com/webmasters/tools/ping"
 
