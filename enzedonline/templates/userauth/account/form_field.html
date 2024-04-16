@@ -4,17 +4,23 @@
 {% endif %}
 {% if form.is_bound %}
     {% if field.errors %}
-        {% render_field field class="form-control is-invalid" %}
-        <div class="invalid-feedback">
-            {{ field.errors }}
-        </div>
+        {% with classlist=extra_css|default_if_none:""|add:" form-control is-invalid" %}
+            {% render_field field class=classlist %}
+        {% endwith %}
+        <div class="invalid-feedback">{{ field.errors }}</div>
     {% else %}
         {% if form.non_field_errors %}
-            {% render_field field class="form-control" %}
+            {% with classlist=extra_css|default_if_none:""|add:" form-control" %}
+                {% render_field field class=classlist %}
+            {% endwith %}
         {% else %}
-            {% render_field field class="form-control is-valid" %}
+            {% with classlist=extra_css|default_if_none:""|add:" form-control is-valid" %}
+                {% render_field field class=classlist %}
+            {% endwith %}
         {% endif %}
     {% endif %}
 {% else %}
-    {% render_field field class="form-control" %}
+    {% with classlist=extra_css|default_if_none:""|add:" form-control" %}
+        {% render_field field class=classlist %}
+    {% endwith %}
 {% endif %}

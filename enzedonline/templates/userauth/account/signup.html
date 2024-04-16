@@ -65,8 +65,13 @@
             </div>
         </div>
         <div class="form-row">
-            <div class="form-group col-12">
+            <div class="form-group col-md-6">
                 {% with field=form.website %}
+                    {% include "account/form_field.html" %}
+                {% endwith %}
+            </div>
+            <div class="form-group col-md-6">
+                {% with field=form.country extra_css="form-select" %}
                     {% include "account/form_field.html" %}
                 {% endwith %}
             </div>
