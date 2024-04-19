@@ -287,7 +287,7 @@ class ContactPage(WagtailCaptchaEmailForm, SEOPage):
     def get_social_media_icons(self):
         try:
             social_media_icons = []
-            icons = SocialMedia.objects.all().filter(locale_id=1)
+            icons = SocialMedia.objects.filter(locale_id=1)
             for icon in icons:
                 item = {}
                 locale_icon = icon.localized

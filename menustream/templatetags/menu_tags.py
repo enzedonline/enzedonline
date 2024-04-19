@@ -101,7 +101,7 @@ def get_social_media_icons():
     from site_settings.models import SocialMedia
     try:
         social_media_icons = []
-        icons = SocialMedia.objects.all().filter(locale_id=1)
+        icons = SocialMedia.objects.filter(locale_id=1)
         for icon in icons:
             item = {}
             locale_icon = icon.localized
