@@ -307,8 +307,7 @@ class ContactPage(WagtailCaptchaEmailForm, SEOPage):
             if isinstance(value, list):
                 value = ', '.join(value)
             content.append(
-                f'<p><strong>{
-                    field.label}:</strong><br> {linebreaksbr(value)}</p>'
+                f'<p><strong>{field.label}:</strong><br> {linebreaksbr(value)}</p>'
             )
         content.append(
             f'<hr><br>Submitted {submitted_date_str} via {self.full_url}'
