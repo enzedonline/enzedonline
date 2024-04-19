@@ -8,7 +8,7 @@ def facebook_js_sdk(embed_code):
     post_class = embed_code.split()[1]
     try:
         if (post_class[:10] =='class="fb-'):
-            return Facebook_Script_Src.objects.first().javascript_sdk
+            return Facebook_Script_Src.load().javascript_sdk
         else:
             return ''
     except:
