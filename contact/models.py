@@ -1,54 +1,49 @@
 import os
+import threading
 from datetime import datetime
 from email.policy import default
 
-from bs4 import BeautifulSoup
 from django.conf import settings
-from django.core import mail
 from django.core.exceptions import ImproperlyConfigured
-from django.core.mail import EmailMultiAlternatives
 from django.db import models
 from django.db.models.fields import CharField, EmailField
 from django.template.defaultfilters import linebreaksbr
 from django.template.loader import get_template
 from django.utils.translation import gettext_lazy as _
-
-try:
-    from django_recaptcha import widgets
-    from django_recaptcha.fields import ReCaptchaField
-except ImportError:
-    from captcha.fields import ReCaptchaField
-    from captcha import widgets
-
+from django_recaptcha import widgets
+from django_recaptcha.fields import ReCaptchaField
+from htmlmin import minify
 from modelcluster.models import ParentalKey
 from wagtail.admin.panels import (FieldPanel, FieldRowPanel, InlinePanel,
                                   MultiFieldPanel)
 from wagtail.blocks import StreamBlock
 from wagtail.contrib.forms.models import AbstractFormField
 from wagtail.fields import RichTextField, StreamField
-from wagtail.models import Locale, TranslatableMixin
+from wagtail.models import TranslatableMixin
 from wagtailcaptcha.forms import WagtailCaptchaFormBuilder
 from wagtailcaptcha.models import WagtailCaptchaEmailForm
 
 from blocks.models import BasicRichTextBlock
+from core.mail.message import GmailMessage
 from core.models import SEOPage
-from site_settings.models import EmailSettings
+from site_settings.models import SocialMedia, SpamSettings
 
 
 class ContactFormBuilder(WagtailCaptchaFormBuilder):
     def __init__(
-            self, 
-            fields, 
-            widget=None, 
-            required_score=None, 
-            action='form', 
-            v2_attrs={}, 
-            api_params={}, 
-            keys={}, 
+            self,
+            fields,
+            widget=None,
+            required_score=None,
+            action='form',
+            v2_attrs={},
+            api_params={},
+            keys={},
             **kwargs
-            ):
+    ):
         super().__init__(fields, **kwargs)
-        self.recaptcha_widget = widget or getattr(settings, 'RECAPTCHA_WIDGET', False) or widgets.ReCaptchaV2Checkbox
+        self.recaptcha_widget = widget or getattr(
+            settings, 'RECAPTCHA_WIDGET', False) or widgets.ReCaptchaV2Checkbox
         self.recaptcha_action = action
         self.required_score = required_score
         self.v2_attrs = v2_attrs
@@ -59,7 +54,8 @@ class ContactFormBuilder(WagtailCaptchaFormBuilder):
     def formfields(self):
         fields = super(WagtailCaptchaFormBuilder, self).formfields
         if widgets.__package__ == 'django_recaptcha':
-            fields[self.CAPTCHA_FIELD_NAME] = ReCaptchaField(**self.field_attrs)
+            fields[self.CAPTCHA_FIELD_NAME] = ReCaptchaField(
+                **self.field_attrs)
         else:
             fields[self.CAPTCHA_FIELD_NAME] = ReCaptchaField(label='')
         return fields
@@ -169,7 +165,8 @@ class ContactPage(WagtailCaptchaEmailForm, SEOPage):
     )
     thank_you_text = RichTextField(
         editor='basic',
-        verbose_name=_("Acknowledgement Text to Display On Website After Submit")
+        verbose_name=_(
+            "Acknowledgement Text to Display On Website After Submit")
     )
     submit_button_text = CharField(
         default="Submit",
@@ -180,31 +177,34 @@ class ContactPage(WagtailCaptchaEmailForm, SEOPage):
         default="There was a problem submitting the form. Please check below and try again.",
         max_length=150,
         verbose_name=_("Form Error Warning"),
-        help_text=_("Text to display above the form in case there was a problem")
+        help_text=_(
+            "Text to display above the form in case there was a problem")
     )
     send_error_text = RichTextField(
         editor='basic',
-        verbose_name=_("Error Message to Display On Website After Email Failure")
+        verbose_name=_(
+            "Error Message to Display On Website After Email Failure")
     )
     send_error = models.BooleanField(default=False, null=True, blank=True)
     to_address = models.CharField(
         max_length=255,
         verbose_name=_('To Address'),
-        help_text=_("Address to send form submissions to. Separate multiple addresses by comma.")
+        help_text=_(
+            "Address to send form submissions to. Separate multiple addresses by comma.")
     )
     from_address = models.CharField(
         max_length=255,
         verbose_name=_('From Address'),
         help_text=_(
-                "Address to send emails from. Account in email settings must have rights to use this address."
-            )
+            "Address to send emails from. Account in email settings must have rights to use this address."
+        )
     )
     subject = models.CharField(
         max_length=255,
         verbose_name=_('subject'),
         help_text=_(
-                "Subject Line for Notification Email. Will be suffixed by Date/Time."
-            )
+            "Subject Line for Notification Email. Will be suffixed by Date/Time."
+        )
     )
     reply_to = EmailField(
         verbose_name=_("Reply-to Email Address"),
@@ -274,22 +274,8 @@ class ContactPage(WagtailCaptchaEmailForm, SEOPage):
         ], heading=_("Client Receipt Email Settings")),
     ]
 
-    @property
-    def mail_settings(self):
-        email_settings = EmailSettings.objects.first()
-        use_ssl = getattr(email_settings, 'use_ssl')
-        return {
-            'host': getattr(email_settings, 'host'),
-            'port': getattr(email_settings, 'port'),
-            'username': getattr(email_settings, 'username'),
-            'password': getattr(email_settings, 'password'),
-            'ssl_setting': use_ssl,
-            'tls_setting': not use_ssl
-        }
-
     def is_spam(self, form):
-        from site_settings.models import SpamSettings
-        check = SpamSettings.objects.first()
+        check = SpamSettings.load()
         banned_domains = check.banned_domains.lower().splitlines()
         if any(email.split('@')[1] in banned_domains for email in form.cleaned_data['email_address'].lower().split(',')):
             return True
@@ -298,88 +284,85 @@ class ContactPage(WagtailCaptchaEmailForm, SEOPage):
             return True
         return False
 
+    def get_social_media_icons(self):
+        try:
+            social_media_icons = []
+            icons = SocialMedia.objects.all().filter(locale_id=1)
+            for icon in icons:
+                item = {}
+                locale_icon = icon.localized
+                item['link'] = locale_icon.url
+                item['image'] = locale_icon.photo.get_rendition('fill-32x32')
+                item['alt'] = locale_icon.site_name
+                social_media_icons.append(item)
+            return social_media_icons
+        except:
+            return None
+
     def get_notification_email(self, form):
-        email = {}
-        email['addresses'] = [x.strip() for x in self.to_address.split(',')]
-        email['content'] = []
+        submitted_date_str = datetime.now().strftime('%d-%m-%Y %H:%M:%S')
+        content = []
         for field in form:
-            if str(field).find('type="email"') != -1:
-                email['contact_email_address'] = field.value()
             value = field.value()
             if isinstance(value, list):
                 value = ', '.join(value)
-            email['content'].append(
-                '<p><strong>{}:</strong><br> {}</p>'.format(field.label, linebreaksbr(value))
+            content.append(
+                f'<p><strong>{
+                    field.label}:</strong><br> {linebreaksbr(value)}</p>'
             )
-        submitted_date_str = datetime.now().strftime('%d-%m-%Y %H:%M:%S')
-        email['content'].append(
-            '<hr><br>Submitted {} via {}'.format(
-                submitted_date_str, self.full_url
-            )
+        content.append(
+            f'<hr><br>Submitted {submitted_date_str} via {self.full_url}'
         )
-        email['content'] = ''.join(email['content'])
-        email['subject'] = self.subject + " - " + submitted_date_str
-        return email
+        content = ''.join(content)
+        return GmailMessage(
+            from_email=self.from_address,
+            to=[x.strip() for x in self.to_address.split(',')],
+            subject=self.subject + " - " + submitted_date_str,
+            html_body=content
+        )
 
     def get_receipt_email_html(self):
         locale_footer = self.receipt_email_footer.localized
         template = get_template(os.path.join(
             settings.PROJECT_DIR, 'templates', 'contact', 'receipt_email', 'base.html'
-            )
+        )
         )
         html = template.render(
             {
-                'body': self, 
-                'footer': locale_footer, 
-                'base_url': settings.WAGTAILADMIN_BASE_URL
+                'body': self,
+                'footer': locale_footer,
+                'base_url': settings.WAGTAILADMIN_BASE_URL,
+                'social_media_icons': self.get_social_media_icons()
             }
         )
-    #   Enable next 3 lines to test html output
-    #     output = os.path.join(settings.PROJECT_DIR, 'templates', 'contact','receipt_email', 'test.html')
-    #     with open(output, 'w') as f:
-    #         f.write(html)
+        html = minify(''.join(html).replace('\n', ''))
+        #   Enable next 3 lines to test html output
+        # output = os.path.join(settings.PROJECT_DIR, 'templates',
+        #                       'contact', 'receipt_email', 'test.html')
+        # with open(output, 'w') as f:
+        #     f.write(html)
         return html
 
-    def get_receipt_email(self, contact_email_address):
-        email = {}
-        email['addresses'] = [
-            x.strip() for x in contact_email_address.split(',')
-        ]
-        email['subject'] = self.receipt_email_subject
-        email['content'] = self.get_receipt_email_html()
-        return email
-
-    def html_email(self, email):
-        html_content = email['content']
-        text_content = BeautifulSoup(
-                html_content, features="html5lib"
-            ).get_text().replace('\n', chr(10) + chr(10))
-        html_email = EmailMultiAlternatives(
-            subject=email['subject'],
-            body=text_content,
+    def get_receipt_email(self, form):
+        return GmailMessage(
             from_email=self.from_address,
-            to=email['addresses'],
+            reply_to=[x.strip() for x in self.reply_to.split(',')],
+            to=[x.strip() for x in form.cleaned_data['email_address'].split(',')],
+            subject=self.receipt_email_subject,
+            html_body=self.get_receipt_email_html()
         )
-        html_email.attach_alternative(html_content, "text/html")
-        return html_email
 
     def send_mail(self, form):
         try:
             notification_email = self.get_notification_email(form)
-            receipt_email = self.html_email(
-                self.get_receipt_email(
-                    notification_email['contact_email_address']
-                )
-            )
-            receipt_email.reply_to = [
-                x.strip() for x in self.reply_to.split(',')
-            ]
-            notification_email = self.html_email(notification_email)
-            connection = mail.get_connection(**self.mail_settings)
-            connection.send_messages([notification_email, receipt_email])
-            connection.close()
+            result = notification_email.send()
+            self.send_error = (result != 1)
         except:
             self.send_error = True
+
+        if not self.send_error:
+            receipt_email = self.get_receipt_email(form)
+            receipt_email.send(fail_silently=True, wait_for_completion=False)
 
     def process_form_submission(self, form):
         if not self.is_spam(form):
