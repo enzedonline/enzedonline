@@ -1,3 +1,4 @@
+import logging
 import os
 from datetime import datetime
 from email.policy import default
@@ -353,10 +354,13 @@ class ContactPage(WagtailCaptchaEmailForm, SEOPage):
     def send_mail(self, form):
         try:
             notification_email = self.get_notification_email(form)
-            # result = notification_email.send()
-            # self.send_error = (result != 1)
-        except:
+            result = notification_email.send()
+            self.send_error = (result != 1)
+        except Exception as e:
             self.send_error = True
+            logging.warning(
+                f"{type(e).__name__} at line {e.__traceback__.tb_lineno} of {__file__}: {e}"
+            )
 
         if not self.send_error:
             receipt_email = self.get_receipt_email(form)
