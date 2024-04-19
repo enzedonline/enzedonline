@@ -7,7 +7,7 @@ from modelcluster.fields import ParentalKey
 from modelcluster.models import ClusterableModel
 from wagtail.admin.panels import (FieldPanel, FieldRowPanel, InlinePanel,
                                   MultiFieldPanel)
-from wagtail.contrib.settings.models import BaseSiteSetting, register_setting
+from wagtail.contrib.settings.models import BaseGenericSetting, register_setting
 from wagtail.models import Locale, Orderable, TranslatableMixin
 from wagtail.snippets.models import register_snippet
 from wagtail_localize.fields import SynchronizedField, TranslatableField
@@ -28,44 +28,8 @@ class PasswordModelField(models.CharField):
 ### Site settings
 ###------------------------------------------------------------
 
-@register_setting(icon='mail')
-class EmailSettings(BaseSiteSetting):
-    default_from_email = models.CharField(
-        max_length=80,
-        null=True,
-        blank=False,
-        verbose_name=_("Sending Email Address")
-    )
-    host = models.CharField(
-        max_length=80,
-        null=True,
-        blank=False,
-        verbose_name=_("Mail Server")
-    )
-    port = models.IntegerField(
-        null=True,
-        blank=False,
-        verbose_name=_("Port")
-    )
-    username = models.CharField(
-        max_length=50,
-        null=True,
-        blank=False,
-        verbose_name=_("Username")
-    )
-    password = PasswordModelField(
-        max_length=30,
-        null=True,
-        blank=False,
-        verbose_name=_("Password"),
-    )
-    use_ssl = models.BooleanField(
-        default=True,
-        verbose_name=_("Use SSL")
-    )
-
 @register_setting(icon='ban')
-class SpamSettings(BaseSiteSetting):
+class SpamSettings(BaseGenericSetting):
     banned_domains = models.TextField(
         null=True,
         blank=False,
@@ -78,7 +42,7 @@ class SpamSettings(BaseSiteSetting):
     ) 
 
 @register_setting(icon='facebook')
-class Facebook_Script_Src(BaseSiteSetting):
+class Facebook_Script_Src(BaseGenericSetting):
     javascript_sdk = models.CharField(
         max_length=300,
         null=True,
@@ -90,7 +54,7 @@ class Facebook_Script_Src(BaseSiteSetting):
         verbose_name = 'Facebook Javascript SDK'
 
 @register_setting(icon='password')
-class Tokens(BaseSiteSetting):
+class Tokens(BaseGenericSetting):
     mapbox = models.CharField(
         max_length=100,
         null=True,
@@ -115,7 +79,12 @@ class Tokens(BaseSiteSetting):
         blank=False,
         verbose_name=_("FontAwesome Kit ID")
     )
-
+    gmail_service_account = models.JSONField(
+        null=True,
+        blank=True,
+        verbose_name=_("Gmail Service Account Details")
+    )
+    
 ###------------------------------------------------------------
 ### Snippets used as site settings 
 ###------------------------------------------------------------
