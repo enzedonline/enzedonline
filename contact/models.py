@@ -1,5 +1,4 @@
 import os
-import threading
 from datetime import datetime
 from email.policy import default
 
@@ -354,8 +353,8 @@ class ContactPage(WagtailCaptchaEmailForm, SEOPage):
     def send_mail(self, form):
         try:
             notification_email = self.get_notification_email(form)
-            result = notification_email.send()
-            self.send_error = (result != 1)
+            # result = notification_email.send()
+            # self.send_error = (result != 1)
         except:
             self.send_error = True
 
