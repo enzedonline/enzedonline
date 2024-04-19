@@ -194,6 +194,7 @@ class SEOPage(SEOPageMixin, Page):
         except:
             preview = False
 
+        context['is_preview'] = preview
         if preview or settings.DEBUG:
             context['cache_name'] = 'preview'
             context['cache_date'] = datetime.now()
