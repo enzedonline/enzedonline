@@ -1,15 +1,9 @@
-{% load menu_tags %}
-{% get_social_media_icons as social_media_icons %}
-
 {% for icon in social_media_icons %}
-    &nbsp;&nbsp;
-    <a href="{{ icon.link }}" title="{{ icon.alt }}">
-        <img 
-            src="{{ base_url }}{{ icon.image }}" 
-            alt="{{ icon.alt }}" 
-            width="32" 
-            height="32" 
-            style="border-radius: 8px;"
-        >
-    </a> 
+    <td style="width:32px; height:32px; padding-left: 12px;">
+        <a href="{{ icon.link }}"
+           title="{{ icon.alt }}"
+           aria-label="{{ icon.alt }}">
+            <img alt="{{ icon.image.alt }}" src="{{ icon.image.full_url }}">
+        </a> 
+    </td>
 {% endfor %}
