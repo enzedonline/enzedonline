@@ -823,7 +823,7 @@ ul.errorlist.nonfield {
 }
 
 .table-caption {
-  padding-top: 1rem;
+  padding-top: 0.5rem;
   font-size: var(--font-size-body);
   color: var(--bs-secondary);
 }
