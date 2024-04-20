@@ -52,14 +52,16 @@ const convertUTCDateToLocalDate = (dateString, date_options, time_options) => {
 
 
 // global on document ready code
-$(document).ready(() => {
-
+document.addEventListener('DOMContentLoaded', () => {
   // set all external links and documents to open in new tab
-  $('a[href^="http"], a[href^="/documents/"]').attr({ 'target': '_blank', 'rel': 'nofollow noopener' });
+  document.querySelectorAll('a[href^="http"], a[href^="/documents/"]').forEach(link => {
+    link.setAttribute('target', '_blank');
+    link.setAttribute('rel', 'nofollow noopener');
+  });
 
   // change rich text <span class="fa-icon"> font awesome tags: 
   // <span class="fa-icon">something</span> -> <span class="something">&nbsp;&nbsp;&nbsp;&nbsp;</span>
-  faIcons = [...document.getElementsByClassName('fa-icon')];
+  const faIcons = document.querySelectorAll('.fa-icon');
   faIcons.forEach(faIcon => {
     const faClass = faIcon.innerText;
     if (faClass) {
@@ -71,6 +73,7 @@ $(document).ready(() => {
   // load mathjax if equation found on page
   loadMathJax();
 });
+
 // end on document ready code
 
 // load mathjax if equation found on page
