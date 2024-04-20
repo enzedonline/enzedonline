@@ -234,6 +234,9 @@ label {
 header {
   font-family: var(--font-family-headings);
 }
+header.w-header {
+  margin-bottom: 1rem;
+}
 .title-wrapper {
   font-family: var(--font-family-headings) !important;
   font-weight: 500 !important;
@@ -357,7 +360,7 @@ form#page-reorder-form>div.nice-padding {
 display: none;
 }
 
-/* inout and select font size */
+/* input and select font size */
 div.w-field__input>input,
 div.w-field__input>select {
   font-size: 1em;
@@ -390,6 +393,17 @@ div.c-sf-help>div.help {
   margin-bottom: 0.5rem;
 }
 
+/* --------- Image Listing --------- */
+form.image-search>div.w-field-row>div.w-field__wrapper {
+  margin-bottom: 0.5rem;
+}
+ul.listing.horiz.images>li {
+  padding: 0.5em;
+  height: 100%;
+}
+ul.listing.horiz.images>li>input[type="checkbox"] {
+  margin: 0em .5em -1.5em -0.2em;
+}
 
 /* --------------------------------------------------------------------- */
 /* Block Styles */
