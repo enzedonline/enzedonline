@@ -292,11 +292,6 @@ a {
   overflow-x: auto;
 }
 
-div.collapsible-card-block button.accordion-button {
-  font-size: var(--font-size-3);
-  font-weight: 500;
-}
-
 div.collapsible-card-block button.accordion-button::after {
   display: none;
 }
@@ -318,13 +313,14 @@ div.collapsible-card-block button.accordion-button:not(.collapsed)>svg.accordion
 
 div.collapsible-card-block p.accordion-header {
   font-family: var(--font-family-headings);
-  font-size: var(--font-size-2);
+  font-size: var(--font-size-5);
+  font-weight: 500;
   padding: 0;
   margin-bottom: 0;
 }
 
 div.collapsible-card-block div.accordion-body div.block-container {
-  padding-top: 1em;
+  padding: 0;
   margin: 0;
 }
 
