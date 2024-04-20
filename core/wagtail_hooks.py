@@ -1,6 +1,8 @@
 from django.conf import settings
 from django.http import HttpResponse
+from django.templatetags.static import static
 from django.urls import reverse
+from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 from wagtail import hooks
 from wagtail.admin.menu import MenuItem
@@ -8,8 +10,15 @@ from wagtail.admin.menu import MenuItem
 from .draftail_extensions import (register_block_feature,
                                   register_inline_styling)
 from .thumbnails import ThumbnailOperation
-from .utils import ping_google, purge_page_cache_fragments, get_custom_icons
+from .utils import get_custom_icons, ping_google, purge_page_cache_fragments
 
+@mark_safe
+@hooks.register('insert_global_admin_css')
+def global_admin_css():
+    css = ""
+    for css_file in ['css/admin.css', 'css/enzedonlinefonts-min.css']:
+        css += f'<link rel="stylesheet" href="{static(css_file)}">'
+    return css
 
 @hooks.register('register_image_operations')
 def register_image_operations():
