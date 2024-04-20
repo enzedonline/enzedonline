@@ -2,7 +2,7 @@ from django.utils.translation import gettext_lazy as _
 from wagtail.documents.blocks import DocumentChooserBlock
 from wagtail.blocks import StructBlock, CharBlock, BooleanBlock
 
-from .choices import HeadingSizeChoiceBlock, ButtonChoiceBlock, AlignmentChoiceBlock
+from .choices import TextSizeChoiceBlock, ButtonChoiceBlock, AlignmentChoiceBlock
 from .choices import DefaultChoiceBlock
 
 class DocumentBlock(StructBlock):
@@ -12,7 +12,7 @@ class DocumentBlock(StructBlock):
     link_label = CharBlock(
         label = _("Link Label"),
     )
-    text_size = HeadingSizeChoiceBlock(
+    text_size = TextSizeChoiceBlock(
         label = _("Text Size"),
         default = 'p'
     )
@@ -23,7 +23,7 @@ class DocumentBlock(StructBlock):
     )
     appearance = ButtonChoiceBlock(
         max_length=15,
-        default='btn-link',
+        default='btn-primary',
         label=_("Link Appearance")
     )
     alignment = AlignmentChoiceBlock(
@@ -32,16 +32,11 @@ class DocumentBlock(StructBlock):
     )
     outline = BooleanBlock(
         label = _("Outline Button"),
-        default = False,
+        default = True,
         required = False
     )
     full_width = BooleanBlock(
         label = _("Full Width"),
-        default = False,
-        required = False
-    )
-    allow_indexing = BooleanBlock(
-        label = _("Can Be Indexed"),
         default = False,
         required = False
     )
@@ -68,7 +63,7 @@ class DocumentListBlock(StructBlock):
         help_text = _("Comma seperated list of tags to filter by. Leave blank to list all documents."),
         required = False,
     )
-    text_size = HeadingSizeChoiceBlock(
+    text_size = TextSizeChoiceBlock(
         label = _("Text Size"),
         default = 'p'
     )

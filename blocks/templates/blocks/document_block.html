@@ -1,13 +1,12 @@
 {% load document_block_tags %}
-{% button_appearance value.appearance value.outline as btn_style %}
-{% if value.full_width %}<div class="col-12">{% endif %}
-    <a class="btn {{ btn_style }} {{ value.text_size }} text-{{ value.alignment }}{% if value.full_width %} w-100{% endif %}"
-       href="{{ value.document.url }}"
+{% button_appearance self.appearance self.outline as btn_style %}
+{% if self.full_width %}<div class="col-12">{% endif %}
+    <a class="btn {{ btn_style }} {{ self.text_size }} text-{{ self.alignment }}{% if self.full_width %} w-100{% endif %}"
+       href="{{ self.document.url }}"
        target="_blank"
        onmouseup="this.blur();"
-       style="padding: 0.4rem 0.8rem !important;"
-       {% if not value.allow_indexing %} rel="nofollow"{% endif %}>
-       {% if value.icon %}<i class="{{ value.icon }} pe-2"></i>{% endif %}
-       {{ value.link_label }}
+       style="padding: 0.4rem 0.8rem !important;">
+       {% if self.icon %}<i class="{{ self.icon }} pe-2"></i>{% endif %}
+       {{ self.link_label }}
     </a>
-{% if value.full_width %}</div>{% endif %}
+{% if self.full_width %}</div>{% endif %}
