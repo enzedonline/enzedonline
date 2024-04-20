@@ -2,7 +2,7 @@
 <div class="block-container mx-auto"
      style="width:{{ self.width }}%;
             {% if self.max_width %}max-width:{{ self.max_width }}px;{% endif %}">
-    <p class="{{ self.title.heading_size }} text-{{ self.title.alignment }}"
+    <p class="{{ self.title.heading_size }} text-{{ self.title.alignment }} m-0"
        {% if self.title.bookmark %}id="{{ self.title.bookmark }}"{% endif %}>{{ self.title.title }}</p>
     <div class="scroll-x-auto">{{ self|render_html_table }}</div>
     {% if self.caption %}
