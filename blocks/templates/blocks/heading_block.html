@@ -1,7 +1,5 @@
 <div class="block-container">
-    <div class="text-{{ self.alignment }}">
-        <{{ self.heading_size }}{% if self.bookmark %} id="{{ self.bookmark }}"{% endif %}>
-            {{ self.title }}
-        </{{ self.heading_size }}>
-    </div>
+<{{ self.heading_size }}{% if self.bookmark %} id="{{ self.bookmark }}"{% endif %} class="text-{{ self.alignment }}">
+    {{ self.title }}
+</{{ self.heading_size }}>
 </div>
