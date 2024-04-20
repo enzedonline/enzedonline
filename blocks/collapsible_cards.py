@@ -25,7 +25,7 @@ class CollapsibleCardBlock(StructBlock):
     cards = ListBlock(CollapsibleCard)
 
     class Meta:
-        template='blocks/Collapsible_card_block.html'
+        template='blocks/collapsible_card_block.html'
         icon="collapse-down"
         label = _("Collapsible Text Block")
         label_format = label
