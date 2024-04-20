@@ -19,7 +19,7 @@
                   data-bs-target="#collapse{{ block.id }}-{{ forloop.counter }}"
                   aria-expanded="{% if forloop.first %}true{% else %}false{% endif %}"
                   aria-controls="collapse{{ block.id }}-{{ forloop.counter }}">
-                  {{ card.value.header|title }}
+                  {{ card.header|title }}
                   <svg class="accordion-expander">
                     <use href="#chevron" />
                   </svg>
@@ -30,7 +30,7 @@
              aria-labelledby="heading{{ forloop.counter }}"
              data-bs-parent="#collapsable_card_block{{ block.id }}">
           <div class="accordion-body {{ self.body_colour }}">
-            {% include_block card.value.text %}
+            {% include_block card.text %}
           </div>
         </div>
       </div>
