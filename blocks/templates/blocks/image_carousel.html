@@ -73,22 +73,22 @@
                             alt="{{ slide.image.seo_title }}"
                         >
                     </picture>
-                    {% if slide.value.title or slide.value.caption %}
+                    {% if slide.title or slide.caption %}
                         <div class="carousel-caption">
-                            {% if slide.value.title %}
+                            {% if slide.title %}
                                 <div class="carousel-caption-title">
-                                    {{ slide.value.title }}
+                                    {{ slide.title }}
                                 </div>
                             {% endif %}
-                            {% if slide.value.caption %}
+                            {% if slide.caption %}
                                 <div class="p carousel-caption-caption">
-                                    {{ slide.value.caption }}
+                                    {{ slide.caption }}
                                 </div>
                             {% endif %}
                         </div>
                     {% endif %}
-                    {% if slide.value.link %}
-                        <a href="{% trans_url slide.value.link %}" class="stretched-link"></a>
+                    {% if slide.link %}
+                        <a href="{{ slide.link.localized.url }}" class="stretched-link"></a>
                     {% endif %}
                 </div>
             {% endfor %}
