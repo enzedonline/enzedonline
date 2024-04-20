@@ -81,6 +81,16 @@ class HeadingSizeChoiceBlock(DefaultChoiceBlock):
         ('h6', 'H6'), 
     ]
 
+class TextSizeChoiceBlock(HeadingSizeChoiceBlock):
+    choices=[
+        ('h2', 'H2'), 
+        ('h3', 'H3'), 
+        ('h4', 'H4'), 
+        ('h5', 'H5'), 
+        ('h6', 'H6'), 
+        ('p', 'Body')
+    ]
+    
 class ImageFormatChoiceBlock(DefaultChoiceBlock):
     choices=[
         ('4-1', _("4:1 Horizontal Letterbox Banner")),
