@@ -147,6 +147,10 @@ a {
   color: inherit;
 }
 
+ul {
+  text-align: left !important;
+}
+
 .alert {
   font-family: var(--font-family-headings);
   font-size: var(--font-size-body);
