@@ -1,0 +1,64 @@
+{% extends "mail/base.html" %}
+{% load wagtailcore_tags %}
+{% block message %}
+    <table cellpadding="0"
+           cellspacing="0"
+           width="100%"
+           role="presentation"
+           style="mso-table-lspace:0pt;
+                  mso-table-rspace:0pt;
+                  border-collapse:collapse;
+                  border-spacing:0px">
+        <!--headline  -->
+        <tr>
+            <td align="center" style="padding:0;Margin:0">
+                <h2 style="Margin:0;
+                           line-height:29px;
+                           mso-line-height-rule:exactly;
+                           font-family:helvetica, 'helvetica neue', arial, verdana, sans-serif;
+                           font-size:24px;
+                           font-style:normal;
+                           font-weight:normal;
+                           color:#333333">
+                    {{ body.receipt_email_headline }}
+                </h2>
+            </td>
+        </tr>
+        <!-- separator -->
+        <tr>
+            <td align="center" style="padding:20px 20px 5px 20px;Margin:0;font-size:0">
+                <table border="0"
+                       width="100%"
+                       height="100%"
+                       cellpadding="0"
+                       cellspacing="0"
+                       role="presentation"
+                       style="mso-table-lspace:0pt;
+                              mso-table-rspace:0pt;
+                              border-collapse:collapse;
+                              border-spacing:0px">
+                    <tr>
+                        <td style="padding:0;
+                                   Margin:0;
+                                   border-bottom:1px solid #cccccc;
+                                   background:unset;
+                                   height:1px;
+                                   width:100%;
+                                   margin:0px"></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <!-- message text -->
+        <tr>
+            <td align="left"
+                style="padding:0;
+                       Margin:0;
+                       padding-left:30px;
+                       padding-right:30px;
+                       line-height: 1.4">
+                {{ body.receipt_email_content|richtext }}
+            </td>
+        </tr>
+    </table>
+{% endblock message %}
