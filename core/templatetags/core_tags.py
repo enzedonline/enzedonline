@@ -186,7 +186,7 @@ def get_picture_rendition(image, width):
 def get_logo(logo):
     try:
         logo = CompanyLogo.objects.filter(name=logo).first()
-        return logo.localized if logo else CompanyLogo.objects.none()
+        return logo.localized.logo if logo else CompanyLogo.objects.none()
                 
     except (AttributeError, CompanyLogo.DoesNotExist):
         return CompanyLogo.objects.none()    
