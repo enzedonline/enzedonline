@@ -1,45 +1,118 @@
+{% extends "mail/base.html" %}
 {% load core_tags comments l10n %}
-{% get_template_set "comments" as trans %}
-
-<!DOCTYPE html
-  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns:v="urn:schemas-microsoft-com:vml">
-
-  <head>
-    {% include "contact/receipt_email/head.html" %}
-  </head>
-
-  <body class="respond" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" bgcolor="17a2b8">
-	{% with base_url="https://enzedonline.com" %}
-    {% include "django_comments_xtd/follow_up_email/body.html" %}
-
-	{% get_email_signature "Default" as footer %}
-    {% include "contact/receipt_email/signature.html" %}
-	{% endwith %}
-
-	{% if not author %}
-      <table border="0" width="100%" cellpadding="0" cellspacing="0" class="bg_color">
+{% block heading %}
+    {% get_logo 'email_banner' as heading_image %}
+    {% with base_url="https://enzedonline.com/" %}{{ block.super }}{% endwith %}
+{% endblock heading %}
+{% block message %}
+    {% get_template_set "comments" as trans %}
+    <table border="0"
+           width="100%"
+           cellpadding="0"
+           cellspacing="0"
+           class="bg_color">
         <tr>
-          <td align="center">
-            <table border="0" align="center" width="590" cellpadding="0" cellspacing="0" class="container590" style="border-radius: 10px;">
-				<tr>
-					<td height="10x" style="font-size: 10px; line-height: 10px;">&nbsp;</td>
-				</tr>
-				<tr>
-					<td style="color:#434343;">
-						{{ trans.mute_follow_up }}
-						<a style="text-decoration:underline;" href="https://{{ site.domain }}{{ mute_url }}">{{ trans.unfollow_link_label }}</a>
-					</td>
-				</tr>
-				<tr>
-					<td height="20x" style="font-size: 20px; line-height: 20px;">&nbsp;</td>
-				</tr>
-			</table>
-          </td>
+            <td align="center">
+                <table border="0"
+                       bgcolor="#ffffff"
+                       align="center"
+                       width="590"
+                       cellpadding="0"
+                       cellspacing="0"
+                       class="container590"
+                       style="border-radius: 10px">
+                    <tr>
+                        <td height="20" style="font-size: 20px; line-height: 20px;">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td align="center">
+                            <table border="0" width="90%" align="center" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td>
+                                        {% if author %}
+                                            <p>{{ trans.salutation }},</p>
+                                            <p>{{ trans.author_new_comment_notice }}</p>
+                                        {% else %}
+                                            <p>{{ trans.salutation }} {{ user_name }},</p>
+                                            <p>{{ trans.new_comment_notice }}</p>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td height="5" style="font-size: 5px; line-height: 5px;">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <table border="0" width="90%" align="center" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td align="justify" style="color: #888888;">
+                                        {% include 'django_comments_xtd/follow_up_email/comment_preview.html' %}
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td height="5px" style="font-size: 5px; line-height: 5px;">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td align="center">
+                            <table border="0" width="90%" align="center" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td>
+                                        {{ trans.sign_off }}
+                                        <br>
+                                        <a style="color: black;" href="https://{{ site.domain }}">{{ site.name }}</a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td height="20px" style="font-size: 20px; line-height: 20px;">&nbsp;</td>
+                    </tr>
+                </table>
+            </td>
         </tr>
-      </table>
-	{% endif %}
-
-  </body>
-
-</html>
+    </table>
+{% endblock message %}
+{% block footer %}
+    {% get_email_signature "Default" as footer %}
+    {{ block.super }}
+    {% if not author %}
+        <table border="0"
+               width="100%"
+               cellpadding="0"
+               cellspacing="0"
+               class="bg_color">
+            <tr>
+                <td align="center">
+                    <table border="0"
+                           align="center"
+                           width="590"
+                           cellpadding="0"
+                           cellspacing="0"
+                           class="container590"
+                           style="border-radius: 10px">
+                        <tr>
+                            <td height="10x" style="font-size: 10px; line-height: 10px;">&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td style="color:#434343;">
+                                {{ trans.mute_follow_up }}
+                                <a style="text-decoration:underline"
+                                   href="https://{{ site.domain }}{{ mute_url }}">{{ trans.unfollow_link_label }}</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td height="20x" style="font-size: 20px; line-height: 20px;">&nbsp;</td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    {% endif %}
+{% endblock footer %}
