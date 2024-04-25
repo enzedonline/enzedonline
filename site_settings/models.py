@@ -132,8 +132,31 @@ class SocialMedia(TranslatableMixin, models.Model):
         verbose_name_plural = 'Social Media Links'
         unique_together = ('translation_key', 'locale')
 
+class EmailSignatureSocialMedia(Orderable):
+    signature = ParentalKey("site_settings.EmailSignature", related_name="social_media_links")
+    site_name = models.CharField(
+        max_length=30,
+        null=False,
+        blank=False,
+        help_text=_("Site Name")
+    )
+    url = models.URLField(
+        max_length=100,
+        null=False,
+        blank=False,
+        help_text=_("Profile URL")
+    )
+    photo = models.ForeignKey(
+        "wagtailimages.Image",
+        blank=False,
+        null=True,
+        on_delete=models.SET_NULL,
+        related_name="+",
+        help_text=_("Social Media Icon (displayed at 25x25)")
+    )
+
 @register_snippet
-class EmailSignature(TranslatableMixin, models.Model):
+class EmailSignature(TranslatableMixin, ClusterableModel):
     signature_name = models.CharField(
         max_length=30,
         null=False,
@@ -259,6 +282,9 @@ class EmailSignature(TranslatableMixin, models.Model):
             ]),
             FieldPanel("phone_icon"),
         ], heading=_("Contact Phone Settings")),
+        MultiFieldPanel([
+            InlinePanel("social_media_links")
+        ], heading=_("Social Media Links")),
     ]
 
     def __str__(self):
