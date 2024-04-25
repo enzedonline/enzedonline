@@ -3,7 +3,6 @@ from django.conf.urls.i18n import i18n_patterns
 from django.contrib import admin
 from django.http import HttpResponsePermanentRedirect
 from django.urls import include, path, re_path
-from django.views import defaults as default_views
 from django.views.i18n import JavaScriptCatalog
 from wagtail import urls as wagtail_urls
 from wagtail.admin import urls as wagtailadmin_urls
@@ -17,7 +16,10 @@ from userauth.views import (CustomPasswordChangeView, CustomPasswordSetView,
                             delete_success, password_change_success,
                             profile_view)
 
-from .views import error_429_view
+if settings.DEBUG:
+    from .views import error_429_view
+    from contact.views import TestContactReceiptView
+    from django.views import defaults as default_views
 
 
 def trigger_error(request):
@@ -50,6 +52,7 @@ if settings.DEBUG:
         re_path(r'^404/$', default_views.page_not_found, kwargs={'exception': Exception("Page not Found")}),
         re_path(r'^429/$', error_429_view, kwargs={'exception': Exception("Too Many Requests")}),
         re_path(r'^500/$', default_views.server_error),
+        path('test-receipt/', TestContactReceiptView.as_view(), name='test_receipt'),
     ]
 
 # These paths are translatable so will be given a language prefix (eg, '/en', '/fr')
