@@ -284,21 +284,6 @@ class ContactPage(WagtailCaptchaEmailForm, SEOPage):
             return True
         return False
 
-    def get_social_media_icons(self):
-        try:
-            social_media_icons = []
-            icons = SocialMedia.objects.filter(locale_id=1)
-            for icon in icons:
-                item = {}
-                locale_icon = icon.localized
-                item['link'] = locale_icon.url
-                item['image'] = locale_icon.photo.get_rendition('fill-32x32')
-                item['alt'] = locale_icon.site_name
-                social_media_icons.append(item)
-            return social_media_icons
-        except:
-            return None
-
     def get_notification_email(self, form):
         submitted_date_str = datetime.now().strftime('%d-%m-%Y %H:%M:%S')
         content = []
@@ -322,22 +307,22 @@ class ContactPage(WagtailCaptchaEmailForm, SEOPage):
 
     def get_receipt_email_html(self):
         locale_footer = self.receipt_email_footer.localized
-        template = get_template(os.path.join(
-            settings.PROJECT_DIR, 'templates', 'contact', 'receipt_email', 'base.html'
-        )
-        )
+        template = get_template('contact/receipt-email.html')
         html = template.render(
             {
-                'body': self,
+                'body': {
+                    'receipt_email_headline': self.receipt_email_headline,
+                    'receipt_email_content': self.receipt_email_content,
+                },
+                'heading_image': self.receipt_email_banner,
                 'footer': locale_footer,
-                'base_url': settings.WAGTAILADMIN_BASE_URL,
-                'social_media_icons': self.get_social_media_icons()
+                'base_url': settings.WAGTAILADMIN_BASE_URL
             }
         )
         html = minify(''.join(html).replace('\n', ''))
         #   Enable next 3 lines to test html output
-        # output = os.path.join(settings.PROJECT_DIR, 'templates',
-        #                       'contact', 'receipt_email', 'test.html')
+        # output = os.path.join(settings.BASE_DIR, 'contact', 'templates',
+        #                       'contact', 'test.html')
         # with open(output, 'w') as f:
         #     f.write(html)
         return html
