@@ -1,0 +1,380 @@
+{% load wagtailimages_tags %}
+{% block footer %}
+    <table cellpadding="0"
+           cellspacing="0"
+           class="es-footer"
+           align="center"
+           role="none"
+           style="mso-table-lspace:0pt;
+                  mso-table-rspace:0pt;
+                  border-collapse:collapse;
+                  border-spacing:0px;
+                  table-layout:fixed !important;
+                  width:100%;
+                  background-color:transparent;
+                  background-repeat:repeat;
+                  background-position:center top">
+        <tr>
+            <td align="center" style="padding:0;Margin:0">
+                <!-- signature -->
+                <table class="es-footer-body"
+                       align="center"
+                       cellpadding="0"
+                       cellspacing="0"
+                       style="mso-table-lspace:0pt;
+                              mso-table-rspace:0pt;
+                              border-collapse:collapse;
+                              border-spacing:0px;
+                              background-color:transparent;
+                              border-right:10px solid transparent;
+                              border-left:10px solid transparent;
+                              width:600px"
+                       bgcolor="#FFFFFF"
+                       role="none">
+                    <tr>
+                        <td class="esdev-adapt-off"
+                            align="left"
+                            style="padding:0;
+                                   Margin:0;
+                                   padding-top:20px">
+                            <table cellpadding="0"
+                                   cellspacing="0"
+                                   class="esdev-mso-table"
+                                   role="none"
+                                   style="mso-table-lspace:0pt;
+                                          mso-table-rspace:0pt;
+                                          border-collapse:collapse;
+                                          border-spacing:0px;
+                                          width:580px">
+                                <tr>
+                                    {% if footer.signature_image %}
+                                        <!-- signature image -->
+                                        <td class="esdev-mso-td" valign="top" style="padding:0;Margin:0">
+                                            <table cellpadding="0"
+                                                   cellspacing="0"
+                                                   class="es-left"
+                                                   align="left"
+                                                   role="none"
+                                                   style="mso-table-lspace:0pt;
+                                                          mso-table-rspace:0pt;
+                                                          border-collapse:collapse;
+                                                          border-spacing:0px;
+                                                          float:left">
+                                                <tr>
+                                                    <td class="es-m-p0r"
+                                                        valign="top"
+                                                        align="center"
+                                                        style="padding:0;
+                                                               Margin:0;
+                                                               width:67px">
+                                                        <table cellpadding="0"
+                                                               cellspacing="0"
+                                                               width="100%"
+                                                               role="presentation"
+                                                               style="mso-table-lspace:0pt;
+                                                                      mso-table-rspace:0pt;
+                                                                      border-collapse:collapse;
+                                                                      border-spacing:0px">
+                                                            <tr>
+                                                                <td align="center" style="padding:0;Margin:0;font-size:0px">
+                                                                    <a target="_blank"
+                                                                       href="{{ base_url }}"
+                                                                       style="-webkit-text-size-adjust:none;
+                                                                              -ms-text-size-adjust:none;
+                                                                              mso-line-height-rule:exactly;
+                                                                              text-decoration:none;
+                                                                              color:#75B3E5;
+                                                                              font-size:14px">
+                                                                        {% image footer.signature_image width-65 as img_signature_image %}
+                                                                        <img src="{{ img_signature_image.full_url }}"
+                                                                             alt="{{ img_signature_image.alt }}"
+                                                                             style="display:block;
+                                                                                    border:0;
+                                                                                    outline:none;
+                                                                                    text-decoration:none;
+                                                                                    -ms-interpolation-mode:bicubic"
+                                                                             width="65">
+                                                                    </a>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                        <!-- footer gap -->
+                                        <td style="padding:0;Margin:0;width:15px"></td>
+                                    {% endif %}
+                                    <!-- signature details -->
+                                    <td class="esdev-mso-td" valign="top" style="padding:0;Margin:0">
+                                        <table class="es-right"
+                                               cellpadding="0"
+                                               cellspacing="0"
+                                               align="right"
+                                               role="none"
+                                               style="mso-table-lspace:0pt;
+                                                      mso-table-rspace:0pt;
+                                                      border-collapse:collapse;
+                                                      border-spacing:0px;
+                                                      float:right">
+                                            <tr>
+                                                <td align="left" style="padding:0;Margin:0;width:498px">
+                                                    <table cellpadding="0"
+                                                           cellspacing="0"
+                                                           width="100%"
+                                                           role="presentation"
+                                                           style="mso-table-lspace:0pt;
+                                                                  mso-table-rspace:0pt;
+                                                                  border-collapse:collapse;
+                                                                  border-spacing:0px">
+                                                        <tr>
+                                                            <!-- company title and subtitle -->
+                                                            <td align="left" style="padding:0;Margin:0">
+                                                                {% if footer.signature_heading %}
+                                                                    <h3 style="Margin:0;
+                                                                               line-height:24px;
+                                                                               mso-line-height-rule:exactly;
+                                                                               font-family:helvetica, 'helvetica neue', arial, verdana, sans-serif;
+                                                                               font-size:20px;
+                                                                               font-style:normal;
+                                                                               font-weight:500;
+                                                                               color:#333333;
+                                                                               text-decoration:none">{{ footer.signature_heading }}</h3>
+                                                                {% endif %}
+                                                                {% if footer.signature_sub_heading %}
+                                                                    <h4 style="Margin:0;
+                                                                               line-height:120%;
+                                                                               mso-line-height-rule:exactly;
+                                                                               font-family:helvetica, 'helvetica neue', arial, verdana, sans-serif;
+                                                                               text-decoration:none;
+                                                                               font-weight:500;
+                                                                               color:#333333">{{ footer.signature_sub_heading }}</h4>
+                                                                {% endif %}
+                                                                <!-- address / email / phone -->
+                                                                <table border="0"
+                                                                       class="es-table cke_show_border"
+                                                                       align="left"
+                                                                       cellspacing="1"
+                                                                       cellpadding="1"
+                                                                       style="mso-table-lspace:0pt;
+                                                                              mso-table-rspace:0pt;
+                                                                              border-collapse:collapse;
+                                                                              border-spacing:0px;
+                                                                              width:100%;
+                                                                              margin-top: 5px"
+                                                                       role="presentation">
+                                                                    {% if footer.address %}
+                                                                        <tr>
+                                                                            <!-- address -->
+                                                                            {% if footer.map_icon %}
+                                                                                <td style="width: 25px;
+                                                                                           padding:1px 0;
+                                                                                           Margin:0;
+                                                                                           font-family:helvetica, 'helvetica neue', arial, verdana, sans-serif">
+                                                                                    {% image footer.map_icon fill-15x15 as img_address_icon %}
+                                                                                    <img src="{{ img_address_icon.full_url }}"
+                                                                                         style="display:block;
+                                                                                                border:0;
+                                                                                                outline:none;
+                                                                                                text-decoration:none;
+                                                                                                -ms-interpolation-mode:bicubic"
+                                                                                         width="15">
+                                                                                </td>
+                                                                            {% endif %}
+                                                                            <td style="padding:1px 0;
+                                                                                       Margin:0;
+                                                                                       font-family:helvetica, 'helvetica neue', arial, verdana, sans-serif">
+                                                                                <p style="Margin:0;
+                                                                                          -webkit-text-size-adjust:none;
+                                                                                          -ms-text-size-adjust:none;
+                                                                                          mso-line-height-rule:exactly;
+                                                                                          font-family:helvetica, 'helvetica neue', arial, verdana, sans-serif;
+                                                                                          line-height:21px;
+                                                                                          color:#333333;
+                                                                                          font-size:14px">
+                                                                                    {{ footer.address }}
+                                                                                </p>
+                                                                            </td>
+                                                                        </tr>
+                                                                    {% endif %}
+                                                                    {% if footer.contact_email_address %}
+                                                                        <tr>
+                                                                            <!-- email -->
+                                                                            {% if footer.email_icon %}
+                                                                                <td style="width: 25px;
+                                                                                           padding:1px 0;
+                                                                                           Margin:0;
+                                                                                           font-family:helvetica, 'helvetica neue', arial, verdana, sans-serif">
+                                                                                    {% image footer.email_icon fill-15x15 as img_email_icon %}
+                                                                                    <img src="{{ img_email_icon.full_url }}"
+                                                                                         style="display:block;
+                                                                                                border:0;
+                                                                                                outline:none;
+                                                                                                text-decoration:none;
+                                                                                                -ms-interpolation-mode:bicubic"
+                                                                                         width="15">
+                                                                                </td>
+                                                                            {% endif %}
+                                                                            <td style="padding:1px 0;
+                                                                                       Margin:0;
+                                                                                       font-family:helvetica, 'helvetica neue', arial, verdana, sans-serif">
+                                                                                <p style="Margin:0;
+                                                                                          -webkit-text-size-adjust:none;
+                                                                                          -ms-text-size-adjust:none;
+                                                                                          mso-line-height-rule:exactly;
+                                                                                          font-family:helvetica, 'helvetica neue', arial, verdana, sans-serif;
+                                                                                          line-height:21px;
+                                                                                          color:#333333;
+                                                                                          font-size:14px">
+                                                                                    <a href="mailto:{{ footer.contact_email_address }}"
+                                                                                       style="text-decoration: none; color: #333333">
+                                                                                        {{ footer.contact_email_label }} {{ footer.contact_email_address }}
+                                                                                    </a>
+                                                                                </p>
+                                                                            </td>
+                                                                        </tr>
+                                                                    {% endif %}
+                                                                    {% if footer.contact_phone_number %}
+                                                                        <tr>
+                                                                            <!-- phone -->
+                                                                            {% if footer.phone_icon %}
+                                                                                <td style="width: 25px;
+                                                                                           padding:1px 0;
+                                                                                           Margin:0;
+                                                                                           font-family:helvetica, 'helvetica neue', arial, verdana, sans-serif">
+                                                                                    {% image footer.phone_icon fill-15x15 as img_phone_icon %}
+                                                                                    <img src="{{ img_phone_icon.full_url }}"
+                                                                                         style="display:block;
+                                                                                                border:0;
+                                                                                                outline:none;
+                                                                                                text-decoration:none;
+                                                                                                -ms-interpolation-mode:bicubic"
+                                                                                         width="15">
+                                                                                </td>
+                                                                            {% endif %}
+                                                                            <td style="padding:1px 0;
+                                                                                       Margin:0;
+                                                                                       font-family:helvetica, 'helvetica neue', arial, verdana, sans-serif">
+                                                                                <p style="Margin:0;
+                                                                                          -webkit-text-size-adjust:none;
+                                                                                          -ms-text-size-adjust:none;
+                                                                                          mso-line-height-rule:exactly;
+                                                                                          font-family:helvetica, 'helvetica neue', arial, verdana, sans-serif;
+                                                                                          line-height:21px;
+                                                                                          color:#333333;
+                                                                                          font-size:14px">
+                                                                                    <a href="tel:{{ footer.contact_phone_number }}"
+                                                                                       style="text-decoration: none; color: #333333">
+                                                                                       {{ contact_phone_label }} {{ footer.contact_phone_number }}
+                                                                                    </a>
+                                                                                </p>
+                                                                            </td>
+                                                                        </tr>
+                                                                    {% endif %}
+                                                                </table>
+                                                                <p style="Margin:0;
+                                                                          -webkit-text-size-adjust:none;
+                                                                          -ms-text-size-adjust:none;
+                                                                          mso-line-height-rule:exactly;
+                                                                          font-family:arial, 'helvetica neue', helvetica, sans-serif;
+                                                                          line-height:21px;
+                                                                          color:#333333;
+                                                                          font-size:14px">
+                                                                    <br>
+                                                                </p>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <!-- social media icons -->
+                    <tr>
+                        <td align="left"
+                            style="padding:0;
+                                   Margin:0;
+                                   padding-top:20px;
+                                   padding-left:20px;
+                                   padding-right:20px">
+                            <table cellpadding="0"
+                                   cellspacing="0"
+                                   width="100%"
+                                   role="none"
+                                   style="mso-table-lspace:0pt;
+                                          mso-table-rspace:0pt;
+                                          border-collapse:collapse;
+                                          border-spacing:0px">
+                                <tr>
+                                    <td align="center" valign="top" style="padding:0;Margin:0;width:540px">
+                                        <table cellpadding="0"
+                                               cellspacing="0"
+                                               width="100%"
+                                               role="presentation"
+                                               style="mso-table-lspace:0pt;
+                                                      mso-table-rspace:0pt;
+                                                      border-collapse:collapse;
+                                                      border-spacing:0px">
+                                            <tr>
+                                                <td align="right"
+                                                    style="padding:0;
+                                                           Margin:0;
+                                                           padding-bottom:40px;
+                                                           font-size:0">
+                                                    <table cellpadding="0"
+                                                           cellspacing="0"
+                                                           class="es-table-not-adapt es-social"
+                                                           dir="ltr"
+                                                           role="presentation"
+                                                           style="mso-table-lspace:0pt;
+                                                                  mso-table-rspace:0pt;
+                                                                  border-collapse:collapse;
+                                                                  border-spacing:0px">
+                                                        <tr>
+                                                            {% for item in footer.social_media_links.all %}
+                                                                {% image item.photo fill-32x32 as icon %}
+                                                                <td align="center"
+                                                                    valign="top"
+                                                                    style="padding:0;
+                                                                           Margin:0;
+                                                                           padding-left:10px">
+                                                                    <a target="_blank"
+                                                                       href="{{ item.url }}"
+                                                                       style="-webkit-text-size-adjust:none;
+                                                                              -ms-text-size-adjust:none;
+                                                                              mso-line-height-rule:exactly;
+                                                                              text-decoration:underline;
+                                                                              color:#FFFFFF;
+                                                                              font-size:14px">
+                                                                        <img src="{{ icon.full_url }}"
+                                                                             alt="{{ item.site_name }}"
+                                                                             title="{{ item.site_name }}"
+                                                                             width="32"
+                                                                             height="32"
+                                                                             style="display:block;
+                                                                                    border:0;
+                                                                                    outline:none;
+                                                                                    text-decoration:none;
+                                                                                    -ms-interpolation-mode:bicubic">
+                                                                    </a>
+                                                                </td>
+                                                            {% endfor %}
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+{% endblock footer %}

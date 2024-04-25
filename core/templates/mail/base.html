@@ -1,0 +1,67 @@
+{% comment %} 
+    blocks: 
+        message - content for the message container
+    context:
+        base_url - base url for converting relative paths to absolute urls (image renditions should use .full_url for src)
+        heading_image - wagtail image object at least 560px wide (usage: heading.html > default `heading` block)
+        footer - site_settings.EmailSignature instance
+{% endcomment %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html dir="ltr"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:o="urn:schemas-microsoft-com:office:office"
+      lang="en">
+    {% include "./head-min.html" %}
+    <body
+        style="width:100%;font-family:arial, 'helvetica neue', helvetica, sans-serif;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;padding:0;Margin:0">
+        <div dir="ltr" class="es-wrapper-color" lang="en" style="background-color:#75B3E5">
+            <!--[if gte mso 9]>
+                <v:background xmlns:v="urn:schemas-microsoft-com:vml" fill="t">
+                    <v:fill type="tile" color="#75b3e5"></v:fill>
+                </v:background>
+            <![endif]-->
+            <table class="es-wrapper" width="100%" cellspacing="0" cellpadding="0" role="none"
+                style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;padding:0;Margin:0;width:100%;height:100%;background-repeat:repeat;background-position:center top;background-color:#75B3E5">
+                <tr>
+                    <td valign="top" style="padding:0;Margin:0">
+                        {# heading #}
+                        {% block heading %}
+                            {% include "./heading-min.html" %}
+                        {% endblock heading %}
+                        {# message body container #}
+                        <table cellpadding="0" cellspacing="0" class="es-content" align="center" role="none"
+                            style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;table-layout:fixed !important;width:100%">
+                            <tr>
+                                <td align="center" style="padding:0;Margin:0">
+                                    <table class="es-content-body" align="center" cellpadding="0" cellspacing="0"
+                                        style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;background-color:transparent;border-right:10px solid transparent;border-left:10px solid transparent;width:600px"
+                                        role="none">
+                                        <tr>
+                                            <td align="left" bgcolor="#ffffff"
+                                                style="padding:20px;Margin:0;background-color:#ffffff;border-radius:10px">
+                                                <table cellpadding="0" cellspacing="0" width="100%" role="none"
+                                                    style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px">
+                                                    <tr>
+                                                        <td align="center" valign="top"
+                                                            style="padding:0;Margin:0;width:540px">
+                                                            {# message body #}
+                                                            {% block message %}{% endblock message %}
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                        {# footer #}
+                        {% block footer %}
+                            {% include "./footer-min.html" %}
+                        {% endblock footer %}
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </body>
+</html>
