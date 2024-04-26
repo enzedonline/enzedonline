@@ -17,23 +17,9 @@
                 {% include "userauth/account/form_field.html" %}
             {% endwith %}
         </div>
-        {% if not request.user.is_authenticated %}
-            <div class="form-group">
-                {% with field=form.name %}
-                    {% include "userauth/account/form_field.html" %}
-                {% endwith %}
-            </div>
-        {% endif %}
-        {% if not request.user.is_authenticated or not request.user.email %}
-            <div class="form-group">
-                {% with field=form.email %}
-                    {% include "userauth/account/form_field.html" %}
-                {% endwith %}
-            </div>
-        {% endif %}
         <div class="form-group custom-control custom-checkbox ms-1">
             <small>
-                {{ form.followup }}
+                {{ form.followup|checkbox_checked }}
                 <label for="id_followup{% if cid %}_{{ cid }}{% endif %}"
                        class="custom-control-label ps-1">{{ form.followup.label }}</label>
             </small>

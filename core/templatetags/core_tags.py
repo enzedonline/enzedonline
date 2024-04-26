@@ -198,3 +198,7 @@ def get_referrer_or_none(context):
         return urlparse(referer).path
     except:
         return '/'
+
+@register.filter()
+def checkbox_checked(checkbox):
+    return mark_safe(str(checkbox)[:-1] + " checked>")
