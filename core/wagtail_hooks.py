@@ -183,7 +183,7 @@ def serve_pdf(document, request):
 
 @hooks.register('register_settings_menu_item')
 def register_refresh_cache_menu_item():
-    return MenuItem(_('Empty Cache'), reverse('refresh-page-cache'), classname='icon icon-bin', order=1)
+    return MenuItem(_('Empty Cache'), reverse('refresh-page-cache'), icon_name='bin', order=1)
 
 @hooks.register('after_delete_page')
 def do_after_delete_page(request, page):
