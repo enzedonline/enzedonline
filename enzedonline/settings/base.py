@@ -281,7 +281,8 @@ WAGTAILADMIN_RICH_TEXT_EDITORS = {
                          'ol', 'ul', 'checklist',
                          'link', 'hr', 'larger', 'smaller', 'highlight', 'inline-code', 'document-link', 
                          'fa', 'blockquote',
-                         'left-align', 'centre-align', 'right-align', 'code-block']
+                        'left-align', 'centre-align', 'right-align', 'code-block'
+                         ]
         }
     },
     'minimal': {

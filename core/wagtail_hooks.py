@@ -32,7 +32,7 @@ def register_align_left_feature(features):
         features=features,
         feature_name='left-align',
         type_='left-align',
-        description=_('Left align text'),
+        description='Left align text',
         css_class='text-start',
         element='p',
         icon='left-align'
@@ -44,7 +44,7 @@ def register_align_centre_feature(features):
         features=features,
         feature_name='centre-align',
         type_='centre-align',
-        description=_('Centre align text'),
+        description='Centre align text',
         css_class='text-center',
         element='p',
         icon='centre-align'
@@ -56,7 +56,7 @@ def register_align_right_feature(features):
         features=features,
         feature_name='right-align',
         type_='right-align',
-        description=_('Right align text'),
+        description='Right align text',
         css_class='text-end',
         element='p',
         icon='right-align'
