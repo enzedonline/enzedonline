@@ -442,6 +442,8 @@ div.collapsible-card-block div.accordion-body div.block-container {
   font-size: var(--font-size-4);
   color: var(--bs-white) !important;
   padding: 0.6rem 0.8rem;
+  border-radius: var(--bs-card-inner-border-radius) var(--bs-card-inner-border-radius) 0 0;
+  border-bottom: 0;
 }
 
 .comments-login-invite {
