@@ -46,7 +46,15 @@
                         {% endwith %}
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary">{{ trans.update }}</button>
+                <div class="row pt-3">
+                    <div class="form-group col-md-6">
+                        {% url 'account_profile' as profile_page %}
+                        <a type="cancel" role="button" class="btn btn-outline-danger" onclick="window.location.href = '{{ profile_page }}';">{{ trans.cancel }}</a>
+                    </div>
+                    <div class="form-group col-md-6 text-end">
+                        <button type="submit" class="btn btn-success">{{ trans.update }}</button>
+                    </div>
+                </div>
             </form>
         </div>
         <div class="border-start col-md-4 pt-3 pt-md-0 ps-md-3">
