@@ -136,7 +136,7 @@ class IntroStreamBlock(StreamBlock):
 class ContactPage(WagtailCaptchaEmailForm, SEOPage):
     form_builder = ContactFormBuilder
     recaptcha_attrs = {
-        'required_score': 0.8,
+        'required_score': 0.7,
         'action': 'contact',
     }
     template = "contact/contact_page.html"
