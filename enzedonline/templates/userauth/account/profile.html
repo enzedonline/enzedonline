@@ -30,18 +30,12 @@
         </div>
         <div class="row pb-2">
             <div class="col-sm-6 pb-2">
-                <label class="d-block bg-light text-dark rounded p-2 mb-2">{{ trans.city }}</label>
-                <span class="ps-2">{{ request.user.city|default:"-" }}</span>
+                <label class="d-block bg-light text-dark rounded p-2 mb-2">{{ trans.website }}</label>
+                <span class="ps-2">{{ request.user.website|default:"-" }}</span>
             </div>
             <div class="col-sm-6 pb-2">
                 <label class="d-block bg-light text-dark rounded p-2 mb-2">{{ trans.country }}</label>
                 <span class="ps-2">{{ request.user.country.name|default:"-" }}</span>
-            </div>
-        </div>
-        <div class="row pb-2">
-            <div class="col-12 pb-2">
-                <label class="d-block bg-light text-dark rounded p-2 mb-2">{{ trans.website }}</label>
-                <span class="ps-2">{{ request.user.website|default:"-" }}</span>
             </div>
         </div>
     </div>
