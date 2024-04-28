@@ -15,16 +15,8 @@
           id="loginForm"
           novalidate>
         {% csrf_token %}
-        {% if form.non_field_errors %}
-            <div class="alert alert-danger">
-                {{ form.non_field_errors }}
-            </div>
-        {% endif %}
-        {% if form.recaptcha.errors %}
-            <div class="alert alert-danger">
-                {{ form.recaptcha.errors }}
-            </div>
-        {% endif %}
+        {% if form.non_field_errors %}<div class="alert alert-danger">{{ form.non_field_errors }}</div>{% endif %}
+        {% if form.recaptcha.errors %}<div class="alert alert-danger">{{ form.recaptcha.errors }}</div>{% endif %}
         <div class="form-group">
             {% with field=form.login %}
                 {% include "account/form_field.html" %}
@@ -35,14 +27,18 @@
                 {% include "account/form_field.html" %}
             {% endwith %}
         </div>
-        <div class="d-none">
-            {{ form.recaptcha }}
+        <div class="d-none">{{ form.recaptcha }}</div>
+        <input type="hidden"
+               name="next"
+               value="{{ request.GET.next|default:next_url }}" />
+        <div class="text-end pt-2">
+            <a class="h6 text-muted me-4"
+               href="{% url 'account_reset_password' %}"
+               rel="nofollow">{{ trans.forgot_password }}</a>
+            <button type="submit" id="btnSubmit" class="btn btn-success">
+                <span class="h5">{{ trans.login_title }}</span>
+            </button>
         </div>
-        <input type="hidden" name="next" value="{{ request.GET.next|default:next_url }}" />
-        <button type="submit" id="btnSubmit" class="btn btn-primary me-4">{{ trans.login_title }}</button>
-        <a class="h6 text-muted"
-           href="{% url 'account_reset_password' %}"
-           rel="nofollow">{{ trans.forgot_password }}</a>
     </form>
     {% if socialaccount_providers %}
         <hr>
