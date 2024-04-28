@@ -80,7 +80,9 @@
             {{ form.recaptcha }}
         </div>
         <input type="hidden" name="next" value="{{ request.GET.next|default:next_url }}" />
-        <button type="submit" id="btnSubmit" class="btn btn-primary">{{ trans.sign_up }}</button>
+        <div class="text-end pt-2">
+            <button type="submit" id="btnSubmit" class="btn btn-success"><span class="h5">{{ trans.sign_up }}</span></button>
+        </div>
     </form>
 {% endblock card-body %}
 {% block card-footer %}
