@@ -193,12 +193,6 @@ WAGTAIL_SITE_NAME = "enzedonline"
 WAGTAILIMAGES_EXTENSIONS = ["gif", "jpg", "jpeg", "png", "webp", "svg"]
 
 # Embeds
-WAGTAILEMBEDS_FINDERS = [
-    {
-        'class': 'wagtail.embeds.finders.oembed',
-        'class': 'core.oembedfinder.YouTubeShortsFinder'      
-    }
-]
 WAGTAILEMBEDS_RESPONSIVE_HTML = True
 
 # multiple configs not supported for one backend type
