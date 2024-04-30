@@ -84,7 +84,7 @@ def render_user_info(context, msg):
 @mark_safe
 def menu_icon(image, redition_token='fill-25x25|format-png'):
     if image:
-        if image.filename[-4:].lower()==".svg":
+        if image.is_svg():
             svg_file = image.file.file
             if svg_file.closed: svg_file.open()
             svg = svg_file.read().decode('utf-8')
