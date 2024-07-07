@@ -18,7 +18,7 @@
   <script src="{% static 'js/flexmasonry.extra.js'%}"></script>
   {% if self.blog_type == "TechBlogDetailPage" %}
     {# Code Block JS - only load if tech blog #}
-    {% comment %} <script defer src="{% static 'js/prism.js' %}"></script> {% endcomment %}
+    <script defer src="{% static 'js/prism.js' %}"></script>
   {% endif %}
 {% endblock extra_scripts %}
 {% block header %}
