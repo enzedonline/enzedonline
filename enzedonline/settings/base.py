@@ -31,13 +31,14 @@ INSTALLED_APPS = [
     'wagtail.contrib.settings',
     'wagtail.embeds',
     'wagtail.sites',
-    'wagtail.users',
     'wagtail.snippets',
     'wagtail.documents',
     'wagtail.images',
     'wagtail.search',
     'wagtail.admin',
     'wagtail',
+    # 'wagtail.users', <-- not used in wagtail 6.2+ with custom user models
+    'enzedonline.apps.CustomUsersAppConfig',
 
     'modelcluster',
     'taggit',
@@ -215,9 +216,6 @@ WAGTAILSEARCH_BACKENDS = {
 
 # # ALLAUTH settings
 AUTH_USER_MODEL = 'userauth.CustomUser'
-WAGTAIL_USER_CREATION_FORM = 'userauth.forms.WagtailUserCreationForm'
-WAGTAIL_USER_EDIT_FORM = 'userauth.forms.WagtailUserEditForm'
-WAGTAIL_USER_CUSTOM_FIELDS = ['display_name', 'country', 'website']
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'

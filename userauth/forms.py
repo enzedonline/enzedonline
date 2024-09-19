@@ -44,6 +44,7 @@ class WagtailUserCreationForm(UserCreationForm):
 
     class Meta(UserCreationForm.Meta):
         model = CustomUser
+        fields = UserEditForm.Meta.fields | {'display_name', 'country', 'website'}
 
 class WagtailUserEditForm(UserEditForm):
     display_name = forms.CharField(max_length=30, label=_("Display name"), help_text=_("Will be shown e.g. when commenting."))
@@ -51,3 +52,4 @@ class WagtailUserEditForm(UserEditForm):
 
     class Meta(UserEditForm.Meta):
         model = CustomUser
+        fields = UserEditForm.Meta.fields | {'display_name', 'country', 'website'}
