@@ -1,33 +1,30 @@
 {% load wagtailimages_tags core_tags %}
 
-{% get_picture_rendition self.image 1800 as webp_img_w_1800 %}
-{% get_picture_rendition self.image 1600 as webp_img_w_1600 %}
-{% get_picture_rendition self.image 1200 as webp_img_w_1200 %}
-{% get_picture_rendition self.image 750 as webp_img_w_750 %}
-{% get_picture_rendition self.image 500 as webp_img_w_500 %}
-{% image self.image.file original as fallback %}
-
 <div class="block-container">
   <div class="{{ self.background }} p-1 mx-auto rounded-3"
     {% if self.max_width %} style="max-width: calc({{ self.max_width }}px + 0.5rem);"{% endif %}>
     <figure class="m-0"{% if self.max_width %} style="max-width: {{ self.max_width }}px;"{% endif %}>
       {% if self.animated_gif %}
-      <img src="{{ self.image.file.file.url }}"
-      alt="{{ self.image.seo_title }}"
-      class="image-w-100-auto">
+        <img src="{{ self.image.file.file.url }}" alt="{{ self.image.seo_title }}" class="image-w-100-auto">
       {% else %}
-      <picture>
-        <source media="(max-width: 500px)" sizes="(max-width: 500px) 500px" srcset="{{ webp_img_w_500.url }} 500w" type="image/webp">
-        <source media="(max-width: 750px)" sizes="(max-width: 750px) 750px" srcset="{{ webp_img_w_750.url }} 750w" type="image/webp">
-        <source media="(max-width: 1200px)" sizes="(max-width: 1200px) 1200px" srcset="{{ webp_img_w_1200.url }} 1200w" type="image/webp">
-        <source media="(max-width: 1600px)" sizes="(max-width: 1600px) 1600px" srcset="{{ webp_img_w_1600.url }} 1600w" type="image/webp">
-        <source media="(min-width: 1601px)" sizes="(min-width: 1601px) 1601px" srcset="{{ webp_img_w_1800.url }} 1800w" type="image/webp">
-        <img 
-          src="{{ fallback.url }}" 
-          alt="{{ self.image.seo_title }}" 
-          class="image-w-100-auto"
-        >
-      </picture>
+        {% get_picture_rendition self.image 1800 as webp_img_w_1800 %}
+        {% get_picture_rendition self.image 1600 as webp_img_w_1600 %}
+        {% get_picture_rendition self.image 1200 as webp_img_w_1200 %}
+        {% get_picture_rendition self.image 750 as webp_img_w_750 %}
+        {% get_picture_rendition self.image 500 as webp_img_w_500 %}
+        {% image self.image.file original as fallback %}
+        <picture>
+          <source media="(max-width: 500px)" sizes="(max-width: 500px) 500px" srcset="{{ webp_img_w_500.url }} 500w" type="image/webp">
+          <source media="(max-width: 750px)" sizes="(max-width: 750px) 750px" srcset="{{ webp_img_w_750.url }} 750w" type="image/webp">
+          <source media="(max-width: 1200px)" sizes="(max-width: 1200px) 1200px" srcset="{{ webp_img_w_1200.url }} 1200w" type="image/webp">
+          <source media="(max-width: 1600px)" sizes="(max-width: 1600px) 1600px" srcset="{{ webp_img_w_1600.url }} 1600w" type="image/webp">
+          <source media="(min-width: 1601px)" sizes="(min-width: 1601px) 1601px" srcset="{{ webp_img_w_1800.url }} 1800w" type="image/webp">
+          <img 
+            src="{{ fallback.url }}" 
+            alt="{{ self.image.seo_title }}" 
+            class="image-w-100-auto"
+          >
+        </picture>
       {% endif %}
       {% if self.caption or self.attribution %}
         <figcaption class="image-block-caption text-end px-1 py-2 lh-sm">
