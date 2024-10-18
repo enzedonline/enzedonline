@@ -1,60 +1,19 @@
-class CodeBlockDefinition extends window.wagtailStreamField.blocks
-    .StructBlockDefinition {
-    render(placeholder, prefix, initialState, initialError) {
-        this.block = super.render(
-            placeholder,
-            prefix,
-            initialState,
-            initialError,
-        );
+class CodeBlock {
+    constructor(structBlock, meta) {
+        this.block = structBlock;
+        this.meta = meta;
         // code child block textarea widget
         this.codeTextarea = this.block.childBlocks.code.widget.input;
         // language child block select widget
         this.languageSelector = this.block.childBlocks.language.widget.input;
-        this.registerMissingLanguages();
+        // set up block form
         this.configureBlockAdminForm();
         this.addEventListeners();
+        this.registerMissingLanguages();
         this.previewActive = false;
-        return this.block;
-    };
-
-    registerMissingLanguages() {
-        // check registered languages against those in language choice block, add script for each missing one
-        let errors = [];
-        const availableLanguages = hljs.listLanguages();
-        const optionValues = Array.from(this.languageSelector.options).map(option => option.value);
-        const missing_languages = optionValues.filter(optionValue => !availableLanguages.includes(optionValue));
-        if (missing_languages) {
-            // if scripts fail to load, write simple message to block form and error message with path to console
-            const scriptPromises = missing_languages.map(language => {
-                return new Promise((resolve, reject) => {
-                    const script = document.createElement('script');
-                    script.src = `${this.meta.language_base_path}${language}.min.js`;
-                    script.onload = () => {
-                        resolve();
-                    };
-                    script.onerror = () => {
-                        const displayError = `${this.meta.text.languageScriptErrorLabel}: ${language}`;
-                        const consoleError = `${displayError} (${script.src})`;
-                        errors.push([displayError, consoleError]);
-                        reject(new Error(consoleError));
-                    };
-                    document.head.appendChild(script);
-                });
-            });
-            // When all scripts are either loaded or failed, report any errors
-            Promise.allSettled(scriptPromises).then(() => {
-                if (errors.length > 0) {
-                    // displayError
-                    this.highlighterErrors.innerText = errors.map(error => error[0]).join('\n');
-                    // consoleError
-                    errors.forEach(error => console.error(error[1]));
-                }
-            });
-        }
     }
 
-    configureBlockAdminForm() {
+    configureBlockAdminForm = () => {
         // hide rawHTMLBlock textarea widget
         this.codeTextarea.style.setProperty('display', 'none');
 
@@ -92,23 +51,20 @@ class CodeBlockDefinition extends window.wagtailStreamField.blocks
         // placeholder for displaying any highlighter errors
         this.highlighterErrors = document.createElement('div');
         this.highlighterErrors.className = "code-block-highlighter-errors"
-        this.block.childBlocks.code.field.firstElementChild.before(this.highlighterErrors);
+        this.block.childBlocks.code.field.prepend(this.highlighterErrors);
     }
 
-    addEventListeners() {
+    addEventListeners = () => {
         // code editor content changed - convert entered code to highlighted markup
-        this.codeEditor.addEventListener('input', () => this.getHighlightCodeHTML());
+        this.codeEditor.addEventListener('input', this.getHighlightCodeHTML.bind(this));
+        // language changed - parse entered code with new language setting
+        this.languageSelector.addEventListener('change', this.getHighlightCodeHTML.bind(this));
         // tab clicks - show/hide the preview pane
-        this.writeTab.addEventListener('click', () => this.showPreview(false));
-        this.previewTab.addEventListener('click', () => this.showPreview(true));
-        // language changed - convert entered code with new language setting
-        this.languageSelector.addEventListener('change', () => {
-            this.getHighlightCodeHTML();
-            if (this.previewActive) this.updatePreview();
-        });
+        this.writeTab.addEventListener('click', this.showPreview.bind(this, false));
+        this.previewTab.addEventListener('click', this.showPreview.bind(this, true));
     }
 
-    getHighlightCodeHTML() {
+    getHighlightCodeHTML = () => {
         this.highlighterErrors.innerText = '';
         // parse entered code with hljs, set this as the code child block value
         let parsedCode = {};
@@ -126,21 +82,68 @@ class CodeBlockDefinition extends window.wagtailStreamField.blocks
         this.codeTextarea.value = parsedCode.value 
             ? `<pre><code class="language-${this.languageSelector.value} hljs">${parsedCode.value}</code></pre>` 
             : '';
-    }
-
-    updatePreview() {
         // set the preview panel inner html from the code child block value
         this.preview.innerHTML = this.codeTextarea.value;
     }
 
-    showPreview(active) {
+    showPreview = (active) => {
         // set css classes to show/hide the preview panel, update tabs
-        if (active === true) this.updatePreview();
+        if (active === true) this.preview.innerHTML = this.codeTextarea.value;
         this.codeTextarea.parentElement.classList.toggle('preview-active', active);
         this.writeTab.classList.toggle('active', !active);
         this.previewTab.classList.toggle('active', active);
         this.previewActive = active;
     }
+
+    registerMissingLanguages() {
+        // check registered languages against those in language choice block, add script for each missing one
+        let errors = [];
+        const availableLanguages = hljs.listLanguages();
+        const optionValues = Array.from(this.languageSelector.options).map(option => option.value);
+        const missing_languages = optionValues.filter(optionValue => !availableLanguages.includes(optionValue));
+        if (missing_languages) {
+            // if scripts fail to load, write simple message to block form and error message with path to console
+            const scriptPromises = missing_languages.map(language => {
+                return new Promise((resolve, reject) => {
+                    const script = document.createElement('script');
+                    script.src = `${this.meta.language_base_path}${language}.min.js`;
+                    script.onload = () => {
+                        resolve();
+                    };
+                    script.onerror = () => {
+                        const displayError = `${this.meta.text.languageScriptErrorLabel}: ${language}`;
+                        const consoleError = `${displayError} (${script.src})`;
+                        errors.push([displayError, consoleError]);
+                        reject(new Error(consoleError));
+                    };
+                    document.head.appendChild(script);
+                });
+            });
+            // When all scripts are either loaded or failed, report any errors
+            Promise.allSettled(scriptPromises).then(() => {
+                if (errors.length > 0) {
+                    // displayError
+                    this.highlighterErrors.innerText = errors.map(error => error[0]).join('\n');
+                    // consoleError
+                    errors.forEach(error => console.error(error[1]));
+                }
+            });
+        }
+    }
+}
+
+class CodeBlockDefinition extends window.wagtailStreamField.blocks
+    .StructBlockDefinition {
+    render(placeholder, prefix, initialState, initialError) {
+        this.block = super.render(
+            placeholder,
+            prefix,
+            initialState,
+            initialError,
+        );
+        new CodeBlock(this.block, this.meta);
+        return this.block;
+    };
 }
 
 window.telepath.register('blocks.code.BlogCodeBlock', CodeBlockDefinition);
