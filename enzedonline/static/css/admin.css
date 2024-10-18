@@ -205,9 +205,6 @@ a {
 fieldset {
   padding: 0;
 }
-label {
-  width: 100%;
-}
 .tagit,
 select {
   font-family: var(--font-family-body);
@@ -444,24 +441,6 @@ div.link-block>div[data-contentpath="placement"] select,
 div.link-block>div[data-contentpath="size"] select {
   width: 120px;
 }
-
-/* code block
-div.blog-code-block>div[data-contentpath="title"] {
-  flex-basis: calc(100% - 30rem);
-}
-div.blog-code-block>div[data-contentpath="type"] {
-  flex-basis: 12rem;
-}
-div.blog-code-block>div[data-contentpath="language"] {
-  flex-basis: 12rem;
-}
-div.blog-code-block>div[data-contentpath="code"] {
-  flex-basis: 100%;
-}
-div.blog-code-block>div[data-contentpath="code"] textarea {
-  font-family: var(--font-family-monospace);
-  font-size: .8em;
-} */
 
 /* callout block */
 div.callout-heading-block>div[data-contentpath="icon"] {
