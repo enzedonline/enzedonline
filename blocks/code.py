@@ -24,6 +24,7 @@ class CodeChoiceBlock(ChoiceBlock):
         ('sql', 'SQL'),
         ('pgsql', 'PostGRES SQL'),
         ('r', 'R'),
+        ('dos', 'Windows CMD'),
         ('powershell', 'PowerShell'),
     ]
 
