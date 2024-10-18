@@ -177,13 +177,10 @@ def get_rendition(image, image_options):
 
 @register.simple_tag()
 def get_picture_rendition(image, width):
-    try:
-        imageOverSized = (width > image.width)
-        if imageOverSized:
-            return image.get_rendition("original|format-webp")
-    except:
-        pass
-    return image.get_rendition(f"width-{width}|format-webp")
+    if width < image['file'].width:
+        return image['file'].get_rendition(f"width-{width}|format-webp")
+    else:
+        return image['file'].get_rendition("original|format-webp")
 
 @register.simple_tag()
 def get_logo(logo):
