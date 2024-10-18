@@ -1,24 +1,27 @@
-<div class="block-container{% if self.bottom_padding %} pb-2{% endif %}">
-    {% if self.type == "simple" %}
-        {% include "blocks/code_block.html" %}
+<div class="block-container{% if self.bottom_padding %} pb-4{% endif %}" data-bs-theme="dark">
+    {% if not self.collapsible %}
+        {% if self.title %}
+            <div class="code-block-title">{{ self.title }}</div>
+        {% endif %}
+        {% include "blocks/code-block.html" %}
     {% else %}
         <div class="highlight-code-wrapper">
-            <div class="accordion" id="code-wrapper-{{ block.id }}" data-bs-theme="dark">
+            <div class="accordion" id="code-wrapper-{{ block.id }}">
                 <div class="accordion-item">
                     <div class="accordion-header">
-                        <button class="accordion-button{% if self.type == "collapsed" %} collapsed{% endif %}"
+                        <button class="accordion-button{% if self.collapsible == "collapsed" %} collapsed{% endif %}"
                                 type="button"
                                 data-bs-toggle="collapse"
                                 data-bs-target="#code-item-{{ block.id }}"
-                                data-tooltip="Click to expand"
+                                data-expand-prompt="{{ expand_prompt }}"
                                 aria-expanded="{% if self.type == "collapsible" %}true{% else %}false{% endif %}"
                                 aria-controls="code-item-{{ block.id }}"
                                 onclick="this.blur();">{{ self.title }}</button>
                     </div>
                     <div id="code-item-{{ block.id }}"
-                         class="accordion-collapse collapse{% if self.type == "collapsible" %} show{% endif %}"
+                         class="accordion-collapse collapse{% if self.collapsible == "collapsible" %} show{% endif %}"
                          data-bs-parent="#code-wrapper-{{ block.id }}">
-                        <div class="accordion-body">{% include "blocks/code_block.html" %}</div>
+                        <div class="accordion-body">{% include "blocks/code-block.html" %}</div>
                     </div>
                 </div>
             </div>

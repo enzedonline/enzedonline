@@ -908,69 +908,6 @@ code,
   border-radius: 0.3rem;
 }
 
-div.highlight-code-wrapper>div.accordion>div.accordion-item>div.accordion-header>button.accordion-button {
-  font-family: 'Roboto Mono', monospace;
-  font-size: 1em;
-  min-height: 2em;
-  position: relative;
-  color: #e6db74c9;
-  background-color: var(--bs-dark-bg-subtle);
-  padding: 0.5rem 1rem 0.5rem 3rem;
-  box-shadow: none;
-}
-div.highlight-code-wrapper>div.accordion>div.accordion-item>div.accordion-header>button.accordion-button::after {
-  position: absolute;
-  left: 1rem;
-  margin-right: unset;
-}
-div.highlight-code-wrapper>div.accordion>div.accordion-item>div.accordion-header>button.accordion-button::before {
-  content: attr(data-tooltip);
-  position: absolute;
-  top: 50%;
-  right: 1.5rem;
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(-50%);
-  background-color: var(--bs-dark-bg-subtle);
-  color: var(--bs-light);
-  z-index: 1;
-  font-size: var(--font-size-6);
-  font-family: var(--font-family-headings);
-  transition-property: visibility, opacity; /* Specify properties to transition */
-  transition-duration: 0.4s, 0.2s; /* Duration for visibility and opacity */
-  transition-timing-function: ease-in-out; /* Optional: Specify timing function */
-}
-div.highlight-code-wrapper>div.accordion>div.accordion-item>div.accordion-header>button.accordion-button.collapsed::before {
-  visibility: visible;
-  opacity: 0.8;
-}
-div.highlight-code-wrapper>div.accordion>div.accordion-item>div.accordion-header>button.accordion-button.collapsed:hover::before {
-  opacity: 1;
-}
-
-div.highlight-code-wrapper>div.accordion>div.accordion-item>div.accordion-header>button.accordion-button:not(.collapsed) {
-  color: #e6db74;
-}
-
-div.highlight-code-wrapper>div.accordion>div.accordion-item>div.accordion-collapse>div.accordion-body {
-  padding: 0;
-}
-
-div.highlight-code-wrapper>div.accordion>div.accordion-item>div.accordion-collapse>div.accordion-body>div.highlight-code-block>div.code-toolbar>pre {
-  margin: 0;
-}
-
-code.prism-block {
-  padding-left: unset;
-  font-size: var(--font-size-6) !important;
-}
-
-.callout-block pre[class*="language-"] {
-  padding: 0.7em 1em 0.9em 1em;
-  line-height: 1 !important;
-  font-size: var(--font-size-body);
-}
-
 .callout-block .toolbar-item {
   vertical-align: 1em;
   font-size: 0.9em;
@@ -1031,17 +968,6 @@ label {
   font-weight: 500;
 }
 
-pre[class*="language-"] {
-  line-height: 1.3 !important;
-  padding-left: 1.5em !important;
-  background: #272822;
-  color: var(--bs-light);
-}
-
-.prism-block {
-  white-space: pre !important;
-}
-
 /* Allow Mathjax equation to have custom alignment and set font size to inherit */
 mjx-container[jax="CHTML"],
 mjx-container[jax="CHTML"][display="true"] {
@@ -1058,12 +984,6 @@ mjx-container[jax="CHTML"][display="true"] {
   top: 50%;
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
-}
-
-/* prismjs copy button */
-div.code-toolbar>.toolbar>.toolbar-item>button {
-  padding: 0.2em 0.5em !important;
-  margin-right: 0.2em;
 }
 
 div.code-toolbar>.toolbar>.toolbar-item>button:focus {

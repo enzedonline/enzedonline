@@ -6,7 +6,8 @@
         type="text/css">
   {% if self.blog_type == "TechBlogDetailPage" %}
     {# Code Block CSS - only load if tech blog #}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/prism.css' %}">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11/build/styles/github-dark-dimmed.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/code-highlight/code-block.css' %}">
   {% endif %}
   {# load Article metadata #}
   {% cache None cache_name "structure" cache_date %}
@@ -18,7 +19,7 @@
   <script src="{% static 'js/flexmasonry.extra.js'%}"></script>
   {% if self.blog_type == "TechBlogDetailPage" %}
     {# Code Block JS - only load if tech blog #}
-    <script defer src="{% static 'js/prism.js' %}"></script>
+    <script defer src="{% static 'js/code-highlight/code-block.js' %}"></script>
   {% endif %}
 {% endblock extra_scripts %}
 {% block header %}

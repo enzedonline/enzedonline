@@ -1,0 +1,85 @@
+/* use flex on the StructBlock form to allow responsive layout */
+div.struct-block.code-block {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 2rem;
+}
+/* set title to min width 300px */
+div.struct-block.code-block div[data-contentpath="title"] {
+    flex-grow: 1;
+    flex-basis: 300px;
+}
+/* set code to full width */
+div.struct-block.code-block div[data-contentpath="code"] {
+    flex-basis: 100%;
+}
+/* set font style on textarea */
+div.struct-block.code-block div[data-contentpath="code"] textarea {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.9em;
+    border-radius: 0 0 .3125rem .3125rem;
+    border-top: 0;
+}
+/* inline check box + label */
+div.struct-block.code-block div[data-contentpath="bottom_padding"] {
+    display: flex;
+    align-items: baseline;
+}
+div.struct-block.code-block div[data-contentpath="bottom_padding"] label {
+    order: 1;
+}
+/* preview panel style */
+div.struct-block.code-block div.w-field__input>div.code-block-preview {
+    border: 1px solid var(--w-color-border-field-default);
+    border-top: 0;
+    border-radius: 0 0 .3125rem .3125rem;
+    width: 100%;
+    display: none;
+}
+div.struct-block.code-block div.w-field__input>div.code-block-preview>pre {
+    margin: 0;
+}
+div.struct-block.code-block div.w-field__input>div.code-block-preview,
+div.struct-block.code-block div.w-field__input>div.code-block-preview>pre>code {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    min-height: 64px;
+}
+/* when preview active, hide the code editor and display the preview container */
+div.struct-block.code-block div.w-field__input.preview-active>textarea {
+    display: none;
+}
+div.struct-block.code-block div.w-field__input.preview-active>div.code-block-preview {
+    display: block;
+}
+/* write/preview tab styles */
+div.struct-block.code-block div.code-block-tabs {
+    background-color: var(--w-color-surface-button-inactive);
+    border-radius: .3125rem .3125rem 0 0;
+    border: 1px solid var(--w-color-border-field-default);
+    border-bottom: 0;
+    overflow: hidden;
+}
+div.struct-block.code-block label.code-block-tab {
+    cursor: pointer;
+    display: inline-block;
+    padding: 0.8rem 1rem 0.8rem 1rem;
+    margin-bottom: -1px;
+    color: var(--w-color-text-button);
+}
+div.struct-block.code-block label.code-block-tab:hover {
+    text-decoration: underline;
+}
+div.struct-block.code-block label.code-block-tab.active {
+    background-color: var(--w-color-surface-menus);
+    border-radius: 0 1rem 0 0;
+}
+div.struct-block.code-block label.code-block-tab+label.code-block-tab.active {
+    border-top-left-radius: 1rem;
+}
+/* highlighter error styles */
+div.struct-block.code-block div.code-block-highlighter-errors {
+    color: var(--w-color-text-error);
+    font-size: .875rem;
+    font-weight: 600;
+}

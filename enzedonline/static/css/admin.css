@@ -445,7 +445,7 @@ div.link-block>div[data-contentpath="size"] select {
   width: 120px;
 }
 
-/* code block */
+/* code block
 div.blog-code-block>div[data-contentpath="title"] {
   flex-basis: calc(100% - 30rem);
 }
@@ -461,7 +461,7 @@ div.blog-code-block>div[data-contentpath="code"] {
 div.blog-code-block>div[data-contentpath="code"] textarea {
   font-family: var(--font-family-monospace);
   font-size: .8em;
-}
+} */
 
 /* callout block */
 div.callout-heading-block>div[data-contentpath="icon"] {

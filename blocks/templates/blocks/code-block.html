@@ -1,0 +1,9 @@
+<div class="code-block-container position-relative">
+    <div class="position-absolute top-0 end-0">
+        <span class="badge bg-light rounded-pill btn-code-copy"
+            onclick="copyCodeToClipboard(event, 'code-block-{{ block.id }}', {{ copy_button_text }})">
+            {{ copy_button_text.copy }}
+        </span>
+    </div>
+    <div id="code-block-{{ block.id }}">{{ self.code }}</div>
+</div>

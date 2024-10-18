@@ -1,0 +1,112 @@
+/* ==================== collapse button ==================== */
+div.highlight-code-wrapper>div.accordion>div.accordion-item>div.accordion-header>button.accordion-button {
+    font-family: var(--font-family-headings);
+    font-size: 1em;
+    min-height: 2em;
+    position: relative;
+    color: #e6db74;
+    opacity: 0.9;
+    background-color: var(--bs-dark-bg-subtle);
+    padding: 0.5rem 1rem 0.5rem 3rem;
+    box-shadow: none;
+}
+/* move animated chevron to the left */
+div.highlight-code-wrapper>div.accordion>div.accordion-item>div.accordion-header>button.accordion-button::after {
+    position: absolute;
+    left: 1rem;
+    margin-right: unset;
+}
+/* add expand prompt to the ::before pseudo-element, hidden by default */
+div.highlight-code-wrapper>div.accordion>div.accordion-item>div.accordion-header>button.accordion-button::before {
+    content: attr(data-expand-prompt);
+    position: absolute;
+    top: 50%;
+    right: 1.5rem;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-50%);
+    background-color: var(--bs-dark-bg-subtle);
+    color: var(--bs-light);
+    z-index: 1;
+    font-size: var(--font-size-6);
+    font-family: var(--font-family-headings);
+    transition-property: visibility, opacity; 
+    transition-duration: 0.4s, 0.2s; 
+    transition-timing-function: ease-in-out; 
+}
+/* if accoridon collapsed, show the expand prompt, dimmed unless hovered over */
+div.highlight-code-wrapper>div.accordion>div.accordion-item>div.accordion-header>button.accordion-button.collapsed::before {
+    visibility: visible;
+    opacity: 0.8;
+}
+div.highlight-code-wrapper>div.accordion>div.accordion-item>div.accordion-header>button.accordion-button.collapsed:hover::before {
+    opacity: 1;
+}
+div.highlight-code-wrapper>div.accordion>div.accordion-item>div.accordion-header>button.accordion-button:not(.collapsed),
+div.highlight-code-wrapper>div.accordion>div.accordion-item>div.accordion-header>button.accordion-button:hover {
+    opacity: 1;
+}
+div.highlight-code-wrapper>div.accordion>div.accordion-item>div.accordion-collapse>div.accordion-body {
+    padding: 0;
+}
+
+/* ==================== Code Block ==================== */
+/* title bar when not collapsible */
+div.code-block-title {
+    color: #e6db74;
+    font-family: var(--font-family-headings);
+    font-size: 1em;
+    background-color: var(--bs-dark-bg-subtle);
+    padding: 0.5rem 1rem;
+    border-radius: .5rem .5rem 0 0;
+}
+div.code-block-container pre {
+    background-color: rgb(28, 27, 27);
+    color: ghostwhite;
+    border-radius: 0.5rem;
+    margin: 0;
+}
+div.code-block-title+div.code-block-container pre {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+div.code-block-container pre>code {
+    font-family: var(--font-family-monospace);
+}
+
+/* ==================== Copy Code Button ==================== */
+div.code-block-container span.btn-code-copy {
+    font-family: var(--font-family-headings);
+    padding: 0.5em 1em;
+    opacity: 0;
+    margin-top: 0.2rem;
+    margin-right: 0.2rem;
+    cursor: pointer;
+    transition: all 200ms ease-in-out;
+}
+div.code-block-container:hover span.btn-code-copy {
+    opacity: .6;
+}
+div.code-block-container span.btn-code-copy:hover,
+div.code-block-container span.btn-code-copy.copied-to-clipboard {
+    opacity: 1;
+}
+
+/* ======= Code Scroll Bar ======= */
+div.code-block-container pre>code::-webkit-scrollbar {
+    width: 0.75rem;
+    height: 0.75rem;
+}
+div.code-block-container pre>code::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px darkgray;
+    border-radius: 8px;
+}
+div.code-block-container pre>code::-webkit-scrollbar-thumb {
+    background: #b9b8b8;
+    border-radius: 8px;
+    box-shadow: inset -5px -5px 8px #797979;
+}
+div.code-block-container pre>code::-webkit-scrollbar-thumb:hover {
+    background: #adb5bd;
+    box-shadow: inset -5px -5px 8px #494949;
+}

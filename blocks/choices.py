@@ -118,9 +118,9 @@ class BreakpointChoiceBlock(DefaultChoiceBlock):
 
 class CollapsibleChoiceBlock(ChoiceBlock):
     choices=[
-        ('simple', 'Not Collapsible'),
-        ('collapsible', 'Collapsible'),
-        ('collapsed', 'Collapsed'),
+        ('disabled', _('Not Collapsible')),
+        ('collapsible', _('Collapsible')),
+        ('collapsed', _('Collapsed')),
     ]    
 
 class VerticalAlignmentChoiceBlock(DefaultChoiceBlock):
