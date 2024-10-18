@@ -15,7 +15,7 @@
   {% endif %}
 </div>
 <script>
-  include_js("{% static 'js/map-block.js'%}", "js-map-block")
+  include_js("{% static 'js/map-block.js'%}")
   .then(() => {
     draw_mapblock("{{ map_settings.uid }}");
   });

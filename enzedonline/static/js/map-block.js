@@ -3,8 +3,8 @@
 // get the map block settings
 const draw_mapblock = (uid) => {
   const map_settings = JSON.parse(document.getElementById(uid).textContent);
-  include_css("https://api.tiles.mapbox.com/mapbox-gl-js/v3.2.0/mapbox-gl.css", "mapbox-gl-css");
-  include_js("https://api.tiles.mapbox.com/mapbox-gl-js/v3.2.0/mapbox-gl.js", "mapbox-gl-js")
+  include_css("https://api.tiles.mapbox.com/mapbox-gl-js/v3.2.0/mapbox-gl.css");
+  include_js("https://api.tiles.mapbox.com/mapbox-gl-js/v3.2.0/mapbox-gl.js")
     .then(() => {
       add_mapbox(map_settings);
     });
