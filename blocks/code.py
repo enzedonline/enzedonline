@@ -22,6 +22,7 @@ class CodeChoiceBlock(ChoiceBlock):
         ('markdown', 'Markdown'),
         ('nginx', 'Nginx'),
         ('sql', 'SQL'),
+        ('pgsql', 'PostGRES SQL'),
         ('r', 'R'),
         ('powershell', 'PowerShell'),
     ]
