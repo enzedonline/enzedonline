@@ -754,6 +754,11 @@ ul.errorlist.nonfield {
   max-width: 500px;
 }
 
+div.card.previous-post-link>div.page-card {
+  margin-inline-start: auto;
+  width: -webkit-fill-available;
+}
+
 .fa-icon {
   display: none;
 }
