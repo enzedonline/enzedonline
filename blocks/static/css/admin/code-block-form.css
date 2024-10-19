@@ -28,6 +28,9 @@ div.struct-block.code-block div[data-contentpath="bottom_padding"] {
 div.struct-block.code-block div[data-contentpath="bottom_padding"] label {
     order: 1;
 }
+div.struct-block.code-block div[data-contentpath="bottom_padding"] button.w-field__comment-button {
+    left: -2rem;
+}
 /* preview panel style */
 div.struct-block.code-block div.w-field__input>div.code-block-preview {
     border: 1px solid var(--w-color-border-field-default);
