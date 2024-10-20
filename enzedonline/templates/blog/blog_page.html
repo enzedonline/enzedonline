@@ -1,27 +1,17 @@
 {% extends "base.html" %}
 {% load static core_tags adv_cache wagtailcore_tags %}
 {% block extra_head %}
-  <link rel="stylesheet"
-        href="{% static 'css/flexmasonry.css' %}"
-        type="text/css">
   {% if self.blog_type == "TechBlogDetailPage" %}
-    {# Code Block CSS - only load if tech blog #}
+    {# Code Block CSS & JS - only load if tech blog #}
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11/build/styles/github-dark-dimmed.min.css">
     <link rel="stylesheet" type="text/css" href="{% static 'css/code-highlight/code-block.css' %}">
+    <script defer src="{% static 'js/code-highlight/code-block.js' %}"></script>
   {% endif %}
   {# load Article metadata #}
   {% cache None cache_name "structure" cache_date %}
   {% include "blog/detail/structured_data.html" %}
-{% endcache %}
+  {% endcache %}
 {% endblock extra_head %}
-{% block extra_scripts %}
-  <script src="{% static 'js/flexmasonry.js' %}"></script>
-  <script src="{% static 'js/flexmasonry.extra.js'%}"></script>
-  {% if self.blog_type == "TechBlogDetailPage" %}
-    {# Code Block JS - only load if tech blog #}
-    <script defer src="{% static 'js/code-highlight/code-block.js' %}"></script>
-  {% endif %}
-{% endblock extra_scripts %}
 {% block header %}
   {# Page Banner #}
   {% include "blog/detail/banner.html" %}

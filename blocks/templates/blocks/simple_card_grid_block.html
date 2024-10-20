@@ -12,7 +12,14 @@
         {% get_masonry_options self.min_col self.max_col as masonry_options %}
         {{ masonry_options|json_script:id.options }}
         <script>
-            $(document).ready(function () {initFlexMasonryBlock("{{id.grid}}", "{{id.options}}");})
+            include_css("{% static 'css/flexmasonry.css' %}");
+            Promise.all([
+                include_js("{% static 'js/flexmasonry.js' %}"), 
+                include_js("{% static 'js/flexmasonry.extra.js'%}")
+                ]).then(() => {
+                    // Both scripts have successfully loaded
+                    initFlexMasonryBlock("{{id.grid}}", "{{id.options}}");
+                })          
         </script>
     {% else %}
         <div class="row {% get_column_layout self.min_col self.max_col %} justify-content-center">
