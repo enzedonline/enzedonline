@@ -20,7 +20,7 @@ div.struct-block.code-block div[data-contentpath="code"] textarea {
     border-radius: 0 0 .3125rem .3125rem;
     border-top: 0;
 }
-/* inline check box + label */
+/* inline check box + label (comment button left of check box) */
 div.struct-block.code-block div[data-contentpath="bottom_padding"] {
     display: flex;
     align-items: baseline;
