@@ -6,7 +6,6 @@ div.highlight-code-wrapper>div.accordion>div.accordion-item>div.accordion-header
     position: relative;
     color: #e6db74;
     opacity: 0.9;
-    background-color: var(--bs-dark-bg-subtle);
     padding: 0.5rem 1rem 0.5rem 3rem;
     box-shadow: none;
 }
@@ -25,14 +24,11 @@ div.highlight-code-wrapper>div.accordion>div.accordion-item>div.accordion-header
     opacity: 0;
     visibility: hidden;
     transform: translateY(-50%);
-    background-color: var(--bs-dark-bg-subtle);
     color: var(--bs-light);
     z-index: 1;
     font-size: var(--font-size-6);
     font-family: var(--font-family-headings);
-    transition-property: visibility, opacity; 
-    transition-duration: 0.4s, 0.2s; 
-    transition-timing-function: ease-in-out; 
+    transition: opacity 0.4s ease-in-out;
 }
 /* if accoridon collapsed, show the expand prompt, dimmed unless hovered over */
 div.highlight-code-wrapper>div.accordion>div.accordion-item>div.accordion-header>button.accordion-button.collapsed::before {
@@ -58,7 +54,7 @@ div.code-block-title {
     font-size: 1em;
     background-color: var(--bs-dark-bg-subtle);
     padding: 0.5rem 1rem;
-    border-radius: .5rem .5rem 0 0;
+    border-radius: 0.5rem 0.5rem 0 0;
 }
 div.code-block-container pre {
     background-color: rgb(28, 27, 27);
@@ -82,10 +78,10 @@ div.code-block-container span.btn-code-copy {
     margin-top: 0.2rem;
     margin-right: 0.2rem;
     cursor: pointer;
-    transition: all 200ms ease-in-out;
+    transition: all 0.4s ease-in-out;
 }
 div.code-block-container:hover span.btn-code-copy {
-    opacity: .6;
+    opacity: .7;
 }
 div.code-block-container span.btn-code-copy:hover,
 div.code-block-container span.btn-code-copy.copied-to-clipboard {
