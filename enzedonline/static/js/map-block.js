@@ -3,8 +3,8 @@
 // get the map block settings
 const draw_mapblock = (uid) => {
   const map_settings = JSON.parse(document.getElementById(uid).textContent);
-  include_css("https://api.tiles.mapbox.com/mapbox-gl-js/v3.2.0/mapbox-gl.css");
-  include_js("https://api.tiles.mapbox.com/mapbox-gl-js/v3.2.0/mapbox-gl.js")
+  include_css("https://api.tiles.mapbox.com/mapbox-gl-js/v3.7.0/mapbox-gl.css");
+  include_js("https://api.tiles.mapbox.com/mapbox-gl-js/v3.7.0/mapbox-gl.js")
     .then(() => {
       add_mapbox(map_settings);
     });
@@ -179,6 +179,7 @@ const add_mapbox = (map_settings) => {
       document.getElementById(`distance-${map_settings.uid}`).innerText = (
         Math.round(data.distance / 100) / 10
       ).toFixed(1);
+      // Uncomment to include duration stats
       // document.getElementById(`hours-${map_settings.uid}`).innerText = (
       //   Math.round(data.duration / 360) / 10
       // ).toFixed(1);
