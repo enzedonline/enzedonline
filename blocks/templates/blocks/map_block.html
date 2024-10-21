@@ -9,8 +9,7 @@
   {% if self.show_route_info and self.route_type != "no-route" %}
     <div id="routesummary-{{ map_settings.uid }}"
          class="map-block-summary-container">
-      {{ trans.route_length }}: <span id="distance-{{ map_settings.uid }}"></span>{{ trans.km }},
-      {{ trans.approximate_time }} <span id="hours-{{ map_settings.uid }}"></span> {{ trans.hours }}.
+      {{ trans.route_length }}: <span id="distance-{{ map_settings.uid }}"></span>{{ trans.km }}
     </div>
   {% endif %}
 </div>

@@ -121,14 +121,12 @@ const add_mapbox = (map_settings) => {
     // add markers with Google Maps links
     map_settings.waypoints.forEach((waypoint) => {
       if (waypoint.show_pin) {
+        const waypointLabel = waypoint.pin_label ? `<b>${waypoint.pin_label}</b><br>` : '';
         const marker = new mapboxgl.Marker()
           .setLngLat([waypoint.longitude, waypoint.latitude])
           .setPopup(
             new mapboxgl.Popup().setHTML(
-              "<b>" +
-              waypoint.pin_label +
-              "</b><br>" +
-              `<a href="https://www.google.com/maps?q=${waypoint.latitude},${waypoint.longitude}" 
+              `${waypointLabel}<a href="https://www.google.com/maps?q=${waypoint.latitude},${waypoint.longitude}" 
                        target="_blank">${waypoint.latitude}, ${waypoint.longitude}</a>`
             )
           ) // add popup
@@ -181,9 +179,9 @@ const add_mapbox = (map_settings) => {
       document.getElementById(`distance-${map_settings.uid}`).innerText = (
         Math.round(data.distance / 100) / 10
       ).toFixed(1);
-      document.getElementById(`hours-${map_settings.uid}`).innerText = (
-        Math.round(data.duration / 360) / 10
-      ).toFixed(1);
+      // document.getElementById(`hours-${map_settings.uid}`).innerText = (
+      //   Math.round(data.duration / 360) / 10
+      // ).toFixed(1);
       document.getElementById(`routesummary-${map_settings.uid}`).style.display =
         "block";
     }
