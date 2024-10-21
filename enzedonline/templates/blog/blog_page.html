@@ -3,6 +3,7 @@
 {% block extra_head %}
   {% if self.blog_type == "TechBlogDetailPage" %}
     {# Code Block CSS & JS - only load if tech blog #}
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11/build/styles/github-dark-dimmed.min.css">
     <link rel="stylesheet" type="text/css" href="{% static 'css/code-highlight/code-block.css' %}">
     <script defer src="{% static 'js/code-highlight/code-block.js' %}"></script>

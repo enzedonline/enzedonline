@@ -2,6 +2,7 @@
 {% get_cache_key_settings as cache_settings %}
 {% cache None cache_settings.cache_name cache_settings.cache_head cache_settings.cache_date %}
 {# Fonts #}
+<link rel="preconnect" href="https://fonts.gstatic.com">
 <link rel="preload" href="{% static 'css/enzedonlinefonts-min.css' %}" as="style">
 <link rel="stylesheet" href="{% static 'css/enzedonlinefonts-min.css' %}" type="text/css">
 {# Global stylesheets #}
