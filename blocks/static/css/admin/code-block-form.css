@@ -30,6 +30,7 @@ div.struct-block.code-block div[data-contentpath="bottom_padding"] label {
 }
 div.struct-block.code-block div[data-contentpath="bottom_padding"] button.w-field__comment-button {
     left: -2rem;
+    width: fit-content;
 }
 /* preview panel style */
 div.struct-block.code-block div.w-field__input>div.code-block-preview {
