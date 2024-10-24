@@ -1,8 +1,6 @@
 <div class="block-container{% if self.bottom_padding %} pb-4{% endif %}" data-bs-theme="dark">
     {% if not self.collapsible %}
-        {% if self.title %}
-            <div class="code-block-title">{{ self.title }}</div>
-        {% endif %}
+        {% if self.title %}<div class="code-block-title">{{ self.title }}</div>{% endif %}
         {% include "blocks/code-block.html" %}
     {% else %}
         <div class="highlight-code-wrapper">
@@ -14,7 +12,7 @@
                                 data-bs-toggle="collapse"
                                 data-bs-target="#code-item-{{ block.id }}"
                                 data-expand-prompt="{{ expand_prompt }}"
-                                aria-expanded="{% if self.type == "collapsible" %}true{% else %}false{% endif %}"
+                                aria-expanded="{% if self.collapsible == "collapsed" %}false{% else %}true{% endif %}"
                                 aria-controls="code-item-{{ block.id }}"
                                 onclick="this.blur();">{{ self.title }}</button>
                     </div>
