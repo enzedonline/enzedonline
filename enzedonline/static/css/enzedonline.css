@@ -191,8 +191,7 @@ ul {
 }
 
 .toc-item-l2::marker {
-  content: '•';
-  letter-spacing: 0.5em;
+  content: '• ';
 }
 
 .toc-item-l2 {
@@ -202,8 +201,7 @@ ul {
 }
 
 .toc-item-l3::marker {
-  content: '◦';
-  letter-spacing: 0.5em;
+  content: '◦ ';
 }
 
 .toc-item-l3 {
@@ -214,8 +212,7 @@ ul {
 }
 
 .toc-item-l4::marker {
-  content: '▪';
-  letter-spacing: 0.5em;
+  content: '▪ ';
 }
 
 .toc-item-l4 {
@@ -226,8 +223,7 @@ ul {
 }
 
 .toc-item-l5::marker {
-  content: '−';
-  letter-spacing: 0.5em;
+  content: '− ';
 }
 
 .toc-item-l5 {
