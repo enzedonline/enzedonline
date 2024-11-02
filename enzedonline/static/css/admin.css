@@ -314,6 +314,10 @@ div[data-tippy-root] div.tippy-box {
 div.tippy-content div.w-combobox {
   width: 70vw;
 }
+div.tippy-content div.w-combobox__optgroup-label {
+  grid-column: 1 / -1;
+  margin-bottom: 0.5rem;
+}
 div.w-combobox__field>input {
   display: none;
 }
