@@ -9,16 +9,16 @@ div.public-DraftStyleDefault-block.public-DraftStyleDefault-ltr {
 }
 
 /* Custom draftail styles */
-.Draftail-block--left-align .public-DraftStyleDefault-ltr {
-    text-align: start;
+p.Draftail-block--left-align>div.public-DraftStyleDefault-block.public-DraftStyleDefault-ltr {
+    text-align: left;
 }
 
-.Draftail-block--centre-align .public-DraftStyleDefault-ltr {
+p.Draftail-block--centre-align>div.public-DraftStyleDefault-block.public-DraftStyleDefault-ltr {
     text-align: center;
 }
 
-.Draftail-block--right-align .public-DraftStyleDefault-ltr {
-    text-align: end;
+p.Draftail-block--right-align>div.public-DraftStyleDefault-block.public-DraftStyleDefault-ltr {
+    text-align: right;
 }
 
 .Draftail-block--CODE-BLOCK {
