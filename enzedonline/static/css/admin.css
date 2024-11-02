@@ -403,7 +403,7 @@ ul.listing.horiz.images>li>input[type="checkbox"] {
 }
 
 /* --------------------------------------------------------------------- */
-/* =============== All choosers =============== */
+/* ---------------------------- All choosers --------------------------- */
 /* --------------------------------------------------------------------- */
 /* move up screen */
 div.modal-content:has(.w-header) {
@@ -416,9 +416,6 @@ div.modal-content:has(.w-header) button.close.button {
 div.modal-content header.w-header>div.row {
   padding-top: 0.6rem;
 }
-/* --------------------------------------------------------------------- */
-/* =============== Image Chooser =============== */
-/* --------------------------------------------------------------------- */
 /* search/upload tabs */
 div.modal-content div.w-tabs__wrapper {
   margin-bottom: 1rem;
@@ -426,20 +423,34 @@ div.modal-content div.w-tabs__wrapper {
 div.modal-content div.w-tabs__wrapper a.w-tabs__tab {
   line-height: 1;
 }
+/* hide redundant results heading */
+div.modal-content div.listing>h2 {
+  display: none;
+}
+
+/* ---------------------------------------------------------------------- */
+/* ---------------------- Image & Document Chooser ---------------------- */
 /* search form layout */
-div.modal-content form[action="/admin/images/chooser/results/"] ul.fields {
+div.modal-content form[action="/admin/images/chooser/results/"] ul.fields,
+div.modal-content form[action="/admin/documents/chooser/results/"] ul.fields {
   display: flex;
   flex-wrap: wrap;
   column-gap: 1rem;
 }
-div.modal-content form[action="/admin/images/chooser/results/"] {
-  border-bottom: 1px var(--w-color-border-furniture) solid;
+div.modal-content form[action="/admin/images/chooser/results/"],
+div.modal-content form[action="/admin/documents/chooser/results/"] {
+  border-bottom: 1px var(--w-color-border-field-default) solid;
   padding-bottom: 0;
 }
-div.modal-content form[action="/admin/images/chooser/results/"] ul.fields div.w-field__wrapper {
+div.modal-content form[action="/admin/documents/chooser/results/"] {
+  margin-bottom: 0.5em;
+}
+div.modal-content form[action="/admin/images/chooser/results/"] ul.fields div.w-field__wrapper,
+div.modal-content form[action="/admin/documents/chooser/results/"] ul.fields div.w-field__wrapper {
   margin-bottom: 1rem;
 }
-div.modal-content form[action="/admin/images/chooser/results/"] ul.fields>li:has(div[data-contentpath="q"]) {
+div.modal-content form[action="/admin/images/chooser/results/"] ul.fields>li:has(div[data-contentpath="q"]),
+div.modal-content form[action="/admin/documents/chooser/results/"] ul.fields>li:has(div[data-contentpath="q"]) {
   flex-grow: 1;
   flex-basis: 250px;
 }
@@ -458,13 +469,15 @@ div.modal-content form[action="/admin/images/chooser/results/"] ul.fields>li.tag
   margin-top: 0;
   padding-inline-end: 2rem;
 }
-/* search results */
-div.modal-content div.listing:has(ul.images)>h2 {
-  display: none;
-}
+/* image search results */
 div.modal-content div.listing>ul.images>li {
   padding: 0.5em;
 }
+/* document search results */
+div.modal-content:has(form[action="/admin/documents/chooser/results/"]) .listing thead th {
+  font-weight: 500;
+}
+/* -------------------------------- End Choosers ------------------------------------- */
 
 /* --------------------------------------------------------------------- */
 /* Block Styles */
