@@ -1,10 +1,11 @@
 from wagtail.blocks import StreamBlock
 
-from ..models import (CallToActionCard, ImageBlock, SimpleCard,
+from ..models import (CallToActionCard, ImageBlock, SimpleCard, RichTextBlock,
                       SimpleRichTextBlock, SpacerStaticBlock)
 
 
 class SimpleStreamBlock(StreamBlock):
+    rich_text_block = RichTextBlock()
     richtext_block = SimpleRichTextBlock()
     image_block = ImageBlock()
     simple_card = SimpleCard()

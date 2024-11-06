@@ -2,7 +2,7 @@ from django.utils.translation import gettext_lazy as _
 from wagtail.blocks import CharBlock, ListBlock, StructBlock
 
 from .choices import ColourThemeChoiceBlock
-from .rich_text import SimpleRichTextBlock
+from .rich_text import SimpleRichTextBlock, RichTextBlock
 
 
 class CollapsibleCard(StructBlock):
@@ -10,8 +10,10 @@ class CollapsibleCard(StructBlock):
         label=_("Card Banner Title")
     )
     text = SimpleRichTextBlock(
-        label=" ",
+        label="OLD",
+        required=False
     )
+    rich_text = RichTextBlock(label=_("Text"))
 
 class CollapsibleCardBlock(StructBlock):
     header_colour  = ColourThemeChoiceBlock(

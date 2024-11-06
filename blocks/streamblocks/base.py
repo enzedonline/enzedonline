@@ -6,13 +6,14 @@ from ..models import (BlogCodeBlock, CalloutBlock, CallToActionCard,
                       EmptyStaticBlock, ExternalLinkEmbedBlock, FlexCard,
                       HeadingBlock, ImageBlock, ImageCarouselBlock,
                       InlineVideoBlock, Link, MapBlock, SimpleCard,
-                      SimpleCardGridBlock, SimpleImageCardGridBlock,
+                      SimpleCardGridBlock, SimpleImageCardGridBlock, RichTextBlock,
                       SimpleRichTextBlock, SocialMediaEmbedBlock,
                       SpacerStaticBlock, TableOfContentsBlock)
 
 
 class BaseStreamBlock(StreamBlock):
-    richtext_block = SimpleRichTextBlock()
+    rich_text_block = RichTextBlock()
+    richtext_block = SimpleRichTextBlock(label="OLD")
     code_block = BlogCodeBlock()
     callout_block = CalloutBlock()
     heading_block = HeadingBlock()

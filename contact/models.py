@@ -16,17 +16,15 @@ from htmlmin import minify
 from modelcluster.models import ParentalKey
 from wagtail.admin.panels import (FieldPanel, FieldRowPanel, InlinePanel,
                                   MultiFieldPanel)
-from wagtail.blocks import StreamBlock
 from wagtail.contrib.forms.models import AbstractFormField
-from wagtail.fields import RichTextField, StreamField
+from wagtail.fields import RichTextField
 from wagtail.models import TranslatableMixin
 from wagtailcaptcha.forms import WagtailCaptchaFormBuilder
 from wagtailcaptcha.models import WagtailCaptchaEmailForm
 
-from blocks.models import BasicRichTextBlock
 from core.mail.message import GmailMessage
 from core.models import SEOPage
-from site_settings.models import SocialMedia, SpamSettings
+from site_settings.models import SpamSettings
 
 
 class ContactFormBuilder(WagtailCaptchaFormBuilder):
@@ -128,11 +126,6 @@ class FormField(TranslatableMixin, CustomAbstractFormField):
         ordering = ["sort_order"]
         unique_together = ('translation_key', 'locale')
 
-
-class IntroStreamBlock(StreamBlock):
-    text = BasicRichTextBlock()
-
-
 class ContactPage(WagtailCaptchaEmailForm, SEOPage):
     form_builder = ContactFormBuilder
     recaptcha_attrs = {
@@ -149,7 +142,10 @@ class ContactPage(WagtailCaptchaEmailForm, SEOPage):
         fb = self.form_builder(self.get_form_fields(), **attrs)
         return fb.get_form_class()
 
-    intro_text = StreamField(IntroStreamBlock(), use_json_field=True)
+    introduction = RichTextField(
+        editor='basic',
+        verbose_name=_("Introduction")
+    )
     intro_image = models.ForeignKey(
         'wagtailimages.Image',
         blank=True,
@@ -248,7 +244,7 @@ class ContactPage(WagtailCaptchaEmailForm, SEOPage):
     )
 
     content_panels = SEOPage.content_panels + [
-        FieldPanel('intro_text'),
+        FieldPanel('introduction'),
         FieldPanel('intro_image'),
         FieldPanel("privacy_notice"),
         InlinePanel("form_fields", label="Form Fields"),

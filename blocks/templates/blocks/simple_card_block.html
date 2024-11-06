@@ -2,6 +2,6 @@
 {% padding self.border self.background as pad %}
 <div class="block-container">
   <div class="card {{ self.background }}{% if not self.border %} border-0{% endif %} p-{{ pad }} py-1 mb-3{% if full_height %} h-100{% endif %}">
-    <div class="card-body p-1 lh-sm">{% include_block self.text %}</div>
+    <div class="card-body p-1 pt-2 lh-sm">{% include_block self.rich_text %}{% include_block self.text %}</div>
   </div>
 </div>

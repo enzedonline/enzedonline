@@ -15,9 +15,7 @@
         <hr>
         {# Intro text stream block #}
         <div class="pb-1 pb-md-3 pt-md-1">
-          {% for block in page.intro_text %}
-            {% include_block block %}
-          {% endfor %}
+          {{ page.introduction|richtext }}
         </div>
         {# Optional image only visible md & above, <hr> for widths below this only #}
         {% if self.intro_image %}
