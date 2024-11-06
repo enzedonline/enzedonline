@@ -20,7 +20,7 @@ class RichTextStructBlock(StructBlock):
 
     class Meta:
         template = 'blocks/simple_richtext_block.html'
-        label = _("Rich Text Block")
+        label = _("OLD")
         label_format = "RTB: {content}"
         icon = 'pilcrow'
         abstract = True
