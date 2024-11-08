@@ -2,7 +2,7 @@ from django.utils.translation import gettext_lazy as _
 from wagtail.blocks import CharBlock, ChoiceBlock, StreamBlock, StructBlock
 
 from .code import BlogCodeBlock
-from .rich_text import SimpleRichTextBlock, RichTextBlock
+from .rich_text import RichTextBlock
 
 
 class CalloutHeadingStructBlock(StructBlock):
@@ -24,7 +24,6 @@ class CalloutHeadingStructBlock(StructBlock):
 
 class CalloutStreamBlock(StreamBlock):
     rich_text = RichTextBlock()
-    text = SimpleRichTextBlock(label="OLD")
     code = BlogCodeBlock()
 
 class CalloutBlock(StructBlock):

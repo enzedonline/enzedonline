@@ -3,6 +3,6 @@
 {% if layout.image_style %}<script>document.styleSheets[0].insertRule("{{ layout.image_style }}")</script>{% endif %}
 <div class="{% card_layout self %} size-{{ block.id }} mx-auto">
     {% include "blocks/flex/image.html" %}
-    <div class="pt-3 px-1 text-break">{% include_block self.rich_text %}{% include_block self.text %}</div>
+    <div class="pt-3 px-1 text-break">{% include_block self.rich_text %}</div>
     {% include "blocks/flex/button.html" %}
 </div>

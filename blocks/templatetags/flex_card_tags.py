@@ -14,7 +14,7 @@ def card_layout(value):
     if value['background'].find('bg-transparent') != -1 and not value['border']:
         padding = 'p-0'
     else:
-        padding = f"p-4{'' if value['format'] == 'vertical' else ' pt-0'}"
+        padding = f"p-4 pb-3{'' if value['format'] == 'vertical' else ' pt-0'}"
     border = f"rounded-3 border{'' if value['border'] else '-0'}"
     return f"{value['background']} {padding} h-100 {border}"
 

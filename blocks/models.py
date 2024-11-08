@@ -13,7 +13,6 @@ from .image import ImageBlock, SEOImageChooserBlock
 from .link import Link
 from .map import MapBlock, MapWaypointBlock
 from .raw_html import DjangoTemplateFragmentBlock, SocialMediaEmbedBlock
-from .rich_text import (RichTextBlock, BasicRichTextBlock, MinimalRichTextBlock,
-                        SimpleRichTextBlock)
+from .rich_text import RichTextBlock
 from .toc import TableOfContentsBlock
 from .video import InlineVideoBlock

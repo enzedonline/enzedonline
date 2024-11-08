@@ -5,15 +5,14 @@ from ..models import (BlogCodeBlock, CalloutBlock, CallToActionCard,
                       DjangoTemplateFragmentBlock, DocumentBlock,
                       EmptyStaticBlock, ExternalLinkEmbedBlock, FlexCard,
                       HeadingBlock, ImageBlock, ImageCarouselBlock,
-                      InlineVideoBlock, Link, MapBlock, SimpleCard,
-                      SimpleCardGridBlock, SimpleImageCardGridBlock, RichTextBlock,
-                      SimpleRichTextBlock, SocialMediaEmbedBlock,
+                      InlineVideoBlock, Link, MapBlock, RichTextBlock,
+                      SimpleCard, SimpleCardGridBlock,
+                      SimpleImageCardGridBlock, SocialMediaEmbedBlock,
                       SpacerStaticBlock, TableOfContentsBlock)
 
 
 class BaseStreamBlock(StreamBlock):
     rich_text_block = RichTextBlock()
-    richtext_block = SimpleRichTextBlock(label="OLD")
     code_block = BlogCodeBlock()
     callout_block = CalloutBlock()
     heading_block = HeadingBlock()

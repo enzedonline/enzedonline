@@ -8,7 +8,7 @@ from .choices import (BreakpointChoiceBlock, ChoiceBlock,
                       ColourThemeChoiceBlock, FlexCardLayoutChoiceBlock)
 from .link import Link
 from .image import SEOImageChooserBlock
-from .rich_text import SimpleRichTextBlock, RichTextBlock
+from .rich_text import RichTextBlock
 
 class SimpleCard(StructBlock):
     background = ColourThemeChoiceBlock(
@@ -19,9 +19,6 @@ class SimpleCard(StructBlock):
         default=True,
         required=False,
         label=_("Border"),
-    )
-    text = SimpleRichTextBlock(
-        label=" ",
     )
     rich_text = RichTextBlock(label=_("Text"))
 
@@ -50,10 +47,6 @@ class FlexCard(StructBlock):
         default=True,
         required=False,
         label=_("Border"),
-    )
-    text = SimpleRichTextBlock(
-        label="OLD",
-        required=False
     )
     rich_text = RichTextBlock(label=_("Text"))
     image = SEOImageChooserBlock(

@@ -319,6 +319,10 @@ div.collapsible-card-block p.accordion-header {
   margin-bottom: 0;
 }
 
+div.collapsible-card-block div.accordion-body {
+  padding-bottom: 0.25rem;
+}
+
 div.collapsible-card-block div.accordion-body div.block-container {
   padding: 0;
   margin: 0;
