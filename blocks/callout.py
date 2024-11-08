@@ -12,7 +12,8 @@ class CalloutHeadingStructBlock(StructBlock):
         choices=[
             ('fa-solid fa-triangle-exclamation fa-xl', '⚠ Attention'),
             ('fa-regular fa-pen-to-square fa-xl', '⏍ Note'),
-            ('fa-solid fa-circle-info fa-xl', '🛈 Info')
+            ('fa-solid fa-circle-info fa-xl', '🛈 Info'),
+            ('fa-regular fa-lightbulb', '💡 Lightbulb')
         ],
     )
     text = CharBlock(label=_("Heading Text"), required=False)
