@@ -84,6 +84,25 @@ class Tokens(BaseGenericSetting):
         blank=True,
         verbose_name=_("Gmail Service Account Details")
     )
+
+@register_setting(icon='user')
+class DefaultUserIcon(BaseGenericSetting):
+    menu_icon = models.ForeignKey(
+        "wagtailimages.Image",
+        null=True,
+        blank=False,
+        related_name="+",
+        on_delete=models.SET_NULL,
+        verbose_name=_("Menu Icon"),
+    )        
+    comments_icon = models.ForeignKey(
+        "wagtailimages.Image",
+        null=True,
+        blank=False,
+        related_name="+",
+        on_delete=models.SET_NULL,
+        verbose_name=_("Comments Icon"),
+    )        
     
 ###------------------------------------------------------------
 ### Snippets used as site settings 
