@@ -461,6 +461,23 @@ div.collapsible-card-block div.accordion-body div.block-container {
   margin-bottom: 8px;
 }
 
+div.comments-icon {
+  width: 74px;
+}
+
+div.comments-icon>img {
+  width: auto;
+  height: 50px;
+  border-radius: 8px;
+}
+div.comments-icon>svg {
+  width: 50px;
+  height: 50px;
+}
+div.comments-icon>svg.deleted-user {
+  color: var(--bs-secondary);
+}
+
 .filter-label,
 .category-link {
   font-size: var(--font-size-5);
