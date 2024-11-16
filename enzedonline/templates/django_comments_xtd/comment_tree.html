@@ -5,11 +5,11 @@
     {% if not item.comment.is_removed %}
         <div class="card bg-light border-0 pt-1 mb-1">
             <div class="row">
-                <div class="col-auto ms-3 mt-2 w-5" id="c{{ item.comment.id }}">
+                <div class="col-auto ms-3 mt-2 w-5 comments-icon" id="c{{ item.comment.id }}">
                     {% if item.comment.user.display_name %}
-                        <span class="text-primary text-center"><i class="fas fa-user fa-4x"></i></span>
+                        <img src="{{ item.comment.user.comments_icon }}">
                     {% else %}
-                        <span class="text-secondary text-center"><i class="far fa-user fa-4x"></i></span>
+                        <svg class="deleted-user"><use href="#icon-user-logged-out" /></svg>
                     {% endif %}
                 </div>
                 <div class="col text-start me-3 ps-2 pt-1">
