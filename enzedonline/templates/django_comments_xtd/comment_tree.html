@@ -1,6 +1,12 @@
 {% load l10n comments comments_xtd core_tags %}
 {% get_template_set "comments" as trans %}
-
+<div style="display: none;">
+    <svg viewBox="0 0 24 24" fill="none" id="icon-deleted-user">
+        <path
+            d="M15 16L20 21M20 16L15 21M11 14C7.13401 14 4 17.134 4 21H11M15 7C15 9.20914 13.2091 11 11 11C8.79086 11 7 9.20914 7 7C7 4.79086 8.79086 3 11 3C13.2091 3 15 4.79086 15 7Z"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+    </svg>
+</div>
 {% for item in comments %}
     {% if not item.comment.is_removed %}
         <div class="card bg-light border-0 pt-1 mb-1">
@@ -9,7 +15,7 @@
                     {% if item.comment.user.display_name %}
                         <img src="{{ item.comment.user.comments_icon }}">
                     {% else %}
-                        <svg class="deleted-user"><use href="#icon-user-logged-out" /></svg>
+                        <svg class="deleted-user"><use href="#icon-deleted-user" /></svg>
                     {% endif %}
                 </div>
                 <div class="col text-start me-3 ps-2 pt-1">
