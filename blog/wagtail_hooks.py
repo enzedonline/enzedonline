@@ -5,24 +5,25 @@ from wagtail import hooks
 
 from .models import BlogDetailPage
 
-
 def purge_unused_tags():
     unused_tags = Tag.objects.annotate(
-        ntech=Count('blog_techblogpagetag_items')
-    ).annotate(
+        ntech=Count('blog_techblogpagetag_items'),
         npersonal=Count('blog_personalblogpagetag_items')
-    ).filter(ntech=0).filter(npersonal=0).values('id')
+    ).filter(
+        ntech=0, npersonal=0
+    ).values('id')
     
     if unused_tags:
         unused_tag_ids = {tag['id'] for tag in unused_tags}    
-        draft_tags=set({})
+        draft_tags=set()
         pages_with_drafts=BlogDetailPage.objects.filter(has_unpublished_changes=True)
         for page in pages_with_drafts:
             draft=page.get_latest_revision_as_object()
-            tag_ids = draft.tags.values('id')
-            draft_tags|= {tag['id'] for tag in tag_ids}
+            tag_ids = draft.tags.values('id', flat=True)
+            draft_tags |= set(tag_ids)
         unused_tag_ids = unused_tag_ids.difference(draft_tags)
-        Tag.objects.filter(id__in=unused_tag_ids).delete()
+        if unused_tag_ids:
+            Tag.objects.filter(id__in=unused_tag_ids).delete()
 
 @hooks.register('after_delete_page')
 @hooks.register('after_publish_page')
