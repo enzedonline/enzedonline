@@ -3,8 +3,8 @@
 // get the map block settings
 const draw_mapblock = (uid) => {
   const map_settings = JSON.parse(document.getElementById(uid).textContent);
-  include_css("https://api.tiles.mapbox.com/mapbox-gl-js/v3.7.0/mapbox-gl.css");
-  include_js("https://api.tiles.mapbox.com/mapbox-gl-js/v3.7.0/mapbox-gl.js")
+  include_css("https://api.tiles.mapbox.com/mapbox-gl-js/v3.8.0/mapbox-gl.css");
+  include_js("https://api.tiles.mapbox.com/mapbox-gl-js/v3.8.0/mapbox-gl.js")
     .then(() => {
       add_mapbox(map_settings);
     });
@@ -29,7 +29,7 @@ const add_mapbox = (map_settings) => {
   mapboxgl.accessToken = map_settings.token;
   const map = new mapboxgl.Map({
     container: `map-${map_settings.uid}`,
-    style: "mapbox://styles/mapbox/outdoors-v12",
+    style: "mapbox://styles/enzedonline/cm3p7jht3000101sqewzvhf3s",
   });
   map.addControl(new mapboxgl.NavigationControl());
   map.addControl(new mapboxgl.ScaleControl({ position: "bottom-right" }));
@@ -55,6 +55,18 @@ const add_mapbox = (map_settings) => {
       },
     }
   );
+
+  // enable 3D projection with 1.2x vertical exaggeration
+  map.on('style.load', () => {
+    map.addSource('mapbox-dem', {
+        'type': 'raster-dem',
+        'url': 'mapbox://mapbox.mapbox-terrain-dem-v1',
+        'tileSize': 512,
+        'maxzoom': 14
+    });
+    // add the DEM source as a terrain layer with exaggerated height
+    map.setTerrain({ 'source': 'mapbox-dem', 'exaggeration': 1.2 });
+  });
 
   // add layers and markers after base map loads
   map.on("load", () => {
