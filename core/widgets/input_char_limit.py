@@ -4,10 +4,11 @@ from django.template.loader import render_to_string
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 from wagtail.admin.widgets import AdminAutoHeightTextInput
+from typing import Optional
 
 
 class CharLimitMixin:
-    def __init__(self, min: int = 0, max: int or None = None, enforced: bool = False, *args, **kwargs):
+    def __init__(self, min: int = 0, max: Optional[int] = None, enforced: bool = False, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.minimum = min
         self.maximum = max
