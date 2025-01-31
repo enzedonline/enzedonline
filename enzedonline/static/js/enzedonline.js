@@ -108,7 +108,6 @@ const include_js = (src, options={}) => {
       if (options.integrity) script_tag.integrity = options.integrity;
       if (options.crossorigin) script_tag.crossOrigin = options.crossorigin;
       if (options.defer) script_tag.defer = true;
-      if (options.async) script_tag.async = true;
       script_tag.onload = () => {
         script_tag.dataset.scriptLoaded = true; // Set attribute once loaded
         resolve();
