@@ -97,13 +97,13 @@ const loadMathJax = () => {
 };
 
 // include js script only if not already included
-const include_js = (js, options={}) => {
+const include_js = (src, options={}) => {
   return new Promise((resolve, reject) => {
-    let script_tag = document.querySelector(`script[src="${js}"]`);
+    let script_tag = document.querySelector(`script[src="${src}"]`);
     if (!script_tag) {
       const head = document.head || document.getElementsByTagName('head')[0];
       script_tag = document.createElement('script');
-      script_tag.src = js;
+      script_tag.src = src;
       script_tag.type = options.type || 'text/javascript';
       if (options.integrity) script_tag.integrity = options.integrity;
       if (options.crossorigin) script_tag.crossOrigin = options.crossorigin;
@@ -114,8 +114,8 @@ const include_js = (js, options={}) => {
         resolve();
       };
       script_tag.onerror = () => {
-        console.error(`Failed to load script: ${js}`);
-        reject(new Error(`Script load error: ${js}`));
+        console.error(`Failed to load script: ${src}`);
+        reject(new Error(`Script load error: ${src}`));
       };
       head.appendChild(script_tag);
     } else {
@@ -132,21 +132,21 @@ const include_js = (js, options={}) => {
 };
 
 // include css only if not already included
-const include_css = (css, options = {}) => {
-  let link_tag = document.querySelector(`link[href="${css}"]`);
+const include_css = (href, options = {}) => {
+  let link_tag = document.querySelector(`link[href="${href}"]`);
   if (!link_tag) {
     try {
       const head = document.head || document.getElementsByTagName('head')[0];
       link_tag = document.createElement('link');
       link_tag.rel = 'stylesheet';
-      link_tag.href = css;
+      link_tag.href = href;
       link_tag.type = options.type || "text/css";
       if (options.media) link_tag.media = options.media;
       if (options.integrity) link_tag.integrity = options.integrity;
       if (options.crossorigin) link_tag.crossOrigin = options.crossorigin; 
       head.appendChild(link_tag);
     } catch (error) {
-      console.error(`Failed to load ${css}:`, error);
+      console.error(`Failed to load ${href}:`, error);
     }
   }
 };
