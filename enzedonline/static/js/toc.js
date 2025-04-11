@@ -94,41 +94,54 @@ export const tableOfContents = (
   toc.appendChild(nav);
 };
 
-const convertExtendedAscii = (str) => {
-  // replace any extended-latin characters with standard ASCII letters
-  const characterMap = {
-    'À': 'A', 'Á': 'A', 'Â': 'A', 'Ã': 'A', 'Ä': 'A', 'Å': 'A', 'Æ': 'AE', 'Ç': 'C', 'È': 'E', 'É': 'E', 'Ê': 'E', 'Ë': 'E',
-    'Ì': 'I', 'Í': 'I', 'Î': 'I', 'Ï': 'I', 'Ð': 'D', 'Ñ': 'N', 'Ò': 'O', 'Ó': 'O', 'Ô': 'O', 'Õ': 'O', 'Ö': 'O', 'Ø': 'O',
-    'Ù': 'U', 'Ú': 'U', 'Û': 'U', 'Ü': 'U', 'Ý': 'Y', 'Þ': 'TH', 'ß': 'ss', 'à': 'a', 'á': 'a', 'â': 'a', 'ã': 'a', 'ä': 'a',
-    'å': 'a', 'æ': 'ae', 'ç': 'c', 'è': 'e', 'é': 'e', 'ê': 'e', 'ë': 'e', 'ì': 'i', 'í': 'i', 'î': 'i', 'ï': 'i', 'ð': 'd',
-    'ñ': 'n', 'ò': 'o', 'ó': 'o', 'ô': 'o', 'õ': 'o', 'ö': 'o', 'ø': 'o', 'ù': 'u', 'ú': 'u', 'û': 'u', 'ü': 'u', 'ý': 'y',
-    'þ': 'th', 'ÿ': 'y', 'Ā': 'A', 'ā': 'a', 'Ă': 'A', 'ă': 'a', 'Ą': 'A', 'ą': 'a', 'Ć': 'C', 'ć': 'c', 'Ĉ': 'C', 'ĉ': 'c',
-    'Ċ': 'C', 'ċ': 'c', 'Č': 'C', 'č': 'c', 'Ď': 'D', 'ď': 'd', 'Đ': 'D', 'đ': 'd', 'Ē': 'E', 'ē': 'e', 'Ĕ': 'E', 'ĕ': 'e',
-    'Ė': 'E', 'ė': 'e', 'Ę': 'E', 'ę': 'e', 'Ě': 'E', 'ě': 'e', 'Ĝ': 'G', 'ĝ': 'g', 'Ğ': 'G', 'ğ': 'g', 'Ġ': 'G', 'ġ': 'g',
-    'Ģ': 'G', 'ģ': 'g', 'Ĥ': 'H', 'ĥ': 'h', 'Ħ': 'H', 'ħ': 'h', 'Ĩ': 'I', 'ĩ': 'i', 'Ī': 'I', 'ī': 'i', 'Ĭ': 'I', 'ĭ': 'i',
-    'Į': 'I', 'į': 'i', 'İ': 'I', 'ı': 'i', 'Ĳ': 'IJ', 'ĳ': 'ij', 'Ĵ': 'J', 'ĵ': 'j', 'Ķ': 'K', 'ķ': 'k', 'ĸ': 'k', 'Ĺ': 'L',
-    'ĺ': 'l', 'Ļ': 'L', 'ļ': 'l', 'Ľ': 'L', 'ľ': 'l', 'Ŀ': 'L', 'ŀ': 'l', 'Ł': 'L', 'ł': 'l', 'Ń': 'N', 'ń': 'n', 'Ņ': 'N',
-    'ņ': 'n', 'Ň': 'N', 'ň': 'n', 'ŉ': 'n', 'Ō': 'O', 'ō': 'o', 'Ŏ': 'O', 'ŏ': 'o', 'Ő': 'O', 'ő': 'o', 'Œ': 'OE', 'œ': 'oe',
-    'Ŕ': 'R', 'ŕ': 'r', 'Ŗ': 'R', 'ŗ': 'r', 'Ř': 'R', 'ř': 'r', 'Ś': 'S', 'ś': 's', 'Ŝ': 'S', 'ŝ': 's', 'Ş': 'S', 'ş': 's',
-    'Š': 'S', 'š': 's', 'Ţ': 'T', 'ţ': 't', 'Ť': 'T', 'ť': 't', 'Ŧ': 'T', 'ŧ': 't', 'Ũ': 'U', 'ũ': 'u', 'Ū': 'U', 'ū': 'u',
-    'Ŭ': 'U', 'ŭ': 'u', 'Ů': 'U', 'ů': 'u', 'Ű': 'U', 'ű': 'u', 'Ų': 'U', 'ų': 'u', 'Ŵ': 'W', 'ŵ': 'w', 'Ŷ': 'Y', 'ŷ': 'y',
-    'Ÿ': 'Y', 'Ź': 'Z', 'ź': 'z', 'Ż': 'Z', 'ż': 'z', 'Ž': 'Z', 'ž': 'z', 'ſ': 's', 'ƒ': 'f', 'Ơ': 'O', 'ơ': 'o', 'Ư': 'U',
-    'ư': 'u', 'Ǎ': 'A', 'ǎ': 'a', 'Ǐ': 'I', 'ǐ': 'i', 'Ǒ': 'O', 'ǒ': 'o', 'Ǔ': 'U', 'ǔ': 'u', 'Ǖ': 'U', 'ǖ': 'u', 'Ǘ': 'U',
-    'ǘ': 'u', 'Ǚ': 'U', 'ǚ': 'u', 'Ǜ': 'U', 'ǜ': 'u', 'Ǻ': 'A', 'ǻ': 'a', 'Ǽ': 'AE', 'ǽ': 'ae', 'Ǿ': 'O', 'ǿ': 'o'
-  };
+// --------- slugify function --------- //
 
-  return str.replace(/[^\u0000-\u007E]/g, (a) => {
-    return characterMap[a] || '';
-  });
+const INVALID_CHARS_REGEX = /[^a-z0-9 -]/g;
+const WHITESPACE_REGEX = /\s+/g;
+const MULTI_DASH_REGEX = /-+/g;
+
+const DIACRITICS_REGEX = /[\u0300-\u036f]/g;
+const specialCharsMap = {
+    'ß': 'ss',
+    'Æ': 'AE',
+    'æ': 'ae',
+    'Œ': 'OE',
+    'œ': 'oe',
+    'ø': 'o',
+    'Ø': 'O'
 };
 
-const slugify = (str) => {
-  str = str.replace(/^\s+|\s+$/g, ''); // remove leading and trailing whitespace
-  str = convertExtendedAscii(str);     // replace any extended-latin characters with standard ASCII letters
-  str = str.toLowerCase()              // convert to lower case
-    .replace(/[^a-z0-9 -]/g, '')       // Remove invalid chars
-    .replace(/\s+/g, '-')              // Collapse whitespace and replace with dash -
-    .replace(/-+/g, '-');              // Collapse duplicate dashes
+const specialCharsRegex = new RegExp(
+    `[${Object.keys(specialCharsMap).join('')}]`,
+    'g'
+);
 
-  return str;
+const convertExtendedLatin = (str) => {
+    // replace any extended-latin characters with standard ASCII letters
+    // any non-matching letters are dropped from the returned string
+    return str
+        .replace(specialCharsRegex, ch => specialCharsMap[ch] || '')
+        .normalize("NFD")
+        .replace(DIACRITICS_REGEX, ""); // remove diacritics;
 };
+
+/**
+ * Converts a given string into a URL-friendly "slug".
+ * 
+ * The function performs the following transformations:
+ * 1. Removes leading and trailing whitespace.
+ * 2. Replaces extended Latin characters with standard ASCII letters.
+ * 3. Converts the string to lowercase.
+ * 4. Removes invalid characters (anything other than letters, numbers, spaces, and dashes).
+ * 5. Replaces spaces with dashes.
+ * 6. Collapses multiple consecutive dashes into a single dash.
+ * 
+ * @param {string} str - The input string to be slugified.
+ * @returns {string} - The slugified version of the input string.
+ */
+export const slugify = (str) =>
+    convertExtendedLatin(str.trim())
+        .toLowerCase()
+        .replace(INVALID_CHARS_REGEX, '') // remove invalid characters
+        .replace(WHITESPACE_REGEX, '-')   // replace spaces with dashes
+        .replace(MULTI_DASH_REGEX, '-');  // collapse multiple dashes into a single dash
