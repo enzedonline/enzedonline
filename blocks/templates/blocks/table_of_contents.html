@@ -3,6 +3,8 @@
 {{ "autoToC"|json_script:"tocElement" }}
 {{ "main"|json_script:"scopeElement" }}
 {{ value.levels |json_script:"levels" }}
-{{ value.toc_title |json_script:"tocTitle" }}
-
-<script src="{% static 'js/toc-min.js'%}"></script>
+{{ value.toc_title|json_script:"tocTitle" }}
+<script type="module">
+    import { tocBlock } from "{% static 'js/toc-block.js' %}";
+    tocBlock();
+</script>

@@ -1,4 +1,4 @@
-const listContents = (
+export const tableOfContents = (
   tocElement,
   scopeElement = "body",
   levels = 3,
@@ -52,7 +52,7 @@ const listContents = (
   const nav = document.createElement("NAV");
   const list = document.createElement("UL");
   list.classList.add("toc", "toc-list");
-  list.setAttribute("role", "list");
+  list.setAttribute("role", "tree");
 
   // add ToC list to nav, add css classes
   // loop through headings in order of position on page
@@ -69,6 +69,8 @@ const listContents = (
     // create element to hold link, add css including level specific css class
     const contentsItem = document.createElement("LI");
     contentsItem.classList.add(`toc`, `toc-item-l${level}`);
+    contentsItem.setAttribute("role", "treeitem");
+    contentsItem.setAttribute("aria-level", level);
 
     // create link to point to ID of heading
     const link = document.createElement("A");
@@ -130,11 +132,3 @@ const slugify = (str) => {
 
   return str;
 };
-
-document.addEventListener("DOMContentLoaded", () => {
-  const tocElement = JSON.parse(document.getElementById("tocElement").textContent);
-  const scopeElement = JSON.parse(document.getElementById("scopeElement").textContent);
-  const levels = JSON.parse(document.getElementById("levels").textContent);
-  const tocTitle = JSON.parse(document.getElementById("tocTitle").textContent);
-  listContents(tocElement, scopeElement, levels, tocTitle);
-});
