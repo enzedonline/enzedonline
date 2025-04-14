@@ -112,6 +112,9 @@ def isfloat(element: str) -> bool:
         return False
 
 
+PUNCTUATION = "!\"#$%&'()*+,-:;<=>?@[\\]^_`{|}~“”‘’–«»‹›¿¡"
+TRANSLATION_TABLE = str.maketrans("", "", PUNCTUATION)
+
 def get_streamfield_text(
     streamfield,
     strip_newlines=True,
@@ -119,6 +122,19 @@ def get_streamfield_text(
     lowercase=False,
     strip_tags=["style", "script"],
 ):
+    """
+    Extracts and processes text from a StreamField.
+
+    Args:
+        streamfield: The StreamField to extract text from.
+        strip_newlines (bool): Whether to strip newlines from the text. Default is True.
+        strip_punctuation (bool): Whether to strip punctuation from the text. Default is True.
+        lowercase (bool): Whether to convert the text to lowercase. Default is False.
+        strip_tags (list): List of HTML tags to strip from the text. Default is ["style", "script"].
+
+    Returns:
+        str: The processed text extracted from the StreamField.
+    """
 
     html = streamfield.render_as_block()
     soup = BeautifulSoup(unescape(html), "html.parser")
@@ -141,17 +157,15 @@ def get_streamfield_text(
     inner_text = re.sub(r"\bfa-[^ ]*", "", inner_text)
 
     if strip_newlines:
+        # Replace multiple newlines followed by any character with a single space
         inner_text = re.sub(r"([\n]+.?)+", " ", inner_text)
 
     if strip_punctuation:
-        import string
-
-        punctuation = "!\"#$%&'()*+,-:;<=>?@[\\]^_`{|}~“”‘’–«»‹›¿¡"
         # replace xx/yy with xx yy
         inner_text = re.sub(r"(?<=\S)/(?=\S)", " ", inner_text)
         # strip full stops, leave decimal points and point separators
         inner_text = re.sub(r"\.(?=\s)", "", inner_text)
-        inner_text = inner_text.translate(str.maketrans("", "", punctuation))
+        inner_text = inner_text.translate(TRANSLATION_TABLE)
 
     if lowercase:
         inner_text = inner_text.lower()
@@ -163,13 +177,23 @@ def get_streamfield_text(
 
 
 def count_words(text):
+    """
+    Count the number of words in a given text.
+
+    Args:
+        text (str): The text to count words in.
+
+    Returns:
+        int: The number of words in the text, or -1 if an error occurs.
+    """
     try:
+        if not text: return 0
         word_break_chars = "[\n|\r|\t|\f| ]"
         ignore_words = ["", "-", "−", "–", "/"]
         return len(
             [x for x in re.split(word_break_chars, text) if not x in ignore_words]
         )
-    except:
+    except Exception:
         return -1
 
 
