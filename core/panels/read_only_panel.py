@@ -5,16 +5,15 @@ from django.db import models
 import datetime
 
 class ReadOnlyPanel(Panel):
-    
-    """ ReadOnlyPanel EditHandler Class
+    """ ReadOnlyPanel: a panel that displays a field in a read-only format.
         Usage:
         fieldname:          name of field to display
         style:              optional, any valid style string
         add_hidden_input:   optional, add a hidden input field to allow retrieving data in form_clean (self.data['field'])
         If the field name is invalid, or an error is received getting the value, empty string is returned.
-        """
+    """
     def __init__(self, fieldname, style=None, add_hidden_input=False, *args, **kwargs):
-        # error if fieldname is not string
+        # if fieldname is not string, try to convert it to string
         if type(fieldname)=='str':
             self.fieldname = fieldname
         else:
@@ -35,9 +34,7 @@ class ReadOnlyPanel(Panel):
             add_hidden_input=self.add_hidden_input,
         )
 
-
     class BoundPanel(Panel.BoundPanel):
-
         def get_value(self):
             # try to get the value of field, return empty string if failed
             try:
