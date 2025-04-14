@@ -1,8 +1,6 @@
-import requests
 from allauth.account.forms import LoginForm as BaseLoginForm
 from allauth.account.forms import SignupForm as BaseSignupForm
 from django import forms
-from django.conf import settings
 from django.forms import ModelForm
 from django.utils.translation import gettext_lazy as _
 from django_countries.fields import CountryField

@@ -1,7 +1,4 @@
-from allauth.account.views import (LoginView, PasswordChangeView, PasswordSetView,
-                                   SignupView)
-from django import forms
-from django.conf import settings
+from allauth.account.views import PasswordChangeView, PasswordSetView
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
