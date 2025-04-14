@@ -1,5 +1,6 @@
 {% load wagtailcore_tags wagtailimages_tags menu_tags %}
 {% get_autofill_pages as links %}
+{% if links %}
 <li class="dropdown-item drop{{ self.open_direction }} submenu">
     <a role="button"
        title="{{ self.title }}"
@@ -16,3 +17,4 @@
         {% include "menu/autolink_block.html" %}
     </ul>
 </li>
+{% endif %}
