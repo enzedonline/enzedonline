@@ -4,6 +4,11 @@ from taggit.models import Tag
 from wagtail import hooks
 
 from .models import BlogDetailPage
+from .viewsets import blog_page_listing_viewset
+
+@hooks.register("register_admin_viewset")
+def register_blog_page_listing_viewset():
+    return blog_page_listing_viewset
 
 def purge_unused_tags():
     unused_tags = Tag.objects.annotate(
@@ -19,7 +24,7 @@ def purge_unused_tags():
         pages_with_drafts=BlogDetailPage.objects.filter(has_unpublished_changes=True)
         for page in pages_with_drafts:
             draft=page.get_latest_revision_as_object()
-            tag_ids = draft.tags.values('id', flat=True)
+            tag_ids = [tag.id for tag in draft.tags.all()]
             draft_tags |= set(tag_ids)
         unused_tag_ids = unused_tag_ids.difference(draft_tags)
         if unused_tag_ids:
