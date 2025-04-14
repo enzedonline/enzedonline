@@ -1,4 +1,5 @@
 from django import template
+from django.db.models import Q
 from django.utils.safestring import mark_safe
 
 from core.utils import strip_svg_markup
@@ -52,15 +53,15 @@ def get_autofill_pages(context):
         else:
             links.append(parent_page)
     
-    # return only public pages if user not authenticated
-    if authenticated:
-        children = parent_page.get_children().live().order_by(autofill_block['order_by'])
-    else:
-        children = parent_page.get_children().live().public().order_by(autofill_block['order_by'])
-
+    query = Q(live=True)
     # filter by 'Show in Menus' if selected
     if autofill_block['only_show_in_menus']:
-        children = children.filter(show_in_menus=True)
+        query &= Q(show_in_menus=True)
+    # return only public pages if user not authenticated
+    if authenticated:
+        children = parent_page.get_children().filter(query).order_by(autofill_block['order_by'])
+    else:
+        children = parent_page.get_children().public().filter(query).order_by(autofill_block['order_by'])
 
     for child in children[:autofill_block['max_items']]:
         if child.url == getattr(context.get('request', None), 'path', None):
@@ -82,7 +83,7 @@ def render_user_info(context, msg):
 
 @register.simple_tag()
 @mark_safe
-def menu_icon(image, redition_token='fill-25x25|format-png'):
+def menu_icon(image, rendition_token='fill-25x25|format-png'):
     if image:
         if image.is_svg():
             svg_file = image.file.file
@@ -91,7 +92,7 @@ def menu_icon(image, redition_token='fill-25x25|format-png'):
             svg_file.close()
             return strip_svg_markup(svg)
         else:
-            r = image.get_rendition(redition_token)
+            r = image.get_rendition(rendition_token)
             return r.img_tag()
     return ''
 
