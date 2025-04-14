@@ -1,5 +1,6 @@
 {% load wagtailcore_tags wagtailimages_tags menu_tags %}
 {% get_autofill_pages as links %}
+{% if links %}
 <li class="nav-item dropdown">
     <a class="nav-link dropdown-toggle"
        title="{{ self.title }}"
@@ -17,3 +18,4 @@
         {% include "menu/autolink_block.html" %}
     </ul>
 </li>
+{% endif %}
