@@ -29,7 +29,7 @@ class BlogCategory(TranslatableMixin, models.Model):
         FieldPanel("slug", widget=SlugInput),
     ]
 
-    class Meta:
+    class Meta(TranslatableMixin.Meta):
         abstract = True
 
     def __str__(self):
@@ -40,7 +40,7 @@ class BlogCategory(TranslatableMixin, models.Model):
 class TechBlogCategory(BlogCategory):
     pass
 
-    class Meta:
+    class Meta(BlogCategory.Meta):
         verbose_name = _("Tech Blog Category")
         verbose_name_plural = _("Tech Blog Categories")
         ordering = ["name"]
@@ -50,7 +50,7 @@ class TechBlogCategory(BlogCategory):
 class PersonalBlogCategory(BlogCategory):
     pass
 
-    class Meta:
+    class Meta(BlogCategory.Meta):
         verbose_name = _("Personal Blog Category")
         verbose_name_plural = _("Personal Blog Categories")
         ordering = ["name"]
