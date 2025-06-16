@@ -50,17 +50,11 @@ class Facebook_Script_Src(BaseGenericSetting):
         verbose_name=_("Facebook Javascript SDK"),
         help_text=_("Copy in the code from Section 2 of the Javascript SDK tab in the 'Advanced Settings' embed page.")
     )
-    class Meta:
+    class Meta(BaseGenericSetting.Meta):
         verbose_name = 'Facebook Javascript SDK'
 
 @register_setting(icon='password')
 class Tokens(BaseGenericSetting):
-    mapbox = models.CharField(
-        max_length=100,
-        null=True,
-        blank=False,
-        verbose_name=_("Mapbox Access Token")
-    )
     google_analytics = models.CharField(
         max_length=100,
         null=True,
@@ -91,7 +85,6 @@ class Tokens(BaseGenericSetting):
 
 @register_snippet
 class SocialMedia(TranslatableMixin, models.Model):
-
     site_name = models.CharField(
         max_length=30,
         null=False,
@@ -127,13 +120,13 @@ class SocialMedia(TranslatableMixin, models.Model):
         """The string representation of this class"""
         return self.site_name
 
-    class Meta:
+    class Meta(TranslatableMixin.Meta):
         verbose_name = 'Social Media Link'
         verbose_name_plural = 'Social Media Links'
         unique_together = ('translation_key', 'locale')
 
 class EmailSignatureSocialMedia(Orderable):
-    signature = ParentalKey("site_settings.EmailSignature", related_name="social_media_links")
+    signature = ParentalKey("site_settings.EmailSignature", related_name="social_media_links") # type: ignore
     site_name = models.CharField(
         max_length=30,
         null=False,
@@ -291,7 +284,7 @@ class EmailSignature(TranslatableMixin, ClusterableModel):
         """The string representation of this class"""
         return self.signature_name
 
-    class Meta:
+    class Meta(TranslatableMixin.Meta, ClusterableModel.Meta):
         verbose_name = _('Email Signature')
         verbose_name_plural = _('Email Signatures')
         unique_together = ('translation_key', 'locale')
@@ -322,7 +315,7 @@ class TemplateText(TranslatableMixin, ClusterableModel):
     def __str__(self):
         return self.template_set
     
-    class Meta:
+    class Meta(TranslatableMixin.Meta, ClusterableModel.Meta):
         verbose_name = _('Template Text')
         unique_together = ('translation_key', 'locale'), ('locale', 'template_set')
 
@@ -337,7 +330,7 @@ class TemplateText(TranslatableMixin, ClusterableModel):
             # If in default locale, look for other sets with the template_set value (checking pre-save value)
             # Exclude other locales (will be translations of current locale)
             # Exclude self to cater for editing existing instance. Name change still checked against other instances.
-            if TemplateText.objects.filter(template_set=self.template_set).filter(locale=self.locale_id).exclude(pk=self.pk).count()>0:
+            if TemplateText.objects.filter(template_set=self.template_set).filter(locale=self.locale_id).exclude(pk=self.pk).count()>0: # type: ignore
                 raise ValidationError(_("This template set name is already in use. Please only use a unique name."))
         elif self.get_translations().count()==0:
             # If not in default locale and has no translations, new instance being created outside of default, raise error
@@ -358,7 +351,7 @@ class TemplateTextSetItem(TranslatableMixin, Orderable):
         related_name="templatetext_items",
         help_text=_("Template Set to which this item belongs."),
         verbose_name="Set Name",
-    )
+    ) # type: ignore
     template_tag = models.CharField(
         max_length=50,
         help_text=_("Enter a tag without spaces, consisting of lowercase letters, numbers, and underscores.\nThe first character must be a lowercase letter."),
