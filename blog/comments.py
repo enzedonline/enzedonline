@@ -16,7 +16,7 @@ class BlogAuthorCommentNotified(models.Model):
     comment_id = models.IntegerField()
 
     @classmethod
-    def already_notified(self, id):
+    def already_notified(cls, id):
         try:
             BlogAuthorCommentNotified.objects.get(comment_id=id)
             return True
@@ -35,7 +35,7 @@ class CustomComment(XtdComment):
 
     def notify_author(self):
         try:
-            author = CustomUser.objects.get(id=self.page.owner_id)
+            author = CustomUser.objects.get(id=self.page.owner_id) # type: ignore
         except CustomUser.DoesNotExist:
             return
         if not self.user_email == author.email and not BlogAuthorCommentNotified.already_notified(self.object_pk):
@@ -67,7 +67,10 @@ class CustomComment(XtdComment):
                 }
                 text_message = text_message_template.render(message_context)
                 if settings.COMMENTS_XTD_SEND_HTML_EMAIL:
-                    html_message = html_message_template.render(message_context)
+                    try:
+                        html_message = html_message_template.render(message_context) # type: ignore
+                    except:
+                        html_message = None
                 else:
                     html_message = None
                 send_mail(subject, text_message, settings.COMMENTS_XTD_FROM_EMAIL,
