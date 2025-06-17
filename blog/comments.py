@@ -31,7 +31,7 @@ class CustomComment(XtdComment):
             self.user_name = self.user.display_name
         self.page = BlogDetailPage.objects.get(pk=self.object_pk)
         self.notify_author()
-        super(CustomComment, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)
 
     def notify_author(self):
         try:
