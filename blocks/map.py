@@ -51,7 +51,7 @@ class MapBlockSettingsForm(WagtailAdminModelForm):
                         invalid_styles.append(identifier)
         
         if invalid_styles:
-            errors.append(f'{_("The following styles are not valid")}: {','.join(invalid_styles)}')
+            errors.append(f'{_("The following styles are not valid")}: {", ".join(invalid_styles)}')
 
         missing_styles = valid_identifiers - submitted_identifiers
         if missing_styles:
