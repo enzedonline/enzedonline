@@ -1,0 +1,19 @@
+{% load static wagtailimages_tags map_block_tags core_tags %}
+{% get_map_settings block as map_settings %}
+{% add_json_script map_settings map_settings.uid %}
+<div id="mapblock-{{ map_settings.uid }}"
+     class="block-container map-block">
+  <div class="position-relative">
+    <div id="map-{{ map_settings.uid }}"
+        class="mapbox-container"
+        style="height:{{ self.height }}vh"></div>
+  </div>
+  <div class="map-caption">{{ map_help_text }}</div>
+</div>
+{% comment %} {% include "blocks/map/facilities.svg" %} {% endcomment %}
+<script>
+  include_js("{% static 'js/map-block.js'%}")
+  .then(() => {
+    new MapBlock("{{ map_settings.uid }}");
+  });
+</script>

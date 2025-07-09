@@ -1,43 +1,60 @@
 from django import template
-from site_settings.models import Tokens
 from django.utils.html import json_script
+from django.utils.translation import gettext_lazy as _
+
+from blocks.map import MapBlockSettings
 
 register = template.Library()
 
+
 @register.simple_tag()
 def get_map_settings(block):
-    try:
-        token = getattr(Tokens.objects.first(), 'mapbox')
-    except:
-        token = ''
-        print('MapBox key not found in site settings')
-    
+    settings = MapBlockSettings.load()
     map_settings = {
         'uid': block.id,
-        'token': token,
-        'route_type' : block.value['route_type'], 
-        'show_route_info' : block.value['show_route_info'], 
-        'padding' : [
-            block.value['padding_top'], 
-            block.value['padding_right'], 
-            block.value['padding_bottom'], 
-            block.value['padding_left']
-            ],
-        'waypoints' : []
+        'token': settings.mapbox_token,
+        'urls': {
+            'mapboxGlCSS': settings.mapbox_gl_css_url,
+            'mapboxGlJS': settings.mapbox_gl_js_url,
+            'directionsAPI': settings.mapbox_directions_api_url
+        },
+        'pitch': block.value['pitch'],
+        'bearing': block.value['bearing'],
+        'padding': {
+            'top': block.value['padding_top'],
+            'right': block.value['padding_right'],
+            'bottom': block.value['padding_bottom'],
+            'left': block.value['padding_left']
+        },
+        'styles': {},
+        'initialStyle': block.value['style'],
+        'waypoints': [],
+        'route' : {
+            'type': block.value['route_type'],
+            'showSummary': block.value['show_route_summary'],
+            'summaryHeading': _("Route Summary")            
         }
-    
-    waypoints = block.value['waypoints']
-    for waypoint in waypoints:
-        latitude, longitude = [round(float(x.strip()),6) for x in waypoint['gps_coord'].split(',')]
+    }
+    for style in settings.styles.all():
+        map_settings['styles'][style.identifier] = {
+            'description': style.description,
+            'url': style.url,
+            'tileImage': style.tile_image.get_rendition('fill-50x50').url
+        }
+    for waypoint in block.value['waypoints']:
+        latitude, longitude = [
+            round(float(x.strip()), 6) for x in waypoint['gps_coord'].split(',')
+        ]
         map_settings['waypoints'].append({
-            'longitude' : longitude,
-            'latitude' : latitude,
-            'pin_label' : waypoint['pin_label'],
-            'show_pin' : waypoint['show_pin']
+            'longitude': longitude,
+            'latitude': latitude,
+            'pinLabel': waypoint['pin_label'],
+            'showPin': waypoint['show_pin']
         })
 
-    return(map_settings)
-    
+    return (map_settings)
+
+
 @register.simple_tag()
 def add_json_script(value, element_id):
     return json_script(value, element_id)

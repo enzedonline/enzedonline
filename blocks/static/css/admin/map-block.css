@@ -1,0 +1,57 @@
+/* map & waypoint blocks */
+div.map-block {
+    --wide-column-span: 4;
+    --medium-column-span: 2;
+    --narrow-column-span: 1;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); 
+    grid-auto-rows: auto;
+    column-gap: 2rem;
+  }
+  div.map-waypoint-block>div[data-contentpath="gps_coord"] {
+    flex-basis: 100%;
+  }
+  div.map-waypoint-block>div[data-contentpath="show_pin"] {
+    flex-grow: 0;
+  }
+  div.map-block>div[data-contentpath="waypoints"],
+  div.map-block>div[data-contentpath="padding_help"] {
+    grid-column: span var(--wide-column-span);
+  }
+  div.map-block>div[data-contentpath="route_type"],
+  div.map-block>div[data-contentpath="show_route_summary"],
+  div.map-block>div[data-contentpath="pitch"],
+  div.map-block>div[data-contentpath="bearing"],
+  div.map-block>div[data-contentpath="height"],
+  div.map-block>div[data-contentpath="style"] {
+    grid-column: span var(--medium-column-span);
+  }
+  div.map-block>div[data-contentpath="padding_top"],
+  div.map-block>div[data-contentpath="padding_right"],
+  div.map-block>div[data-contentpath="padding_bottom"],
+  div.map-block>div[data-contentpath="padding_left"] {
+    grid-column: span var(--narrow-column-span);
+  }  
+  div.map-block>div[data-contentpath="padding_help"]>label {
+    display: none;
+  }
+  div.map-block>div[data-contentpath="route_type"] select,
+  div.map-block>div[data-contentpath="show_route_summary"] select,
+  div.map-block>div[data-contentpath="style"] select {
+    font-size: 0.9em;
+    width: 100%;
+  }
+
+  @media (max-width: 680px) {
+    div.map-block {
+      --narrow-column-span: 2;
+    }
+  }
+  @media (max-width: 480px) {
+    div.map-block {
+      --narrow-column-span: 4;
+      --medium-column-span: 4;
+    }
+  }
+  
+  
