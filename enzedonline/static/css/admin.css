@@ -312,7 +312,7 @@ div[data-tippy-root] div.tippy-box {
   max-width: unset !important;
 }
 div.tippy-content div.w-combobox {
-  width: 70vw;
+  width: auto;
 }
 div.tippy-content div.w-combobox__optgroup-label {
   grid-column: 1 / -1;
@@ -322,25 +322,46 @@ div.w-combobox__field>input {
   display: none;
 }
 div.tippy-content div.w-combobox div.w-combobox__menu div.w-combobox__optgroup {
-  width: 100%;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  grid-column-gap: 1rem;
-  grid-row-gap: 0.5rem;
+  width: auto;
+  display: inline-grid;
+  grid-template-columns: repeat(5, auto);
+  grid-column-gap: 0.5rem;
+  grid-row-gap: 0.2rem;
   grid-auto-flow: row
 }
+@media screen and (max-width: 1400px) {
+  div.tippy-content div.w-combobox div.w-combobox__menu div.w-combobox__optgroup {
+    grid-template-columns: repeat(4, auto);
+  }
+}
+@media screen and (max-width: 1200px) {
+  div.tippy-content div.w-combobox div.w-combobox__menu div.w-combobox__optgroup {
+    grid-template-columns: repeat(3, auto);
+  }
+}
+@media screen and (max-width: 960px) {
+  div.tippy-content div.w-combobox div.w-combobox__menu div.w-combobox__optgroup {
+    grid-template-columns: repeat(2, auto);
+  }
+}
+@media screen and (max-width: 520px) {
+  div.tippy-content div.w-combobox div.w-combobox__menu div.w-combobox__optgroup {
+    grid-template-columns: repeat(1, auto);
+  }
+}
 div.tippy-content div.w-combobox__option {
-  grid-template-columns: unset;
   grid-column: unset;
   display: flex;
-  align-items: stretch;
+  align-items: center;
   height: 100%;
   break-inside: avoid-column;
   overflow-wrap: break-word;
   line-height: normal;  
+  width: 200px;
 }
 div.tippy-content div.w-combobox__option div.w-combobox__option-text {
-  margin-top: .2em;
+  margin-top: 0.2em;
+  font-size: small;
 }
 div.tippy-content div.w-combobox__option div.w-combobox__option-icon .icon {
   height: 1.2rem;
@@ -608,30 +629,6 @@ div.card-grid-block>div[data-contentpath="cards"] {
   flex-basis: 100%;
 }
 
-/* map & waypoint blocks */
-div.map-waypoint-block>div[data-contentpath="gps_coord"] {
-  flex-basis: 100%;
-}
-div.map-waypoint-block>div[data-contentpath="show_pin"] {
-  flex-grow: 0;
-}
-div.map-block>div[data-contentpath="route_type"],
-div.map-block>div[data-contentpath="show_route_info"] {
-  flex-grow: 0;
-}
-div.map-block>div[data-contentpath="route_type"] select {
-  font-size: 0.9em;
-}
-div.map-block>div[data-contentpath="height"] {
-  flex-basis: calc(100% - 31rem);
-}
-div.map-block>div[data-contentpath="padding_top"],
-div.map-block>div[data-contentpath="padding_right"],
-div.map-block>div[data-contentpath="padding_bottom"],
-div.map-block>div[data-contentpath="padding_left"] {
-  flex-basis: calc(25% - 6rem);
-  min-width: 120px;
-}
 
 /* csv table block */
 div.csv-table-block>div[data-contentpath="data"],
