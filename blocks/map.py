@@ -58,7 +58,7 @@ class MapBlockSettingsForm(WagtailAdminModelForm):
             style_map = {key: value for key, value in STYLE_CHOICES}
             missing_styles = [str(style_map[style]) for style in missing_styles]
             errors.append(
-                f'{_("The following required styles are missing")}: {', '.join(missing_styles)}'
+                f'{_("The following required styles are missing")}: {", ".join(missing_styles)}'
             )
 
         if errors:
