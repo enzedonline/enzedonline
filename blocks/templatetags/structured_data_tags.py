@@ -24,12 +24,11 @@ def get_social_media_sameas():
 @register.simple_tag()
 def get_organisation_logo():
     try:
-        company_logo = CompanyLogo.objects.filter(name='organisation').first().localized
-        if company_logo:
-            return company_logo.logo.get_rendition('thumbnail-500x500|format-png').full_url
-        else:
-            return ''
-                
+        company_logo_instance = CompanyLogo.objects.filter(name='organisation').first()
+        if company_logo_instance and hasattr(company_logo_instance, 'localized'):
+            company_logo = getattr(company_logo_instance.localized, 'logo', company_logo_instance.logo)
+            if company_logo:
+                return company_logo.get_rendition('thumbnail-500x500|format-png').full_url
     except (AttributeError, CompanyLogo.DoesNotExist):
-        return ''   
-    
+        pass
+    return ''
