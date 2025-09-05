@@ -1,0 +1,30 @@
+// common flex-box struct block styles 
+div.flex-block {
+    flex-wrap: wrap;
+    display: flex;
+    column-gap: 2rem;
+
+    >div[data-contentpath] {
+        flex-grow: 1;
+    }
+}
+
+// common grid layout struct block styles
+div.struct-block.procedure-block {
+    display: grid;
+    grid-template-columns: 1fr 6rem;
+    column-gap: 2rem;
+    // grid-template-areas:
+    //     "one   two"
+    //     "three four"
+    //     "five  five"
+    //     "six   six";
+
+    // >div[data-contentpath="title"] {grid-area: one;}
+    // >div[data-contentpath="heading_size"] {grid-area: two;}
+    // >div[data-contentpath="anchor_id"] {grid-area: three;}
+    // >div[data-contentpath="is_ordered"] {grid-area: four;}
+    // >div[data-contentpath="introduction"] {grid-area: five;}
+    // >div[data-contentpath="items"] {grid-area: six;}
+
+}

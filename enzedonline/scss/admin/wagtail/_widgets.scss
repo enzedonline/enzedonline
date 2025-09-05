@@ -1,0 +1,31 @@
+div.w-field__input {
+
+    /* input and select font style */
+    input,
+    select {
+        font-family: var(--font-family-body);
+        font-size: 1em;
+    }
+
+    textarea {
+        font-size: var(--font-size-body);
+        font-family: var(--font-family-body);
+        text-align: start;
+        padding-bottom: 1rem;
+        padding-top: 1rem;
+        line-height: 1.4;
+        resize: vertical !important;
+    }
+}
+
+// page title
+.w-panel.title {
+    input:not(:hover, :focus, [aria-invalid=true]) {
+        border-color: #555 !important;
+    }
+
+    input[name="title"] {
+        font-family: var(--font-family-headings);
+        font-weight: 600;
+    }
+}

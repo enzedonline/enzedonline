@@ -1,0 +1,32 @@
+// sidebar layout
+.sidebar--slim .sidebar-wagtail-branding {
+  height: auto;
+  margin-bottom: 20px;
+}
+.sidebar--slim .sidebar-custom-branding,
+.sidebar__inner .sidebar-custom-branding {
+  padding: 0;
+  margin: 0.5em auto 0 auto;
+}
+.sidebar .icon--menuitem,
+.sidebar-menu-item__link:before  {
+  height: 1.2rem;
+  margin: 0;
+  min-width: 1rem;
+  width: 1.2rem;
+}
+.sidebar-sub-menu-panel > h2 {
+  min-height: 0;
+  padding-bottom: 1rem;
+}
+.sidebar-menu-item--in-sub-menu .sidebar-menu-item__link {
+  padding: 0.4rem 0.7rem;
+}
+// page menu
+a.c-page-explorer__item__link {
+  padding: 0.5rem 0.75rem !important;
+
+  h3 {
+    font-size: 1.5rem;
+  }
+}

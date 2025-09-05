@@ -1,0 +1,73 @@
+div#listing-results {
+    // hide root page notice
+    div.nice-padding:has(div.help-info) {
+        display: none;
+    }
+
+    table.listing {
+        // maximise all widths, remove excess spacing, cols fill space available
+        // title column takes excess growth, other columns take required space only
+        table-layout: auto !important;
+        width: 100%;
+        margin-left: 5px;
+
+        // Override <col> widths to be flexible 
+        col {
+            width: auto !important;
+            min-width: 0 !important; //Allows columns to shrink as needed 
+        }
+
+        td,
+        th {
+            &:not(:first-child) {
+                padding: 0.5rem;
+            }
+
+            &:first-child {
+                width: unset;
+                padding: 0;
+            }
+
+            &:not(.title) {
+                white-space: nowrap;
+                width: 1px;
+            }
+
+            &.title {
+                padding: 0.5rem 1rem 0.1rem 1rem;
+                white-space: normal;
+                line-height: 1.3;
+                width: 100%;
+
+                div.title-wrapper {
+                    display: inline-flex;
+                    font-weight: 500;
+                    gap: 0.5rem;
+                    height: 100%;
+                    color: var(--w-color-text-context);
+                    font-family: var(--font-family-headings);
+
+                    .icon.initial {
+                        vertical-align: -2px;
+                    }
+                }
+            }
+        }
+
+        // action menu - reduce gap & font weight
+        div.tippy-content {
+            .w-dropdown__content :where(a, button) {
+                padding-top: 0.375rem;
+                padding-bottom: 0.375rem;
+                font-family: var(--font-family-body);
+                font-weight: 500;
+            }
+        }
+    }
+
+
+    // right hand child pages arrow
+    .children a .icon {
+        height: 2rem;
+    }
+}

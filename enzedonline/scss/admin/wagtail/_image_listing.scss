@@ -1,0 +1,14 @@
+// reduce excess spacing in image listing
+ul.listing.horiz.images>li {
+    position: relative;
+    padding: 0.25rem;
+    height: 100%;
+
+    input[type="checkbox"] {
+        margin: -0.25rem 0 0 0.5rem;
+        position: absolute;
+        top: 0.5rem;
+        left: 0;
+    }
+}
+

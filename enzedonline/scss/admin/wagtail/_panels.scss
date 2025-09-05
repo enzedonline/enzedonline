@@ -1,0 +1,37 @@
+section.w-panel {
+    // drop excess spacing between panels
+    margin-bottom: calc(0.5rem*var(--w-density-factor));
+
+    // Panels header icons default too far to the left, bump right a little
+    div.w-panel__header {
+        margin-inline-start: calc((2*1.5rem + var(--header-gap))*-0.9);
+
+        // Align heading with content panel
+        h2 {
+            margin-inline-start: calc(var(--header-gap)*0.7);
+        }
+    }
+
+    div.w-field__wrapper {
+        // Remove excess space between fields
+        margin-bottom: 0.125rem;
+        padding-bottom: 0.375rem;
+
+        .w-field__input {
+            margin-top: 0.2rem;
+
+        }
+
+        // Override global p font size
+        p.help {
+            font-size: 0.875rem !important;
+        }
+    }
+
+    label {
+        // remove excess padding and set heading font on labels
+        padding-top: 0;
+        font-family: var(--font-family-headings);
+    }
+
+}

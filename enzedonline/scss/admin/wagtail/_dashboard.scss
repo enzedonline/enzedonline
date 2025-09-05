@@ -1,0 +1,17 @@
+table.listing--dashboard {
+    tbody {
+        padding-bottom: 1em;
+
+        tr {
+            display: table-row;
+
+            td {
+                padding: 0.25rem 0.5rem;
+            }
+
+            td:not(.title) {
+                text-wrap-mode: nowrap;
+            }
+        }
+    }
+}
