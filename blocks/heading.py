@@ -8,7 +8,7 @@ from django.utils.translation import gettext_lazy as _
 from wagtail.blocks import CharBlock, StructBlock
 from wagtail.blocks.struct_block import (StructBlockAdapter,
                                          StructBlockValidationError)
-from wagtail.telepath import register
+from wagtail.admin.telepath import register
 
 from .choices import HeadingSizeChoiceBlock, TextAlignmentChoiceBlock
 

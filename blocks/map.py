@@ -15,7 +15,7 @@ from wagtail.blocks.struct_block import (StructBlockAdapter,
                                          StructBlockValidationError)
 from wagtail.contrib.settings.models import (BaseGenericSetting,
                                              register_setting)
-from wagtail.telepath import register
+from wagtail.admin.telepath import register
 from wagtail.admin.forms.models import WagtailAdminModelForm
 from core.utils import isfloat
 

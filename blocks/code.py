@@ -4,7 +4,7 @@ from django.utils.translation import gettext_lazy as _
 from wagtail.blocks import (BooleanBlock, CharBlock, ChoiceBlock, RawHTMLBlock,
                             StructBlock)
 from wagtail.blocks.struct_block import StructBlockAdapter
-from wagtail.telepath import register
+from wagtail.admin.telepath import register
 
 class CodeChoiceBlock(ChoiceBlock):
     choices=[

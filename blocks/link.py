@@ -7,7 +7,7 @@ from wagtail.blocks import (CharBlock, PageChooserBlock, StructBlock,
 from wagtail.blocks.struct_block import (StructBlockAdapter,
                                          StructBlockValidationError)
 from wagtail.models import Locale
-from wagtail.telepath import register
+from wagtail.admin.telepath import register
 
 from .choices import (AlignmentChoiceBlock, ButtonChoiceBlock,
                       ButtonSizeChoiceBlock)

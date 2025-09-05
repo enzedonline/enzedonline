@@ -6,7 +6,7 @@ from wagtail.blocks import BooleanBlock, ListBlock, StructBlock
 from wagtail.blocks.field_block import IntegerBlock
 from wagtail.blocks.struct_block import (StructBlockAdapter,
                                          StructBlockValidationError)
-from wagtail.telepath import register
+from wagtail.admin.telepath import register
 
 from .choices import (BreakpointChoiceBlock, ChoiceBlock,
                       ColourThemeChoiceBlock, FlexCardLayoutChoiceBlock)
