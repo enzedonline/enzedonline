@@ -1,0 +1,11 @@
+/* card grid block */
+div.card-grid-block>div[data-contentpath="format"] {
+  flex-grow: 0;
+}
+div.card-grid-block>div[data-contentpath="min_col"],
+div.card-grid-block>div[data-contentpath="max_col"] {
+  flex-basis: 30%;
+}
+div.card-grid-block>div[data-contentpath="cards"] {
+  flex-basis: 100%;
+}

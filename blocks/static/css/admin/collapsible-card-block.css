@@ -1,0 +1,8 @@
+/* collapsible card block */
+div.collapsible-card-block>div[data-contentpath="header_colour"],
+div.collapsible-card-block>div[data-contentpath="body_colour"] {
+  flex-grow: 0;
+}
+div.collapsible-card-block>div[data-contentpath="cards"] {
+  flex-basis: 100%;
+}

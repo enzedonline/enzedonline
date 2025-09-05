@@ -1,7 +1,11 @@
+from django import forms
+from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 from wagtail.blocks import BooleanBlock, CharBlock, StructBlock
 from wagtail.blocks.field_block import IntegerBlock
+from wagtail.blocks.struct_block import StructBlockAdapter
 from wagtail.images.blocks import ImageChooserBlock
+from wagtail.telepath import register
 
 from .choices import ColourThemeChoiceBlock
 
@@ -22,7 +26,18 @@ class SEOImageChooserBlock(StructBlock):
 
     class Meta:
         form_classname = "struct-block flex-block seo-image-chooser-block"
-   
+
+class SEOImageChooserBlockAdapter(StructBlockAdapter):        
+    @cached_property
+    def media(self):
+        return forms.Media(
+            css={"all": (
+                "css/admin/seo-image-chooser-block.css",
+            )},
+        )
+
+register(SEOImageChooserBlockAdapter(), SEOImageChooserBlock)
+
 class ImageBlock(StructBlock):
     """
     Custom `StructBlock` for utilizing images with associated caption and
@@ -44,3 +59,13 @@ class ImageBlock(StructBlock):
         label_format = _("Image") + ": {image}"
         form_classname = "struct-block flex-block image-block"
 
+class ImageBlockAdapter(StructBlockAdapter):        
+    @cached_property
+    def media(self):
+        return forms.Media(
+            css={"all": (
+                "css/admin/image-block.css",
+            )},
+        )
+
+register(ImageBlockAdapter(), ImageBlock)

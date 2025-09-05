@@ -1,9 +1,13 @@
+from django import forms
 from django.forms.utils import ErrorList
+from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 from wagtail.blocks import (CharBlock, PageChooserBlock, StructBlock,
                             StructValue)
-from wagtail.blocks.struct_block import StructBlockValidationError
+from wagtail.blocks.struct_block import (StructBlockAdapter,
+                                         StructBlockValidationError)
 from wagtail.models import Locale
+from wagtail.telepath import register
 
 from .choices import (AlignmentChoiceBlock, ButtonChoiceBlock,
                       ButtonSizeChoiceBlock)
@@ -77,3 +81,14 @@ class Link(StructBlock):
                 raise StructBlockValidationError(block_errors=errors)
 
         return super().clean(value)
+
+class LinkBlockAdapter(StructBlockAdapter):        
+    @cached_property
+    def media(self):
+        return forms.Media(
+            css={"all": (
+                "css/admin/link-block.css",
+            )},
+        )
+
+register(LinkBlockAdapter(), Link)

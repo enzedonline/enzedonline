@@ -1,0 +1,10 @@
+/* simple image text block */
+div.flex-card-block>div[data-contentpath="breakpoint"],
+div.flex-card-block>div[data-contentpath="background"],
+div.flex-card-block>div[data-contentpath="border"] {
+  flex-grow: 0;
+}
+div.flex-card-block>div[data-contentpath="image_min"],
+div.flex-card-block>div[data-contentpath="image_max"] {
+  flex-basis: calc(50% - 2rem);
+}

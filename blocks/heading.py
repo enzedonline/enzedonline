@@ -1,10 +1,14 @@
 import unidecode
 import validators
+from django import forms
 from django.forms.utils import ErrorList
+from django.utils.functional import cached_property
 from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 from wagtail.blocks import CharBlock, StructBlock
-from wagtail.blocks.struct_block import StructBlockValidationError
+from wagtail.blocks.struct_block import (StructBlockAdapter,
+                                         StructBlockValidationError)
+from wagtail.telepath import register
 
 from .choices import HeadingSizeChoiceBlock, TextAlignmentChoiceBlock
 
@@ -39,3 +43,13 @@ class HeadingBlock(StructBlock):
 
         return super().clean(value)
 
+class HeadingBlockAdapter(StructBlockAdapter):        
+    @cached_property
+    def media(self):
+        return forms.Media(
+            css={"all": (
+                "css/admin/heading-block.css",
+            )},
+        )
+
+register(HeadingBlockAdapter(), HeadingBlock)

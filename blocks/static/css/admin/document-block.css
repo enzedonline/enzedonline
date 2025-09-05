@@ -1,0 +1,12 @@
+/* document block */
+div.document-block>div[data-contentpath="text_size"],
+div.document-block>div[data-contentpath="appearance"],
+div.document-block>div[data-contentpath="outline"],
+div.document-block>div[data-contentpath="full_width"],
+div.document-block>div[data-contentpath="alignment"],
+div.document-block>div[data-contentpath="allow_indexing"] {
+  flex-grow: 0;
+}
+div.document-block>div[data-contentpath="document"] {
+  flex-basis: 100%;
+}

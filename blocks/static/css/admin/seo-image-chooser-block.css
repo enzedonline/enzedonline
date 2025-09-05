@@ -1,0 +1,7 @@
+/* seo image chooser block */
+div.seo-image-chooser-block>div[data-contentpath="file"] {
+  flex-basis: calc(30% - 2rem);
+}
+div.seo-image-chooser-block>div[data-contentpath="seo_title"] {
+  flex-basis: calc(70% - 2rem);
+}

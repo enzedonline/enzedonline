@@ -1,0 +1,7 @@
+/* callout block */
+div.callout-heading-block>div[data-contentpath="icon"] {
+  flex-basis: 11rem;
+}
+div.callout-heading-block>div[data-contentpath="text"] {
+  flex-basis: calc(100% - 13rem);
+}

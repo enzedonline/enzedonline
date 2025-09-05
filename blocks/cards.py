@@ -1,14 +1,19 @@
+from django import forms
 from django.forms.utils import ErrorList
+from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 from wagtail.blocks import BooleanBlock, ListBlock, StructBlock
 from wagtail.blocks.field_block import IntegerBlock
-from wagtail.blocks.struct_block import StructBlockValidationError
+from wagtail.blocks.struct_block import (StructBlockAdapter,
+                                         StructBlockValidationError)
+from wagtail.telepath import register
 
 from .choices import (BreakpointChoiceBlock, ChoiceBlock,
                       ColourThemeChoiceBlock, FlexCardLayoutChoiceBlock)
-from .link import Link
 from .image import SEOImageChooserBlock
+from .link import Link
 from .rich_text import RichTextBlock
+
 
 class SimpleCard(StructBlock):
     background = ColourThemeChoiceBlock(
@@ -28,6 +33,17 @@ class SimpleCard(StructBlock):
         label_format = label + ": {text}"
         icon = 'text-card'
         form_classname = "struct-block flex-block simple-card-block"
+
+class SimpleCardBlockAdapter(StructBlockAdapter):        
+    @cached_property
+    def media(self):
+        return forms.Media(
+            css={"all": (
+                "css/admin/simple-card-block.css",
+            )},
+        )
+
+register(SimpleCardBlockAdapter(), SimpleCard)
 
 class FlexCard(StructBlock):
     format = FlexCardLayoutChoiceBlock(
@@ -79,7 +95,18 @@ class FlexCard(StructBlock):
         if errors:
             raise StructBlockValidationError(block_errors=errors)
 
-        return super().clean(value)     
+        return super().clean(value)
+
+class FlexCardBlockAdapter(StructBlockAdapter):        
+    @cached_property
+    def media(self):
+        return forms.Media(
+            css={"all": (
+                "css/admin/flex-card-block.css",
+            )},
+        )
+
+register(FlexCardBlockAdapter(), FlexCard)
 
 class CallToActionCard(FlexCard):
     def __init__(self, required=True, link_required=True, **kwargs):
@@ -96,6 +123,17 @@ class CallToActionCard(FlexCard):
         label = _("Call-To-Action Card")
         label_format = label
         icon = 'call-to-action'
+
+class CallToActionCardBlockAdapter(StructBlockAdapter):        
+    @cached_property
+    def media(self):
+        return forms.Media(
+            css={"all": (
+                "css/admin/flex-card-block.css",
+            )},
+        )
+
+register(CallToActionCardBlockAdapter(), CallToActionCard)
 
 class CardGridBlock(StructBlock):
     format = ChoiceBlock(
@@ -141,6 +179,17 @@ class SimpleCardGridBlock(CardGridBlock):
         label_format = label
         form_classname = "struct-block flex-block card-grid-block"
 
+class SimpleCardGridBlockAdapter(StructBlockAdapter):        
+    @cached_property
+    def media(self):
+        return forms.Media(
+            css={"all": (
+                "css/admin/card-grid-block.css",
+            )},
+        )
+
+register(SimpleCardGridBlockAdapter(), SimpleCardGridBlock)
+
 class SimpleImageCardGridBlock(CardGridBlock):
     cards = ListBlock(CallToActionCard(link_required=False), min_num=2)
 
@@ -150,3 +199,14 @@ class SimpleImageCardGridBlock(CardGridBlock):
         label = _("Image & Text Card Grid")
         label_format = label
         form_classname = "struct-block flex-block card-grid-block"
+
+class SimpleImageCardGridBlockAdapter(StructBlockAdapter):        
+    @cached_property
+    def media(self):
+        return forms.Media(
+            css={"all": (
+                "css/admin/card-grid-block.css",
+            )},
+        )
+
+register(SimpleImageCardGridBlockAdapter(), SimpleImageCardGridBlock)

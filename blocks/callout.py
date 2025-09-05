@@ -1,5 +1,9 @@
+from django import forms
+from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 from wagtail.blocks import CharBlock, ChoiceBlock, StreamBlock, StructBlock
+from wagtail.blocks.struct_block import StructBlockAdapter
+from wagtail.telepath import register
 
 from .code import BlogCodeBlock
 from .rich_text import RichTextBlock
@@ -35,3 +39,14 @@ class CalloutBlock(StructBlock):
         icon = "warning"
         label = _("Callout Block")
         label_format = _("Callout")
+
+class CalloutBlockAdapter(StructBlockAdapter):        
+    @cached_property
+    def media(self):
+        return forms.Media(
+            css={"all": (
+                "css/admin/callout-block.css",
+            )},
+        )
+
+register(CalloutBlockAdapter(), CalloutBlock)

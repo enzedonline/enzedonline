@@ -1,0 +1,17 @@
+/* heading block */
+div.heading-block>div[data-contentpath="title"] {
+  flex-basis: 100%;
+}
+div.heading-block>div[data-contentpath="heading_size"] {
+  flex-basis: 5.625rem;
+}
+div.heading-block>div[data-contentpath="alignment"] {
+  flex-basis: 8.75rem;
+}
+div.heading-block>div[data-contentpath="heading_size"] button.w-field__comment-button,
+div.heading-block>div[data-contentpath="alignment"] button.w-field__comment-button {
+  inset-inline-end: -1.5rem;
+}
+div.heading-block>div[data-contentpath="bookmark"] {
+  flex-basis: calc(100% - 20rem);
+}

@@ -1,11 +1,14 @@
+from django import forms
 from django.forms.utils import ErrorList
+from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 from wagtail.blocks import BooleanBlock, IntegerBlock, StructBlock
-from wagtail.blocks.struct_block import StructBlockValidationError
+from wagtail.blocks.struct_block import (StructBlockAdapter,
+                                         StructBlockValidationError)
+from wagtail.telepath import register
 
 from ..choices import DefaultChoiceBlock
 from .base import BaseStreamBlock
-
 
 #-----------------------------------------------------
 # GridStream options
@@ -162,8 +165,19 @@ class TwoColumnBaseBlock(StructBlock):
         if errors:
             raise StructBlockValidationError(block_errors=errors)
 
-        return super().clean(value)     
-       
+        return super().clean(value)
+
+class TwoColumnBaseBlockAdapter(StructBlockAdapter):        
+    @cached_property
+    def media(self):
+        return forms.Media(
+            css={"all": (
+                "css/admin/two-column-block.css",
+            )},
+        )
+
+register(TwoColumnBaseBlockAdapter(), TwoColumnBaseBlock)
+
 class ThreeColumnBaseBlock(StructBlock):
     column_layout = ThreeColumnLayoutChoiceBlock(
         default = '4-4-4',
@@ -229,4 +243,15 @@ class ThreeColumnBaseBlock(StructBlock):
         if errors:
             raise StructBlockValidationError(block_errors=errors)
 
-        return super().clean(value)     
+        return super().clean(value)
+
+class ThreeColumnBaseBlockAdapter(StructBlockAdapter):        
+    @cached_property
+    def media(self):
+        return forms.Media(
+            css={"all": (
+                "css/admin/three-column-block.css",
+            )},
+        )
+
+register(ThreeColumnBaseBlockAdapter(), ThreeColumnBaseBlock)

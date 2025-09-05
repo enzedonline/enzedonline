@@ -1,0 +1,32 @@
+/* three column block */
+div.three-column-block>div[data-contentpath="column_layout"],
+div.three-column-block>div[data-contentpath="breakpoint"] {
+  flex-basis: calc(50% - 2rem);
+}
+div.three-column-block>div[data-contentpath="column_layout"] div.w-field,
+div.three-column-block>div[data-contentpath="breakpoint"] div.w-field,
+div.three-column-block>div[data-contentpath="column_layout"] select,
+div.three-column-block>div[data-contentpath="breakpoint"] select {
+    width: 100%;
+}
+div.three-column-block>div[data-contentpath="outer_min"],
+div.three-column-block>div[data-contentpath="outer_max"] {
+  flex-basis: calc(17% - 2rem);
+}
+div.three-column-block>div[data-contentpath="horizontal_padding"] {
+  flex-basis: 110px;
+}div.three-column-block>div[data-contentpath="vertical_border"] {
+  flex-basis: 60px;
+}
+div.three-column-block>div[data-contentpath="hide"] {
+flex-basis: 20%;
+}
+div.three-column-block>div[data-contentpath="left_column"],
+div.three-column-block>div[data-contentpath="centre_column"],
+div.three-column-block>div[data-contentpath="right_column"] {
+  flex-basis: 100%;
+  margin-bottom: 0.5rem;
+}
+div.three-column-block select {
+  width: -webkit-fill-available;
+}

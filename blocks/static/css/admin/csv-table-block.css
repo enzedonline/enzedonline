@@ -1,0 +1,11 @@
+/* csv table block */
+div.csv-table-block>div[data-contentpath="data"],
+div.csv-table-block>div[data-contentpath="caption"] {
+  flex-basis: 100%;
+}
+div.csv-table-block>div[data-contentpath="column_headers"],
+div.csv-table-block>div[data-contentpath="row_headers"],
+div.csv-table-block>div[data-contentpath="compact"],
+div.csv-table-block>div[data-contentpath="caption_alignment"] {
+  flex-grow: 0;
+}

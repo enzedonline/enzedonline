@@ -1,0 +1,5 @@
+/* simple card block */
+div.simple-card-block>div[data-contentpath="background"],
+div.simple-card-block>div[data-contentpath="border"] {
+  flex-grow: 0;
+}

@@ -1,0 +1,47 @@
+/* two column block */
+div.two-column-block>div[data-contentpath="column_layout"],
+div.two-column-block>div[data-contentpath="breakpoint"] {
+    flex-basis: calc(50% - 2rem);
+}
+
+div.two-column-block>div[data-contentpath="column_layout"] div.w-field,
+div.two-column-block>div[data-contentpath="breakpoint"] div.w-field,
+div.two-column-block>div[data-contentpath="column_layout"] select,
+div.two-column-block>div[data-contentpath="breakpoint"] select {
+    width: 100%;
+}
+
+div.two-column-block>div[data-contentpath="left_min"],
+div.two-column-block>div[data-contentpath="left_max"],
+div.two-column-block>div[data-contentpath="right_min"],
+div.two-column-block>div[data-contentpath="right_max"] {
+    flex-basis: calc(25% - 3rem);
+}
+
+div.two-column-block>div[data-contentpath="horizontal_padding"] {
+    flex-basis: 140px;
+}
+
+div.two-column-block>div[data-contentpath="vertical_border"] {
+    flex-basis: 100px;
+}
+
+div.two-column-block>div[data-contentpath="order"],
+div.two-column-block>div[data-contentpath="hide"] {
+    flex-basis: 20%;
+}
+
+div.two-column-block>div[data-contentpath="order"] div.w-field,
+div.two-column-block>div[data-contentpath="order"] select {
+    width: 100%;
+}
+
+div.two-column-block>div[data-contentpath="left_column"],
+div.two-column-block>div[data-contentpath="right_column"] {
+    flex-basis: 100%;
+    margin-bottom: 0.5rem;
+}
+
+div.two-column-block select {
+    width: -webkit-fill-available;
+}

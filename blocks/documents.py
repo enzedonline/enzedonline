@@ -1,9 +1,14 @@
+from django import forms
+from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
+from wagtail.blocks import BooleanBlock, CharBlock, StructBlock
+from wagtail.blocks.struct_block import StructBlockAdapter
 from wagtail.documents.blocks import DocumentChooserBlock
-from wagtail.blocks import StructBlock, CharBlock, BooleanBlock
+from wagtail.telepath import register
 
-from .choices import TextSizeChoiceBlock, ButtonChoiceBlock, AlignmentChoiceBlock
-from .choices import DefaultChoiceBlock
+from .choices import (AlignmentChoiceBlock, ButtonChoiceBlock,
+                      DefaultChoiceBlock, TextSizeChoiceBlock)
+
 
 class DocumentBlock(StructBlock):
     document = DocumentChooserBlock(
@@ -48,7 +53,17 @@ class DocumentBlock(StructBlock):
         label_format = _("Document") +": {link_label}"
         form_classname = 'struct-block flex-block document-block'
 
-    
+class DocumentBlockAdapter(StructBlockAdapter):
+    @cached_property
+    def media(self):
+        return forms.Media(
+            css={"all": (
+                "css/admin/document-block.css",
+            )},
+        )
+
+register(DocumentBlockAdapter(), DocumentBlock)
+
 class DocumentListSortChoiceBlock(DefaultChoiceBlock):
     choices = [
         ('created_at', _('Date (newest first)')), 

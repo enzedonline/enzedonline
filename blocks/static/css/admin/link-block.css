@@ -1,0 +1,25 @@
+/* link block */
+div.link-block>div[data-contentpath="internal_page"] {
+  flex-basis: calc(30% - 2rem);
+}
+div.link-block>div[data-contentpath="url_link"] {
+  flex-basis: calc(70% - 2rem);
+}
+div.link-block>div[data-contentpath="button_text"] {
+  flex-basis: calc(28% - 2rem);
+}
+div.link-block>div[data-contentpath="appearance"] {
+  flex-basis: calc(20% - 2rem);
+}
+div.link-block>div[data-contentpath="appearance"] select {
+  width: 200px;
+  font-size: 0.9em;
+}
+div.link-block>div[data-contentpath="placement"],
+div.link-block>div[data-contentpath="size"] {
+  flex-basis: calc(10% - 2rem);
+}
+div.link-block>div[data-contentpath="placement"] select,
+div.link-block>div[data-contentpath="size"] select {
+  width: 120px;
+}
