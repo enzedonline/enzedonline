@@ -4,6 +4,7 @@
 
 ### Django ###
 *.log
+*.map
 *.pot
 *.pyc
 __pycache__/
