@@ -11,14 +11,14 @@ from .documents.views.chooser import viewset as document_chooser_viewset
 from .draftail_extensions import (register_block_feature,
                                   register_inline_styling)
 from .thumbnails import ThumbnailOperation
-from .utils import get_custom_icons, ping_google, purge_page_cache_fragments
+from .utils import get_custom_icons, purge_page_cache_fragments
 
 
 @mark_safe
 @hooks.register('insert_global_admin_css')
 def global_admin_css():
     css = ""
-    for css_file in ['css/admin.css', 'css/enzedonlinefonts-min.css']:
+    for css_file in ['css/admin.css']:
         css += f'<link rel="stylesheet" href="{static(css_file)}">'
     return css
 
@@ -190,13 +190,6 @@ def register_refresh_cache_menu_item():
 @hooks.register('after_delete_page')
 def do_after_delete_page(request, page):
     purge_page_cache_fragments(page.slug)
-    if not settings.DEBUG:
-        ping_google(request)
-
-@hooks.register("after_publish_page")
-def register_ping_google_after_publish(request, page):
-    if not settings.DEBUG:
-        ping_google(request)
 
 @hooks.register("register_icons")
 def register_icons(icons):

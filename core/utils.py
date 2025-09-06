@@ -4,15 +4,12 @@ import os
 import re
 from collections import OrderedDict
 from html import unescape
-from urllib.parse import urlencode
-from urllib.request import urlopen
 
 from bs4 import BeautifulSoup
 from django.core.cache import caches
 from django.db import connection
-from django.urls import reverse
 from lxml import etree
-from wagtail.blocks import ListBlock, StreamBlock, StreamValue
+from wagtail.blocks import ListBlock, StreamValue
 
 
 def strip_svg_markup(svg_markup):
@@ -25,21 +22,6 @@ def strip_svg_markup(svg_markup):
         element.attrib.pop('width', None)
     return etree.tostring(root, encoding='unicode', method='xml', xml_declaration=False)
     
-
-PING_URL = "https://www.google.com/webmasters/tools/ping"
-
-
-def ping_google(request, ping_url=PING_URL):
-    try:
-        sitemap = request.build_absolute_uri(reverse("sitemap"))
-        params = urlencode({"sitemap": sitemap})
-        urlopen(f"{ping_url}?{params}")
-    except Exception as e:
-        print(
-            f"{type(e).__name__} at line {e.__traceback__.tb_lineno} of {__file__}: {e}"
-        )
-
-
 def clear_page_cache():
     caches["default"].clear()
     caches["renditions"].clear()

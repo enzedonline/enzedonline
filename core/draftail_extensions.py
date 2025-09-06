@@ -73,7 +73,7 @@ def register_block_feature(
     features.register_editor_plugin(
         "draftail",
         feature_name,
-        draftail_features.BlockFeature(control, css={"all": ["draftail-editor.css"]}),
+        draftail_features.BlockFeature(control),
     )
 
     block_map = {"element": element, "props": {"class": css_class}}
