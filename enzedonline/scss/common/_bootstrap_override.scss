@@ -1,0 +1,52 @@
+.bg-black {
+  background-color: rgb(0, 0, 0) !important;
+  color: white;
+}
+
+.bg-transparent,
+.bg-light {
+  color: black;
+}
+
+.bg-primary,
+.bg-secondary,
+.bg-success,
+.bg-info,
+.bg-warning,
+.bg-danger,
+.bg-dark,
+.bg-wagtail-dark {
+  color: white;
+}
+
+.btn,
+.link-button {
+  border-radius: 0.5em;
+}
+
+.btn-lg,
+.btn-group-lg {
+  border-radius: 0.8em;
+}
+
+.btn-sm,
+.btn-group-sm {
+  border-radius: 0.5em;
+}
+
+.full-width {
+  width: 100% !important;
+}
+
+.bg-wagtail-dark {
+  background-color: var(--wagtail-dark) !important;
+}
+
+.text-justify {
+  text-align: justify !important;
+}
+
+.alert {
+  font-family: var(--font-family-headings);
+  font-size: var(--font-size-body);
+}

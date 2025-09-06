@@ -1,47 +1,67 @@
 /* --------------------------------------------------------------------- */
-/* Draftail Styles */
+/* Draftail Styles (SCSS refactor) */
 /* --------------------------------------------------------------------- */
 
-.Draftail-Editor .DraftEditor-root {
-  font-size: unset;
-  line-height: 1.4;
+.Draftail-Editor {
+  .DraftEditor-root {
+    font-size: unset;
+    line-height: 1.4;
+    font-family: var(--font-family-body);
+    font-size: var(--font-size-body);
+  }
+
+  .public-DraftEditor-content {
+    padding: 1rem 0.5rem;
+  }
 }
+
+.public-DraftStyleDefault-ltr {
+  text-align: justify;
+}
+
+div.public-DraftStyleDefault-block.public-DraftStyleDefault-ltr {
+  text-align: justify;
+}
+
+/* Alignment helper block styles (Draftail custom blocks rendered as <p>) */
+p.Draftail-block--left-align>div.public-DraftStyleDefault-block.public-DraftStyleDefault-ltr {
+  text-align: left;
+}
+
+p.Draftail-block--centre-align>div.public-DraftStyleDefault-block.public-DraftStyleDefault-ltr {
+  text-align: center;
+}
+
+p.Draftail-block--right-align>div.public-DraftStyleDefault-block.public-DraftStyleDefault-ltr {
+  text-align: right;
+}
+
 .Draftail-Toolbar {
   background-color: var(--w-color-surface-menus) !important;
   color: var(--w-color-text-label-menus-default) !important;
   border-bottom: 1px solid var(--w-color-border-field-default) !important;
-  /* float toolbar so always visible */
   position: sticky !important;
   top: calc(0.2rem + 50px) !important;
   z-index: 2 !important;
-}
-@media screen and (max-width: 800px) {
-  .Draftail-Toolbar {
-    /* double top height when top menu wraps at 800px */
+
+  @media screen and (max-width: 800px) {
     top: calc(0.2rem + 100px) !important;
   }
+
+  .Draftail-ToolbarGroup {
+    display: contents !important;
+
+    &.Draftail-ToolbarGroup--controls {
+      display: inline-block !important;
+    }
+  }
+
+  .Draftail-ToolbarButton {
+    padding: 0.1rem 0.2rem 0.2rem 0.3rem !important;
+  }
 }
-.Draftail-ToolbarGroup {
-  /* allow toolbar button groups to wrap */
-  display: contents !important;
-}
-.Draftail-ToolbarGroup.Draftail-ToolbarGroup--controls {
-  /* force comment button inline */
-  display: inline-block !important;
-}
-.Draftail-Editor .public-DraftEditor-content {
-  /* prevent v-scroll loading unnecessarily */
-  padding: 1rem 0.5rem;
-}
-.public-DraftStyleDefault-ltr {
-  text-align: justify;
-}
-.Draftail-Editor .DraftEditor-root{
-    font-family: var(--font-family-body);
-}
-.Draftail-ToolbarButton {
-  padding: 0.1rem 0.2rem 0.2rem 0.3rem !important;
-}
+
+/* Draftail block styles */
 .Draftail-block--blockquote {
   border-inline-start: 0.5rem solid var(--bs-info) !important;
   border-radius: 0.25rem;
@@ -52,22 +72,54 @@
   font-weight: 500;
   padding: 1rem 2rem !important;
 }
+
 .Draftail-block--header-two {
   font-size: var(--font-size-2) !important;
 }
+
 .Draftail-block--header-three {
   font-size: var(--font-size-3) !important;
 }
+
 .Draftail-block--header-four {
   font-size: var(--font-size-4) !important;
 }
+
 .Draftail-block--header-five {
   font-size: var(--font-size-5) !important;
 }
+
 .Draftail-block--header-six {
   font-size: var(--font-size-6) !important;
 }
-.Draftail-block--unstyled  {
+
+.Draftail-block--unstyled {
   font-size: var(--font-size-body) !important;
   font-family: var(--font-family-body) !important;
+}
+
+.Draftail-block--CODE-BLOCK {
+  font-family: var(--font-family-monospace);
+  font-size: var(--font-size-6) !important;
+  text-align: left !important;
+  margin-left: 0 !important;
+  color: #f8f8f2;
+  background-color: #272822;
+  padding: 0.5em 1.2em;
+  line-height: 1.2;
+}
+
+/* Checklist blocks */
+li.Draftail-block--checklist {
+  margin-left: 0 !important;
+
+  >div.public-DraftStyleDefault-block {
+    padding-left: 2em;
+
+    &::before {
+      content: '🗹';
+      padding-right: 1em;
+      margin-left: -2em;
+    }
+  }
 }

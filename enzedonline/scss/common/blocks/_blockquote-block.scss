@@ -1,0 +1,42 @@
+blockquote,
+.blockquote {
+  border-inline-start: 0.5rem solid var(--bs-info);
+  border-radius: 0.25rem;
+  background-color: var(--bs-light);
+  font-style: normal;
+  font-family: var(--font-family-headings);
+  font-size: var(--font-family-body);
+  font-weight: 500;
+  padding: 1.2rem 2rem;
+  margin: 1.6rem 0;
+}
+
+.enzed-blockquote {
+    font-family: var(--font-family-headings);
+    font-size: var(--font-size-3);
+    font-weight: 500;
+    line-height: 1.2;
+    text-align: start;
+    padding: 1.2rem;
+    border-radius: 0.5rem;
+
+    .attribution {
+        padding-top: 0.3rem;
+        text-align: end;
+        font-weight: lighter;
+        font-size: var(--font-size-5);
+    }
+}
+
+.enzed-blockquote-marks {
+    font-family: var(--font-family-body);
+    font-size: var(--font-size-1);
+    font-weight: 600;
+    line-height: 1;
+    padding: 0px;
+    margin: 0px;
+}
+
+.enzed-blockquote-marks-container {
+    min-width: 4rem;
+}

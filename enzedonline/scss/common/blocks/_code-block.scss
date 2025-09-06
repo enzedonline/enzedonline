@@ -1,0 +1,9 @@
+code,
+.inline-code {
+  font-size: var(--font-size-6);
+  font-family: var(--font-family-inline-code);
+  color: var(--bs-dark);
+  background-color: var(--inline-code-background-color);
+  padding: 0 .3em 0.01em .3em;
+  border-radius: 0.3rem;
+}

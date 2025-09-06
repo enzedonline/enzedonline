@@ -1,0 +1,39 @@
+div.collapsible-card-block {
+    button.accordion-button {
+        &::after {
+            display: none;
+        }
+
+        &:not(.collapsed)>svg.accordion-expander {
+            transform: rotate(180deg);
+        }
+    }
+
+    svg.accordion-expander {
+        height: 1em;
+        width: 1em;
+        margin-left: auto;
+        transition: transform 150ms ease-in-out;
+    }
+
+    p.accordion-header {
+        font-family: var(--font-family-headings);
+        font-size: var(--font-size-5);
+        font-weight: 500;
+        padding: 0;
+        margin-bottom: 0;
+
+        >.bg-dark.accordion-button:not(.collapsed) {
+            color: white;
+        }
+    }
+
+    div.accordion-body {
+        padding-bottom: 0.25rem;
+
+        div.block-container {
+            padding: 0;
+            margin: 0;
+        }
+    }
+}

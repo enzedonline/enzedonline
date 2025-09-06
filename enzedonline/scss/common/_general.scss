@@ -1,0 +1,77 @@
+.block-container {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.fill-available {
+  width: -webkit-fill-available;
+}
+
+.image-w-100-auto {
+  width: 100%;
+  height: auto;
+}
+
+.responsive-object {
+  position: relative;
+}
+
+.responsive-object iframe,
+.responsive-object object,
+.responsive-object embed {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.text-white a,
+.text-light a {
+  font-weight: bolder;
+  color: inherit;
+}
+
+.scroll-x-auto {
+  overflow-x: auto;
+}
+
+.divider,
+.divider-sm,
+.divider-md,
+.divider-lg {
+  border-right: 1px solid #DADADA;
+  padding: 0px;
+  width: 0px;
+}
+
+@media (max-width: 575px) {
+  .divider-sm {
+    display: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .divider-md {
+    display: none;
+  }
+}
+
+@media (max-width: 991px) {
+  .divider-lg {
+    display: none;
+  }
+}
+
+// Hide font awesome code
+.fa-icon {
+  display: none;
+}
+
+// Place in centre of screen
+.centre-screen {
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}

@@ -1,0 +1,81 @@
+/* enzedonline */
+.menustream-enzedonline {
+    --menustream-enzedonline-link-inactive: #fafafa;
+    --menustream-enzedonline-link-active: white;
+    --menustream-enzedonline-link-font-size: clamp(1rem, 0.35rem + 1.3333vw, 1.6rem);
+    --menustream-enzedonline-link-brand-height: clamp(26px, calc(26px + (55 - 26) * ((100vw - 375px) / (1500 - 375))), 55px);
+    --menustream-enzedonline-navbar-bg-color: var(--bs-primary);
+
+
+    &.navbar {
+        background-color: var(--menustream-enzedonline-navbar-bg-color) !important;
+        color: var(--menustream-enzedonline-link-inactive);
+    }
+
+    .search-menu {
+        padding: 0.3em 1em !important;
+        margin-top: 0 !important;
+        position: absolute !important;
+        top: calc(0.6em + var(--menustream-enzedonline-link-brand-height)) !important;
+        width: min(30rem, 100%) !important;
+        left: clamp(0.01px, calc(100% - 30rem), 100%) !important;
+        border: 0;
+        border-radius: 0 0 var(--bs-border-radius) var(--bs-border-radius);
+        background-color: var(--menustream-enzedonline-navbar-bg-color);
+
+        input:focus {
+            border: var(--bs-border-width) solid rgba(0, 0, 0, .1);
+        }
+    }
+
+    .navbar-toggler-icon {
+        width: 1em;
+        height: 1em;
+        vertical-align: bottom;
+    }
+
+    .nav-item {
+        font-size: var(--menustream-enzedonline-link-font-size);
+        font-weight: 500;
+
+        >.nav-link {
+            font-family: var(--font-family-headings);
+            padding: 5px 0;
+            border-width: 1px 0;
+            border-style: solid;
+            border-color: transparent;
+            fill: var(--menustream-enzedonline-link-inactive);
+            color: var(--menustream-enzedonline-link-inactive);
+
+            &:hover,
+            &:focus {
+                fill: var(--menustream-enzedonline-link-active);
+                color: var(--menustream-enzedonline-link-active);
+            }
+
+            &.show {
+                fill: var(--menustream-enzedonline-link-active);
+                color: var(--menustream-enzedonline-link-active);
+            }
+        }
+
+        &.active>.nav-link {
+            border-bottom-color: var(--menustream-enzedonline-link-active);
+            fill: var(--menustream-enzedonline-link-active);
+            color: var(--menustream-enzedonline-link-active);
+        }
+    }
+
+    .social-icon-list {
+        gap: 1em;
+    }
+
+    .oauth-icon {
+        height: 2.5em;
+        width: 2.5em;
+    }
+
+    .navbar-toggler {
+        color: var(--menustream-enzedonline-link-active);
+    }
+}

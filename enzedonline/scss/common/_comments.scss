@@ -1,0 +1,56 @@
+.comment-card {
+    min-height: 5rem;
+}
+
+.comments-header {
+    font-family: var(--font-family-headings);
+    font-size: var(--font-size-4);
+    color: var(--bs-white) !important;
+    padding: 0.6rem 0.8rem;
+    border-radius: var(--bs-card-inner-border-radius) var(--bs-card-inner-border-radius) 0 0;
+    border-bottom: 0;
+}
+
+.comments-login-invite {
+    font-family: var(--font-family-headings);
+    font-size: var(--font-size-5);
+    padding-bottom: 0.5rem;
+}
+
+.comments-image-thumbnail {
+    float: left;
+    width: 60px;
+    height: 60px;
+    max-width: 100%;
+    margin-right: 8px;
+    margin-bottom: 8px;
+}
+
+.avatar {
+    border-radius: 8px;
+    min-width: 30px;
+    max-width: 60px;
+    width: 80%;
+    max-height: 3rem;
+}
+
+div.comments-icon {
+    width: 74px;
+
+    >img {
+        width: auto;
+        height: 50px;
+        border-radius: 8px;
+    }
+
+    >svg {
+        width: 50px;
+        height: 50px;
+    }
+
+    >svg.deleted-user {
+        color: white;
+        background-color: #C5C5C5;
+        border-radius: 8px;
+    }
+}

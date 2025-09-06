@@ -1,0 +1,10 @@
+table,
+.table {
+  font-size: var(--font-size-body);
+  text-align: left;
+}
+
+.table_nopadding>tfoot>tr>td {
+  padding: 0px;
+  margin: 0px;
+}

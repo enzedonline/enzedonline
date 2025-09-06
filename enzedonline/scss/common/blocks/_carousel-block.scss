@@ -1,0 +1,46 @@
+.carousel-caption {
+  padding: 0.6rem 1rem;
+  max-width: 100%;
+  width: 100%;
+  background-image: linear-gradient(to left,
+      rgba(0, 0, 0, 1),
+      rgba(0, 0, 0, 0));
+  left: 0;
+  bottom: 0;
+  color: #ffffff;
+  filter: alpha(opacity=40);
+}
+
+.carousel-title {
+  font-family: var(--font-family-headings);
+  font-size: var(--font-size-3);
+  color: white;
+  line-height: 1.2;
+  background-color: #343a40 !important;
+  padding: 0.8rem;
+  font-weight: 600;
+}
+
+.carousel-caption-title {
+  font-family: var(--font-family-headings);
+  font-size: var(--font-size-4);
+  text-align: end;
+  line-height: 1.2;
+}
+
+.carousel-caption-caption {
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-body);
+  text-align: end;
+  line-height: 1.2;
+}
+
+.carousel.carousel-fade .carousel-item {
+  display: block;
+  opacity: 0;
+  transition: opacity ease-out 0.7s;
+}
+
+.carousel.carousel-fade .carousel-item.active {
+  opacity: 1 !important;
+}

@@ -3,12 +3,12 @@
 {% cache None cache_settings.cache_name cache_settings.cache_head cache_settings.cache_date %}
 {# Fonts #}
 <link rel="preconnect" href="https://fonts.gstatic.com">
-<link rel="preload" href="{% static 'css/enzedonlinefonts-min.css' %}" as="style">
-<link rel="stylesheet" href="{% static 'css/enzedonlinefonts-min.css' %}" type="text/css">
+{% comment %} <link rel="preload" href="{% static 'css/enzedonlinefonts-min.css' %}" as="style">
+<link rel="stylesheet" href="{% static 'css/enzedonlinefonts-min.css' %}" type="text/css"> {% endcomment %}
 {# Global stylesheets #}
 <link rel="stylesheet" href="{% static 'css/litera/bootstrap.min.css' %}" type="text/css">
-<link rel="stylesheet" href="{% static 'css/enzedonline-min.css' %}" type="text/css">
-<link rel="stylesheet" type="text/css" href="{% static 'css/menu-min.css' %}" />
+<link rel="stylesheet" href="{% static 'css/enzedonline.css' %}" type="text/css">
+{% comment %} <link rel="stylesheet" type="text/css" href="{% static 'css/menu-min.css' %}" /> {% endcomment %}
 {# Meta Tags #}
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">

@@ -1,0 +1,38 @@
+.footer-nav-link {
+  font-family: var(--font-family-headings);
+  font-size: clamp(1.05rem, 0.7441rem + 0.6275vw, 1.45rem);
+  font-weight: 500;
+  color: var(--bs-white) !important;
+  text-decoration: none;
+  padding: 0em 1em;
+}
+
+.footer-sm-icon {
+  height: clamp(25px, 21.5000px + 0.8750vw, 32px);
+  width: clamp(25px, 21.5000px + 0.8750vw, 32px);
+  margin-left: clamp(0.5rem, 0.1029rem + 1.1765vw, 1rem);
+}
+
+.website-by {
+  font-weight: 300;
+  font-size: var(--font-size-6);
+}
+
+.privacy-notice {
+  font-size: var(--font-size-6);
+  font-family: var(--font-family-headings);
+  font-weight: 350;
+  line-height: 1.2;
+  color: black;
+}
+
+.footer {
+  width: 100% !important;
+  overflow: hidden;
+  background-color: rgb(2, 184, 117, 0.8) !important;
+}
+
+.footer .navbar {
+  width: 99% !important;
+}
+

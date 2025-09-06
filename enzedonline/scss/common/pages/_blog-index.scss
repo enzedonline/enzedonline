@@ -1,0 +1,25 @@
+.blog-summary {
+  line-height: 1.3;
+  color: var(--bs-gray-dark);
+  font-size: clamp(0.9rem, 0.8599rem + 0.169vw, 1.05rem);
+  border-top: 1px solid gainsboro;
+  border-bottom: 1px solid gainsboro;
+  padding: 1em 0;
+  margin-bottom: 0.5em;
+}
+
+.blog-date {
+  color: var(--bs-gray);
+  text-align: center;
+  font-size: small;
+  font-family: var(--font-family-headings);
+}
+
+.page-card {
+  max-width: 500px;
+}
+
+div.card.previous-post-link>div.page-card {
+  margin-inline-start: auto;
+  width: -webkit-fill-available;
+}
