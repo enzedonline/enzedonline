@@ -3,6 +3,7 @@ from html import unescape
 from urllib.parse import parse_qs, unquote, urlparse, urlunparse
 
 import validators
+from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 
 
@@ -142,7 +143,7 @@ def is_valid_href(
                 raise ValidationError(_("Invalid URL"))
 
         elif parsed_uri.scheme == "mailto":
-            result = validate_email(uri)
+            result = validate_email_uri(uri)
             if not result:
                 error = result
                 raise ValueError()
@@ -204,7 +205,7 @@ def is_valid_href(
                     )
                 )
                 and parsed_uri.query.startswith("jid=")
-                and validate_email(unquote(parsed_uri.query[4:]))
+                and validate_email_uri(unquote(parsed_uri.query[4:]))
             )
             if not result:
                 raise ValidationError('gtalk links require the format gtalk:chat?jid=example@gmail.com')
