@@ -79,10 +79,10 @@ def robots(context):
 @register.simple_tag(takes_context=True)
 def canonical(context):
     page = get_context_var_or_none(context, 'self')
-    page_type = type(page).__name__
     if not page: # not a wagtail page, not indexed, return empty string
         return ''
-    if page_type == 'HomePage': # drop /en from homepage canonical
+    page_type = type(page).__name__
+    if page_type in ['HomePage', 'GFWHomePage']: # drop /en from homepage canonical
         href = f'{page.get_url_parts()[1]}/'
     else:
         href = page.full_url
