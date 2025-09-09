@@ -3,16 +3,16 @@
 {% block content %}
     {% get_template_set "page-error" as trans %}
     <title>{{ trans.403_title }}</title>
-    <div class="container-fluid text-center centre-screen">
+    <div class="container-fluid centre-screen">
         <div class="px-3">
-            <p>
+            <div class="mb-3 text-center">
                 <i class="far fa-hand-paper fa-3x text-danger"></i>
-            </p>
+            </div>
             <h1 class="text-center">{{ trans.403_heading }}</h1>
             {% trans_page_from_slug "contact" as contact %}
-            <p class="h5 text-center">
+            <div class="h5 text-center">
                 {{ trans.bug_part_1 }} <a href="{{ contact.url }}">{{ trans.bug_part_2 }}</a>
-            </p>
+            </div>
         </div>
     </div>
 {% endblock content %}
