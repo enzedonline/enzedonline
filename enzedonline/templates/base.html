@@ -1,5 +1,7 @@
-{% load static i18n core_tags %}
+{% load static i18n core_tags wagtailcore_tags %}
 {% get_current_language as LANGUAGE_CODE %}
+{% wagtail_site as current_site %}
+{% firstof current_site.site_name "enzedonline" as site_name %}
 <!DOCTYPE html>
 <html lang={{ LANGUAGE_CODE }}>
     <head>
@@ -11,7 +13,7 @@
     </head>
     <body>
         <header>
-            <div class="fixed-top enzed-fixed">{% include "menu/menu.html" with menu_slug="enzedonline" %}</div>
+            <div class="fixed-top enzed-fixed">{% include "menu/menu.html" with menu_slug=site_name %}</div>
             <div class="banner-underlay-container"></div>
             {% block header %}{% endblock header %}
         </header>
