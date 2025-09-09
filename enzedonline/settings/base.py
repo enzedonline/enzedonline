@@ -15,6 +15,7 @@ INSTALLED_APPS = [
     'site_settings',
     'contact',
     'userauth',
+    'goneforawander',
 
     'adv_cache_tag',
     'wagtailmetadata',
