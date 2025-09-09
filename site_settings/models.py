@@ -7,7 +7,7 @@ from modelcluster.fields import ParentalKey
 from modelcluster.models import ClusterableModel
 from wagtail.admin.panels import (FieldPanel, FieldRowPanel, InlinePanel,
                                   MultiFieldPanel)
-from wagtail.contrib.settings.models import BaseGenericSetting, register_setting
+from wagtail.contrib.settings.models import BaseGenericSetting, BaseSiteSetting, register_setting
 from wagtail.models import Locale, Orderable, TranslatableMixin
 from wagtail.snippets.models import register_snippet
 from wagtail_localize.fields import SynchronizedField, TranslatableField
@@ -25,7 +25,7 @@ class PasswordModelField(models.CharField):
         return super(PasswordModelField, self).formfield(**defaults)
 
 ###------------------------------------------------------------
-### Site settings
+### Generic settings
 ###------------------------------------------------------------
 
 @register_setting(icon='ban')
@@ -41,6 +41,44 @@ class SpamSettings(BaseGenericSetting):
         help_text=_("Enter word or phrase to block. Each should be on a new line")
     ) 
 
+###------------------------------------------------------------
+### Site settings
+###------------------------------------------------------------
+
+@register_setting(icon='password')
+class SiteTokens(BaseSiteSetting):
+    google_analytics = models.CharField(
+        max_length=100,
+        null=True,
+        blank=False,
+        verbose_name=_("Google Analytics Site ID")
+    )
+    fontawesome = models.CharField(
+        max_length=100,
+        null=True,
+        blank=False,
+        verbose_name=_("FontAwesome Kit ID")
+    )
+    gmail_service_account = models.JSONField(
+        null=True,
+        blank=True,
+        verbose_name=_("Gmail Service Account Details")
+    )
+    facebook_app_id = models.CharField(
+        max_length=100,
+        null=True,
+        blank=False,
+        verbose_name=_("Facebook App ID")
+    )
+    javascript_sdk = models.CharField(
+        max_length=300,
+        null=True,
+        blank=False,
+        verbose_name=_("Facebook Javascript SDK"),
+        help_text=_("Copy in the code from Section 2 of the Javascript SDK tab in the 'Advanced Settings' embed page.")
+    )
+
+# TODO: delete this model after migrating data
 @register_setting(icon='facebook')
 class Facebook_Script_Src(BaseGenericSetting):
     javascript_sdk = models.CharField(
@@ -53,6 +91,7 @@ class Facebook_Script_Src(BaseGenericSetting):
     class Meta(BaseGenericSetting.Meta):
         verbose_name = 'Facebook Javascript SDK'
 
+# TODO: delete this model after migrating data
 @register_setting(icon='password')
 class Tokens(BaseGenericSetting):
     google_analytics = models.CharField(
@@ -78,7 +117,45 @@ class Tokens(BaseGenericSetting):
         blank=True,
         verbose_name=_("Gmail Service Account Details")
     )
-    
+
+class SocialMediaLink(Orderable):
+    site = ParentalKey("site_settings.SocialMediaLinks", related_name="social_media_links") # type: ignore
+    site_name = models.CharField(
+        max_length=30,
+        null=False,
+        blank=False,
+        help_text=_("Site Name")
+    )
+    url = models.URLField(
+        max_length=100,
+        null=False,
+        blank=False,
+        help_text=_("Profile URL")
+    )
+    logo = models.ForeignKey(
+        "wagtailimages.Image",
+        null=True,
+        blank=False,
+        on_delete=models.SET_NULL,
+        related_name="+",
+        help_text=_("Social Media Icon (displayed at 25x25)")
+    )
+ 
+    panels = [
+        FieldPanel('site_name'),
+        FieldPanel('url'),
+        FieldPanel('logo'),
+    ]
+
+@register_setting(icon='facebook')
+class SocialMediaLinks(BaseSiteSetting, ClusterableModel):
+    panels = [
+        InlinePanel("social_media_links", label="Social Media Links"),
+    ]
+
+    class Meta:
+        verbose_name = "Social Media Links"
+
 ###------------------------------------------------------------
 ### Snippets used as site settings 
 ###------------------------------------------------------------
