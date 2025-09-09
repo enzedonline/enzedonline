@@ -1,39 +1,36 @@
-{% load adv_cache wagtailimages_tags %} 
-
+{% load adv_cache wagtailimages_tags %}
 {% cache None cache_name "banner" cache_date %}
-
-  {% image self.banner_image fill-2100x700-c100 format-webp as webp_img_w_2100 %} 
-  {% image self.banner_image fill-1500x500-c100 format-webp as webp_img_w_1500 %} 
-  {% image self.banner_image fill-900x300-c100 format-webp as webp_img_w_900 %} 
-  {% image self.banner_image fill-600x200-c100 format-webp as webp_img_w_600 %}
-  {% image self.banner_image fill-2100x700-c100 as fallback %} 
-
-  <div class="position-relative">
-    <picture>
-      <source media="(max-width: 600px)" sizes="(max-width: 600px) 600px" srcset="{{ webp_img_w_600.url }} 600w" type="image/webp">
-      <source media="(max-width: 900px)" sizes="(max-width: 900px) 900px" srcset="{{ webp_img_w_900.url }} 900w" type="image/webp">
-      <source media="(max-width: 1500px)" sizes="(max-width: 1500px) 1500px" srcset="{{ webp_img_w_1500.url }} 1500w" type="image/webp">
-      <source media="(min-width: 1501px)" sizes="(min-width: 1501px) 1501px" srcset="{{ webp_img_w_2100.url }} 2100w" type="image/webp">
-      <img
-        src="{{ fallback.url }}"
-        alt="{{ self.title }}"
-        class="banner-image"
-      >
-    </picture>
-    {% if self.banner_headline or self.banner_small_text %}
+{% image self.banner_image fill-2100x700-c100 format-webp as webp_img_w_2100 %}
+{% image self.banner_image fill-1500x500-c100 format-webp as webp_img_w_1500 %}
+{% image self.banner_image fill-900x300-c100 format-webp as webp_img_w_900 %}
+{% image self.banner_image fill-600x200-c100 format-webp as webp_img_w_600 %}
+{% image self.banner_image fill-2100x700-c100 as fallback %}
+<div class="position-relative">
+  <picture>
+    <source media="(max-width: 600px)"
+            sizes="(max-width: 600px) 600px"
+            srcset="{{ webp_img_w_600.url }} 600w"
+            type="image/webp">
+    <source media="(max-width: 900px)"
+            sizes="(max-width: 900px) 900px"
+            srcset="{{ webp_img_w_900.url }} 900w"
+            type="image/webp">
+    <source media="(max-width: 1500px)"
+            sizes="(max-width: 1500px) 1500px"
+            srcset="{{ webp_img_w_1500.url }} 1500w"
+            type="image/webp">
+    <source media="(min-width: 1501px)"
+            sizes="(min-width: 1501px) 1501px"
+            srcset="{{ webp_img_w_2100.url }} 2100w"
+            type="image/webp">
+    <img src="{{ fallback.url }}" alt="{{ self.title }}" class="banner-image">
+  </picture>
+  {% if self.banner_headline or self.banner_small_text %}
     <div class="banner-overlay-text-block ps-2 ps-md-3 ps-lg-4 pt-1">
-      {% if self.banner_headline %}
-        <div class="banner-headline">
-          {{ self.banner_headline }}
-        </div>
-      {% endif %}
-      {% if self.banner_small_text %}
-        <div class="banner-subheading">
-          {{ self.banner_small_text }}
-        </div>
-      {% endif %}
+      {% if self.banner_headline %}<div class="banner-headline">{{ self.banner_headline }}</div>{% endif %}
+      {% if self.banner_small_text %}<div class="banner-subheading">{{ self.banner_small_text }}</div>{% endif %}
     </div>
-    {% endif %}
-  </div>
-
+    {% if self.banner_image_caption %}<div class="banner-image-caption">{{ self.banner_image_caption }}</div>{% endif %}
+  {% endif %}
+</div>
 {% endcache %}
