@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="https://enzedonline.com/gpx-extensions"
+    xmlns:gpx="https://enzedonline.com/gpx-extensions" elementFormDefault="qualified">
+    <!-- In metadata: Total track length in km. In trkseg: total length of track segment in km -->
+    <xs:element name="length" type="xs:decimal"/>
+    <!-- Total elevation gain in meters -->
+    <xs:element name="ele_gain" type="xs:decimal"/>
+    <!-- Total elevation loss in meters -->
+    <xs:element name="ele_loss" type="xs:decimal"/>
+    <!-- Distance from route start (km) – used in waypoints -->
+    <xs:element name="dist_from_start" type="xs:decimal"/>
+    <!-- Indicates this waypoint marks the start of a new segment -->
+    <xs:element name="segment_start" type="xs:boolean"/>
+    <!-- Optional segment name -->
+    <xs:element name="name" type="xs:string"/>
+</xs:schema>

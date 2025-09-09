@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load adv_cache static wagtailcore_tags core_tags structured_data_tags %}
+{% block extra_head %}
+    <link rel="stylesheet"
+          href="{% static 'css/flexmasonry.css' %}"
+          type="text/css">
+    {% cache None cache_name "structure" cache_date %}
+    {% include "goneforawander/home/structured_data.html" %}
+{% endcache %}
+{% endblock extra_head %}
+{% block extra_scripts %}
+    <script src="{% static 'js/flexmasonry.js' %}"></script>
+    <script src="{% static 'js/flexmasonry.extra.js'%}"></script>
+{% endblock extra_scripts %}
+{% block header %}
+    {# Page Banner #}
+    {% include "core/banner_image.html" %}
+{% endblock header %}
+{% block content %}
+    {% cache None cache_name "body" cache_date %}
+    <div class="container-fluid pt-0 pt-md-2 px-2 px-sm-5 pb-4">
+        <div class="row mt-4 px-md-2 pb-0 text-start">
+            <h1 class="mb-0">{{ self.title }}</h1>
+        </div>
+        {% for block in page.body %}
+            {% include_block block %}
+        {% endfor %}
+    </div>
+    {% endcache %}
+{% endblock content %}
