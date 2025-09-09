@@ -169,7 +169,13 @@ def sitemap(request):
     urlset = []
     for locale_home in site.root_page.get_translations(inclusive=True).defer_streamfields():
         for child_page in locale_home.get_descendants(inclusive=True).defer_streamfields().live().public().specific():
-            urlset.append(child_page.get_sitemap_urls())
+            if getattr(child_page, 'search_engine_index', True) is False:
+                continue
+            entry = child_page.get_sitemap_urls()
+            if isinstance(entry, list):
+                urlset.extend(entry)
+            else:
+                urlset.append(entry)
     try:
         urlset.remove([])
     except:
