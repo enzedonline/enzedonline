@@ -1,14 +1,15 @@
-{% load static adv_cache seo_metadata_tags core_tags %}
+{% load static wagtailcore_tags adv_cache seo_metadata_tags core_tags %}
 {% get_cache_key_settings as cache_settings %}
+{% wagtail_site as current_site %}
+{% firstof current_site.site_name "enzedonline" as site_name %}
 {% cache None cache_settings.cache_name cache_settings.cache_head cache_settings.cache_date %}
 {# Fonts #}
 <link rel="preconnect" href="https://fonts.gstatic.com">
-{% comment %} <link rel="preload" href="{% static 'css/enzedonlinefonts-min.css' %}" as="style">
-<link rel="stylesheet" href="{% static 'css/enzedonlinefonts-min.css' %}" type="text/css"> {% endcomment %}
 {# Global stylesheets #}
 <link rel="stylesheet" href="{% static 'css/litera/bootstrap.min.css' %}" type="text/css">
-<link rel="stylesheet" href="{% static 'css/enzedonline.css' %}" type="text/css">
-{% comment %} <link rel="stylesheet" type="text/css" href="{% static 'css/menu-min.css' %}" /> {% endcomment %}
+{% with "css/"|add:site_name|add:".css" as css_path %}
+    <link rel="stylesheet" href="{% static css_path %}">
+{% endwith %}
 {# Meta Tags #}
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -27,14 +28,13 @@
 <meta property="fb:app_id" content="{{ settings.site_settings.Tokens.facebook_app_id }}">
 {% canonical %}
 {# favicon #}
-<link rel="apple-touch-icon" sizes="180x180" href="{% static 'favicon/apple-touch-icon.png' %}">
-<link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon/favicon-32x32.png' %}">
-<link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicon/favicon-16x16.png' %}">
-<link rel="manifest" href="{% static 'favicon/site.webmanifest' %}">
-<link rel="mask-icon" href="{% static 'favicon/safari-pinned-tab.svg' %}" color="#4582ec">
-<link rel="shortcut icon" href="{% static 'favicon/favicon.ico' %}">
-<meta name="msapplication-TileColor" content="#2d89ef">
-<meta name="msapplication-config" content="{% static 'favicon/browserconfig.xml' %}">
-<meta name="theme-color" content="#4582ec">
+<link rel="apple-touch-icon" sizes="180x180" href="{% static 'favicon/'|add:site_name|add:'/apple-touch-icon.png' %}">
+<link rel="icon" type="image/svg+xml" href="{% static 'favicon/'|add:site_name|add:'/favicon.svg' %}">
+<link rel="icon" type="image/png" sizes="96x96" href="{% static 'favicon/'|add:site_name|add:'/favicon-96x96.png' %}">
+<link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon/'|add:site_name|add:'/favicon-32x32.png' %}">
+<link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicon/'|add:site_name|add:'/favicon-16x16.png' %}">
+<link rel="shortcut icon" href="{% static 'favicon/'|add:site_name|add:'/favicon.ico' %}">
+<link rel="manifest" href="{% static 'favicon/'|add:site_name|add:'/site.webmanifest' %}">
+<meta name="apple-mobile-web-app-title" content="{{ site_name }}" />
 {% block extra_css %}{% endblock extra_css %}
 {% endcache %}
