@@ -4,6 +4,7 @@ from django.utils.safestring import mark_safe
 
 from core.utils import strip_svg_markup
 from menustream.models import Menu
+from site_settings.models import SocialMediaLinks
 
 register = template.Library()
 
@@ -97,18 +98,17 @@ def menu_icon(image, rendition_token='fill-25x25|format-png'):
     return ''
 
 
-@register.simple_tag()
-def get_social_media_icons():
-    from site_settings.models import SocialMedia
+@register.simple_tag(takes_context=True)
+def get_social_media_icons(context):
     try:
+        request = context['request']
         social_media_icons = []
-        icons = SocialMedia.objects.filter(locale_id=1)
-        for icon in icons:
+        links = SocialMediaLinks.for_request(request).social_media_links.all()
+        for link in links:
             item = {}
-            locale_icon = icon.localized
-            item['link'] = locale_icon.url
-            item['image'] = menu_icon(locale_icon.photo, 'fill-50x50|format-png')
-            item['alt'] = locale_icon.site_name
+            item['link'] = link.url
+            item['image'] = menu_icon(link.logo, 'fill-50x50|format-png')
+            item['alt'] = link.site_name
             social_media_icons.append(item)
         return social_media_icons
     except:
