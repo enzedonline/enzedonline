@@ -135,7 +135,7 @@ class ContactPage(WagtailCaptchaEmailForm, SEOPage):
     template = "contact/contact_page.html"
     landing_page_template = "contact/contact_page_landing.html"
     subpage_types = []
-    max_count = 1
+    max_count = 2
 
     def get_form_class(self):
         attrs = getattr(self, 'recaptcha_attrs', {})
