@@ -38,10 +38,8 @@ class TwoColumnServiceBlock(TwoColumnBaseBlock):
 
 class ServicePage(SEOPage):
 
-    parent_page_types = ["home.HomePage"]
-    subpage_types = [
-        "service.ServicePage", 
-    ]
+    parent_page_types = ["home.HomePage", "goneforawander.GFWHomePage"]
+    subpage_types = []
     max_count = 8
 
     banner_image = models.ForeignKey(
