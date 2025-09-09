@@ -15,12 +15,16 @@ from userauth.views import (CustomPasswordChangeView, CustomPasswordSetView,
                             CustomUserDeleteView, CustomUserUpdateView,
                             delete_success, password_change_success,
                             profile_view)
+from .views import error_500_view
+
+handler500 = error_500_view
 
 if settings.DEBUG:
     from .views import error_429_view
     from contact.views import TestContactReceiptView
     from django.views import defaults as default_views
-
+    from django.core.exceptions import PermissionDenied
+    from django.http import Http404
 
 def trigger_error(request):
     division_by_zero = 1 / 0
@@ -48,10 +52,11 @@ if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
        
     urlpatterns += [
-        re_path(r'^403/$', default_views.permission_denied, kwargs={'exception': Exception("Permission Denied")}),
-        re_path(r'^404/$', default_views.page_not_found, kwargs={'exception': Exception("Page not Found")}),
+        re_path(r'^403/$', default_views.permission_denied, kwargs={'exception': PermissionDenied("Permission Denied")}),
+        re_path(r'^404/$', default_views.page_not_found, kwargs={'exception': Http404("Page not Found")}),
+        re_path(r'^en/404/$', default_views.page_not_found, kwargs={'exception': Http404("Page not Found")}),
         re_path(r'^429/$', error_429_view, kwargs={'exception': Exception("Too Many Requests")}),
-        re_path(r'^500/$', default_views.server_error),
+        re_path(r'^500/$', error_500_view),
         path('test-receipt/', TestContactReceiptView.as_view(), name='test_receipt'),
     ]
 
