@@ -6,6 +6,8 @@
     --menustream-enzedonline-link-brand-height: clamp(26px, calc(26px + (55 - 26) * ((100vw - 375px) / (1500 - 375))), 55px);
     --menustream-enzedonline-navbar-bg-color: var(--bs-primary);
 
+    padding: 0.25rem;
+
 
     &.navbar {
         background-color: var(--menustream-enzedonline-navbar-bg-color) !important;

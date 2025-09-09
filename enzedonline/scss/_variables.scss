@@ -15,4 +15,5 @@
   --inline-code-background-color: #e5e5e5;
   --max-display-width: 130rem;
   --menustream-brand-height: clamp(26px, calc(26px + (55 - 26) * ((100vw - 375px) / (1800 - 375))), 55px);
+  --banner-image-caption-font-size: clamp(0.5rem, 0.4rem + 0.4vw, 0.75rem);
 }

@@ -39,3 +39,14 @@
   width: 100%;
   height: auto;
 }
+
+.banner-image-caption {
+    font-family: var(--font-family-headings);
+    font-size: var(--banner-image-caption-font-size) !important;
+    padding: clamp(0.1rem, 0rem + 0.3vw, 0.25rem) 0.25rem;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    color: #fff7e7;
+    background: #00000052;
+}
