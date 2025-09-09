@@ -3,7 +3,7 @@
 {% get_cache_key_settings as cache_settings %}
 {% get_cache_fragment menu.slug as fragment %}
 {% cache None cache_settings.cache_name fragment cache_settings.cache_date %}
-<nav class="navbar navbar-expand{{ menu.breakpoint }} p-1 menustream menustream{{ menu.breakpoint }} menustream-{{ menu.slug }}">
+<nav class="navbar navbar-expand{{ menu.breakpoint }} menustream menustream{{ menu.breakpoint }} menustream-{{ menu.slug }}">
   <div class="container-fluid menustream-container">
     {% include "menu/brand.html" %}
     {% for item in menu.items %}
