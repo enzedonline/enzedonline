@@ -54,9 +54,27 @@ const convertUTCDateToLocalDate = (dateString, date_options, time_options) => {
 // global on document ready code
 document.addEventListener('DOMContentLoaded', () => {
   // set all external links and documents to open in new tab
-  document.querySelectorAll('a[href^="http"], a[href^="/documents/"]').forEach(link => {
-    link.setAttribute('target', '_blank');
-    link.setAttribute('rel', 'nofollow noopener');
+  const isHttp = (url) => url.protocol === 'http:' || url.protocol === 'https:';
+
+  document.querySelectorAll('a[href]').forEach(link => {
+    try {
+      const href = link.getAttribute('href');
+      const url = new URL(href, document.baseURI);
+
+      const isDocumentLink = url.pathname.startsWith('/documents/');
+      const isExternal = isHttp(url) && url.origin !== window.location.origin;
+
+      if (isExternal || isDocumentLink) {
+        if (!link.target) link.setAttribute('target', '_blank');
+        // preserve any existing rel values, add nofollow+noopener if not present
+        const currentRel = (link.getAttribute('rel') || '').split(/\s+/).filter(Boolean);
+        const needed = ['nofollow', 'noopener'];
+        const rel = Array.from(new Set([...currentRel, ...needed])).join(' ');
+        link.setAttribute('rel', rel);
+      }
+    } catch (e) {
+      // Ignore invalid URLs (e.g., javascript:, malformed, etc.)
+    }
   });
 
   // change rich text <span class="fa-icon"> font awesome tags: 
