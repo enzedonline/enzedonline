@@ -10,17 +10,14 @@
           <li class="nav-item footer-sm-icon">
             <a href="{{ icon.link }}"
                title="{{ icon.alt }}"
-               aria-label="{{ icon.alt }}"
-              >
-              {{ icon.image }}
-            </a>
+               aria-label="{{ icon.alt }}">{{ icon.image }}</a>
           </li>
         {% endfor %}
       </ul>
     </div>
-       <span class="mx-lg-auto">
-          <a class="footer-nav-link" href="{% slugurl 'privacy' %}">Privacy Policy</a>
-        </span>
+    <span class="mx-lg-auto">
+      <a class="footer-nav-link" href="{% slugurl 'privacy' %}">Privacy Policy</a>
+    </span>
     <div class="py-0 mb-n3 d-none d-sm-block justify-content-end text-end text-muted">
       <a class="footer-nav-link pe-1" href="{% slugurl 'about' %}">
         <span class="website-by">Website by Enzed Online</span>
