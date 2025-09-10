@@ -2,7 +2,7 @@ from django import template
 from django.utils.safestring import mark_safe
 from wagtail.models import Locale
 
-from site_settings.models import SocialMedia, CompanyLogo
+from site_settings.models import SocialMediaLinks, Brand
 
 register = template.Library()
 
@@ -14,21 +14,25 @@ def get_google_thumbnails(img):
         'tn16x9': img.get_rendition('thumbnail-500x281|format-png'),
     }
     
-@register.simple_tag()
-def get_social_media_sameas():
+@register.simple_tag(takes_context=True)
+def get_social_media_sameas(context):
+    request = context['request']
+    links = SocialMediaLinks.for_request(request).social_media_links.all()
     same_as = []
-    for sm in SocialMedia.objects.all().filter(locale_id=Locale.get_active().id):
-        same_as.append(f'"{sm.url}"')
+    for link in links:
+        same_as.append(f'"{link.url}"')
     return mark_safe(','.join(same_as))
 
-@register.simple_tag()
-def get_organisation_logo():
+@register.simple_tag(takes_context=True)
+def get_organisation_logo(context):
+    request = context['request']
     try:
-        company_logo_instance = CompanyLogo.objects.filter(name='organisation').first()
-        if company_logo_instance and hasattr(company_logo_instance, 'localized'):
-            company_logo = getattr(company_logo_instance.localized, 'logo', company_logo_instance.logo)
-            if company_logo:
-                return company_logo.get_rendition('thumbnail-500x500|format-png').full_url
-    except (AttributeError, CompanyLogo.DoesNotExist):
+        brand = Brand.for_request(request)
+        logo = brand.__getattribute__('logo', False)
+        if logo.is_svg():
+            return logo.full_url
+        else:
+            return logo.get_rendition('thumbnail-500x500|format-png').full_url
+    except (AttributeError, Brand.DoesNotExist):
         pass
     return ''
