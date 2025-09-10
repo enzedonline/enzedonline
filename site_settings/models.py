@@ -41,6 +41,14 @@ class SpamSettings(BaseGenericSetting):
         help_text=_("Enter word or phrase to block. Each should be on a new line")
     ) 
 
+@register_setting(icon='mail')
+class GmailSettings(BaseGenericSetting):
+    gmail_service_account = models.JSONField(
+        null=True,
+        blank=True,
+        verbose_name=_("Gmail Service Account Details")
+    )
+
 ###------------------------------------------------------------
 ### Site settings
 ###------------------------------------------------------------
@@ -59,11 +67,6 @@ class SiteTokens(BaseSiteSetting):
         blank=False,
         verbose_name=_("FontAwesome Kit ID")
     )
-    gmail_service_account = models.JSONField(
-        null=True,
-        blank=True,
-        verbose_name=_("Gmail Service Account Details")
-    )
     facebook_app_id = models.CharField(
         max_length=100,
         null=True,
@@ -78,45 +81,6 @@ class SiteTokens(BaseSiteSetting):
         help_text=_("Copy in the code from Section 2 of the Javascript SDK tab in the 'Advanced Settings' embed page.")
     )
 
-# TODO: delete this model after migrating data
-@register_setting(icon='facebook')
-class Facebook_Script_Src(BaseGenericSetting):
-    javascript_sdk = models.CharField(
-        max_length=300,
-        null=True,
-        blank=False,
-        verbose_name=_("Facebook Javascript SDK"),
-        help_text=_("Copy in the code from Section 2 of the Javascript SDK tab in the 'Advanced Settings' embed page.")
-    )
-    class Meta(BaseGenericSetting.Meta):
-        verbose_name = 'Facebook Javascript SDK'
-
-# TODO: delete this model after migrating data
-@register_setting(icon='password')
-class Tokens(BaseGenericSetting):
-    google_analytics = models.CharField(
-        max_length=100,
-        null=True,
-        blank=False,
-        verbose_name=_("Google Analytics Site ID")
-    )
-    facebook_app_id = models.CharField(
-        max_length=100,
-        null=True,
-        blank=False,
-        verbose_name=_("Facebook App ID")
-    )
-    fontawesome = models.CharField(
-        max_length=100,
-        null=True,
-        blank=False,
-        verbose_name=_("FontAwesome Kit ID")
-    )
-    gmail_service_account = models.JSONField(
-        null=True,
-        blank=True,
-        verbose_name=_("Gmail Service Account Details")
-    )
 
 class SocialMediaLink(Orderable):
     site = ParentalKey("site_settings.SocialMediaLinks", related_name="social_media_links") # type: ignore
@@ -156,51 +120,28 @@ class SocialMediaLinks(BaseSiteSetting, ClusterableModel):
     class Meta:
         verbose_name = "Social Media Links"
 
-###------------------------------------------------------------
-### Snippets used as site settings 
-###------------------------------------------------------------
-
-@register_snippet
-class SocialMedia(TranslatableMixin, models.Model):
-    site_name = models.CharField(
-        max_length=30,
-        null=False,
-        blank=False,
-        help_text=_("Site Name")
-    )
-    url = models.URLField(
-        max_length=100,
-        null=False,
-        blank=False,
-        help_text=_("Profile URL")
-    )
-    photo = models.ForeignKey(
+@register_setting(icon="eye")
+class Brand(BaseSiteSetting):
+    logo = models.ForeignKey(
         "wagtailimages.Image",
         blank=False,
         null=True,
         on_delete=models.SET_NULL,
         related_name="+",
-        help_text=_("Social Media Icon (displayed at 25x25)")
+        help_text=_("Square Brand Logo (displayed at 25x25)")
     )
- 
-    panels = [
-        FieldPanel('site_name'),
-        FieldPanel('url'),
-        FieldPanel('photo'),
-    ]
+    banner = models.ForeignKey(
+        "wagtailimages.Image",
+        blank=False,
+        null=True,
+        on_delete=models.SET_NULL,
+        related_name="+",
+        help_text=_("Banner Image (displayed at 1200x300)")
+    )
 
-    override_translatable_fields = [
-        SynchronizedField("photo", overridable=False),
-    ]   
-    
-    def __str__(self):
-        """The string representation of this class"""
-        return self.site_name
-
-    class Meta(TranslatableMixin.Meta):
-        verbose_name = 'Social Media Link'
-        verbose_name_plural = 'Social Media Links'
-        unique_together = ('translation_key', 'locale')
+###------------------------------------------------------------
+### Snippets used as site settings 
+###------------------------------------------------------------
 
 class EmailSignatureSocialMedia(Orderable):
     signature = ParentalKey("site_settings.EmailSignature", related_name="social_media_links") # type: ignore
