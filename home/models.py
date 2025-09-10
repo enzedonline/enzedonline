@@ -50,6 +50,7 @@ class HomePage(SEOPage):
                 FieldPanel('banner_image'),
                 FieldPanel('banner_headline'),
                 FieldPanel('banner_small_text'),
+                FieldPanel('banner_image_caption'),
             ], 
             heading=_("Choose banner image and text/button overlay options.")
         ),
