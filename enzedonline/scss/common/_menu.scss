@@ -12,7 +12,7 @@
 /* navbar */
 .menustream-container {
   gap: clamp(0.2rem, 2%, 2rem);
-  padding-right: 0.25rem !important;
+  padding-right: 0.5rem !important;
   justify-content: space-evenly !important;
 }
 
@@ -81,9 +81,12 @@
         padding-top: 0;
         padding-bottom: 0;
 
-        &.active {
+        &.active,
+        &:active {
           background-color: var(--bs-secondary-bg);
+        }
 
+        &.active {
           >.nav-link::after {
             content: '🗸';
             padding-left: 0.5em;
@@ -109,7 +112,6 @@
         img {
           margin-right: 0.5em;
         }
-
 
         /* submenu dropend dropstart dropinline */
 
