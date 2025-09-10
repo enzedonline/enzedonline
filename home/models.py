@@ -34,6 +34,11 @@ class HomePage(SEOPage):
         blank=True,
         null=True,
     )
+    banner_image_caption = models.CharField(
+        max_length=60,
+        blank=True,
+        null=True,
+    )
 
     body = StreamField(
         SimpleStreamBlock(), verbose_name="Page body", blank=True, use_json_field=True
