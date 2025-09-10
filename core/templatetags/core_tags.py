@@ -10,9 +10,14 @@ from wagtail.admin.templatetags.wagtailadmin_tags import render_with_errors
 from wagtail.documents.models import Document
 from wagtail.models import Page
 
-from site_settings.models import CompanyLogo, EmailSignature, TemplateText
+from site_settings.models import Brand, EmailSignature, SiteTokens, TemplateText
 
 register = template.Library()
+
+@register.simple_tag(takes_context=True)
+def site_tokens(context):
+    request = context['request']
+    return SiteTokens.for_request(request)
 
 @register.filter(name='is_in_group') 
 def is_in_group(user, group_name):
@@ -182,14 +187,16 @@ def get_picture_rendition(image, width):
     else:
         return image['file'].get_rendition("original|format-webp")
 
-@register.simple_tag()
-def get_logo(logo):
+@register.simple_tag(takes_context=True)
+def get_brand_banner(context):
+    request = context['request']
     try:
-        logo = CompanyLogo.objects.filter(name=logo).first()
-        return logo.localized.logo if logo else CompanyLogo.objects.none()
-                
-    except (AttributeError, CompanyLogo.DoesNotExist):
-        return CompanyLogo.objects.none()    
+        brand = Brand.for_request(request)
+        banner = brand.__getattribute__('banner', False)
+        return banner
+    except (AttributeError, Brand.DoesNotExist):
+        pass
+    return ''  
 
 @register.simple_tag(takes_context=True)
 def get_referrer_or_none(context):
