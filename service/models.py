@@ -59,6 +59,11 @@ class ServicePage(SEOPage):
         blank=True,
         null=True,
     )
+    banner_image_caption = models.CharField(
+        max_length=60,
+        blank=True,
+        null=True,
+    )
 
     body = StreamField([
             ('single_column', FullWidthServiceBlock()),
@@ -73,7 +78,8 @@ class ServicePage(SEOPage):
                 FieldPanel('banner_image'),
                 FieldPanel('banner_headline'),
                 FieldPanel('banner_small_text'),
-            ], 
+                FieldPanel('banner_image_caption'),
+            ],
             heading=_("Choose banner image and text/button overlay options.")
         ),
         FieldPanel("body"),
