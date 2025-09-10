@@ -28,10 +28,10 @@ def get_organisation_logo(context):
     request = context['request']
     try:
         brand = Brand.for_request(request)
-        logo = brand.__getattribute__('logo', False)
-        if logo.is_svg():
+        logo = getattr(brand, 'logo', None)
+        if logo and logo.is_svg():
             return logo.full_url
-        else:
+        elif logo:
             return logo.get_rendition('thumbnail-500x500|format-png').full_url
     except (AttributeError, Brand.DoesNotExist):
         pass

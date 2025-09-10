@@ -5,8 +5,8 @@
           href="{% static 'css/flexmasonry.css' %}"
           type="text/css">
     {% cache None cache_name "structure" cache_date %}
-    {% include "goneforawander/home/structured_data.html" %}
-{% endcache %}
+        {% include "home/structured_data.html" %}
+    {% endcache %}
 {% endblock extra_head %}
 {% block extra_scripts %}
     <script src="{% static 'js/flexmasonry.js' %}"></script>
