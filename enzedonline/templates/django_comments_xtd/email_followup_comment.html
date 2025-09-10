@@ -1,8 +1,9 @@
 {% extends "mail/base.html" %}
-{% load core_tags comments l10n %}
+{% load core_tags comments l10n wagtailcore_tags %}
 {% block heading %}
-    {% get_logo 'email_banner' as heading_image %}
-    {% with base_url="https://enzedonline.com/" %}{{ block.super }}{% endwith %}
+    {% wagtail_site as current_site %}
+    {% get_brand_banner as heading_image %}
+    {% with base_url="https://{{ current_site.hostname }}/" %}{{ block.super }}{% endwith %}
 {% endblock heading %}
 {% block message %}
     {% get_template_set "comments" as trans %}
