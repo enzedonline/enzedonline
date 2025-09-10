@@ -10,7 +10,7 @@ from google.oauth2 import service_account
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 
-from site_settings.models import Tokens
+from site_settings.models import GmailSettings
 
 class GmailBackend(BaseEmailBackend):
     """
@@ -19,7 +19,7 @@ class GmailBackend(BaseEmailBackend):
     def __init__(self, fail_silently=False, **kwargs):
         self.fail_silently = fail_silently
         self._lock = threading.RLock()
-        service_account_key = Tokens.load().gmail_service_account
+        service_account_key = GmailSettings.load().gmail_service_account
         # base_credentials used to build user specific credentials in send method
         self.base_credentials = service_account.Credentials.from_service_account_info(
             service_account_key,
