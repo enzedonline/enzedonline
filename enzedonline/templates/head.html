@@ -3,6 +3,7 @@
 {% wagtail_site as current_site %}
 {% firstof current_site.site_name "enzedonline" as site_name %}
 {% cache None cache_settings.cache_name cache_settings.cache_head cache_settings.cache_date %}
+{% site_tokens as site_tokens %}
 {# Fonts #}
 <link rel="preconnect" href="https://fonts.gstatic.com">
 {# Global stylesheets #}
@@ -13,6 +14,7 @@
 {# Meta Tags #}
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta property="fb:app_id" content="{{ site_tokens.facebook_app_id }}">
 {% robots %}
 {% if request is not None %}
   {# 500 error has no request #}
@@ -25,7 +27,6 @@
 <meta name="coverage" content="Worldwide">
 <meta name="distribution" content="Global">
 <meta name="rating" content="safe for kids">
-<meta property="fb:app_id" content="{{ settings.site_settings.Tokens.facebook_app_id }}">
 {% canonical %}
 {# favicon #}
 <link rel="apple-touch-icon" sizes="180x180" href="{% static 'favicon/'|add:site_name|add:'/apple-touch-icon.png' %}">
