@@ -2,11 +2,13 @@ from django.db import models
 from django.templatetags.static import static
 from django.utils.translation import gettext_lazy as _
 from wagtail.admin.panels import FieldPanel
-from wagtail.fields import RichTextField, StreamField
-from blocks.streamblocks.simple import SimpleStreamBlock
+from wagtail.fields import StreamField
 
+from blocks.streamblocks.base import BaseStreamBlock
 from core.models import SEOPage
+
 from .settings import MapboxAssistConfigs, MapboxSettings
+
 
 class TrackPlannerPage(SEOPage):
     parent_page_types = ['goneforawander.MapIndexPage']
@@ -21,11 +23,13 @@ class TrackPlannerPage(SEOPage):
         related_name="+",
         verbose_name=_("Map Configuration")
     )
-    intro = RichTextField(verbose_name=_("Introduction"))
+    body = StreamField(
+        BaseStreamBlock(), verbose_name=_("Page body"), blank=True, use_json_field=True
+    )
 
     content_panels = SEOPage.content_panels + [
         FieldPanel('config'),
-        FieldPanel('intro'),
+        FieldPanel('body'),
     ]
 
     def get_context(self, request, *args, **kwargs):
@@ -125,7 +129,7 @@ class TrackPlannerHelpPage(SEOPage):
         null=True,
     )
     body = StreamField(
-        SimpleStreamBlock(), verbose_name="Page body", blank=True, use_json_field=True
+        BaseStreamBlock(), verbose_name="Page body", blank=True, use_json_field=True
     )
 
     content_panels = SEOPage.content_panels + [

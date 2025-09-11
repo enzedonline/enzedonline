@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load static wagtailimages_tags wagtailcore_tags map_tags %}
+{% load static adv_cache wagtailimages_tags wagtailcore_tags map_tags %}
 {% block extra_head %}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,6 +11,9 @@
     <link rel="stylesheet"
           href="{% static 'css/mapbox-assist.css' %}"
           type="text/css">
+    {% cache None cache_name "structure" cache_date %}
+        {% include "service/structured_data.html" %}
+    {% endcache %}
     {% if extra_head %}{{ extra_head|parse_django_template }}{% endif %}
     <style>
         div#map {
@@ -19,9 +22,17 @@
     </style>
 {% endblock extra_head %}
 {% block content %}
-    <div id="content" class="container-fluid mt-3 px-3 px-sm-5">
-        <article class="article-body mb-4">
+    <div id="content" class="container-fluid mt-3 px-3 px-lg-5">
+        <div class="article-body mb-4">
             <div id="map"></div>
+        </div>
+        <article class="article-body mb-4">
+            <div class="row mt-4">
+                <h1 class="text-center">{{ self.title }}</h1>
+            </div>
+            {% for block in page.body %}
+                {% include_block block %}
+            {% endfor %}
         </article>
     </div>
     <template id="help-content">
