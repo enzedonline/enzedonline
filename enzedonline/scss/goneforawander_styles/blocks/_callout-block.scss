@@ -1,0 +1,4 @@
+div.blockquote.callout-block:has(svg[data-icon="triangle-exclamation"]) {
+    border: .5rem var(--bs-warning) solid;
+    border-radius: .5rem;
+}

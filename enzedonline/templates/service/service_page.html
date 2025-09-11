@@ -2,8 +2,8 @@
 {% load adv_cache static wagtailcore_tags %}
 {% block extra_head %}
     {% cache None cache_name "structure" cache_date %}
-    {% include "service/structured_data.html" %}
-{% endcache %}
+        {% include "service/structured_data.html" %}
+    {% endcache %}
 {% endblock extra_head %}
 {% block header %}
     {# Page Banner #}
