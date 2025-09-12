@@ -5,4 +5,8 @@
     --goneforawander-body-color: #081e18;
     --goneforawander-banner-headline-font-size: clamp(1.5rem, 0.9rem + 2.1vw, 2.45rem);
     --goneforawander-banner-subheading-font-size: clamp(1rem, 0.7rem + 1vw, 1.45rem);
+    // bootstrap overrides
+    --bs-success-border-subtle: #88c8b1;
+    --bs-info-border-subtle: #88c3cc;
+    --bs-warning-border-subtle: #eed6b4;
 }

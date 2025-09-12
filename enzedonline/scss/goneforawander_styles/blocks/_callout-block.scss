@@ -1,4 +1,18 @@
-div.blockquote.callout-block:has(svg[data-icon="triangle-exclamation"]) {
-    border: .5rem var(--bs-warning) solid;
-    border-radius: .5rem;
+div.blockquote.callout-block {
+    &:has(svg[data-icon="triangle-exclamation"]) {
+        border: .5rem var(--bs-warning) solid;
+        border-radius: .5rem;
+    }
+    &:has(svg[data-icon="lightbulb"]) {
+        border: .5rem var(--bs-success-border-subtle) solid;
+        border-radius: .5rem;
+    }
+    &:has(svg[data-icon="circle-info"]) {
+        border: .5rem var(--bs-info-border-subtle) solid;
+        border-radius: .5rem;
+    }
+    &:has(svg[data-icon="pen-to-square"]) {
+        border: .5rem var(--bs-warning-border-subtle) solid;
+        border-radius: .5rem;
+    }
 }
