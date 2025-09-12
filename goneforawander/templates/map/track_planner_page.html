@@ -35,10 +35,12 @@
             {% endfor %}
         </article>
     </div>
-    <template id="help-content">
-        <div class="mapbox-assist--offcanvas-header">{{ help.title|safe }}</div>
-        <div class="mapbox-assist--offcanvas-body mt-2">{{ help.body|richtext }}</div>
-    </template>
+    <div id="help-content" class="d-none">
+        <div>
+            <div class="mapbox-assist--offcanvas-header">{{ help.title|safe }}</div>
+            <div class="mapbox-assist--offcanvas-body mt-2">{{ help.body|richtext }}</div>
+        </div>
+    </div>
 {% endblock content %}
 {% block extra_js %}
     {{ parameters|json_script:"mapParameters" }}
