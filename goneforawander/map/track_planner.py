@@ -1,7 +1,7 @@
 from django.db import models
 from django.templatetags.static import static
 from django.utils.translation import gettext_lazy as _
-from wagtail.admin.panels import FieldPanel
+from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.fields import StreamField
 
 from blocks.streamblocks.base import BaseStreamBlock
@@ -133,6 +133,15 @@ class TrackPlannerHelpPage(SEOPage):
     )
 
     content_panels = SEOPage.content_panels + [
+        MultiFieldPanel(
+            [
+                FieldPanel('banner_image'),
+                FieldPanel('banner_headline'),
+                FieldPanel('banner_small_text'),
+                FieldPanel('banner_image_caption'),
+            ],
+            heading=_("Choose banner image and text/button overlay options.")
+        ),
         FieldPanel('body'),
     ]
 
