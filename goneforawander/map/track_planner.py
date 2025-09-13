@@ -71,7 +71,7 @@ class TrackPlannerPage(SEOPage):
 
         settings = {
             "mapStyles": map_styles,
-            "fitBounds": {"relativePadding": 5},
+            "fitBounds": {"relativePadding": {"top": 5, "bottom": 10, "left": 5, "right": 5}},
             "loadSpritesheet": {
                 "path": static("icons/mapbox-assist.svg"),
                 "id": 'mapbox-assist--icons'
@@ -98,6 +98,8 @@ class TrackPlannerPage(SEOPage):
 
         if mapbox_assist_config.extra_head:
             context["extra_head"] = mapbox_assist_config.extra_head
+        if mapbox_assist_config.extra_js:
+            context["extra_js"] = mapbox_assist_config.extra_js
 
         return context
 

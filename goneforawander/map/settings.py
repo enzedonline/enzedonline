@@ -21,6 +21,7 @@ class MapboxAssistConfigs(ClusterableModel):
     slug = models.SlugField(max_length=100, unique=True)
     country_code = models.CharField(max_length=2, blank=True, null=True)
     extra_head = models.TextField(blank=True)
+    extra_js = models.TextField(blank=True)
     help_panel_title = models.CharField(max_length=100, blank=True, null=True)
     help_panel_body = RichTextField(blank=True, null=True)
 
@@ -44,6 +45,7 @@ class MapboxAssistConfigs(ClusterableModel):
             heading=_("Feature Layers"),
         ),
         FieldPanel("extra_head"),
+        FieldPanel("extra_js"),
         FieldPanel("help_panel_title"),
         FieldPanel("help_panel_body"),
     ]
