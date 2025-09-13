@@ -80,7 +80,7 @@ export default class DocIcons {
     static loadSpriteSheet = async () => {
         const spriteID = 'doc-feature-icons'
         if (!document.getElementById(spriteID)) {
-            fetch('/static/icons/features.svg')
+            fetch('/static/icons/doc-features.svg')
                 .then(response => response.text()) // Get the SVG content as text
                 .then(svg => {
                     const div = document.createElement('div');
