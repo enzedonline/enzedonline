@@ -4,7 +4,7 @@ from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.fields import StreamField
 from wagtail.search import index
 
-from blocks.streamblocks.simple import SimpleStreamBlock
+from blocks.streamblocks.base import BaseStreamBlock
 from core.models import SEOPage
 
 
@@ -41,7 +41,7 @@ class GFWHomePage(SEOPage):
     )
 
     body = StreamField(
-        SimpleStreamBlock(), verbose_name="Page body", blank=True, use_json_field=True
+        BaseStreamBlock(), verbose_name="Page body", blank=True, use_json_field=True
     )
 
     content_panels = SEOPage.content_panels + [
