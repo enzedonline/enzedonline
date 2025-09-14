@@ -25,8 +25,9 @@
 // page menu
 a.c-page-explorer__item__link {
   padding: 0.5rem 0.75rem !important;
+  flex-wrap: nowrap;
 
   h3 {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
   }
 }
