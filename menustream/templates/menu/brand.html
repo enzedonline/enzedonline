@@ -1,6 +1,7 @@
-{% load wagtailimages_tags %}
+{% load wagtailcore_tags wagtailimages_tags %}
+{% wagtail_site as current_site %}
 {% if menu.brand_logo or menu.brand_title %}
-<a class="navbar-brand me-auto" href="/">
+<a class="navbar-brand me-auto" href="{{ current_site.root_url }}">
   {% if menu.brand_logo %}
     {% image menu.brand_logo original as logo %}
     <img src="{{ logo.url }}"
