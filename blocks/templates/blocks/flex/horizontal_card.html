@@ -5,7 +5,7 @@
   <div class="{{ layout.row_class }}">
     <div class="{{ layout.image_column }} size-{{ block.id }}">{% include "blocks/flex/image.html" %}</div>
     <div class="col">
-      <div class="d-flex flex-column h-100 pt-4">
+      <div class="d-flex flex-column h-100 pt-4{% if not self.border %} pt-{{ self.breakpoint }}-0{% endif %} mt-n1">
         <div class="{{ layout.text_column }}">{% include_block self.rich_text %}</div>
         {% include "blocks/flex/button.html" %}
       </div>

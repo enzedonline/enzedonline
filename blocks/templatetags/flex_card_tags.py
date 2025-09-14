@@ -45,7 +45,7 @@ def row_layout(value, block_id):
         layout['row_class'] = 'row'
         
     if value['format'].find('responsive') != -1:
-        layout['image_column'] = f"col-{value['breakpoint']}-4 pt-4"
+        layout['image_column'] = f"col-{value['breakpoint']}-4"
         layout['text_column'] = "px-2 text-break"
         layout['heading_align'] = f"text-center text-{value['breakpoint']}-start"
         if value['breakpoint'] == 'md':
@@ -53,11 +53,13 @@ def row_layout(value, block_id):
         else:
             breakpoint = '576px'
         layout['image_style'] = f"@media (min-width: {breakpoint}) {{.size-{block_id} {{{minmax_style}}}}}"
-
     else:
-        layout['image_column'] = 'col-4 pt-4'
+        layout['image_column'] = 'col-4'
         layout['breakpoint'] = '0px'
         layout['image_style'] = f".size-{block_id} {{{minmax_style}}}"
         layout['heading_align'] = f"text-start"
+
+    if value['border']:
+        layout['image_column'] += ' pt-4'
 
     return layout
