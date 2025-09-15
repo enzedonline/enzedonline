@@ -63,7 +63,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const isDocumentLink = url.pathname.startsWith('/documents/');
       const isExternal = isHttp(url) && url.origin !== window.location.origin;
-      console.debug(`Link: ${href}, URL Origin: ${url.origin}, Window Origin: ${window.location.origin}, External: ${isExternal}, Document: ${isDocumentLink}`);
 
       if (isExternal || isDocumentLink) {
         if (!link.target) link.setAttribute('target', '_blank');
