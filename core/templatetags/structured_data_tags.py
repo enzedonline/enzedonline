@@ -1,10 +1,15 @@
+import json
 from django import template
 from django.utils.safestring import mark_safe
-from wagtail.models import Locale
 
 from site_settings.models import SocialMediaLinks, Brand
 
 register = template.Library()
+
+@register.filter
+def tojson(value):
+    """Render Python list/dict/etc. as JSON, safe for inclusion in templates."""
+    return mark_safe(json.dumps(value, ensure_ascii=False))
 
 @register.simple_tag()
 def get_google_thumbnails(img):
