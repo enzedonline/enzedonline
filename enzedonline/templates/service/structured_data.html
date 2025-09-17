@@ -16,17 +16,20 @@
     {% endif %}
     "datePublished": "{{ self.first_published_at|date:'c' }}",
     "dateModified": "{{ self.last_published_at|date:'c' }}",
-    "author": [{
+    "author": {
         "@type": "Person",
         "name": "{{ self.owner.get_full_name }}",
         "url": "{{ self.owner.website }}",
         "sameAs": [{{ sameAs }}]
-    }],
+    },
     "publisher": {
         "@type": "Organization",
         "@id": "{{ page.get_site.root_url }}",
         "name": "{{ page.get_site.site_name }}",
-        "logo": "{{ logo }}",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "{{ logo }}"
+        },
         "url": "{{ page.get_site.root_url }}",
         "sameAs": [{{ sameAs }}]
     },

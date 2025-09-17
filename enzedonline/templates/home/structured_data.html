@@ -13,7 +13,10 @@
             "@type": "Organization",
             "@id": "{{ page.get_site.root_url }}",
             "name": "{{ page.get_site.site_name }}",
-            "logo": "{{ logo }}",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "{{ logo }}"
+            },
             "url": "{{ page.get_site.root_url }}",
             "sameAs": [{{ sameAs }}]
         },
@@ -39,7 +42,10 @@
                 "@type": "Organization",
                 "@id": "{{ page.get_site.root_url }}",
                 "name": "{{ page.get_site.site_name }}",
-                "logo": "{{ logo }}",
+                "logo": {
+                    "@type": "ImageObject",
+                    "url": "{{ logo }}"
+                },
                 "url": "{{ page.get_site.root_url }}",
                 "sameAs": [{{ sameAs }}]
             },
