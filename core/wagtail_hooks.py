@@ -13,14 +13,21 @@ from .draftail_extensions import (register_block_feature,
 from .thumbnails import ThumbnailOperation
 from .utils import get_custom_icons, purge_page_cache_fragments
 
+@hooks.register('insert_global_admin_js')
+def register_admin_js():
+    m2m_chooser_js = static('js/m2m_chooser.js')
+    return mark_safe(
+        f'<script src="{m2m_chooser_js}"></script>'
+    )
 
-@mark_safe
 @hooks.register('insert_global_admin_css')
 def global_admin_css():
-    css = ""
-    for css_file in ['css/admin.css']:
-        css += f'<link rel="stylesheet" href="{static(css_file)}">'
-    return css
+    admin_css = static('css/admin.css')
+    m2m_chooser_css = static('css/m2m_chooser.css')
+    return mark_safe(
+        f'<link rel="stylesheet" href="{admin_css}">' +
+        f'<link rel="stylesheet" href="{m2m_chooser_css}">'
+    )
 
 @hooks.register('register_image_operations')
 def register_image_operations():

@@ -1,0 +1,66 @@
+<ul class="tagit ui-widget ui-widget-content ui-corner-all m2m-chooser-chosen">
+</ul>
+<div class="m2m-chooser-button-container">
+    <button class="button no" type="button" data-button-role="clear-chosen">{{ opts.clear_button_text }}</button>
+    <button class="button" type="button" data-button-role="open-modal">{{ opts.select_button_text }}</button>
+</div>
+<!-- M2M Field Panel Modal form -->
+<div class="modal-backdrop m2m-chooser-modal">
+    <div class="modal-content modal-body modal-form">
+        <header class="w-header w-header--merged">
+            {# title and cancel button #}
+            <div>
+                <div class="left">
+                    <div class="col modal-banner">
+                        <svg class="icon modal-icon" aria-hidden="true">
+                            <use href="#icon-tasks"></use>
+                        </svg>
+                        <h2 class="w-header__title modal-heading" id="header-title">{{ self.heading }}</h2>
+                    </div>
+                </div>
+                <div class="right modal-dismiss-container">
+                    <button type="button" data-button-role="cancel-modal"
+                            class="button button--icon text-replace modal-dismiss"
+                            title="{{ opts.cancel_text }}">
+                        <svg class="icon icon-cross" aria-hidden="true">
+                            <use href="#icon-cross"></use>
+                        </svg>
+                        {{ opts.cancel_text }}
+                    </button>
+                </div>
+            </div>
+        </header>
+        <div class="m2m-chooser-body">
+            {# search input #}
+            <div class="modal-search-container">
+                <input type="text"
+                       placeholder="{{ opts.search_text }}"
+                       class="modal-search" />
+                <a role="button" title="{{ opts.clear_filter_text }}" data-button-role="clear-filter">
+                    <svg class="modal-search-dismiss icon icon-cross" aria-hidden="true">
+                        <use href="#icon-cross"></use>
+                    </svg>
+                </a>
+            </div>
+            {# selection panel #}
+            <div class="selection-panel-container">
+                <div class="selection-panel">
+                    {# display no results text if filter has no match #}
+                    <div class="no-results-text hide">{{ opts.filter_no_results_text }}</div>
+                    <ul class="modal-select-list">
+                        {% for choice in choices %}
+                            <li value="{{ choice.value }}"
+                                class="button modal-select-item button-secondary">{{ choice.label }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            {# modal buttons #}
+            <div class="m2m-chooser-button-container">
+                <button class="button no" type="button" data-button-role="cancel-modal">{{ opts.cancel_text }}</button>
+                <button class="button" type="button" data-button-role="submit-modal">{{ opts.submit_button_text }}</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>new M2MChooser("{{ opts.field_id }}");</script>

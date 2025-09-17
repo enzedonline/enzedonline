@@ -1,0 +1,205 @@
+/* CSS styles for the admin page */
+/* ----------------------------- */
+
+/* chosen items */
+ul.m2m-chooser-chosen {
+    min-height: 2.5rem;
+    margin-bottom: 0.6rem;
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 0.4rem;
+    column-gap: 0.6em;
+}
+
+ul.m2m-chooser-chosen>li {
+    font-size: medium;
+    border-radius: 0.5rem;
+    background-color: var(--w-color-surface-button-default);
+    color: var(--w-color-text-button);
+    padding: 0.3em 0.6em !important;
+    display: flex;
+    align-items: center;
+}
+
+ul.m2m-chooser-chosen>li>span {
+    padding-right: 0.4em;
+}
+
+a.clear-choice-button {
+    color: var(--w-color-text-label-menus-default);
+    cursor: pointer;
+    height: 1em;
+    display: flex;
+    align-items: center;
+}
+
+a.clear-choice-button:hover {
+    color: var(--w-color-text-label-menus-active);
+}
+
+a.clear-choice-button>svg {
+    height: 1em;
+    width: 1em;
+    display: block;
+}
+
+/* action buttons */
+div.m2m-chooser-button-container {
+    text-align: right;
+}
+
+/* CSS styles for the modal form */
+/* ----------------------------- */
+
+/*  hide modal initially */
+div.m2m-chooser-modal {
+    display: none;
+}
+
+/* set display on modal elements with hide class (search facility) */
+div.m2m-chooser-modal .hide {
+    display: none;
+}
+
+/* set modal display */
+div.m2m-chooser-modal div.modal-form {
+    width: 80%;
+    left: 10%;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 0;
+}
+
+/* modal title bar */
+div.m2m-chooser-modal div.modal-banner {
+    color: var(--w-color-text-label-menus-active);
+    display: flex;
+    align-items: center;
+    margin-inline-start: 2em;
+}
+
+div.m2m-chooser-modal .modal-heading {
+    padding: 1rem;
+    display: inline;
+}
+
+div.m2m-chooser-modal header.w-header div.left {
+    /* wagtail bug fix - stop dismiss button wrapping on mobile */
+    max-width: 80%;
+}
+
+div.m2m-chooser-modal svg.modal-icon {
+    display: inline;
+    max-width: 1.4em;
+    max-height: 1.4em;
+}
+
+div.m2m-chooser-modal div.modal-dismiss-container {
+    padding: .7em .7em 0 0;
+    opacity: .7;
+}
+
+div.m2m-chooser-modal button.modal-dismiss {
+    color: var(--w-color-text-label-menus-default) !important;
+    border-color: var(--w-color-text-label-menus-default) !important;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 5px;
+    background-color: transparent !important;
+}
+
+div.m2m-chooser-modal button.modal-dismiss:hover {
+    color: var(--w-color-text-label-menus-active) !important;
+    border-color: var(--w-color-text-label-menus-active) !important;
+}
+
+/* modal body */
+div.m2m-chooser-body {
+    padding: 0.5rem 1.5rem 1.5rem 1.5rem;
+    border-radius: 0;
+    margin-top: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+/* modal search */
+div.m2m-chooser-modal div.modal-search-container {
+    position: relative;
+    display: flex;
+}
+
+div.m2m-chooser-modal input.modal-search {
+    margin-bottom: 0.6rem;
+    flex-grow: 1;
+    padding-right: 2em;
+}
+
+div.m2m-chooser-modal svg.modal-search-dismiss {
+    color: var(--w-color-text-label);
+    height: 1em;
+    width: 1em;
+    position: absolute;
+    top: 50%;
+    right: 1em;
+    transform: translateY(-75%);
+    cursor: pointer;
+    opacity: .7;
+}
+
+div.m2m-chooser-modal svg.modal-search-dismiss:hover {
+    color: var(--w-color-text-context);
+}
+
+div.no-results-text {
+    padding: 0 2em;
+    font-style: italic;
+    opacity: 0.8;
+}
+
+/*  selection list container */
+div.m2m-chooser-modal div.selection-panel-container {
+    border: 1px solid var(--w-color-border-field-default);
+    border-radius: 0.3125rem;
+    overflow: hidden;
+    display: flex;
+    margin-bottom: 1rem;
+}
+
+/* scrollable selection list  */
+div.m2m-chooser-modal div.selection-panel {
+    background-color: var(--w-color-surface-field);
+    padding: 20px 0;
+    overflow-y: auto;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    height: calc(85vh - 170px);
+    gap: 0.5rem;
+}
+
+/* option ul list grid */
+div.m2m-chooser-modal ul.modal-select-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    row-gap: 0.8rem;
+    column-gap: 1em;
+    padding: 0 1rem;
+}
+
+/* option li list item */
+div.m2m-chooser-modal li.modal-select-item {
+    cursor: pointer;
+    font-size: large;
+    padding: 0.5rem 0.8rem;
+    white-space: normal;
+    overflow-wrap: break-word;
+    border-radius: 0.5rem;
+    width: 100%;
+    height: auto;
+    line-height: normal;
+    text-align: left;
+    margin-inline-start: 0 !important;
+}
