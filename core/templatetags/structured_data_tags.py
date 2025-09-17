@@ -1,8 +1,10 @@
 import json
+
 from django import template
 from django.utils.safestring import mark_safe
+from wagtail.rich_text import RichText
 
-from site_settings.models import SocialMediaLinks, Brand
+from site_settings.models import Brand, SocialMediaLinks
 
 register = template.Library()
 
@@ -10,6 +12,20 @@ register = template.Library()
 def tojson(value):
     """Render Python list/dict/etc. as JSON, safe for inclusion in templates."""
     return mark_safe(json.dumps(value, ensure_ascii=False))
+
+@register.filter
+def richtext_to_json(value):
+    """Convert a RichTextField to plain text JSON string safely for JSON-LD."""
+    if not value:
+        return mark_safe('""')  # empty string
+
+    # Get raw text without HTML
+    text = RichText(value).source
+    from bs4 import BeautifulSoup
+    text = BeautifulSoup(text, "html.parser").get_text(separator=" ", strip=True)
+
+    # Dump as JSON string without escaping Unicode
+    return mark_safe(json.dumps(text, ensure_ascii=False))
 
 @register.simple_tag()
 def get_google_thumbnails(img):
