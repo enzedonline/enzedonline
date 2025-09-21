@@ -66,3 +66,9 @@
 .mt-n4 {
   margin-top: -1rem !important;
 }
+
+ul.pagination {
+  a.page-link {
+    font-size: var(--font-size-6);
+  }
+}
