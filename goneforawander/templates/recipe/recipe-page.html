@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% load static core_tags adv_cache wagtailcore_tags wagtailimages_tags %}
+{% block extra_head %}
+    {# load Article metadata #}
+    {% cache None cache_name "structure" cache_date %}
+    {% include "recipe/structured_data.html" %}
+{% endcache %}
+{% endblock extra_head %}
+{% block content %}
+<div id="content" class="container-fluid mt-3 px-3 px-sm-5">
+    {% cache None cache_name "body" cache_date %}
+        <div class="recipe-container">
+            <div class="recipe-intro">
+                <div class="recipe-image">
+                    {% image self.search_image fill-600x600-c100 format-webp as webp_img_w_600 %}
+                    {% image self.search_image fill-300x300-c100 format-webp as webp_img_w_300 %}
+                    {% image self.search_image fill-600x600-c100 as fallback %}
+                    <picture>
+                        <source srcset="{{ webp_img_w_600.url }} 600w" type="image/webp">
+                        <source srcset="{{ webp_img_w_300.url }} 300w" type="image/webp">
+                        <img src="{{ fallback.url }}" alt="{{ self.title }}">
+                    </picture>
+                </div>
+                <div class="recipe-info">
+                    <div class="recipe-heading">
+                        <h1 class="text-center h2">{{ self.title }}</h1>
+                        {% if self.prep_time %}
+                            <p class="text-center mb-1 h6">
+                                <strong>Prep Time:</strong>
+                                {% if prep_time_hours %}{{ prep_time_hours }} hour{{ prep_time_hours|pluralize }}{% endif %}
+                                {% if prep_time_minutes %}{{ prep_time_minutes }} minute{{ prep_time_minutes|pluralize }}{% endif %}
+                            </p>
+                        {% endif %}
+                        {% if self.cook_time %}
+                            <p class="text-center mb-1 h6">
+                                <strong>Cook Time:</strong>
+                                {% if cook_time_hours %}{{ cook_time_hours }} hour{{ cook_time_hours|pluralize }}{% endif %}
+                                {% if cook_time_minutes %}{{ cook_time_minutes }} minute{{ cook_time_minutes|pluralize }}{% endif %}
+                            </p>
+                        {% endif %}
+                        {% if self.prep_time or self.cook_time %}
+                            <p class="text-center mb-1 h6">
+                                <strong>Total Time:</strong>
+                                {% if total_time_hours %}{{ total_time_hours }} hour{{ total_time_hours|pluralize }}{% endif %}
+                                {% if total_time_minutes %}{{ total_time_minutes }} minute{{ total_time_minutes|pluralize }}{% endif %}
+                            </p>
+                        {% endif %}
+                        {% if self.recipe_yield %}
+                            <p class="text-center mb-1 h6">
+                                <strong>Servings:</strong> {{ self.recipe_yield }}
+                            </p>
+                        {% endif %}
+                    </div>
+                    <div class="recipe-description">
+                        <p>{{ self.description|richtext }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="recipe-tags">
+                {% if self.tags.all %}
+                    <div class="recipe-tags-list">
+                        <strong>Tags:</strong>
+                        {% with parent=self.get_parent %}
+                            {% for tag in self.tags.all %}
+                                <a href="{{ parent.url }}tags/{{ tag.slug }}/">{{ tag.name }}</a>
+                                {% if not forloop.last %},{% endif %}
+                            {% endfor %}
+                        {% endwith %}
+                    </div>
+                {% endif %}
+            </div>
+            <div class="recipe-ingredients">
+                <h2 class="h4">
+                    <i class="fa-solid fa-utensils"></i> Ingredients
+                </h2>
+                {{ self.ingredients|richtext }}
+            </div>
+            <div class="recipe-instructions">
+                <h2 class="h4">
+                    <i class="fa-solid fa-list-check"></i> Method
+                </h2>
+                {{ self.instructions|richtext }}
+            </div>
+        </div>
+    {% endcache %}
+    <div class="related-recipes-section">
+        <div class="related-recipes">
+            <h2><i class="fa-solid fa-thumbs-up"></i> You might also like ...</h2>
+            {% for recipe in related_recipes %}
+                {% include "recipe/related_recipe_card.html" with recipe=recipe %}
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock content %}

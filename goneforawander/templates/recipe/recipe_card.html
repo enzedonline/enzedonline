@@ -1,0 +1,15 @@
+{% load wagtailimages_tags %}
+{% image recipe.search_image thumbnail-500x250 as img %}
+<div class="card p-2 page-card">
+    <div class="px-1 py-2">
+        <img src="{{ img.url }}" alt="{{ recipe.title }}" class="image-w-100-auto">
+    </div>
+    <div class="card-body py-1">
+        <h3 class="h4 card-title fw-bolder text-center">{{ recipe.title }}</h3>
+        <div class="recipe-summary blog-summary">{{ recipe.summary|linebreaksbr }}</div>
+        <div class="blog-date localise-date">{{ recipe.first_published_at|date:'Y-m-d H:i:s' }} UTC</div>
+    </div>
+    <a href="{{ recipe.url }}"
+       class="stretched-link"
+       aria-label="Read {{ recipe.title }}"></a>
+</div>

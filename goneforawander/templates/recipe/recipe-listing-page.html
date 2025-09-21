@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{% load static adv_cache wagtailimages_tags wagtailcore_tags core_tags %}
+{% block extra_head %}
+    <link rel="stylesheet"
+          href="{% static 'css/flexmasonry.css' %}"
+          type="text/css">
+    {% cache None cache_name "structure" cache_date %}
+    {% include "blog/index/structured_data.html" %}
+{% endcache %}
+{% endblock extra_head %}
+{% block extra_scripts %}
+    <script src="{% static 'js/flexmasonry.js' %}"></script>
+    <script src="{% static 'js/flexmasonry.extra.js' %}"></script>
+{% endblock extra_scripts %}
+{% block header %}
+    {# Page Banner #}
+    {% include "core/banner_image.html" %}
+{% endblock header %}
+{% block content %}
+    {% get_template_set "common" as trans %}
+    {% cache None cache_name "body" cache_date %}
+    {# Top Content Section #}
+    <div class="container-fluid pt-0 pt-md-2 px-2 px-sm-5">
+        <div class="recipe-list-introduction">{{ self.intro|richtext }}</div>
+        {# Filter #}
+        {% comment %} <div class="container-fluid py-2 ps-2 rounded bg-info border-primary border-1">
+                <a href=".#filter" class="btn btn-sm btn-close btn-close-white float-end" role="button" title="{{ trans.clear_filter }}"></a>
+                <div class="row">
+                    <div class="col-auto text-white order-0">
+                        <span class="filter-label" id="filter">{{ trans.filter }}</span>
+                    </div>
+                    <div class="col-sm-auto text-light order-3 order-sm-1">
+                        {% nocache %}
+                        <div class="row pt-0">
+                            {% for item in categories %}
+                                <div class="col-auto">
+                                    <a class="category-link{% if item.slug == filter.name and filter.type == 'category' %} active{% endif %}" href="?category={{ item.slug }}#filter">{{ item.name }}</a>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <div class="row">
+                            {% for item in tags %}
+                                <div class="col-auto">
+                                    <a class="tag-link{% if item.slug == filter.name and filter.type == "tag" %} active{% endif %}" href="?tag={{ item.slug }}#filter">#{{ item.name }}</a>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        {% endnocache %}
+                    </div>
+                </div>
+        </div> {% endcomment %}
+    </div>
+    {# Blog List #}
+    <div class="mt-0 mt-md-2 mx-2 mx-sm-5 mb-4 rounded">
+        {% nocache %}
+        <div id="list">
+            <div id="recipe-taglist">
+                {% if filter_list %}
+                    <span class="filter-intro">
+                        Showing results for 
+                    </span>
+                    {% for item in filter_list %}
+                        <div class="recipe-tag-item" data-tag-slug="{{ item.slug }}">
+                            {{ item.name }}
+                            <div class="recipe-tag-item-delete">
+                                <svg class="remove-tag-icon" aria-hidden="true" width="14px" height="14px">
+                                    <use href="#remove-tag" xlink:href="#remove-tag"></use>
+                                </svg>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+        {% comment %} {% if filter.type == "category" %}
+                <p class="filter-message">
+                    {{ trans.showing_blog_category }} <span class="fw-bolder">{{ filter.verbose }}</span> {{ trans.category }}
+                </p>
+            {% elif filter.type == "tag" %}
+                <p class="filter-message">
+                    {{ trans.showing_blog_tag }} <span class="fw-bolder">#{{ filter.verbose }}</span>
+                </p>
+        {% endif %} {% endcomment %}
+        {% include "recipe/recipe_cards.html" %}
+    {% endnocache %}
+</div>
+{# Paginator #}
+{% nocache %}
+<div>
+    {% if recipes.paginator.num_pages > 1 %}
+        {% paginator_filter filter as pgn_filter %}
+        {% include "core/paginator.html" with pages=recipes %}
+    {% endif %}
+</div>
+{% endnocache %}
+<div style="height: 2rem;"></div>
+{% endcache %}
+{% endblock content %}
+{% block extra_js %}
+    <script type="module">
+    import { RecipeListing } from "{% static 'js/recipe_listing.js' %}";
+    const recipeCardList = document.getElementById('recipe-card-list');
+    window.recipeListing = new RecipeListing("{{ self.full_url }}");
+    queueMicrotask(() => {
+        window.recipeListing.applyFlexMasonry(recipeCardList);
+        localiseDates('localise-date');
+    });
+    </script>
+{% endblock extra_js %}

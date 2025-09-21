@@ -13,7 +13,8 @@ class GFWHomePage(SEOPage):
     subpage_types = [
         "service.ServicePage", 
         "contact.ContactPage", 
-        "goneforawander.MapIndexPage"
+        "goneforawander.MapIndexPage",
+        "goneforawander.RecipeListingPage",
     ]
     max_count = 1
 
