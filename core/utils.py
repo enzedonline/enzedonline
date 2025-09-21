@@ -11,6 +11,41 @@ from django.db import connection
 from lxml import etree
 from wagtail.blocks import ListBlock, StreamValue
 
+class ConstGroup:
+    """
+    A lightweight container for grouping related constants as attributes.
+    ConstGroup takes arbitrary keyword arguments and sets them as attributes on
+    the instance. The provided values are also stored internally in insertion
+    order, allowing the instance to be iterated over to yield just the values.
+    This is useful for defining small sets of related constants or choices
+    without the overhead of an Enum, while still providing convenient attribute
+    access and ordered iteration of values.
+    Args:
+        **kwargs: Mapping of attribute names to their corresponding constant values.
+    Attributes:
+        <dynamic>: Each keyword becomes an attribute on the instance with the given value.
+        _values (tuple): Tuple of provided values in insertion order, used for iteration.
+    Iteration:
+        Iterating over the instance yields the values (not the names) in the order
+        they were provided at initialization.
+    Example:
+        >>> COLORS = ConstGroup(RED="red", GREEN="green", BLUE="blue")
+        >>> COLORS.RED
+        'red'
+        >>> list(COLORS)
+        ['red', 'green', 'blue']
+    Notes:
+        - This class does not enforce immutability; attributes can be reassigned.
+        - Insertion order relies on Python 3.7+ preservation of dict/kwargs order.
+    """
+    def __init__(self, **kwargs):
+        for name, value in kwargs.items():
+            setattr(self, name, value)
+        self._values = tuple(kwargs.values())
+    
+    def __iter__(self):
+        return iter(self._values)
+    
 
 def strip_svg_markup(svg_markup):
     """Strip <script> tags, height and width attributes from svg markup"""
