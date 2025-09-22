@@ -319,7 +319,7 @@ class RecipeListingPage(RoutablePageMixin, SEOPage):
                 "filter": f'?q={search_query}' if search_query else "",
                 "tag_filters": self.tag_filters(),
                 "page_range": pagination["page_range"],
-                "filter_list": search_query
+                "filter_list": [{"name": search_query, "slug": ""}] if search_query else []
             },
             template="recipe/recipe-listing-page.html",
         )
