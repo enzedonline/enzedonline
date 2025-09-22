@@ -17,10 +17,11 @@ div.recipe-container {
 
         div.recipe-image {
             text-align: center;
+            max-width: 350px;
+            margin: auto;
 
             img {
                 width: 100%;
-                max-width: 350px;
                 height: auto;
                 border-radius: 0.5rem;
                 box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5)
@@ -74,7 +75,7 @@ div.recipe-container {
 
 
     /* Between small and large: image + heading side by side, description full width */
-    @media (min-width: 640px) and (max-width: 991px) {
+    @media (min-width: 640px) and (max-width: 992px) {
         div.recipe-intro {
             grid-template-columns: 1fr 1fr;
             grid-template-areas:
@@ -83,10 +84,7 @@ div.recipe-container {
 
             div.recipe-image {
                 grid-area: image;
-
-                img {
-                    max-width: unset;
-                }
+                margin: unset;
             }
 
             div.recipe-info {
@@ -110,16 +108,14 @@ div.recipe-container {
     /* ≥ large: image left spanning two rows, info stacked on right */
     @media (min-width: 992px) {
         div.recipe-intro {
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: auto 1fr;
             grid-template-areas:
                 "image info"
                 "image info";
             align-items: start;
 
             div.recipe-image {
-                img {
-                    max-width: unset;
-                }
+                margin: unset;
             }
 
             div.recipe-info {

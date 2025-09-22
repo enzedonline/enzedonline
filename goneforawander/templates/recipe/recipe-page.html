@@ -12,12 +12,9 @@
         <div class="recipe-container">
             <div class="recipe-intro">
                 <div class="recipe-image">
-                    {% image self.search_image fill-600x600-c100 format-webp as webp_img_w_600 %}
-                    {% image self.search_image fill-300x300-c100 format-webp as webp_img_w_300 %}
-                    {% image self.search_image fill-600x600-c100 as fallback %}
+                    {% image self.search_image fill-350x350-c100 format-webp as webp_img_w_350 %}
                     <picture>
-                        <source srcset="{{ webp_img_w_600.url }} 600w" type="image/webp">
-                        <source srcset="{{ webp_img_w_300.url }} 300w" type="image/webp">
+                        <source srcset="{{ webp_img_w_350.url }} 350w" type="image/webp">
                         <img src="{{ fallback.url }}" alt="{{ self.title }}">
                     </picture>
                 </div>
