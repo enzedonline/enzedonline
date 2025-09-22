@@ -1,16 +1,15 @@
 <nav aria-label="page navigator">
     <ul class="pagination justify-content-center">
         <li class="page-item{% if not pages.has_previous %} disabled{% endif %}">
-            <a class="page-link" aria-label="First Page"
-               href="{% if pages.has_previous %}{{ pgn_filter }}page=1#list{% endif %}"
-               tabindex="-1"
-               {% if not pages.has_previous %}aria-disabled="true"{% endif %}><span>«</span></a>
+            <a class="page-link"
+               aria-label="First Page"
+               {% if pages.has_previous %}href="{{ pgn_filter }}page=1#list"{% else %}aria-disabled="true" tabindex="-1"{% endif %}>
+                <span>«</span></a>
         </li>
-        <li class="page-item {% if not pages.has_previous %}disabled{% endif %}">
-            <a class="page-link"{% if pages.has_previous %} aria-label="Page {{ pages.previous_page_number }} (previous)"{% endif %}
-               href="{% if pages.has_previous %}{{ pgn_filter }}page={{ pages.previous_page_number }}#list{% endif %}"
-               tabindex="-1"
-               {% if not pages.has_previous %}aria-disabled="true"{% endif %}><span>‹</span></a>
+        <li class="page-item{% if not pages.has_previous %} disabled{% endif %}">
+            <a class="page-link" aria-label="Previous page" 
+               {% if pages.has_previous %}href="{{ pgn_filter }}page={{ pages.previous_page_number }}#list"{% else %} aria-disabled="true" tabindex="-1"{% endif %}>
+                <span>‹</span></a>
         </li>
         {% if page_range_first > 1 %}
             <li class="page-item disabled">
@@ -20,7 +19,9 @@
         {% for page_num in page_range %}
             {% if page_num == pages.number %}
                 <li class="page-item active" aria-current="page">
-                    <a class="page-link" href="{{ pgn_filter }}page={{ page_num }}#list" aria-label="Page {{ page_num }} (current)">{{ page_num }}</a>
+                    <a class="page-link"
+                       href="{{ pgn_filter }}page={{ page_num }}#list"
+                       aria-label="Page {{ page_num }} (current)">{{ page_num }}</a>
                 </li>
             {% elif page_num == '…' %}
                 <li class="page-item disabled">
@@ -28,7 +29,9 @@
                 </li>
             {% else %}
                 <li class="page-item">
-                    <a class="page-link" href="{{ pgn_filter }}page={{ page_num }}#list" aria-label="Page {{ page_num }}">{{ page_num }}</a>
+                    <a class="page-link"
+                       href="{{ pgn_filter }}page={{ page_num }}#list"
+                       aria-label="Page {{ page_num }}">{{ page_num }}</a>
                 </li>
             {% endif %}
         {% endfor %}
@@ -38,14 +41,14 @@
             </li>
         {% endif %}
         <li class="page-item{% if not pages.has_next %} disabled{% endif %}">
-            <a class="page-link"{% if pages.has_next %} aria-label="Page {{ pages.next_page_number }} (next)"{% endif %}
-               href="{% if pages.has_next %}{{ pgn_filter }}page={{ pages.next_page_number }}#list{% endif %}"
-               {% if not pages.has_previous %}aria-disabled="true"{% endif %}><span>›</span></a>
+            <a class="page-link"
+               {% if pages.has_next %}aria-label="Next Page" href="{{ pgn_filter }}page={{ pages.next_page_number }}#list"{% else %}aria-disabled="true" tabindex="-1"{% endif %}>
+                <span>›</span></a>
         </li>
         <li class="page-item{% if not pages.has_next %} disabled{% endif %}">
-            <a class="page-link"{% if pages.has_next %} aria-label="Page {{ pages.paginator.num_pages }} (last)"{% endif %}
-               href="{% if pages.has_next %}{{ pgn_filter }}page={{ pages.paginator.num_pages }}#list{% endif %}"
-               {% if not pages.has_next %}aria-disabled="true"{% endif %}><span>»</span></a>
+            <a class="page-link"
+               {% if pages.has_next %}aria-label="Last Page" href="{{ pgn_filter }}page={{ pages.paginator.num_pages }}#list"{% else %}aria-disabled="true" tabindex="-1"{% endif %}>
+                <span>»</span></a>
         </li>
     </ul>
 </nav>
