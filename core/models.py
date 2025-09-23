@@ -179,6 +179,7 @@ class SEOPageMixin(index.Indexed, WagtailImageMetadataMixin, models.Model):
 
 
 class SEOPage(SEOPageMixin, Page):
+    og_type = 'website'
 
     search_fields = Page.search_fields + [
         index.SearchField('summary'),

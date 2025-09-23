@@ -84,6 +84,7 @@ class RecipeTag(models.Model):
     ]
 
 class RecipePage(SEOPage):
+    og_type = 'article'
     template = "recipe/recipe-page.html"
     parent_page_types = ["goneforawander.RecipeListingPage"]
     subpage_types = []

@@ -15,6 +15,7 @@ from .categories import PersonalBlogCategory, TechBlogCategory
 
 
 class BlogDetailPage(SEOPage):
+    og_type = 'article'
     subpage_types = []
     parent_page_types = []
 

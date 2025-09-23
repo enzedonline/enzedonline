@@ -21,7 +21,7 @@
   {% meta_tags as meta_tags %}
   {% if meta_tags is not None %}{{ meta_tags }}{% endif %}
 {% endif %}
-<meta property="og:type" content="website">
+<meta property="og:type" content="{{ self.og_type|default:"website" }}">
 <meta name="target" content="all">
 <meta name="audience" content="all">
 <meta name="coverage" content="Worldwide">
