@@ -32,7 +32,7 @@ def get_google_thumbnails(context, img):
     if not img:
         return []
     request = context['request']
-    sizes = ["thumbnail-500x500|format-png", "thumbnail-500x375|format-png", "thumbnail-500x281|format-png"]
+    sizes = ["thumbnail-1200x800|format-png", "thumbnail-800x600|format-png", "thumbnail-400x300|format-png", "thumbnail-500x500|format-png"]
     urls = []
     for spec in sizes:
         rendition = img.get_rendition(spec)
