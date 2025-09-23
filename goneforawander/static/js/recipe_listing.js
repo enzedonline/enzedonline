@@ -49,17 +49,17 @@ export class RecipeListing {
         const filterUrl = selectedTagElements.length 
             ? `tags/${Array.from(selectedTagElements).map(tagElem => tagElem.getAttribute('data-tag-slug')).filter(Boolean).join('/')}/` 
             : '';
-        window.location.href = `${this.baseUrl}${filterUrl}`;
+        window.location.href = `${this.baseUrl}${filterUrl}#filter`;
     }
 
     searchFormHandler = (e) => {
         e.preventDefault();
         const query = this.searchInput.value.trim();
         if (!query) {
-            window.location.href = this.baseUrl;
+            window.location.href = `${this.baseUrl}#filter`;
         } else {
             const suffix = `search/?q=${encodeURIComponent(query)}`
-            window.location.href = `${this.baseUrl}${suffix}`;
+            window.location.href = `${this.baseUrl}${suffix}#filter`;
         }
     }
 
@@ -73,7 +73,7 @@ export class RecipeListing {
             const filterURL = this.activeTags.length 
                 ? `tags/${this.activeTags.map(tag => tag.slug).join('/')}/` 
                 : '';
-            window.location.href = `${this.baseUrl}${filterURL}`;
+            window.location.href = `${this.baseUrl}${filterURL}#filter`;
         }
     }
 
