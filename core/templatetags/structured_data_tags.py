@@ -27,13 +27,18 @@ def richtext_to_json(value):
     # Dump as JSON string without escaping Unicode
     return mark_safe(json.dumps(text, ensure_ascii=False))
 
-@register.simple_tag()
-def get_google_thumbnails(img):
-    return {
-        'tn1x1': img.get_rendition('thumbnail-500x500|format-png'),
-        'tn4x3': img.get_rendition('thumbnail-500x375|format-png'),
-        'tn16x9': img.get_rendition('thumbnail-500x281|format-png'),
-    }
+@register.simple_tag(takes_context=True)
+def get_google_thumbnails(context, img):
+    if not img:
+        return []
+    request = context['request']
+    sizes = ["thumbnail-500x500|format-png", "thumbnail-500x375|format-png", "thumbnail-500x281|format-png"]
+    urls = []
+    for spec in sizes:
+        rendition = img.get_rendition(spec)
+        urls.append(request.build_absolute_uri(rendition.url))
+    return urls
+
     
 @register.simple_tag(takes_context=True)
 def get_social_media_sameas(context):

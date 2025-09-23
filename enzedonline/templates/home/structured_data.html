@@ -34,7 +34,7 @@
             "name": "{{ self.title|replace_doublequotes }}",
             "description": "{{ self.summary|strip_newlines|replace_doublequotes }}",
             {% if thumbnails %}
-            "image": ["{{ thumbnails.tn1x1.full_url }}","{{ thumbnails.tn4x3.full_url }}","{{ thumbnails.tn16x9.full_url }}"],
+            "image": {{ thumbnails|tojson }},
             {% endif %}
             "datePublished": "{{ self.first_published_at|date:'c' }}",
             "dateModified": "{{ self.last_published_at|date:'c' }}",
