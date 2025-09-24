@@ -91,8 +91,8 @@ def canonical(context):
         href = f'{page.get_url_parts()[1]}/'
     else:
         href = page.full_url
-    # add pagination for blog posts if any 
-    pagination = get_context_var_or_none(context, 'posts')
+    # add pagination for blog/recipe posts if any 
+    pagination = get_context_var_or_none(context, 'posts') or get_context_var_or_none(context, 'recipes')
     if pagination and pagination.number > 1:
         href += f'?page={pagination.number}'
     return mark_safe(f'<link rel="canonical" href="{href}">')
