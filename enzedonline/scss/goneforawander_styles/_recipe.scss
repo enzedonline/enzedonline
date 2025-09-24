@@ -55,7 +55,7 @@ div.recipe-container {
         }
     }
 
-    .recipe-instructions {
+    div.recipe-instructions {
         blockquote {
             position: relative;
             border: .25rem var(--bs-warning-border-subtle) solid;
@@ -73,6 +73,11 @@ div.recipe-container {
         }
     }
 
+    h5 {
+        font-size: var(--font-size-body);
+        font-weight: bold;
+        margin-bottom: 0.25rem;
+    }
 
     /* Between small and large: image + heading side by side, description full width */
     @media (min-width: 640px) and (max-width: 992px) {
@@ -167,7 +172,7 @@ div.recipe-cards {
 
 button#open-filter-panel {
     font-size: var(--font-size-body);
-    box-shadow: 5px 5px 5px rgba(0,0,0,.5);
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, .5);
 
     >svg {
         width: 1.5em;
