@@ -80,7 +80,7 @@ class SEOPageMixin(index.Indexed, WagtailImageMetadataMixin, models.Model):
         MultiFieldPanel([
             FieldPanel('slug', widget=SlugInput),
             FieldPanel('search_image'),
-            FieldPanel('seo_title', widget=CharLimitTextInput(min=10, max=70, enforced=True)),
+            FieldPanel('seo_title', widget=CharLimitTextInput(min=8, max=70, enforced=True)),
             FieldPanel('search_description', widget=CharLimitTextArea(min=50, max=160, enforced=True)),
         ], _('SEO Page Configuration')),
         MultiFieldPanel([
@@ -164,15 +164,15 @@ class SEOPageMixin(index.Indexed, WagtailImageMetadataMixin, models.Model):
                 errors['search_description'] = ErrorList([_(f'Summary is {msg}. Create a meta description between 50 and 160 characters for optimum SEO.')])
 
         len_search_title = len(self.seo_title or self.title)
-        if len_search_title < 10 or len_search_title > 70:
+        if len_search_title < 8 or len_search_title > 70:
             if len_search_title==0:
                 msg = _("empty")
             else:
                 msg = _(f"{len_search_title} character{'s' * bool(len_search_title>1)}")
             if self.seo_title:
-                errors['seo_title'] = ErrorList([_(f'Title tag is {msg}. It should be between 10 and 70 characters for optimum SEO.')])
+                errors['seo_title'] = ErrorList([_(f'Title tag is {msg}. It should be between 8 and 70 characters for optimum SEO.')])
             else:
-                errors['seo_title'] = ErrorList([_(f'Page title is {msg}. Create a title tag between 10 and 70 characters for optimum SEO.')])
+                errors['seo_title'] = ErrorList([_(f'Page title is {msg}. Create a title tag between 8 and 70 characters for optimum SEO.')])
 
         if errors:
             raise ValidationError(errors)
