@@ -1,5 +1,5 @@
 {% load wagtailimages_tags %}
-{% image recipe.search_image thumbnail-500x250 as img %}
+{% image recipe.search_image fill-525x350 as img %}
 <div class="card p-2 page-card">
     <div class="px-1 py-2">
         <img src="{{ img.url }}" alt="{{ recipe.title }}" class="image-w-100-auto">
