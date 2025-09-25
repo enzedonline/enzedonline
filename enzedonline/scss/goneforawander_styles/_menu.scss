@@ -10,7 +10,7 @@
     &.navbar {
         background-color: var(--menustream-goneforawander-navbar-bg-color) !important;
         color: var(--menustream-goneforawander-link-inactive);
-        padding: 0;
+        padding: 0 1rem 0 0;
 
         .menustream-container {
             padding-left: 0;
@@ -95,7 +95,11 @@
 }
 
 @media (max-width: 768px) {
-    ul.navbar-nav {
-        padding-left: 0.5rem;
+    nav.menustream-goneforawander {
+        padding: 0 !important;
+
+        ul.navbar-nav {
+            padding-left: 0.5rem;
+        }
     }
 }
