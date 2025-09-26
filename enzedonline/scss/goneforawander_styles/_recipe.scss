@@ -31,6 +31,7 @@ div.recipe-container {
         div.recipe-heading>h1 {
             border-bottom: 2px solid var(--bs-secondary-border-subtle);
             padding-bottom: 1rem;
+            text-transform: capitalize;
         }
 
         div.recipe-description {
@@ -157,11 +158,15 @@ div.recipe-list-introduction {
 }
 
 div.recipe-cards {
-    div.card {
+    div.recipe-card {
         box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
 
         img {
             border-radius: 5px;
+        }
+
+        .card-title {
+            text-transform: capitalize;
         }
 
         div.recipe-summary.blog-summary {
