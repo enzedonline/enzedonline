@@ -27,7 +27,9 @@
 <meta name="coverage" content="Worldwide">
 <meta name="distribution" content="Global">
 <meta name="rating" content="safe for kids">
-{% canonical %}
+{% nocache %}
+  {% canonical %}
+{% endnocache %}
 {# favicon #}
 <link rel="apple-touch-icon" sizes="180x180" href="{% static 'favicon/'|add:site_name|add:'/apple-touch-icon.png' %}">
 <link rel="icon" type="image/svg+xml" href="{% static 'favicon/'|add:site_name|add:'/favicon.svg' %}">
