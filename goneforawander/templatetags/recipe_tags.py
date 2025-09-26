@@ -8,7 +8,7 @@ from wagtail.rich_text import RichText
 
 register = template.Library()
 
-SKIP_ELEMENTS = ["h1","h2","h3","h4","h5","h6","strong","b"]
+SKIP_ELEMENTS = ["h1","h2","h3","h4","h5","h6"]
 
 def extract_text_elements(soup, tags=("p", "li", "blockquote"), skip_tags=None):
     """Recursively extract text from given tags, ignoring skip_tags."""
