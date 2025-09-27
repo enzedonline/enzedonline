@@ -275,6 +275,8 @@ div.related-recipes-section {
 }
 
 div.recipe-offcanvas {
+    background-color: var(--goneforawander-color-light);
+
     div.offcanvas-header {
         background-color: var(--goneforawander-dark-green);
         color: var(--goneforawander-color-light);
@@ -314,12 +316,12 @@ div.recipe-offcanvas {
                 }
             }
         }
+    }
 
-        div.button-row {
-            margin-top: 1rem;
-            display: flex;
-            border-top: 2px solid var(--goneforawander-dark-green);
-            padding-top: 1rem;
-        }
+    div.button-row {
+        display: flex;
+        border-top: 2px solid var(--goneforawander-dark-green);
+        background-color: var(--goneforawander-color-light);
+        padding: 0.5rem 1rem;
     }
 }

@@ -1,42 +1,50 @@
-<div id="recipe-filter-offcanvas" class="offcanvas offcanvas-start recipe-offcanvas" tabindex="-1" aria-labelledby="recipe-offcanvas-label">
-  <div class="offcanvas-header" data-bs-theme="dark">
-    <h5 class="offcanvas-title" id="recipe-offcanvas-label">Search Recipes</h5>
-    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-  </div>
-  <div class="offcanvas-body">
-    <div class="h6 fw-semibold">
-      Search recipes:
+<div id="recipe-filter-offcanvas"
+     class="offcanvas offcanvas-start recipe-offcanvas"
+     tabindex="-1"
+     aria-labelledby="recipe-offcanvas-label">
+    <div class="offcanvas-header" data-bs-theme="dark">
+        <h5 class="offcanvas-title" id="recipe-offcanvas-label">Search Recipes</h5>
+        <button type="button"
+                class="btn-close"
+                data-bs-dismiss="offcanvas"
+                aria-label="Close"></button>
     </div>
-    <form id="search-recipes-form" class="input-group mb-3">
-        <input id="search-recipes-input" type="text" class="form-control form-control-sm" placeholder="Search recipes" aria-label="Search recipes">
-        <button class="btn btn-dark gfw-dark btn-sm" type="submit" id="search-recipes-btn">Search</button>
-    </form>
-    <div class="h6 fw-semibold">
-    Or select one or more tags to filter by:
+    <div class="offcanvas-body">
+        <div class="h6 fw-semibold">Search recipes:</div>
+        <form id="search-recipes-form" class="input-group mb-3">
+            <input id="search-recipes-input"
+                   type="text"
+                   class="form-control form-control-sm"
+                   placeholder="Search recipes"
+                   aria-label="Search recipes">
+            <button class="btn btn-dark gfw-dark btn-sm"
+                    type="submit"
+                    id="search-recipes-btn">Search</button>
+        </form>
+        <div class="h6 fw-semibold">Or select one or more tags to filter by:</div>
+        <div class="recipe-filter-items">
+            <div class="recipe-filter-type">Cuisine</div>
+            <div class="recipe-filter-list">
+                {% for tag in tag_filters.cuisine %}
+                    <div class="tag-item" data-tag-slug="{{ tag.slug }}">{{ tag.name }}</div>
+                {% endfor %}
+            </div>
+            <div class="recipe-filter-type">Category</div>
+            <div class="recipe-filter-list">
+                {% for tag in tag_filters.category %}
+                    <div class="tag-item" data-tag-slug="{{ tag.slug }}">{{ tag.name }}</div>
+                {% endfor %}
+            </div>
+            <div class="recipe-filter-type">Keywords</div>
+            <div class="recipe-filter-list">
+                {% for tag in tag_filters.keyword %}
+                    <div class="tag-item" data-tag-slug="{{ tag.slug }}">{{ tag.name }}</div>
+                {% endfor %}
+            </div>
+        </div>
     </div>
-    <div class="recipe-filter-items">
-        <div class="recipe-filter-type">Cuisine</div>
-        <div class="recipe-filter-list">
-            {% for tag in tag_filters.cuisine %}
-                <div class="tag-item" data-tag-slug="{{ tag.slug }}">{{ tag.name }}</div>
-            {% endfor %}
-        </div>
-        <div class="recipe-filter-type">Category</div>
-        <div class="recipe-filter-list">
-            {% for tag in tag_filters.category %}
-                <div class="tag-item" data-tag-slug="{{ tag.slug }}">{{ tag.name }}</div>
-            {% endfor %}
-        </div>
-        <div class="recipe-filter-type">Keywords</div>
-        <div class="recipe-filter-list">
-            {% for tag in tag_filters.keyword %}
-                <div class="tag-item" data-tag-slug="{{ tag.slug }}">{{ tag.name }}</div>
-            {% endfor %}
-        </div>
     <div class="button-row">
         <button id="clear-filter-btn" class="btn btn-danger me-auto">Clear Filter</button>
         <button id="apply-filter-btn" class="btn btn-dark gfw-dark ms-auto">Filter by tags</button>
     </div>
-    </div>
-  </div>
 </div>
