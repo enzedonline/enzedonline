@@ -1,3 +1,4 @@
+// Recipe Page 
 div.recipe-container {
     max-width: 1100px;
     margin: auto;
@@ -157,7 +158,15 @@ div.recipe-list-introduction {
     }
 }
 
+// Recipe Listing Page
 div.recipe-cards {
+    margin-top: 1rem;
+
+    &:not(.flexmasonry) {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    }
+
     div.recipe-card {
         box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
 
