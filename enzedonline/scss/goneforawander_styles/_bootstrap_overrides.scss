@@ -1,14 +1,15 @@
 ul.pagination {
     li.page-item {
-        a.page-link {
+        >a.page-link {
             color: var(--goneforawander-dark-green);
         }
-    }
-    &.active {
-        a.page-link {
-            background-color: var(--goneforawander-dark-green);
-            border-color: var(--goneforawander-dark-green);
-            color: var(--goneforawander-color-light);
+
+        &.active {
+            a.page-link {
+                background-color: var(--goneforawander-dark-green);
+                border-color: var(--goneforawander-dark-green);
+                color: var(--goneforawander-color-light);
+            }
         }
     }
 }
