@@ -28,6 +28,7 @@ class MapboxAssistConfigs(ClusterableModel):
     panels = [
         FieldPanel("title"),
         FieldPanel("slug"),
+        FieldPanel("country_code"),
         MultiFieldPanel(
             [
                 InlinePanel(
