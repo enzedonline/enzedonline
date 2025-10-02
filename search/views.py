@@ -1,7 +1,7 @@
 from core.utils import paginator_range
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.template.response import TemplateResponse
-from wagtail.models import Locale, Page
+from wagtail.models import Locale, Page, Site
 from wagtail.search.backends import get_search_backend
 from wagtail.contrib.search_promotions.models import Query
 
@@ -19,14 +19,21 @@ def enzed_search(request):
     # backend = 'default' if Locale.get_active()==Locale.get_default() else Locale.get_active().language_code
     # s = get_search_backend(backend)
     s = get_search_backend()
+
+    # Resolve current site (works with/without SiteMiddleware)
+    site = getattr(request, "site", None) or Site.find_for_request(request)
+    # Base scope: live pages, deferred streamfields, limited to current site
+    base_scope = Page.objects.live().defer_streamfields()
+    if site:
+        base_scope = base_scope.descendant_of(site.root_page, inclusive=True)
     
     if search_query:
         if search_order=='date':
-            scope = Page.objects.live().defer_streamfields().filter(locale=Locale.get_active()).order_by('-first_published_at')
+            scope = base_scope.order_by('-first_published_at')
             search_results = s.search(search_query, scope, order_by_relevance=False)
         else:
-            scope = Page.objects.live().defer_streamfields().filter(locale=Locale.get_active())
-            search_results = s.search(search_query, scope)
+            scope = base_scope
+            search_results = s.search(search_query, scope, order_by_relevance=True)
             
         # Record hit
         query = Query.get(search_query)
