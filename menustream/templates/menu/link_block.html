@@ -5,7 +5,7 @@
            href="{{ self.url }}"
            title="{{ self.title }}">
             {% if self.icon %}
-                {% image self.icon fill-25x25 %}
+                {% image self.icon height-25 %}
             {% endif %}
             {% if self.title %}
                 <div{% if self.icon %} class="ps-1"{% endif %}>{{ self.title }}</div>
