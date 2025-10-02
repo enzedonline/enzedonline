@@ -55,19 +55,25 @@
                 {% endif %}
             </div>
         </div>
-        <div id="recipe-card-list" class="recipe-cards grid">
-            {% for recipe in recipes %}
-                <div class="p-2">{% include "recipe/recipe_card.html" %}</div>
-            {% endfor %}
-        </div>
+            {% if recipes %}
+                <div id="recipe-card-list" class="recipe-cards grid">
+                    {% for recipe in recipes %}
+                        <div class="p-2">{% include "recipe/recipe_card.html" %}</div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="alert alert-warning w-100 mb-4" role="alert">
+                    <i class="fa-solid fa-triangle-exclamation fa-xl"></i> No recipes found matching your criteria.
+                </div>
+            {% endif %}
     </div>
     {# Paginator #}
-    <div>
-        {% if recipes.paginator.num_pages > 1 %}
+    {% if recipes.paginator.num_pages > 1 %}
+        <div>
             {% paginator_filter filter as pgn_filter %}
             {% include "core/paginator.html" with pages=recipes %}
-        {% endif %}
-    </div>
+        </div>
+    {% endif %}
     {# Recipe Filter Offcanvas #}
     {% include "recipe/recipe-filter.html" with tag_filters=tag_filters %}
 {% endblock content %}
