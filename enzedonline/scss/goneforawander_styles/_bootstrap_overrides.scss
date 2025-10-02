@@ -13,3 +13,8 @@ ul.pagination {
         }
     }
 }
+
+.btn-dark {
+	--bs-btn-bg: var(--goneforawander-dark-green);
+	--bs-btn-color: var(--goneforawander-color-light);
+}
