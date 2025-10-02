@@ -16,5 +16,7 @@ ul.pagination {
 
 .btn-dark {
 	--bs-btn-bg: var(--goneforawander-dark-green);
+    --bs-btn-hover-bg: var(--goneforawander-dark-green-hover);
+    --bs-btn-border-color: var(--goneforawander-dark-green);
 	--bs-btn-color: var(--goneforawander-color-light);
 }
