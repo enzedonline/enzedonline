@@ -23,3 +23,11 @@ div.card.previous-post-link>div.page-card {
   margin-inline-start: auto;
   width: -webkit-fill-available;
 }
+
+div.blog-list,
+div.search-results-list {
+    &:not(.flexmasonry) {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    }
+}
