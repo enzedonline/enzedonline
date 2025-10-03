@@ -172,7 +172,7 @@ class BlogListingPage(SEOPage):
             
         context['filter'] = filter
         
-        paginator = Paginator(all_posts, 12)
+        paginator = Paginator(all_posts, 20)  # Show 20 posts per page
 
         requested_page = request.GET.get('page')
 
