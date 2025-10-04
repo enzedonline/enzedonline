@@ -52,9 +52,33 @@ div.recipe-container {
     }
 
     div.recipe-tags {
+        display: flex;
         margin-top: 0.5rem;
         padding-top: 1rem;
         border-top: 2px solid var(--bs-secondary-border-subtle);
+
+        div.recipe-tags-title {
+            font-weight: bold;
+            padding: 0.25rem 0.5rem 0 0;
+        }
+
+        div.recipe-tags-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.3rem 0.4rem;
+
+            a.recipe-tag {
+                background: var(--goneforawander-dark-green);
+                color: var(--goneforawander-color-light);
+                padding: 0.25rem 0.5rem;
+                text-decoration: none;
+                border-radius: 0.5rem;
+
+                &:hover {
+                    background: var(--goneforawander-dark-green-hover);
+                }
+            }
+        }
     }
 
     div.recipe-ingredients {

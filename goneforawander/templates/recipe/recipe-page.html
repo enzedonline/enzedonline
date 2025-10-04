@@ -56,12 +56,12 @@
             </div>
             <div class="recipe-tags">
                 {% if self.tags.all %}
+                    <div class="recipe-tags-title">Tags:</div>
                     <div class="recipe-tags-list">
-                        <strong>Tags:</strong>
                         {% with parent=self.get_parent %}
                             {% for tag in self.tags.all %}
-                                <a href="{{ parent.url }}tags/{{ tag.slug }}/">{{ tag.name }}</a>
-                                {% if not forloop.last %},{% endif %}
+                                <a class="recipe-tag" href="{{ parent.url }}tags/{{ tag.slug }}/">{{ tag.name }}</a>
+                                {% comment %} {% if not forloop.last %},{% endif %} {% endcomment %}
                             {% endfor %}
                         {% endwith %}
                     </div>
