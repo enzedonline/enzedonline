@@ -31,7 +31,8 @@ div.recipe-container {
 
         div.recipe-heading>h1 {
             border-bottom: 2px solid var(--bs-secondary-border-subtle);
-            padding-bottom: 1rem;
+            padding: 0 0 1rem;
+            line-height: 1;
             text-transform: capitalize;
         }
 
