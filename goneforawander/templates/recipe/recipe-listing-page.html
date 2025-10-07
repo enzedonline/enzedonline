@@ -5,8 +5,8 @@
           href="{% static 'css/flexmasonry.css' %}"
           type="text/css">
     {% cache None cache_name "structure" cache_date %}
-        {% include "blog/index/structured_data.html" %}
-    {% endcache %}
+    {% include "blog/index/structured_data.html" %}
+{% endcache %}
 {% endblock extra_head %}
 {% block extra_scripts %}
     <script src="{% static 'js/flexmasonry.js' %}"></script>
@@ -17,44 +17,43 @@
     {% include "core/banner_image.html" %}
 {% endblock header %}
 {% block content %}
-    {% get_template_set "common" as trans %}
-    {% cache None cache_name "body" cache_date %}
-    {# Top Content Section #}
-    <div class="container-fluid pt-0 pt-md-2 px-2 px-sm-5">
-        <div class="recipe-list-introduction">{{ self.intro|richtext }}</div>
-    </div>
-    {% endcache %}
-    {# Blog List #}
-    <div class="mt-0 mt-md-2 mx-2 mx-sm-5 mb-4 rounded">
-        {# Filter and Tag List #}
-        <div id="filter" class="d-flex mb-2 me-1">
-            <button id="open-filter-panel"
-                    class="btn btn-dark gfw-dark ms-auto"
-                    type="button"
-                    data-bs-toggle="offcanvas"
-                    data-bs-target="#recipe-filter-offcanvas"
-                    aria-controls="recipe-filter-offcanvas">
-                Filter{% include "icons/common/filter.svg" %}
-            </button>
-        </div>
-        <div id="list">
-            <div id="recipe-taglist" class="row g-2">
-                {# Selected filter tags #}
-                {% if filter_list %}
-                    <div class="filter-intro col-auto">Showing results for</div>
-                    <div class="filter-tags col-auto">
-                    {% for item in filter_list %}
-                        <div class="recipe-tag-item" data-tag-slug="{{ item.slug }}">
-                            {{ item.name }}
-                            <div class="recipe-tag-item-delete">
-                                {% include "icons/common/x.svg" %}
-                            </div>
-                        </div>
-                    {% endfor %}
-                    </div>
-                {% endif %}
+    <div class="recipe-listing-page">
+        {% cache None cache_name "body" cache_date %}
+            {# Top Content Section #}
+            <div class="container-fluid pt-0 pt-md-2 px-2 px-sm-5">
+                <div class="recipe-list-introduction">{{ self.intro|richtext }}</div>
             </div>
-        </div>
+        {% endcache %}
+        {# Blog List #}
+        <div class="mt-0 mt-md-2 mx-2 mx-sm-5 mb-4 rounded">
+            {# Filter and Tag List #}
+            <div id="filter" class="d-flex mb-2 me-1">
+                <button id="open-filter-panel"
+                        class="btn btn-dark gfw-dark ms-auto"
+                        type="button"
+                        data-bs-toggle="offcanvas"
+                        data-bs-target="#recipe-filter-offcanvas"
+                        aria-controls="recipe-filter-offcanvas">
+                    Filter
+                    {% include "icons/common/filter.svg" %}
+                </button>
+            </div>
+            <div id="list">
+                <div id="recipe-taglist" class="row g-2">
+                    {# Selected filter tags #}
+                    {% if filter_list %}
+                        <div class="filter-intro col-auto">Showing results for</div>
+                        <div class="filter-tags col-auto">
+                            {% for item in filter_list %}
+                                <div class="recipe-tag-item" data-tag-slug="{{ item.slug }}">
+                                    {{ item.name }}
+                                    <div class="recipe-tag-item-delete">{% include "icons/common/x.svg" %}</div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
             {% if recipes %}
                 <div id="recipe-card-list" class="recipe-cards grid">
                     {% for recipe in recipes %}
@@ -66,16 +65,17 @@
                     <i class="fa-solid fa-triangle-exclamation fa-xl"></i> No recipes found matching your criteria.
                 </div>
             {% endif %}
-    </div>
-    {# Paginator #}
-    {% if recipes.paginator.num_pages > 1 %}
-        <div>
-            {% paginator_filter filter as pgn_filter %}
-            {% include "core/paginator.html" with pages=recipes %}
         </div>
-    {% endif %}
-    {# Recipe Filter Offcanvas #}
-    {% include "recipe/recipe-filter.html" with tag_filters=tag_filters %}
+        {# Paginator #}
+        {% if recipes.paginator.num_pages > 1 %}
+            <div>
+                {% paginator_filter filter as pgn_filter %}
+                {% include "core/paginator.html" with pages=recipes %}
+            </div>
+        {% endif %}
+        {# Recipe Filter Offcanvas #}
+        {% include "recipe/recipe-filter.html" with tag_filters=tag_filters %}
+    </div>
 {% endblock content %}
 {% block extra_js %}
     <script type="module">
