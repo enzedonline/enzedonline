@@ -15,6 +15,7 @@ class GFWHomePage(SEOPage):
         "contact.ContactPage", 
         "goneforawander.MapIndexPage",
         "goneforawander.RecipeListingPage",
+        'goneforawander.TravelBlogListingPage'
     ]
     max_count = 1
 
