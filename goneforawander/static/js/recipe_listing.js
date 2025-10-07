@@ -113,6 +113,7 @@ export class RecipeListing {
     }
 
     applyFlexMasonry = () => {
+        if (!this.recipeCardList) return;
         if (this.recipeCardList.querySelectorAll('.recipe-summary').length > 0) {
             flexMasonryInit(this.recipeCardList);
             setTimeout(() => {
