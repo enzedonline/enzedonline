@@ -1,14 +1,6 @@
 from wagtail.blocks import StreamBlock
 
-from ..models import (BlogCodeBlock, CalloutBlock, CallToActionCard,
-                      CollapsibleCardBlock, CSVTableBlock,
-                      DjangoTemplateFragmentBlock, DocumentBlock,
-                      EmptyStaticBlock, ExternalLinkEmbedBlock, FlexCard,
-                      HeadingBlock, ImageBlock, ImageCarouselBlock,
-                      InlineVideoBlock, Link, MapBlock, RichTextBlock,
-                      SimpleCard, SimpleCardGridBlock,
-                      SimpleImageCardGridBlock, SocialMediaEmbedBlock,
-                      SpacerStaticBlock, TableOfContentsBlock)
+from ..models import *
 
 
 class BaseStreamBlock(StreamBlock):
@@ -28,7 +20,7 @@ class BaseStreamBlock(StreamBlock):
     social_media_embed = SocialMediaEmbedBlock()
     external_link_embed = ExternalLinkEmbedBlock()
     inline_video_block = InlineVideoBlock()
-    image_carousel = ImageCarouselBlock()
+    image_wall = ImageWallBlock()
     map_block = MapBlock()
     csv_table = CSVTableBlock()
     document_block = DocumentBlock()
