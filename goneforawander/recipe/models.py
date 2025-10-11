@@ -311,7 +311,7 @@ class RecipeListingPage(RoutablePageMixin, SEOPage):
         search_query = request.GET.get("q", None)
         qs = RecipePage.objects.live()
         if search_query:
-            qs = qs.search(search_query, order_by_relevance=True)[:30]
+            qs = qs.search(search_query, order_by_relevance=True)
         pagination = self.paginate_qs(qs, request)
         return self.render(
             request,
@@ -327,7 +327,7 @@ class RecipeListingPage(RoutablePageMixin, SEOPage):
     
     @path("api/")
     def api_root(self, request):
-        qs = RecipePage.objects.live().order_by('-first_published_at')[:30]
+        qs = RecipePage.objects.live().order_by('-first_published_at')
         return JsonResponse(self.to_json(qs), safe=False)
     
     @path("api/search/")
@@ -335,7 +335,7 @@ class RecipeListingPage(RoutablePageMixin, SEOPage):
         search_query = request.GET.get("q", None)
         qs = RecipePage.objects.live()
         if search_query:
-            qs = qs.search(search_query, order_by_relevance=True)[:30]
+            qs = qs.search(search_query, order_by_relevance=True)
         return JsonResponse(self.to_json(qs), safe=False)
     
     @route(r"^api/tags/(?P<tags_path>.+)/?$")
@@ -345,6 +345,6 @@ class RecipeListingPage(RoutablePageMixin, SEOPage):
             RecipePage.objects.live()
             .filter(tags__slug__in=tag_list)
             .annotate(match_count=Count('tags', filter=Q(tags__slug__in=tag_list), distinct=True))
-            .order_by('-match_count', '-first_published_at')[:30]
+            .order_by('-match_count', '-first_published_at')
         )
         return JsonResponse(self.to_json(qs), safe=False)
