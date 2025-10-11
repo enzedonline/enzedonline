@@ -1,0 +1,15 @@
+{% load wagtailimages_tags %}
+{% image travelblog.search_image fill-525x350 as img %}
+<div class="card p-2 page-card travelblog-card">
+    <div class="px-2 py-2">
+        <img width=450 height=300 src="{{ img.url }}" alt="{{ travelblog.title }}" class="image-w-100-auto">
+    </div>
+    <div class="card-body py-1">
+        <h3 class="h4 card-title fw-bolder text-center">{{ travelblog.title }}</h3>
+        <div class="travelblog-summary blog-summary">{{ travelblog.summary|linebreaksbr }}</div>
+        <div class="blog-date">{{ travelblog.published|date:'F Y' }}</div>
+    </div>
+    <a href="{{ travelblog.url }}"
+       class="stretched-link"
+       aria-label="Read {{ travelblog.title }}"></a>
+</div>

@@ -1,0 +1,42 @@
+<div id="travelblog-filter-offcanvas"
+     class="offcanvas offcanvas-start travelblog-offcanvas"
+     tabindex="-1"
+     aria-labelledby="travelblog-offcanvas-label">
+    <div class="offcanvas-header" data-bs-theme="dark">
+        <h5 class="offcanvas-title" id="travelblog-offcanvas-label">Search Recipes</h5>
+        <button type="button"
+                class="btn-close"
+                data-bs-dismiss="offcanvas"
+                aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <div class="h6 fw-semibold">Search travelblogs:</div>
+        <form id="search-travelblogs-form" class="input-group mb-3">
+            <input id="search-travelblogs-input"
+                   type="text"
+                   class="form-control form-control-sm"
+                   placeholder="Search travelblogs"
+                   aria-label="Search travelblogs">
+            <button class="btn btn-dark gfw-dark btn-sm"
+                    type="submit"
+                    id="search-travelblogs-btn">Search</button>
+        </form>
+        <div class="h6 fw-semibold">Or select one or more tags to filter by:</div>
+        <div class="travelblog-filter-items">
+            <div class="travelblog-filter-list pb-2">
+                {% for tag in tag_filters.category %}
+                    <div class="tag-item" data-tag-slug="{{ tag.slug }}">{{ tag.name }}</div>
+                {% endfor %}
+            </div>
+            <div class="travelblog-filter-list">
+                {% for tag in tag_filters.keyword %}
+                    <div class="tag-item" data-tag-slug="{{ tag.slug }}">{{ tag.name }}</div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="button-row">
+        <button id="clear-filter-btn" class="btn btn-danger me-auto">Clear Filter</button>
+        <button id="apply-filter-btn" class="btn btn-dark gfw-dark ms-auto">Filter by tags</button>
+    </div>
+</div>

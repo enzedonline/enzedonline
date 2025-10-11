@@ -1,0 +1,41 @@
+{% load static core_tags adv_cache %}
+{% get_template_set "common" as common_trans %}
+{% cache None cache_name "next_prev" request.GET.urlencode cache_date %}
+<div class="container-fluid pt-3 pb-5 px-2 px-lg-5">
+  <div class="pt-3 pt-3">
+    <hr>
+  </div>
+  {# Next and Previous blog posts #}
+  <div class="container-fluid mt-1 px-0">
+    <div class="row w-100 mx-auto">
+      <div class="col-sm-6 col-md-5 col-xl-4 d-flex align-items-stretch">
+        {% if next_post %}
+          <div class="h-100 border-0 fill-available">
+            <div class="px-0 py-0 py-sm-2 fw-bolder">
+              <p class="fs-3 font-headings fw-bolder mb-1">{{ common_trans.next_post }}</p>
+            </div>
+            {% include "goneforawander/travel/travelblog-card.html" with travelblog=next_post %}
+            <a href="{{ next_post.url }}{{ filter.qstring }}"
+               class="stretched-link"
+               aria-label="Read {{ next_post.localized.title }}"></a>
+          </div>
+        {% endif %}
+      </div>
+      <div class="col-md-2 col-xl-4 d-none d-md-block">&nbsp;</div>
+      <div class="col-sm-6 col-md-5 col-xl-4 d-flex align-items-stretch">
+        {% if previous_post %}
+          <div class="h-100 border-0 fill-available previous-post-link">
+            <div class="px-0 pt-3 py-sm-2 text-end">
+              <p class="fs-3 font-headings fw-bolder mb-1">{{ common_trans.previous_post }}</p>
+            </div>
+            {% include "goneforawander/travel/travelblog-card.html" with travelblog=previous_post %}
+            <a href="{{ previous_post.url }}{{ filter.qstring }}"
+               class="stretched-link"
+               aria-label="Read {{ previous_post.localized.title }}"></a>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endcache %}
