@@ -38,6 +38,11 @@ class TravelBlogPage(SEOPage):
         verbose_name=_("Blog Tags")
     )
     published = models.DateField(default=timezone.now, verbose_name=_("Published Date"))
+    location = models.CharField(
+        max_length=100,
+        blank=True,
+        null=True,
+    )
     wordcount = models.IntegerField(
         null=True, blank=True, verbose_name="Word Count")
     body = StreamField(
@@ -59,6 +64,7 @@ class TravelBlogPage(SEOPage):
         ),
         M2MChooserPanel('tags'),
         FieldPanel('published'),
+        FieldPanel('location'),
         FieldPanel('body'),
     ]
 
