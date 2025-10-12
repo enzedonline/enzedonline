@@ -22,12 +22,11 @@
   {{ login_url |json_script:"login_url" }} {% endcomment %}
   {% cache None cache_name "body" cache_date %}
   <div id="content" class="container-fluid mt-3 px-3 px-sm-5">
-    {# Categories #}
-    {% comment %} {% include "blog/detail/categories.html" %} {% endcomment %}
     <article>
       {# Title #}
       <div class="row mt-2">
         <h1 class="text-center">{{ self.title }}</h1>
+        <div class="h6 text-center">{% if self.location %}{{ self.location }} - {% endif %}{{ self.published|date:"F Y" }}</div>
       </div>
       {# Blog Content #}
       {% for block in page.body %}
