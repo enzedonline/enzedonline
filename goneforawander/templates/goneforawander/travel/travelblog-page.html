@@ -21,12 +21,12 @@
   {% comment %} {% url "account_login" as login_url %}
   {{ login_url |json_script:"login_url" }} {% endcomment %}
   {% cache None cache_name "body" cache_date %}
-  <div id="content" class="container-fluid mt-3 px-3 px-sm-5">
+  <div id="content" class="container-fluid mt-3 px-3 px-sm-5 travelblog-page">
     <article>
       {# Title #}
       <div class="row mt-2">
         <h1 class="text-center">{{ self.title }}</h1>
-        <div class="h6 text-center">{% if self.location %}{{ self.location }} - {% endif %}{{ self.published|date:"F Y" }}</div>
+        <div class="h6 travelblog-location-date">{% if self.location %}{{ self.location }} - {% endif %}{{ self.published|date:"F Y" }}</div>
       </div>
       {# Blog Content #}
       {% for block in page.body %}
