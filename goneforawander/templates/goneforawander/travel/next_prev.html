@@ -1,6 +1,5 @@
-{% load static core_tags adv_cache %}
+{% load core_tags %}
 {% get_template_set "common" as common_trans %}
-{% cache None cache_name "next_prev" request.GET.urlencode cache_date %}
 <div class="container-fluid pt-3 pb-5 px-2 px-lg-5">
   <div class="pt-3 pt-3">
     <hr>
@@ -32,4 +31,3 @@
     </div>
   </div>
 </div>
-{% endcache %}
