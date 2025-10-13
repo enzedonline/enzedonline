@@ -99,7 +99,7 @@ class TravelBlogListingPage(RoutablePageMixin, SEOPage):
     @path("")
     @path("tags/")
     def travel_blog_index_page(self, request):
-        qs = TravelBlogPage.objects.live().order_by('-published')
+        qs = TravelBlogPage.objects.live().order_by('-published', '-first_published_at')
         pagination = self.paginate_qs(qs, request)
         return self.render(
             request,
@@ -118,7 +118,7 @@ class TravelBlogListingPage(RoutablePageMixin, SEOPage):
             TravelBlogPage.objects.live()
             .filter(tags__slug__in=tag_list)
             .annotate(match_count=Count('tags', filter=Q(tags__slug__in=tag_list), distinct=True))
-            .order_by('-match_count', '-first_published_at')
+            .order_by('-match_count', '-published', '-first_published_at')
         )
         pagination = self.paginate_qs(qs, request)
         return self.render(

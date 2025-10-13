@@ -83,7 +83,7 @@ class TravelBlogPage(SEOPage):
         siblings = self.__class__.objects.sibling_of(self).defer_streamfields().live()
 
         context['next_post'], context['previous_post'] = self.get_next_prev(
-            siblings.order_by('-published')
+            siblings.order_by('-published', '-first_published_at')
         )
 
         return context
