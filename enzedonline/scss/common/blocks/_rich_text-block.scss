@@ -1,44 +1,69 @@
-.rich-text img {
-  max-width: 100%;
-  height: auto;
-}
+// rich text block styles
+div.block-container.rich-text {
+  display: flow-root; // Clearfix for floated images
 
-.check-list-wrapper {
-  list-style: none;
-}
+  .check-list-wrapper {
+    list-style: none;
+  }
 
-.check-list {
-  margin-bottom: 0.1em;
-}
+  .check-list {
+    margin-bottom: 0.1em;
+  }
 
-.check-list::marker {
-  content: '🗹';
-  letter-spacing: 0.5em;
-}
+  .check-list::marker {
+    content: '🗹';
+    letter-spacing: 0.5em;
+  }
 
-.code-block {
-  font-size: var(--font-size-body);
-  font-family: var(--font-family-monospace);
-  color: var(--bs-light);
-  background-color: var(--rtb-code-block-background-color);
-  padding: 0;
-  text-align: left !important;
-  line-height: 1.3;
-  white-space-collapse: preserve;
-}
+  .code-block {
+    font-size: var(--font-size-body);
+    font-family: var(--font-family-monospace);
+    color: var(--bs-light);
+    background-color: var(--rtb-code-block-background-color);
+    padding: 0;
+    text-align: left !important;
+    line-height: 1.3;
+    white-space-collapse: preserve;
+  }
 
-.code-block-wrapper {
-  list-style-type: none;
-  background-color: var(--rtb-code-block-background-color);
-  padding: 0.8em 1.2em;
-  margin-bottom: 0.8em;
-  border-radius: 0.4em;
-  overflow-x: auto;
-}
+  .code-block-wrapper {
+    list-style-type: none;
+    background-color: var(--rtb-code-block-background-color);
+    padding: 0.8em 1.2em;
+    margin-bottom: 0.8em;
+    border-radius: 0.4em;
+    overflow-x: auto;
+  }
 
-/* Allow Mathjax equation to have custom alignment and set font size to inherit */
-mjx-container[jax="CHTML"],
-mjx-container[jax="CHTML"][display="true"] {
-  text-align: inherit !important;
-  font-size: inherit !important;
+  /* Allow Mathjax equation to have custom alignment and set font size to inherit */
+  mjx-container[jax="CHTML"],
+  mjx-container[jax="CHTML"][display="true"] {
+    text-align: inherit !important;
+    font-size: inherit !important;
+  }
+
+  // inline image styles
+  img.richtext-image {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    width: unset !important;
+    margin: auto;
+    display: block;
+    padding-bottom: 1em;
+
+    @media screen and (min-width: 800px) {
+      &.left {
+        float: left;
+        padding-right: 1em;
+        padding-bottom: 0.5em;
+      }
+
+      &.right {
+        float: right;
+        padding-left: 1em;
+        padding-bottom: 0.5em;
+      }
+    }
+  }
 }
