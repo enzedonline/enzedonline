@@ -4,9 +4,10 @@
     --menustream-goneforawander-link-font-size: clamp(1rem, 0.35rem + 1.3333vw, 1.6rem);
     --menustream-goneforawander-link-brand-height: var(--goneforawander-brand-height);
     --menustream-goneforawander-navbar-bg-color: var(--goneforawander-dark-green);
+    --menustream-goneforawander-navbar-border-color: #2f3c31;
 
     padding: 0;
-    box-shadow: 0px 5px 5px rgba(0,0,0,.5);
+    border-bottom: 2px solid var(--menustream-goneforawander-navbar-border-color);
 
     &.navbar {
         background-color: var(--menustream-goneforawander-navbar-bg-color) !important;
