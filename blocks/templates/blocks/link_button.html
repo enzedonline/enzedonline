@@ -1,7 +1,7 @@
 <div class="block-container" style="text-align: {{ self.placement }};">
     <a class="btn {{ self.appearance }} {{ self.size }}"
        href="{{ self.url }}"
-       {% if self.open_in_new_tab %}target="_blank"{% endif %}
+       {% if self.new_tab %}target="_blank"{% endif %}
        onmouseup="this.blur()"
        role="button">{{ self.button_text }}</a>
 </div>

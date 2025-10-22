@@ -29,6 +29,12 @@ class Link_Value(StructValue):
             return url
         else:
             return None
+    
+    def new_tab(self) -> bool:
+        url_link = self.get("url_link")
+        if url_link and (url_link.startswith('http://') or url_link.startswith('https://')):
+            return True
+        return False
 
 class Link(StructBlock):
     def __init__(self, required=True, **kwargs):
