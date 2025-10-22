@@ -3,6 +3,7 @@
   <div class="{% button_layout self %}">
     <a class="btn {{ self.link.appearance }} {{ self.link.size }}"
        href="{{ self.link.url }}"
+       {% if self.link.new_tab %}target="_blank"{% endif %}
        role="button">{{ self.link.button_text }}</a>
   </div>
 {% endif %}
