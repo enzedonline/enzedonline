@@ -46,7 +46,10 @@ def row_layout(value, block_id):
         
     if value['format'].find('responsive') != -1:
         layout['image_column'] = f"col-{value['breakpoint']}-4"
-        layout['text_column'] = "px-2 text-break"
+        if value['format'].find('right') != -1:
+            layout['text_column'] = "pe-2 text-break"
+        else:
+            layout['text_column'] = "ps-2 text-break"
         layout['heading_align'] = f"text-center text-{value['breakpoint']}-start"
         if value['breakpoint'] == 'md':
             breakpoint = '768px'
