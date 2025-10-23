@@ -4,8 +4,9 @@
 {% get_picture_rendition self.image 750 as webp_img_w_750 %}
 {% get_picture_rendition self.image 500 as webp_img_w_500 %}
 {% image self.image.file width-1800 as fallback %}
-
-{% if self.link %}<a href="{{ self.link.url }}">{% endif %}
+{% if self.link.url %}
+<a href="{{ self.link.url }}">
+  {% endif %}
   <picture>
     <source media="(max-width: 500px)" sizes="(max-width: 500px) 500px" srcset="{{ webp_img_w_500.url }} 500w" type="image/webp">
     <source media="(max-width: 750px)" sizes="(max-width: 750px) 750px" srcset="{{ webp_img_w_750.url }} 750w" type="image/webp">
@@ -17,4 +18,4 @@
       class="image-w-100-auto"
     >
   </picture>
-{% if self.link %}</a>{% endif %}
+{% if self.link.url %}</a>{% endif %}
