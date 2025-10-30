@@ -10,7 +10,7 @@ from wagtail.models import Orderable
 from wagtail.snippets.models import register_snippet
 
 
-@register_setting(icon='map')
+@register_setting(icon="map-marker")
 class MapboxSettings(BaseGenericSetting):
     token = models.CharField(max_length=100, unique=True)
     api_version = models.CharField(max_length=100, unique=True)
