@@ -19,7 +19,7 @@
     }
 </script>
 <script type="module">
-    import mapboxgl from 'mapbox-gl'
+    import mapboxgl from 'mapbox-gl';
     import { MapboxAssist } from "{% static 'js/mapbox-assist.esm.js' %}";
     {% if extra_js %}{{ extra_js|parse_django_template }}{% endif %}
 
