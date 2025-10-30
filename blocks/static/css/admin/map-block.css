@@ -8,22 +8,14 @@ div.map-block {
     grid-auto-rows: auto;
     column-gap: 2rem;
   }
-  div.map-waypoint-block>div[data-contentpath="gps_coord"] {
-    flex-basis: 100%;
-  }
-  div.map-waypoint-block>div[data-contentpath="show_pin"] {
-    flex-grow: 0;
-  }
-  div.map-block>div[data-contentpath="waypoints"],
-  div.map-block>div[data-contentpath="padding_help"] {
+  div.map-block>div[data-contentpath="padding_help"],
+  div.map-block>div[data-contentpath="map_url"]  {
     grid-column: span var(--wide-column-span);
   }
-  div.map-block>div[data-contentpath="route_type"],
+  div.map-block>div[data-contentpath="config"],
+  div.map-block>div[data-contentpath="show_map_link"],
   div.map-block>div[data-contentpath="show_route_summary"],
-  div.map-block>div[data-contentpath="pitch"],
-  div.map-block>div[data-contentpath="bearing"],
-  div.map-block>div[data-contentpath="height"],
-  div.map-block>div[data-contentpath="style"] {
+  div.map-block>div[data-contentpath="height"] {
     grid-column: span var(--medium-column-span);
   }
   div.map-block>div[data-contentpath="padding_top"],
@@ -35,9 +27,7 @@ div.map-block {
   div.map-block>div[data-contentpath="padding_help"]>label {
     display: none;
   }
-  div.map-block>div[data-contentpath="route_type"] select,
-  div.map-block>div[data-contentpath="show_route_summary"] select,
-  div.map-block>div[data-contentpath="style"] select {
+  div.map-block>div[data-contentpath="show_route_summary"] select {
     font-size: 0.9em;
     width: 100%;
   }

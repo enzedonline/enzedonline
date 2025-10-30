@@ -1,19 +1,53 @@
-{% load static wagtailimages_tags map_block_tags core_tags %}
-{% get_map_settings block as map_settings %}
-{% add_json_script map_settings map_settings.uid %}
-<div id="mapblock-{{ map_settings.uid }}"
-     class="block-container map-block">
-  <div class="position-relative">
-    <div id="map-{{ map_settings.uid }}"
-        class="mapbox-container"
-        style="height:{{ self.height }}vh"></div>
-  </div>
-  <div class="map-caption">{{ map_help_text }}</div>
+{% load static map_tags core_tags %}
+<div class="block-container map-block">
+  <div id="map-{{ block.id }}" class="mapbox-container track-planner-map-container" style="height:{{ self.height }}vh"></div>
 </div>
-{% comment %} {% include "blocks/map/facilities.svg" %} {% endcomment %}
+{% if self.show_map_link %}
+<div class="text-end">
+<a href="{{ self.map_url }}" class="map-link btn btn-dark" target="_blank">
+  <span class="pe-2">View Route Planner</span><i class="fa-solid fa-arrow-up-right-from-square"></i>
+</a>
+</div>
+{% endif %}
+{% add_json_script parameters "mapParameters-"|add:block.id %}
+{% add_json_script mapboxAssistSettings "mapboxAssistSettings-"|add:block.id %}
+<script type="importmap">
+    {
+        "imports": {
+            "mapbox-gl": "https://esm.sh/mapbox-gl@v{{ mapbox.api_version}}"
+        }
+    }
+</script>
+<script type="module">
+    import mapboxgl from 'mapbox-gl'
+    import { MapboxAssist } from "{% static 'js/mapbox-assist.esm.js' %}";
+    {% if extra_js %}{{ extra_js|parse_django_template }}{% endif %}
+
+    (window.env ??= {}).DOC_API_KEY = 'Cns0yYhKHZ1Zgq7Y8v4rw5mYWO3kwxJI1Q7dcuqR';
+    const mapParameters = JSON.parse(document.getElementById('mapParameters-{{ block.id }}').textContent);
+    const mapSettings = JSON.parse(document.getElementById('mapboxAssistSettings-{{ block.id }}').textContent);
+    {% if featureLayers %}
+        {{ featureLayers|import_feature_layer_js }}
+        mapSettings.featureLayers = { layers: [] };
+        {% for layer in featureLayers %}
+            mapSettings.featureLayers.layers.push({
+                id: '{{ layer.id }}',
+                tileId: '{{ layer.tileId }}',
+                handler: {{ layer.handler }}
+            });
+        {% endfor %}
+    {% endif %}
+
+    try {
+        mapboxgl.accessToken = '{{ mapbox.token }}';
+        mapParameters.mapOptions.container = 'map-{{ block.id }}';
+        const mapboxAssist = new MapboxAssist(mapParameters, mapSettings);
+    } catch (error) {
+        console.error('Error initializing MapboxAssist:', error);
+    }
+</script>
 <script>
-  include_js("{% static 'js/map-block.js'%}")
-  .then(() => {
-    new MapBlock("{{ map_settings.uid }}");
-  });
+    include_css("https://api.mapbox.com/mapbox-gl-js/v{{ mapbox.api_version }}/mapbox-gl.css");
+    include_css("{% static 'css/mapbox-assist.css' %}");
+    include_css("{% static 'css/doc-features.css' %}");
 </script>
