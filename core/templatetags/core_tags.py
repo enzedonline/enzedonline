@@ -4,15 +4,21 @@ from urllib.parse import urlparse
 
 from django import template
 from django.conf import settings
+from django.utils.html import json_script
 from django.utils.safestring import mark_safe
 from django.utils.text import normalize_newlines
 from wagtail.admin.templatetags.wagtailadmin_tags import render_with_errors
 from wagtail.documents.models import Document
 from wagtail.models import Page
 
-from site_settings.models import Brand, EmailSignature, SiteTokens, TemplateText
+from site_settings.models import (Brand, EmailSignature, SiteTokens,
+                                  TemplateText)
 
 register = template.Library()
+
+@register.simple_tag()
+def add_json_script(value, element_id):
+    return json_script(value, element_id)
 
 @register.simple_tag(takes_context=True)
 def site_tokens(context):
