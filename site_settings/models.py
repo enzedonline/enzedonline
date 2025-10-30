@@ -120,7 +120,7 @@ class SocialMediaLinks(BaseSiteSetting, ClusterableModel):
     class Meta:
         verbose_name = "Social Media Links"
 
-@register_setting(icon="eye")
+@register_setting(icon="view")
 class Brand(BaseSiteSetting):
     logo = models.ForeignKey(
         "wagtailimages.Image",
