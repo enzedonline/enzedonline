@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load static core_tags adv_cache wagtailcore_tags %}
+{% load static core_tags adv_cache wagtailcore_tags map_tags %}
 {% block extra_head %}
   {% if self.blog_type == "TechBlogDetailPage" %}
     {# Code Block CSS & JS - only load if tech blog #}
@@ -8,6 +8,8 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/code-highlight/code-block.css' %}">
     <script defer src="{% static 'js/code-highlight/code-block.js' %}"></script>
   {% endif %}
+  {# Mapbox import map #}
+  {% mapbox_importmap %}
   {# load Article metadata #}
   {% cache None cache_name "structure" cache_date %}
   {% include "blog/detail/structured_data.html" %}

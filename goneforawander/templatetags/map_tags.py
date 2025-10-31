@@ -3,6 +3,8 @@ from django.templatetags.static import static
 from django.utils.safestring import mark_safe
 from django.template import Context, Template
 
+from goneforawander.map.settings import MapboxSettings
+
 register = template.Library()
 
 @register.filter()
@@ -20,3 +22,10 @@ def parse_django_template(code):
     if '{% load' not in code and '{% static' in code:
         code = '{% load static %}\n' + code
     return Template(code).render(Context())
+
+@register.simple_tag()
+def mapbox_importmap():
+    settings = MapboxSettings.load()
+    return mark_safe(
+        f'<script type="importmap">{{"imports": {{"mapbox-gl": "https://esm.sh/mapbox-gl@v{settings.api_version}"}}}}</script>'
+    )
