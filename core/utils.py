@@ -358,3 +358,44 @@ def list_streamfield_blocks(streamfield):
     
     return list_child_blocks(streamfield.stream_block.child_blocks)
     
+def streamvalue_has_block_type(stream_value, block_type_name):
+    """
+    Recursively check if a StreamValue contains a block of the given type.
+    
+    Args:
+        stream_value: A wagtail StreamValue object
+        block_type_name: String name of the block type to find (e.g. 'map_block')
+    
+    Returns:
+        True if the block type exists anywhere in the stream (including nested), False otherwise
+    """
+    from wagtail.blocks import StreamValue, StructValue
+    
+    if not stream_value:
+        return False
+    
+    for block in stream_value:
+        # Check if this block matches the type we're looking for
+        if block.block_type == block_type_name:
+            return True
+        
+        # If this is a StructBlock, check its child values
+        if isinstance(block.value, StructValue):
+            for child_value in block.value.values():
+                if isinstance(child_value, StreamValue):
+                    if streamvalue_has_block_type(child_value, block_type_name):
+                        return True
+        
+        # If this is a StreamBlock nested inside another StreamBlock
+        elif isinstance(block.value, StreamValue):
+            if streamvalue_has_block_type(block.value, block_type_name):
+                return True
+        
+        # If this is a ListBlock containing StreamValues
+        elif isinstance(block.value, list):
+            for item in block.value:
+                if isinstance(item, StreamValue):
+                    if streamvalue_has_block_type(item, block_type_name):
+                        return True
+    
+    return False    
