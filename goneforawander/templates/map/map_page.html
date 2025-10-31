@@ -39,7 +39,7 @@
         }
     </script>
     <script type="module">
-        import mapboxgl from 'mapbox-gl'
+        import mapboxgl from 'mapbox-gl';
         import { MapboxAssist } from '/static/mapbox-assist/js/mapbox-assist.esm.js';
         {% if self.map_settings.feature_layers.layers %}
             {{ self.map_settings.feature_layers|import_feature_layer_js }}
