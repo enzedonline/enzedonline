@@ -18,12 +18,11 @@
         }
     }
 </script>
-<script type="module">
+<script type="module" defer>
     import mapboxgl from 'mapbox-gl';
     import { MapboxAssist } from "{% static 'js/mapbox-assist.esm.js' %}";
     {% if extra_js %}{{ extra_js|parse_django_template }}{% endif %}
 
-    (window.env ??= {}).DOC_API_KEY = 'Cns0yYhKHZ1Zgq7Y8v4rw5mYWO3kwxJI1Q7dcuqR';
     const mapParameters = JSON.parse(document.getElementById('mapParameters-{{ block.id }}').textContent);
     const mapSettings = JSON.parse(document.getElementById('mapboxAssistSettings-{{ block.id }}').textContent);
     {% if featureLayers %}
