@@ -195,8 +195,10 @@ def get_picture_rendition(image, width):
 
 @register.simple_tag(takes_context=True)
 def get_brand_banner(context):
+    request = getattr(context, 'request', None)
+    if request is None:
+        return None    
     try:
-        request = context['request']
         brand = Brand.for_request(request)
         banner = brand.__getattribute__('banner', False)
         return banner
