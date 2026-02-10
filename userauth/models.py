@@ -35,7 +35,7 @@ class CustomUser(AbstractUser):
         return ''.join((random.choice(string.ascii_uppercase + string.digits) for i in range(12)))
          
     def save(self, *args, **kwargs):
-        if not self.display_name: self.display_name=f'{self.first_name} {self.last_name}'
+        if not self.display_name: self.display_name=f'{self.first_name} {self.last_name}'[:30]
         self.icon_url = self.get_absolute_url()
         super().save(*args, **kwargs)
 
