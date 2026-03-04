@@ -47,7 +47,6 @@ const renderCampsiteDetails = (feature) => {
     const activityIcons = docIcons.icons(feature.properties.activities, 'activities');
     if (activityIcons)
         html += `<tr><th scope="row">Activities:</th><td class="doc-icons">${activityIcons}</td></tr>`;
-    console.log('activities', feature.properties.activities)
     html += `</tbody></table>`;
     html += `<div class="detail-row${feature.properties.bookable ? " doc-alert" : ""}">
                 <div class="col-icon doc-icons"><svg class="doc-icon" aria-labelledby="bookings-title" role="img"><title id="bookings-title">Bookings</title>
