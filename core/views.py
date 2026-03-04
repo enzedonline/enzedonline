@@ -6,12 +6,14 @@ import validators
 from bs4 import BeautifulSoup
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.core.cache import cache
 from django.http import JsonResponse
 from django.shortcuts import redirect
 from django.template.response import TemplateResponse
 from django.utils.http import http_date
 from django.utils.translation import gettext_lazy as _
 from django.views import View
+from django.views.decorators.http import require_GET
 from django.views.generic import TemplateView
 from wagtail.models import Site
 
@@ -193,3 +195,36 @@ def sitemap(request):
             "vary": "Accept-Encoding",
         }
     )
+
+@require_GET
+def user_country(request):
+    ip = get_client_ip(request)
+
+    cache_key = f"user-country:{ip}"
+    cached = cache.get(cache_key)
+    if cached:
+        return JsonResponse(cached)
+
+    try:
+        response = requests.get(
+            "https://ipapi.co/country/",
+            timeout=2
+        )
+        response.raise_for_status()
+        country = response.text.strip()
+    except Exception:
+        country = "xx"
+
+    data = {"ISO": country}
+
+    # Cache for 24 hours
+    cache.set(cache_key, data, 60 * 60 * 24)
+
+    return JsonResponse(data)
+
+
+def get_client_ip(request):
+    x_forwarded_for = request.META.get("HTTP_X_FORWARDED_FOR")
+    if x_forwarded_for:
+        return x_forwarded_for.split(",")[0]
+    return request.META.get("REMOTE_ADDR")
