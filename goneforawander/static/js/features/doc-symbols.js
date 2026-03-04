@@ -8,7 +8,7 @@ const renderHutDetails = (feature) => {
     const facilityIcons = docIcons.icons(feature.properties.facilities, 'facilities');
     let html = `<div class="doc-icons facilities-icons">`;
     html += `<svg class="doc-icon" aria-labelledby="capacity-title" role="img"><title id="capacity-title">Capacity</title>
-                <use href="#bunk-bed"></use></svg><span>${parseFloat(feature.properties.numberOfBunks)}</span>`;
+                <use href="#bunk-bed"></use></svg><span>${parseFloat(feature.properties.numberOfBunks || 0)}</span>`;
     html += `${facilityIcons}</div>`;
     html += `<div class="detail-row${feature.properties.bookable ? " doc-alert" : ""}">
                 <div class="col-icon doc-icons"><svg class="doc-icon" aria-labelledby="bookings-title" role="img"><title id="bookings-title">Bookings</title>
@@ -35,7 +35,7 @@ const renderCampsiteDetails = (feature) => {
         html += `<svg class="doc-icon" aria-labelledby="powered-site-title" role="img"><title id="powered-site-title">Powered Sites</title>
                         <use href="#powered-site"></use></svg><span>${feature.properties.numberOfPoweredSites}</span>`;
     html += `<svg class="doc-icon" aria-labelledby="unpowered-site-title" role="img"><title id="unpowered-site-title">Unpowered Sites</title>
-                        <use href="#unpowered-site"></use></svg><span>${feature.properties.numberOfUnpoweredSites}</span>`;
+                        <use href="#unpowered-site"></use></svg><span>${feature.properties.numberOfUnpoweredSites || 0}</span>`;
     html += `${facilityIcons}</div>`;
     html += `<table><tbody>`;
     const accessIcons = docIcons.icons(feature.properties.access, 'access');
