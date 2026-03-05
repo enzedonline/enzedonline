@@ -206,13 +206,11 @@ def user_country(request):
         return JsonResponse(cached)
 
     try:
-        response = requests.get(
-            "https://ipapi.co/country/",
-            timeout=2
-        )
-        response.raise_for_status()
-        country = response.text.strip()
-    except Exception:
+        r = requests.get(f"https://ipwho.is/{ip}", timeout=2)
+        data = r.json()
+        country = data.get("country_code", "xx")
+    except Exception as e:
+        print(f"Error fetching country for IP {ip}: {e}")
         country = "xx"
 
     data = {"ISO": country}
