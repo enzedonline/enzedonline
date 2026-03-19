@@ -1,4 +1,5 @@
 import logging
+import minify_html
 import os
 from datetime import datetime
 from email.policy import default
@@ -12,7 +13,6 @@ from django.template.loader import get_template
 from django.utils.translation import gettext_lazy as _
 from django_recaptcha import widgets
 from django_recaptcha.fields import ReCaptchaField
-from htmlmin import minify
 from modelcluster.models import ParentalKey
 from wagtail.admin.panels import (FieldPanel, FieldRowPanel, InlinePanel,
                                   MultiFieldPanel)
@@ -315,7 +315,7 @@ class ContactPage(WagtailCaptchaEmailForm, SEOPage):
                 'base_url': settings.WAGTAILADMIN_BASE_URL
             }
         )
-        html = minify(''.join(html).replace('\n', ''))
+        html = minify_html.minify(''.join(html).replace('\n', ''), minify_js=True, minify_css=True)
         #   Enable next 3 lines to test html output
         # output = os.path.join(settings.BASE_DIR, 'contact', 'templates',
         #                       'contact', 'test.html')
