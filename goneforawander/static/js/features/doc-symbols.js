@@ -115,6 +115,10 @@ export async function docSymbolsHandler(feature, map) {
         );
     }
     offCanvasBody.append(await renderCoordinatesDetails(map, feature.geometry.coordinates));
+    if (feature.properties.updated) {
+        html = `<div class="last-updated">Updated: ${feature.properties.updated}</div>`;
+        offCanvasBody.insertAdjacentHTML('beforeend', html);
+    }
     offCanvasBody.insertAdjacentHTML(
         'beforeend', 
         `<div class="more-information">
