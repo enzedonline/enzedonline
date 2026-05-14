@@ -28,7 +28,8 @@ class ExternalContentProxy(View):
             return JsonResponse({"error": "Missing URL parameter"})
 
         # Validate the URL format
-        if not urlsplit(url).scheme: url = f'https://{url}'
+        if not urlsplit(url).scheme: 
+            url = f'https://{url}'
         if not validators.url(url):
             return JsonResponse({"error": "Invalid URL format"})
 
@@ -154,7 +155,7 @@ def refresh_page_cache(r):
     try:
         clear_page_cache()
         messages.success(r, _('Page Cache has been refreshed!'))
-    except:
+    except Exception:
         messages.error(r, _('There was a problem refreshing the Page Cache'))
     return redirect(r.META['HTTP_REFERER'])
 
@@ -180,7 +181,7 @@ def sitemap(request):
                 urlset.append(entry)
     try:
         urlset.remove([])
-    except:
+    except Exception:
         pass
     last_modified = max([x['lastmod'] for x in urlset])
 

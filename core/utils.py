@@ -69,19 +69,19 @@ def purge_page_cache_fragments(slug):
 
 
 def purge_menu_cache_fragments():
-    sql = f"DELETE FROM public.cache_table WHERE cache_key LIKE '%.menu.%';"
+    sql = "DELETE FROM public.cache_table WHERE cache_key LIKE '%.menu.%';"
     with connection.cursor() as cursor:
         cursor.execute(sql)
-    sql = f"DELETE FROM public.cache_table WHERE cache_key LIKE '%.footer.%';"
+    sql = "DELETE FROM public.cache_table WHERE cache_key LIKE '%.footer.%';"
     with connection.cursor() as cursor:
         cursor.execute(sql)
 
 
 def purge_blog_list_cache_fragments():
-    sql = f"DELETE FROM public.cache_table WHERE cache_key LIKE '%next_prev%';"
+    sql = "DELETE FROM public.cache_table WHERE cache_key LIKE '%next_prev%';"
     with connection.cursor() as cursor:
         cursor.execute(sql)
-    sql = f"DELETE FROM public.cache_table WHERE cache_key LIKE '%blog_list%';"
+    sql = "DELETE FROM public.cache_table WHERE cache_key LIKE '%blog_list%';"
     with connection.cursor() as cursor:
         cursor.execute(sql)
 
@@ -204,11 +204,12 @@ def count_words(text):
         int: The number of words in the text, or -1 if an error occurs.
     """
     try:
-        if not text: return 0
+        if not text: 
+            return 0
         word_break_chars = "[\n|\r|\t|\f| ]"
         ignore_words = ["", "-", "−", "–", "/"]
         return len(
-            [x for x in re.split(word_break_chars, text) if not x in ignore_words]
+            [x for x in re.split(word_break_chars, text) if x not in ignore_words]
         )
     except Exception:
         return -1
@@ -275,7 +276,8 @@ def list_block_instances(streamfield):
                     list += [item]
         return list
     
-    if streamfield.is_lazy: r = streamfield.render_as_block() # force lazy object to load
+    if streamfield.is_lazy: 
+        streamfield.render_as_block() # force lazy object to load
     return list_bound_blocks(streamfield)
 
 def block_instances_by_class(streamfield, block_class):
@@ -297,18 +299,20 @@ def block_instances_by_class(streamfield, block_class):
             bound_blocks = bound_blocks.values()
     
         for bound_block in bound_blocks:
-            if type(bound_block.block) is block_class: list += [bound_block]
+            if type(bound_block.block) is block_class: 
+                list += [bound_block]
             list += find_blocks(bound_block, block_class)
         return list
 
-    if type(block_class)==str:
+    if isinstance(block_class, str):
         try:
             module_name, class_name = block_class.rsplit('.', 1)
             module = importlib.import_module(module_name)
             block_class = getattr(module, class_name)().__class__
-        except:
+        except Exception:
             return ['Unable to parse class path. Try passing the class object instead.']    
-    if streamfield.is_lazy: r = streamfield.render_as_block() # force lazy object to load
+    if streamfield.is_lazy: 
+        streamfield.render_as_block() # force lazy object to load
 
     return find_blocks(streamfield, block_class)
 
@@ -327,17 +331,19 @@ def block_prepvalues_by_class(streamfield, block_class):
         if isinstance(bound_blocks, OrderedDict):
             bound_blocks = bound_blocks.values()
         for bound_block in bound_blocks:
-            if type(bound_block.block) is block_class: list += [bound_block.get_prep_value()]
+            if type(bound_block.block) is block_class: 
+                list += [bound_block.get_prep_value()]
             list += find_blocks(bound_block, block_class)
         return list
-    if type(block_class)==str:
+    if isinstance(block_class, str):
         try:
             module_name, class_name = block_class.rsplit('.', 1)
             module = importlib.import_module(module_name)
             block_class = getattr(module, class_name)().__class__
-        except:
+        except Exception:
             return ['Unable to parse class path. Try passing the class object instead.']    
-    if streamfield.is_lazy: r = streamfield.render_as_block() # force lazy object to load
+    if streamfield.is_lazy: 
+        streamfield.render_as_block() # force lazy object to load
     return find_blocks(streamfield, block_class)
 
 
