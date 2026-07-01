@@ -47,7 +47,7 @@
         import mapboxgl from 'mapbox-gl'
         import { MapboxAssist } from "{% static 'js/mapbox-assist.esm.js' %}";
         {% if extra_js %}{{ extra_js|parse_django_template }}{% endif %}
-        const mapParameters = JSON.parse(document.getElementById('mapParameters').textContent);
+        let mapParameters = JSON.parse(document.getElementById('mapParameters').textContent);
         const mapSettings = JSON.parse(document.getElementById('mapboxAssistSettings').textContent);
         {% if featureLayers %}
             {{ featureLayers|import_feature_layer_js }}
@@ -62,7 +62,7 @@
         {% endif %}
 
         try {
-            mapboxgl.accessToken = '{{ mapbox.token }}';
+            mapParameters.mapOptions.accessToken = '{{ mapbox.token }}';
             const mapboxAssist = new MapboxAssist(mapParameters, mapSettings);
         } catch (error) {
             console.error('Error initializing MapboxAssist:', error);

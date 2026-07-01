@@ -34,13 +34,13 @@
     <script type="importmap">
         {
             "imports": {
-                "mapbox-gl": "https://esm.sh/mapbox-gl@{{ mapbox.api_version}}"
+                "mapbox-gl": "https://esm.sh/mapbox-gl@v{{ mapbox.api_version}}"
             }
         }
     </script>
     <script type="module">
-        import mapboxgl from 'mapbox-gl';
-        import { MapboxAssist } from '/static/mapbox-assist/js/mapbox-assist.esm.js';
+        import mapboxgl from 'mapbox-gl'
+        import { MapboxAssist } from "{% static 'js/mapbox-assist.esm.js' %}";
         {% if self.map_settings.feature_layers.layers %}
             {{ self.map_settings.feature_layers|import_feature_layer_js }}
         {% endif %}
@@ -49,7 +49,7 @@
         const mapSettings = JSON.parse(document.getElementById('mapSettings').textContent);
 
         try {
-            mapboxgl.accessToken = '{{ self.map_settings.token}}';
+            mapParameters.mapOptions.accessToken = '{{ mapbox.token }}';
             const mapboxAssist = new MapboxAssist(mapParameters, mapSettings);
 
         } catch (error) {
