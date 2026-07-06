@@ -1,9 +1,6 @@
 from django import template
-from django.templatetags.static import static
 from django.utils.safestring import mark_safe
 from django.template import Context, Template
-
-from goneforawander.map.settings import MapboxSettings
 
 register = template.Library()
 
