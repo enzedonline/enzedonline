@@ -1,4 +1,5 @@
 {% load static map_tags core_tags %}
+{% include "map/mapbox-assist.importmap.html" %}
 <div class="block-container map-block">
   <div id="map-{{ block.id }}" class="mapbox-container track-planner-map-container" style="height:{{ self.height }}vh"></div>
 </div>
@@ -12,7 +13,6 @@
 {% add_json_script parameters "mapParameters-"|add:block.id %}
 {% add_json_script mapboxAssistSettings "mapboxAssistSettings-"|add:block.id %}
 <script type="module">
-    import mapboxgl from 'mapbox-gl';
     import { MapboxAssist } from "{% static 'js/mapbox-assist.esm.js' %}";
     {% if extra_js %}{{ extra_js|parse_django_template }}{% endif %}
 
@@ -39,7 +39,7 @@
     }
 </script>
 <script>
-    include_css("https://api.mapbox.com/mapbox-gl-js/v{{ mapbox.api_version }}/mapbox-gl.css");
+    include_css("https://api.mapbox.com/mapbox-gl-js/v3.25.0/mapbox-gl.css");
     include_css("{% static 'css/mapbox-assist.css' %}");
     include_css("{% static 'css/doc-features.css' %}");
 </script>

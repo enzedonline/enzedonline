@@ -8,8 +8,6 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/code-highlight/code-block.css' %}">
     <script defer src="{% static 'js/code-highlight/code-block.js' %}"></script>
   {% endif %}
-  {# Mapbox import map #}
-  {% mapbox_importmap %}
   {# load Article metadata #}
   {% cache None cache_name "structure" cache_date %}
   {% include "blog/detail/structured_data.html" %}
