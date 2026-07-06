@@ -2,11 +2,12 @@
 {% load static adv_cache wagtailimages_tags wagtailcore_tags map_tags %}
 {% block extra_head %}
     <link rel="stylesheet"
-          href="https://api.mapbox.com/mapbox-gl-js/v{{ mapbox.api_version }}/mapbox-gl.css"
+          href="https://api.mapbox.com/mapbox-gl-js/v3.25.0/mapbox-gl.css"
           type="text/css">
     <link rel="stylesheet"
           href="{% static 'css/mapbox-assist.css' %}"
           type="text/css">
+    {% include "map/mapbox-assist.importmap.html" %}
     {% cache None cache_name "structure" cache_date %}
         {% include "service/structured_data.html" %}
     {% endcache %}
@@ -36,15 +37,7 @@
 {% block extra_js %}
     {{ parameters|json_script:"mapParameters" }}
     {{ mapboxAssistSettings|json_script:"mapboxAssistSettings" }}
-    <script type="importmap">
-        {
-            "imports": {
-                "mapbox-gl": "https://esm.sh/mapbox-gl@v{{ mapbox.api_version}}"
-            }
-        }
-    </script>
     <script type="module">
-        import mapboxgl from 'mapbox-gl'
         import { MapboxAssist } from "{% static 'js/mapbox-assist.esm.js' %}";
         {% if extra_js %}{{ extra_js|parse_django_template }}{% endif %}
         let mapParameters = JSON.parse(document.getElementById('mapParameters').textContent);
