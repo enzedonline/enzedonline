@@ -53,7 +53,7 @@ class TrackPlannerPage(SEOPage):
         for style in mapbox_assist_config.mapbox_styles.all():
             try:
                 img = style.tile_image.get_rendition('fill-50x50').img_tag()
-            except:
+            except Exception:
                 img = ''
             map_styles.append({
                 "title": style.title,
