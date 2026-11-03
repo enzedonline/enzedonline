@@ -12,7 +12,7 @@
         {% if next_post %}
           <div class="h-100 border-0 fill-available">
             <div class="px-0 py-0 py-sm-2 fw-bolder">
-              <p class="fs-3 font-headings fw-bolder mb-1">{{ common_trans.next_post }}</p>
+              <h2 class="fs-3 fw-bolder mb-1">{{ common_trans.next_post }}</h2>
             </div>
             {% include "core/blog_card.html" with post=next_post %}
           </div>
@@ -23,7 +23,7 @@
         {% if previous_post %}
           <div class="h-100 border-0 fill-available previous-post-link">
             <div class="px-0 pt-3 py-sm-2 text-end">
-              <p class="fs-3 font-headings fw-bolder mb-1">{{ common_trans.previous_post }}</p>
+              <h2 class="fs-3 fw-bolder mb-1">{{ common_trans.previous_post }}</h2>
             </div>
             {% include "core/blog_card.html" with post=previous_post %}
           </div>
