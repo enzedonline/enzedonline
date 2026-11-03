@@ -1,4 +1,4 @@
-{% load static i18n core_tags wagtailcore_tags %}
+{% load static i18n core_tags wagtailcore_tags wagtailuserbar %}
 {% get_current_language as LANGUAGE_CODE %}
 {% wagtail_site as current_site %}
 {% firstof current_site.site_name "enzedonline" as site_name %}
@@ -30,5 +30,6 @@
             </div>
             <div class="fixed-bottom enzed-fixed">{% include "menu/footer.html" %}</div>
         </footer>
+        {% wagtailuserbar %}
     </body>
 </html>
