@@ -1,4 +1,3 @@
-from django.conf import settings
 from django.http import HttpResponse
 from django.templatetags.static import static
 from django.urls import reverse
@@ -8,10 +7,10 @@ from wagtail import hooks
 from wagtail.admin.menu import MenuItem
 
 from .documents.views.chooser import viewset as document_chooser_viewset
-from .draftail_extensions import (register_block_feature,
-                                  register_inline_styling)
+from .draftail_extensions import register_block_feature, register_inline_styling
 from .thumbnails import ThumbnailOperation
 from .utils import get_custom_icons, purge_page_cache_fragments
+
 
 @hooks.register('insert_global_admin_js')
 def register_admin_js():
