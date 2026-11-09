@@ -27,7 +27,7 @@ class AccordionItem {
         body.innerHTML = this._sanitizeHTML(detail ?? '');
         body.setAttribute('id', `accordion-${idString}-content`);
         body.setAttribute('role', 'region');
-        body.setAttribute('aria-labelledby', this.button.id); 
+        body.setAttribute('aria-labelledby', this.button.id);
         this.element.append(header, body);
     }
 
@@ -90,7 +90,7 @@ class AccordionItems {
      */
     _add(heading, detail, index = undefined) {
         const item = new AccordionItem(heading, detail);
-        if (typeof(index) !== 'number' || index >= this.element.children.length || index < 0) {
+        if (typeof (index) !== 'number' || index >= this.element.children.length || index < 0) {
             this._items.push(item);
         } else {
             this._items.splice(index, 0, item);
@@ -159,7 +159,6 @@ export class BaseAccordion {
             throw new Error('accordionItems must be an array');
         }
         this._createNewAccordion(accordionItems, className, openUnique);
-        window.accordion=this;
     }
 
     /**
@@ -202,7 +201,10 @@ export class BaseAccordion {
      */
     _clickHandler = (clickEvent) => {
         const clickedItem = this.items.get(clickEvent.target.closest('div.base-accordion-item'));
-        if (clickedItem) this.items.setState(clickedItem);
+        if (clickedItem) {
+            this.items.setState(clickedItem);
+            this._updateExpandedState();
+        }
     }
 
     /**
@@ -215,7 +217,7 @@ export class BaseAccordion {
     addItem(heading, detail, index = undefined) {
         const item = this.items._add(heading, detail)
         if (item) {
-            if (typeof(index) !== 'number' || index >= this.element.children.length || index < 0) {
+            if (typeof (index) !== 'number' || index >= this.element.children.length || index < 0) {
                 this.element.appendChild(item.element);
             } else {
                 this.element.insertBefore(item.element, this.element.children[index]);
@@ -224,4 +226,11 @@ export class BaseAccordion {
         }
     }
 
+    /**
+     * Updates the expanded state of the accordion container
+     * @private
+     */
+    _updateExpandedState() {
+        this.element.dataset.expanded = this.items._items.some(item => item.isExpanded);
+    }
 }

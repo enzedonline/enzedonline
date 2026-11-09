@@ -2,7 +2,7 @@ import { BaseAccordion } from '../components/accordion.js';
 
 const fetchFeatureAlerts = async (assetId, type) => {
     try {
-        const xapiKey = window.env?.DOC_API_KEY;
+        const xapiKey = import.meta.env.VITE_DOC_API_KEY;
         const response = await fetch(`https://api.doc.govt.nz/${type}/${assetId}/alerts`, {
             headers: {
                 'x-api-key': xapiKey
@@ -53,9 +53,11 @@ export const renderFeatureAlerts = (alertsContainer, assetId, type) => {
                 const alertBody = new BaseAccordion(alerts, 'doc-alert').element;
                 wrapPublishedReviewedNote(alertBody);
                 alertsContainer.appendChild(alertBody);
+                const retrievedOn = document.createElement('div');
+                retrievedOn.className = 'doc-alert-retrieved-on';
+                retrievedOn.textContent = `Alerts updated ${new Date().toLocaleDateString('en-NZ', { day: 'numeric', month: 'long', year: 'numeric' })}.`; // format 6 November 2026
+                alertBody.appendChild(retrievedOn);
             }
-        }).catch(error => {
-            console.error('Error fetching alerts:', error);
         });
     });
 };
