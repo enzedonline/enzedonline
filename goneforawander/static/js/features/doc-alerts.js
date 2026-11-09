@@ -2,7 +2,8 @@ import { BaseAccordion } from '../components/accordion.js';
 
 const fetchFeatureAlerts = async (assetId, type) => {
     try {
-        const xapiKey = import.meta.env.VITE_DOC_API_KEY;
+        const xapiKey = window.env?.DOC_API_KEY;
+
         const response = await fetch(`https://api.doc.govt.nz/${type}/${assetId}/alerts`, {
             headers: {
                 'x-api-key': xapiKey
