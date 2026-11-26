@@ -45,10 +45,10 @@ def two_column_layout(value, block_id):
     right_col = f"col{breakpoint}{('-' + right) if right and right < left else ''}"
 
     l_minmax_style = r_minmax_style = ''
-    l_minmax_style = f"min-width:{str(value['left_min'])}px !important;" if value['left_min'] else ''
-    l_minmax_style += f"max-width:{str(value['left_max'])}px !important;" if value['left_max'] else ''
-    r_minmax_style = f"min-width:{str(value['right_min'])}px !important;" if value['right_min'] else ''
-    r_minmax_style += f"max-width:{str(value['right_max'])}px !important;" if value['right_max'] else ''
+    l_minmax_style = f"min-width:{value['left_min']!s}px !important;" if value['left_min'] else ''
+    l_minmax_style += f"max-width:{value['left_max']!s}px !important;" if value['left_max'] else ''
+    r_minmax_style = f"min-width:{value['right_min']!s}px !important;" if value['right_min'] else ''
+    r_minmax_style += f"max-width:{value['right_max']!s}px !important;" if value['right_max'] else ''
 
     sizel = sizer = ''
     if l_minmax_style or r_minmax_style:
@@ -71,7 +71,7 @@ def two_column_layout(value, block_id):
 @register.simple_tag()
 # def three_column_layout(breakpoint, column_layout, horizontal_padding, hide):
 def three_column_layout(value, block_id):
-    left, centre, right = value['column_layout'].split('-') 
+    left, centre, right = value['column_layout'].split('-')  # noqa: RUF059
     breakpoint = value['breakpoint']
     horizontal_padding = str(value['horizontal_padding'])
 
@@ -94,8 +94,8 @@ def three_column_layout(value, block_id):
     right_col = f'col{breakpoint}{("-" + right) if left else ""}'
 
     minmax_style = size = ''
-    minmax_style = f"min-width:{str(value['outer_min'])}px !important;" if value['outer_min'] else ''
-    minmax_style += f"max-width:{str(value['outer_max'])}px !important;" if value['outer_max'] else ''
+    minmax_style = f"min-width:{value['outer_min']!s}px !important;" if value['outer_min'] else ''
+    minmax_style += f"max-width:{value['outer_max']!s}px !important;" if value['outer_max'] else ''
     
     if minmax_style:
         style = f"@media (min-width: { breakpoint_to_pixels(breakpoint) }) {{"

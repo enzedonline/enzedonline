@@ -1,29 +1,34 @@
 from django.forms.utils import ErrorList
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
+from wagtail.admin.telepath import register
 from wagtail.blocks import BooleanBlock, CharBlock, RichTextBlock, StructBlock
 from wagtail.blocks.field_block import IntegerBlock, URLBlock
-from wagtail.blocks.struct_block import (StructBlockAdapter,
-                                         StructBlockValidationError)
-from wagtail.admin.telepath import register
+from wagtail.blocks.struct_block import StructBlockAdapter, StructBlockValidationError
 
-from .choices import (AlignmentChoiceBlock, BreakpointChoiceBlock,
-                      ButtonChoiceBlock, ButtonSizeChoiceBlock,
-                      ColourThemeChoiceBlock, FlexCardLayoutChoiceBlock)
+from .choices import (
+    AlignmentChoiceBlock,
+    BreakpointChoiceBlock,
+    ButtonChoiceBlock,
+    ButtonSizeChoiceBlock,
+    ColourThemeChoiceBlock,
+    FlexCardLayoutChoiceBlock,
+)
 
 
 class ExternalLinkEmbedBlock(StructBlock):
     external_link = URLBlock(
         label=_("URL to External Article"),
-        help_text=_("Use the 'Get Metadata' button to retrieve information from the external website."),
+        help_text=_(
+            "Use the 'Get Metadata' button to retrieve information from the external website."),
     )
     image = CharBlock(
-        max_length=200, 
-        null=True, 
+        max_length=200,
+        null=True,
         blank=True,
     )
     description = RichTextBlock(
-        null=True, 
+        null=True,
         blank=True,
     )
     image_min = IntegerBlock(
@@ -38,9 +43,9 @@ class ExternalLinkEmbedBlock(StructBlock):
     format = FlexCardLayoutChoiceBlock(
         default='vertical',
         label=_("Card Format")
-    )    
+    )
     breakpoint = BreakpointChoiceBlock(
-        default = 'md',
+        default='md',
         label=_("Breakpoint for responsive layouts")
     )
     background = ColourThemeChoiceBlock(
@@ -73,22 +78,25 @@ class ExternalLinkEmbedBlock(StructBlock):
     button_size = ButtonSizeChoiceBlock()
 
     class Meta:
-        template='blocks/external_link_embed.html',
+        template = 'blocks/external_link_embed.html',
         icon = 'link-external'
         label = _("External Article Link")
-        label_format = _("External Link") +": {external_link}"
+        label_format = _("External Link") + ": {external_link}"
         form_classname = "struct-block flex-block external-link-block"
-    
+
     def clean(self, value):
         errors = {}
         image_min = value.get('image_min')
         image_max = value.get('image_max')
         if image_min and image_max and image_min > image_max:
-            errors['image_min'] = ErrorList([_("Please make sure minimum is less than maximum.")])
-            errors['image_max'] = ErrorList([_("Please make sure minimum is less than maximum.")])
+            errors['image_min'] = ErrorList(
+                [_("Please make sure minimum is less than maximum.")])
+            errors['image_max'] = ErrorList(
+                [_("Please make sure minimum is less than maximum.")])
         if errors:
             raise StructBlockValidationError(block_errors=errors)
         return super().clean(value)
+
 
 class ExternalLinkEmbedBlockAdapter(StructBlockAdapter):
     js_constructor = "blocks.models.ExternalLinkEmbedBlock"
@@ -101,5 +109,6 @@ class ExternalLinkEmbedBlockAdapter(StructBlockAdapter):
             js=structblock_media._js + ["js/embed-external-link-block.js"],
             css={"all": ("css/embed-external-link-block.css",)},
         )
+
 
 register(ExternalLinkEmbedBlockAdapter(), ExternalLinkEmbedBlock)

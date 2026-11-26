@@ -1,6 +1,7 @@
 from django import template
-from blog.models import BlogDetailPage
 from wagtail.models import Locale
+
+from blog.models import BlogDetailPage
 
 register = template.Library()
 

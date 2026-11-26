@@ -2,15 +2,12 @@ from django import forms
 from django.forms.utils import ErrorList
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
-from wagtail.blocks import (CharBlock, PageChooserBlock, StructBlock,
-                            StructValue)
-from wagtail.blocks.struct_block import (StructBlockAdapter,
-                                         StructBlockValidationError)
-from wagtail.models import Locale
 from wagtail.admin.telepath import register
+from wagtail.blocks import CharBlock, PageChooserBlock, StructBlock, StructValue
+from wagtail.blocks.struct_block import StructBlockAdapter, StructBlockValidationError
+from wagtail.models import Locale
 
-from .choices import (AlignmentChoiceBlock, ButtonChoiceBlock,
-                      ButtonSizeChoiceBlock)
+from .choices import AlignmentChoiceBlock, ButtonChoiceBlock, ButtonSizeChoiceBlock
 
 
 class Link_Value(StructValue):
@@ -32,9 +29,7 @@ class Link_Value(StructValue):
     
     def new_tab(self) -> bool:
         url_link = self.get("url_link")
-        if url_link and (url_link.startswith('http://') or url_link.startswith('https://')):
-            return True
-        return False
+        return bool(url_link and url_link.startswith(('http://', 'https://')))
 
 class Link(StructBlock):
     def __init__(self, required=True, **kwargs):

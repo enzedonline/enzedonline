@@ -1,4 +1,5 @@
 from django import template
+
 from core import tags
 
 register = template.Library()

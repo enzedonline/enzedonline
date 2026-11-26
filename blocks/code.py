@@ -1,13 +1,19 @@
 from django import forms
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
-from wagtail.blocks import (BooleanBlock, CharBlock, ChoiceBlock, RawHTMLBlock,
-                            StructBlock)
-from wagtail.blocks.struct_block import StructBlockAdapter
 from wagtail.admin.telepath import register
+from wagtail.blocks import (
+    BooleanBlock,
+    CharBlock,
+    ChoiceBlock,
+    RawHTMLBlock,
+    StructBlock,
+)
+from wagtail.blocks.struct_block import StructBlockAdapter
+
 
 class CodeChoiceBlock(ChoiceBlock):
-    choices=[
+    choices = (
         ('plaintext', _('Plain Text')),
         ('python', 'Python'),
         ('django', 'Django Template'),
@@ -25,14 +31,16 @@ class CodeChoiceBlock(ChoiceBlock):
         ('r', 'R'),
         ('dos', 'Windows CMD'),
         ('powershell', 'PowerShell'),
-    ]
+    )
+
 
 class CollapsibleChoiceBlock(ChoiceBlock):
-    choices=[
+    choices = (
         ('', _('Not Collapsible')),
         ('collapsible', _('Collapsible')),
         ('collapsed', _('Collapsed')),
-    ]    
+    )
+
 
 class BlogCodeBlock(StructBlock):
     title = CharBlock(label=_("Title"), required=False)
@@ -43,7 +51,7 @@ class BlogCodeBlock(StructBlock):
         label=_("Include extra space beneath code block?"),
         required=False,
         default=True
-        )
+    )
 
     def get_context(self, value, parent_context=None):
         context = super().get_context(value, parent_context)
@@ -55,7 +63,7 @@ class BlogCodeBlock(StructBlock):
         }
         return context
 
-    translatable_fields = []
+    translatable_fields = []  # noqa: RUF012
 
     class Meta:
         template = "blocks/code-block-wrapper.html"
@@ -63,6 +71,7 @@ class BlogCodeBlock(StructBlock):
         label = _("Code Block")
         label_format = "{language} {title}"
         form_classname = 'struct-block code-block'
+
 
 class CodeBlockAdapter(StructBlockAdapter):
     js_constructor = "blocks.code.BlogCodeBlock"
@@ -80,7 +89,7 @@ class CodeBlockAdapter(StructBlockAdapter):
             'highlighterErrorLabel': _("Error highlighting code")
         }
         return args
-        
+
     @cached_property
     def media(self):
         structblock_media = super().media
@@ -94,5 +103,6 @@ class CodeBlockAdapter(StructBlockAdapter):
                 self.admin_theme_path
             )},
         )
+
 
 register(CodeBlockAdapter(), BlogCodeBlock)

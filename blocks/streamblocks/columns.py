@@ -2,10 +2,9 @@ from django import forms
 from django.forms.utils import ErrorList
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
-from wagtail.blocks import BooleanBlock, IntegerBlock, StructBlock
-from wagtail.blocks.struct_block import (StructBlockAdapter,
-                                         StructBlockValidationError)
 from wagtail.admin.telepath import register
+from wagtail.blocks import BooleanBlock, IntegerBlock, StructBlock
+from wagtail.blocks.struct_block import StructBlockAdapter, StructBlockValidationError
 
 from ..choices import DefaultChoiceBlock
 from .base import BaseStreamBlock
@@ -16,23 +15,23 @@ from .base import BaseStreamBlock
     
 class TwoColumnCollapseOrderChoiceBlock(DefaultChoiceBlock):
     default='left-first'
-    choices=[
+    choices=(
         ('left-first', _("Left first")),
         ('right-first', _("Right first")),
-    ]
+    )
     label=_("Column order on mobile")
     
 class TwoColumnHideChoiceBlock(DefaultChoiceBlock):
     default='hide-none'
-    choices=[
+    choices=(
         ('hide-none', _("Display both columns")),
         ('hide-left', _("Hide left column")),
         ('hide-right', _("Hide right column")),
-    ]
+    )
     label=_("Mobile display behaviour")
 
 class TwoColumnLayoutChoiceBlock(DefaultChoiceBlock):
-    choices = [
+    choices=(
         ('auto-', _("Left atuo width")),
         ('-auto', _("Right auto width")),
         ('1-11', _("Left 1, Right 11")),
@@ -46,35 +45,37 @@ class TwoColumnLayoutChoiceBlock(DefaultChoiceBlock):
         ('9-3', _("Left 9, Right 3")),
         ('10-2', _("Left 10, Right 2")),
         ('11-1', _("Left 11, Right 1")),
-    ]
-    default = '6-6',
-    label = _("Select column size ratio")
+    )
+    default='6-6',
+    label=_("Select column size ratio")
 
 class ThreeColumnHideChoiceBlock(DefaultChoiceBlock):
     default='hide-none'
-    choices=[
+    choices=(
         ('hide-none', _("Display all columns")),
         ('hide-sides', _("Show only centre")),
-    ]
+    )
     label=_("Mobile display behaviour")
     
 class ThreeColumnLayoutChoiceBlock(DefaultChoiceBlock):
-    choices = [
+    choices=(
         ('-auto-', _("Centre Auto")),
         ('4-4-4', _("Equal Width Columns")),
         ('3-6-3', _("Left 3, Centre 6, Right 3")),
         ('2-8-2', _("Left 2, Centre 8, Right 2")),
         ('1-10-1', _("Left 1, Centre 10, Right 1")),
-    ]
+    )
+    default='3-6-3',
+    label=_("Select column size ratio")
 
 class BreakPointChoiceBlock(DefaultChoiceBlock):
-    choices = [
+    choices=(
         ('-', _("No breakpoint")),
         ('-lg', _("Large (<992px)")),
         ('-md', _("Medium (<768px)")),
         ('-sm', _("Mobile (<576px)"))
-    ]
-    label = _("Select Breakpoint")
+    )
+    label=_("Select Breakpoint")
 
 
 #-----------------------------------------------------

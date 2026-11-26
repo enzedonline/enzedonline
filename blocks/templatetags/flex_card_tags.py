@@ -36,8 +36,8 @@ def embed_button_layout(value):
 def row_layout(value, block_id):
     layout = {}
     
-    minmax_style = (f"min-width:{str(value['image_min'])}" if value['image_min'] else '200') + "px !important;"
-    minmax_style += f"max-width:{str(value['image_max'])}px !important;" if value['image_max'] else ''
+    minmax_style = (f"min-width:{value['image_min']!s}" if value['image_min'] else '200') + "px !important;"
+    minmax_style += f"max-width:{value['image_max']!s}px !important;" if value['image_max'] else ''
 
     if value['format'].find('right') != -1:
         layout['row_class'] = 'row flex-row-reverse'
@@ -60,7 +60,7 @@ def row_layout(value, block_id):
         layout['image_column'] = 'col-4'
         layout['breakpoint'] = '0px'
         layout['image_style'] = f".size-{block_id} {{{minmax_style}}}"
-        layout['heading_align'] = f"text-start"
+        layout['heading_align'] = "text-start"
 
     if value['border']:
         layout['image_column'] += ' pt-4'

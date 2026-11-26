@@ -1,6 +1,12 @@
 from django.utils.translation import gettext_lazy as _
-from wagtail.blocks import (BooleanBlock, CharBlock, ListBlock,
-                            PageChooserBlock, StructBlock, TextBlock)
+from wagtail.blocks import (
+    BooleanBlock,
+    CharBlock,
+    ListBlock,
+    PageChooserBlock,
+    StructBlock,
+    TextBlock,
+)
 
 from .choices import ImageFormatChoiceBlock
 from .image import SEOImageChooserBlock

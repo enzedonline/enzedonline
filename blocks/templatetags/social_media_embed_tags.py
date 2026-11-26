@@ -1,4 +1,5 @@
 from django import template
+
 from site_settings.models import SiteTokens
 
 register = template.Library()
@@ -15,5 +16,5 @@ def facebook_js_sdk(context, embed_code):
                 return site_tokens.javascript_sdk
         else:
             return ''
-    except:
+    except Exception:  # noqa: BLE001
         return ''

@@ -2,14 +2,17 @@ from django import forms
 from django.forms.utils import ErrorList
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
+from wagtail.admin.telepath import register
 from wagtail.blocks import BooleanBlock, ListBlock, StructBlock
 from wagtail.blocks.field_block import IntegerBlock
-from wagtail.blocks.struct_block import (StructBlockAdapter,
-                                         StructBlockValidationError)
-from wagtail.admin.telepath import register
+from wagtail.blocks.struct_block import StructBlockAdapter, StructBlockValidationError
 
-from .choices import (BreakpointChoiceBlock, ChoiceBlock,
-                      ColourThemeChoiceBlock, FlexCardLayoutChoiceBlock)
+from .choices import (
+    BreakpointChoiceBlock,
+    ChoiceBlock,
+    ColourThemeChoiceBlock,
+    FlexCardLayoutChoiceBlock,
+)
 from .image import SEOImageChooserBlock
 from .link import Link
 from .rich_text import RichTextBlock

@@ -2,6 +2,7 @@ from django.utils.translation import gettext_lazy as _
 from wagtail.blocks import ListBlock, StructBlock
 from wagtail.images.blocks import ImageChooserBlock
 
+
 class ImageWallItemBlock(StructBlock):
     image = ImageChooserBlock(label=_("Select Image"))
 

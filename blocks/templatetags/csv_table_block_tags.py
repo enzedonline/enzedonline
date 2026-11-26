@@ -1,7 +1,8 @@
+from io import StringIO
+
 import pandas as pd
 from django import template
 from django.utils.safestring import mark_safe
-from io import StringIO
 
 register = template.Library()
 

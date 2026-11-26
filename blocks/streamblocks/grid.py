@@ -1,7 +1,6 @@
 from wagtail.blocks import StreamBlock
 
-from .columns import (FullWidthBaseBlock, ThreeColumnBaseBlock,
-                      TwoColumnBaseBlock)
+from .columns import FullWidthBaseBlock, ThreeColumnBaseBlock, TwoColumnBaseBlock
 
 
 class GridStreamBlock(StreamBlock):

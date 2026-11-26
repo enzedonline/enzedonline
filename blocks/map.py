@@ -4,8 +4,7 @@ from django.utils.functional import cached_property
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 from wagtail.admin.telepath import register
-from wagtail.blocks import (BooleanBlock, ChoiceBlock, StaticBlock,
-                            StructBlock, URLBlock)
+from wagtail.blocks import BooleanBlock, ChoiceBlock, StaticBlock, StructBlock, URLBlock
 from wagtail.blocks.field_block import IntegerBlock
 from wagtail.blocks.struct_block import StructBlockAdapter
 from wagtail.snippets.blocks import SnippetChooserBlock
@@ -14,11 +13,11 @@ from goneforawander.map.settings import MapboxAssistConfigs, MapboxSettings
 
 
 class RouteSummaryChoiceBlock(ChoiceBlock):
-    choices=[
+    choices=(
         ('', _("Not displayed")),
         ('simple', _("Summary only")),
         ('detailed', _("Detailed")),
-    ]
+    )
 
 class MapWaypointBlock(StructBlock):
     pass
@@ -89,7 +88,7 @@ class MapBlock(StructBlock):
         for style in mapbox_assist_config.mapbox_styles.all():
             try:
                 img = style.tile_image.get_rendition('fill-50x50').img_tag()
-            except:
+            except Exception:  # noqa: BLE001
                 img = ''
             map_styles.append({
                 "title": style.title,
@@ -148,7 +147,6 @@ class MapBlock(StructBlock):
 class MapBlockAdapter(StructBlockAdapter):
     @cached_property
     def media(self):
-        super().media
         return forms.Media(
             css={"all": ("css/admin/map-block.css",)},
         )

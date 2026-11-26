@@ -1,4 +1,5 @@
 from django import template
+
 register = template.Library()
 
 def get_column_number(min, max):
